@@ -24,23 +24,15 @@ public class ImageLoader {
      */
     ExecutorService mExecutorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 
-    public ImageLoader(){
-        initImageCache();
-    }
-    private void initImageCache(){
-        //计算可使用的最大内存
-        final int maxMemory = (int)(Runtime.getRuntime().maxMemory() / 1024);
-        //取四分之一可用内存作为缓存
-        final int cacheSize = maxMemory / 4;
-        mImageCache = new LruCache<String, Bitmap>(cacheSize){
-            @Override
-            protected int sizeOf(String key,Bitmap bitmap){
-                return bitmap.getRowBytes() * bitmap.getHeight() / 1024;
-            }
-        };
-    }
+
+
 
     public void displayImage(final String url, final ImageView imageView){
+        Bitmap bitmap = mImageCache.get(url);
+        if (bitmap != null){
+            imageView.setImageBitmap(bitmap);
+            return;
+        }
         imageView.setTag(url);
         mExecutorService.submit(new Runnable() {
             @Override
