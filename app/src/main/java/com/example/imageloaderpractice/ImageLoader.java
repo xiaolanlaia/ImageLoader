@@ -15,7 +15,7 @@ import java.util.concurrent.Executors;
 
 public class ImageLoader {
     /**
-     *    图片缓存
+     *    图片缓存，依赖于抽象，并且有一个默认的实现
      */
     ImageCache mImageCache = new MemoryCache();
     /**
@@ -28,7 +28,11 @@ public class ImageLoader {
         mImageCache = cache;
     }
 
-
+    /**
+     * 加载图片
+     * @param url
+     * @param imageView
+     */
     public void displayImage(final String url, final ImageView imageView){
         Bitmap bitmap = mImageCache.get(url);
         if (bitmap != null){
@@ -37,20 +41,7 @@ public class ImageLoader {
         }
         //图片没缓存，提交到线程池下载图片
         submitLoadRequest(url,imageView);
-//        imageView.setTag(url);
-//        mExecutorService.submit(new Runnable() {
-//            @Override
-//            public void run() {
-//                Bitmap bitmap = downloadImage(url);
-//                if (bitmap == null){
-//                    return;
-//                }
-//                if (imageView.getTag().equals(url)){
-//                    imageView.setImageBitmap(bitmap);
-//                }
-//                mImageCache.put(url,bitmap);
-//            }
-//        });
+
     }
     private void submitLoadRequest(final String url,final ImageView imageView){
 
