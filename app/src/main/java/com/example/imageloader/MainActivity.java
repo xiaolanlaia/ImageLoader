@@ -1,8 +1,10 @@
-package com.example.imageloaderpractice;
+package com.example.imageloader;
 
-import android.graphics.Bitmap;
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+
 
 public class MainActivity extends AppCompatActivity {
 

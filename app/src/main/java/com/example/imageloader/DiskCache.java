@@ -1,17 +1,15 @@
-package com.example.imageloaderpractice;
+package com.example.imageloader;
 
 import android.graphics.Bitmap;
 
-import java.io.Closeable;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 
 /**
  * Created by W on 2018/12/13.
  */
 
-public class DiskCache implements ImageCache{
+public class DiskCache implements ImageCache {
     static String cacheDir = "sdcard/cache/";
     @Override
     public Bitmap get(String url){

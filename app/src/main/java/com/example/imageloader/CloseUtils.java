@@ -1,4 +1,4 @@
-package com.example.imageloaderpractice;
+package com.example.imageloader;
 
 import java.io.Closeable;
 import java.io.IOException;

@@ -1,9 +1,7 @@
-package com.example.imageloaderpractice;
+package com.example.imageloader;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.util.LruCache;
-import android.widget.ImageView;
 
 /**
  * Created by W on 2018/12/13.
