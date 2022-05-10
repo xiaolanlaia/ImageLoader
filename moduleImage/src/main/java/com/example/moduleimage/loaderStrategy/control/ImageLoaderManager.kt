@@ -1,23 +1,27 @@
-package com.example.moduleimage
+package com.example.moduleimage.loaderStrategy.control
 
 import android.graphics.Bitmap
 import android.widget.ImageView
-import com.example.moduleimage.loaderStrategy.control.ImageLoaderInterface
-import com.example.moduleimage.loaderStrategy.control.LoaderStrategyFactory
 import com.example.moduleimage.loaderStrategy.glide.GlideRoundedCornersTransform
 
-object ImageLoader : ImageLoaderInterface {
-    private var imageLoaderStrategy = LoaderStrategyFactory.instance.getLoaderStrategy()
+class ImageLoaderManager : ImageLoaderInterface{
+
+    lateinit var imageLoaderInterface: ImageLoaderInterface
+
+    fun ImageLoaderManager(imageLoaderInterface: ImageLoaderInterface){
+        this.imageLoaderInterface = imageLoaderInterface
+    }
+
     override fun loadImageUrl(url: String?, imageView: ImageView) {
-    imageLoaderStrategy.loadImageUrl(url,imageView)
+        imageLoaderInterface.loadImageUrl(url,imageView)
     }
 
     override fun loadCircleImage(url: String, imageView: ImageView) {
-        imageLoaderStrategy.loadCircleImage(url,imageView)
+        imageLoaderInterface.loadCircleImage(url,imageView)
     }
 
     override fun loadRoundedCornersImage(url: String, imageView: ImageView, radius: Float) {
-        imageLoaderStrategy.loadRoundedCornersImage(url,imageView,radius)
+        imageLoaderInterface.loadRoundedCornersImage(url,imageView,radius)
     }
 
     override fun loadRoundedCornersImage(
@@ -26,7 +30,7 @@ object ImageLoader : ImageLoaderInterface {
         radius: Float,
         cornerType: GlideRoundedCornersTransform.CornerType
     ) {
-        imageLoaderStrategy.loadRoundedCornersImage(url,imageView,radius,cornerType)
+        imageLoaderInterface.loadRoundedCornersImage(url,imageView,radius,cornerType)
     }
 
     override fun loadRoundedCornersImage(
@@ -35,6 +39,6 @@ object ImageLoader : ImageLoaderInterface {
         radius: Float,
         cornerType: GlideRoundedCornersTransform.CornerType
     ) {
-        imageLoaderStrategy.loadRoundedCornersImage(bitmap,imageView,radius,cornerType)
+        imageLoaderInterface.loadRoundedCornersImage(bitmap,imageView,radius,cornerType)
     }
 }

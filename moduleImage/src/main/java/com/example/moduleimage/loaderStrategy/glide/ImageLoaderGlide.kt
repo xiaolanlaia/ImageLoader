@@ -8,60 +8,60 @@ import com.example.moduleimage.loaderStrategy.glide.GlideRoundedCornersTransform
 import android.graphics.Bitmap
 import android.util.TypedValue
 import android.widget.ImageView
-import com.example.moduleimage.ImageLoaderInterface
+import com.example.moduleimage.loaderStrategy.control.ImageLoaderInterface
 import java.io.ByteArrayOutputStream
 
-object ImageLoaderGlide : ImageLoaderInterface{
-    override fun loadImageUrl(url: String?, image: ImageView) {
-        Glide.with(image.context)
+object ImageLoaderGlide : ImageLoaderInterface {
+    override fun loadImageUrl(url: String?, imageView: ImageView) {
+        Glide.with(imageView.context)
             .load(url)
-            .into(image)
+            .into(imageView)
     }
 
-    override fun loadCircleImage(url: String, image: ImageView) {
+    override fun loadCircleImage(url: String, imageView: ImageView) {
         val requestOptions = RequestOptions().circleCrop()
-        loadImageUrl(url, image, requestOptions)
+        loadImageUrl(url, imageView, requestOptions)
     }
 
-    override fun loadRoundedCornersImage(url: String, image: ImageView, radius: Float) {
+    override fun loadRoundedCornersImage(url: String, imageView: ImageView, radius: Float) {
         val requestOptions =
             RequestOptions().transform(RoundedCorners((dp2px(radius) + 0.5f).toInt()))
-        loadImageUrl(url, image, requestOptions)
+        loadImageUrl(url, imageView, requestOptions)
     }
 
-    override fun loadRoundedCornersImage(url: String, image: ImageView, radius: Float, cornerType: CornerType) {
+    override fun loadRoundedCornersImage(url: String, imageView: ImageView, radius: Float, cornerType: CornerType) {
         val requestOptions = RequestOptions().optionalTransform(GlideRoundedCornersTransform(dp2px(radius) + 0.5f, cornerType))
-        loadImageUrl(url, image, requestOptions)
+        loadImageUrl(url, imageView, requestOptions)
     }
 
-    override fun loadRoundedCornersImage(bm: Bitmap, image: ImageView, radius: Float, cornerType: CornerType) {
+    override fun loadRoundedCornersImage(bitmap: Bitmap, imageView: ImageView, radius: Float, cornerType: CornerType) {
         val requestOptions = RequestOptions().optionalTransform(GlideRoundedCornersTransform(dp2px(radius) + 0.5f, cornerType))
-        loadImageBytes(bitmap2Bytes(bm), image, requestOptions)
+        loadImageBytes(bitmap2Bytes(bitmap), imageView, requestOptions)
     }
 
     /**
      * 把Bitmap转Byte
      */
-    private fun bitmap2Bytes(bm: Bitmap): ByteArray {
+    private fun bitmap2Bytes(bitmap: Bitmap): ByteArray {
         val baos = ByteArrayOutputStream()
-        bm.compress(Bitmap.CompressFormat.PNG, 100, baos)
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos)
         return baos.toByteArray()
     }
 
 
-    private fun loadImageUrl(url: String, image: ImageView, requestOptions: RequestOptions) {
-        Glide.with(image.context)
+    private fun loadImageUrl(url: String, imageView: ImageView, requestOptions: RequestOptions) {
+        Glide.with(imageView.context)
             .load(url)
             .apply(requestOptions)
-            .into(image)
+            .into(imageView)
     }
 
-    private fun loadImageBytes(bytes: ByteArray, image: ImageView, requestOptions: RequestOptions) {
-        Glide.with(image.context).asBitmap().load(bytes).apply(requestOptions).into(image)
+    private fun loadImageBytes(bytes: ByteArray, imageView: ImageView, requestOptions: RequestOptions) {
+        Glide.with(imageView.context).asBitmap().load(bytes).apply(requestOptions).into(imageView)
     }
 
 
-    fun dp2px(value: Float): Float {
+    private fun dp2px(value: Float): Float {
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value, Resources.getSystem().displayMetrics)
     }
 }
