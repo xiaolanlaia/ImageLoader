@@ -1,6 +1,11 @@
 package com.renxing.moduleImage.imageUtils
 
+import android.app.Application
+
 object ModuleImageConstant {
+
+    var application: Application? = null
+
     const val HTTP = "http"
     const val HTTPS = "https"
     const val PNG_LOWERCASE = "png"

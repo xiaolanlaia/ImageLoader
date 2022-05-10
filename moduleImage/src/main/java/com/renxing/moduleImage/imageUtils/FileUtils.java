@@ -25,13 +25,13 @@ public class FileUtils {
     public static String getCacheDirPath() {
         String cachePath;
         if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState()) || !Environment.isExternalStorageRemovable()) {
-            if (Objects.requireNonNull(AppConfig.Companion.getApplication()).getExternalCacheDir() != null) {
-                cachePath = AppConfig.Companion.getApplication().getExternalCacheDir().getAbsolutePath();
+            if (Objects.requireNonNull(ModuleImageConstant.INSTANCE.getApplication()).getExternalCacheDir() != null) {
+                cachePath = ModuleImageConstant.INSTANCE.getApplication().getExternalCacheDir().getAbsolutePath();
             } else {
-                cachePath = AppConfig.Companion.getApplication().getCacheDir().getAbsolutePath();
+                cachePath = ModuleImageConstant.INSTANCE.getApplication().getCacheDir().getAbsolutePath();
             }
         } else {
-            cachePath = Objects.requireNonNull(AppConfig.Companion.getApplication()).getCacheDir().getAbsolutePath();
+            cachePath = Objects.requireNonNull(ModuleImageConstant.INSTANCE.getApplication()).getCacheDir().getAbsolutePath();
         }
         return cachePath;
     }

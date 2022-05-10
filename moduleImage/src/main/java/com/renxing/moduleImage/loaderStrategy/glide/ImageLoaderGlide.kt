@@ -1,8 +1,6 @@
 package com.renxing.moduleImage.loaderStrategy.glide
 
 import android.annotation.SuppressLint
-import android.app.Activity
-import android.content.Context
 import android.content.res.Resources
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -10,7 +8,6 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.renxing.moduleImage.loaderStrategy.glide.GlideRoundedCornersTransform.CornerType
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
-import android.text.TextUtils
 import android.util.TypedValue
 import android.widget.ImageView
 import androidx.vectordrawable.graphics.drawable.Animatable2Compat
@@ -21,80 +18,14 @@ import com.bumptech.glide.load.resource.gif.GifDrawable
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.target.Target
-import com.renxing.moduleImage.imageUtils.DisplayUtils
-import com.renxing.moduleImage.imageUtils.ImageToUtil
-import com.renxing.moduleImage.imageUtils.ModuleImageConstant
+import com.renxing.moduleImage.imageUtils.ImageLoaderUtils
 import com.renxing.moduleImage.ImageLoaderInterface
 import java.io.ByteArrayOutputStream
 
 @SuppressLint("CheckResult")
 object ImageLoaderGlide : ImageLoaderInterface {
     private var requestOptions = RequestOptions()
-    private fun checkUrl(url: String): Boolean {
-        if (TextUtils.isEmpty(url)) {
-            return true
-        }
-        return url.endsWith("null")
-    }
-    private fun activityFinishedOrDestroyed(mContext: Context): Boolean {
-        if (mContext is Activity) {
-            if (mContext.isFinishing || mContext.isDestroyed) {
-                return true
-            }
-        }
 
-        return false
-    }
-    private fun appendUrl(url: String): String {
-        var newUrl = ""
-        url.run{
-            if (startsWith(ModuleImageConstant.HTTP) && (endsWith(ModuleImageConstant.PNG_LOWERCASE) || endsWith(
-                    ModuleImageConstant.PNG_UPPERCASE
-                )
-                        || endsWith(ModuleImageConstant.JPEG_UPPERCASE) || endsWith(
-                    ModuleImageConstant.JPEG_LOWERCASE
-                )
-                        || endsWith(ModuleImageConstant.JPG_UPPERCASE) || endsWith(
-                    ModuleImageConstant.JPG_LOWERCASE
-                )) && !contains(ModuleImageConstant.QUERY_MARK)) {
-                //将http替换为https
-                if (!startsWith(ModuleImageConstant.HTTPS)){
-                    replace(ModuleImageConstant.HTTP, ModuleImageConstant.HTTPS)
-                }
-                newUrl = this + ModuleImageConstant.URL_APPEND_STR
-            }else{
-                return url
-            }
-        }
-        return newUrl
-    }
-
-    private fun replaceHttpToHttps(url: String) : String{
-        var newUrl = ""
-        url.run{
-            //将http替换为https
-            if (!startsWith(ModuleImageConstant.HTTPS)){
-                newUrl = replace(ModuleImageConstant.HTTP, ModuleImageConstant.HTTPS)
-            }else{
-                return url
-            }
-        }
-        return newUrl
-    }
-
-    private fun appendUrl(url: String, width: Int, height: Int, needToPx: Boolean): String {
-        var newUrl = ""
-        url.run{
-            if (!this.contains(ModuleImageConstant.URL_APPEND_WIDTH)) {
-                newUrl = if (needToPx) {
-                    this + ModuleImageConstant.URL_APPEND_WIDTH + DisplayUtils.dp2px(width.toFloat()) + ModuleImageConstant.URL_APPEND_HEIGHT + DisplayUtils.dp2px(height.toFloat()) + ModuleImageConstant.interlaceStr
-                } else {
-                    this + ModuleImageConstant.URL_APPEND_WIDTH + width + ModuleImageConstant.URL_APPEND_HEIGHT + height + ModuleImageConstant.interlaceStr
-                }
-            }
-        }
-        return newUrl
-    }
     override fun loadImage(url: String, imageView: ImageView) {
         Glide.with(imageView.context).load(url).into(imageView)
     }
@@ -114,7 +45,7 @@ object ImageLoaderGlide : ImageLoaderInterface {
     override fun loadImage(url: String, imageView: ImageView, width: Int, height: Int) {
 
         Glide.with(imageView.context)
-            .load(ImageToUtil.appendUrl(url, width, height, false))
+            .load(ImageLoaderUtils.appendUrl(url, width, height, false))
             .apply(requestOptions)
             .into(imageView)
     }
@@ -125,7 +56,7 @@ object ImageLoaderGlide : ImageLoaderInterface {
             .error(defaultIv)
 
         Glide.with(imageView.context)
-            .load(ImageToUtil.appendUrl(url, width, height, false))
+            .load(ImageLoaderUtils.appendUrl(url, width, height, false))
             .apply(requestOptions)
             .into(imageView)
 
@@ -202,7 +133,7 @@ object ImageLoaderGlide : ImageLoaderInterface {
             .diskCacheStrategy(DiskCacheStrategy.NONE)
 
         Glide.with(imageView.context)
-            .load(ImageToUtil.appendUrl(url,width,height,false))
+            .load(ImageLoaderUtils.appendUrl(url,width,height,false))
             .apply(requestOptions)
             .into(imageView)
     }

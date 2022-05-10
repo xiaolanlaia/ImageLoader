@@ -1,10 +1,13 @@
 package com.renxing.moduleImage.imageUtils
 
+import android.app.Activity
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Rect
+import android.text.TextUtils
 
-object ImageToUtil {
+object ImageLoaderUtils {
     /**
      * 制作一张画布，将四小图合成大图
      */
@@ -46,9 +49,7 @@ object ImageToUtil {
         url.run{
             if (!this.contains(ModuleImageConstant.URL_APPEND_WIDTH)) {
                 newUrl = if (needToPx) {
-                    this + ModuleImageConstant.URL_APPEND_WIDTH + DisplayUtils.dp2px(width.toFloat()) + ModuleImageConstant.URL_APPEND_HEIGHT + DisplayUtils.dp2px(
-                        height.toFloat()
-                    ) + ModuleImageConstant.interlaceStr
+                    this + ModuleImageConstant.URL_APPEND_WIDTH + DisplayUtils.dp2px(width.toFloat()) + ModuleImageConstant.URL_APPEND_HEIGHT + DisplayUtils.dp2px(height.toFloat()) + ModuleImageConstant.interlaceStr
                 } else {
                     this + ModuleImageConstant.URL_APPEND_WIDTH + width + ModuleImageConstant.URL_APPEND_HEIGHT + height + ModuleImageConstant.interlaceStr
                 }
@@ -56,4 +57,58 @@ object ImageToUtil {
         }
         return newUrl
     }
+
+    private fun checkUrl(url: String): Boolean {
+        if (TextUtils.isEmpty(url)) {
+            return true
+        }
+        return url.endsWith("null")
+    }
+    private fun activityFinishedOrDestroyed(mContext: Context): Boolean {
+        if (mContext is Activity) {
+            if (mContext.isFinishing || mContext.isDestroyed) {
+                return true
+            }
+        }
+
+        return false
+    }
+    private fun appendUrl(url: String): String {
+        var newUrl = ""
+        url.run{
+            if (startsWith(ModuleImageConstant.HTTP) && (endsWith(ModuleImageConstant.PNG_LOWERCASE) || endsWith(
+                    ModuleImageConstant.PNG_UPPERCASE
+                )
+                        || endsWith(ModuleImageConstant.JPEG_UPPERCASE) || endsWith(
+                    ModuleImageConstant.JPEG_LOWERCASE
+                )
+                        || endsWith(ModuleImageConstant.JPG_UPPERCASE) || endsWith(
+                    ModuleImageConstant.JPG_LOWERCASE
+                )) && !contains(ModuleImageConstant.QUERY_MARK)) {
+                //将http替换为https
+                if (!startsWith(ModuleImageConstant.HTTPS)){
+                    replace(ModuleImageConstant.HTTP, ModuleImageConstant.HTTPS)
+                }
+                newUrl = this + ModuleImageConstant.URL_APPEND_STR
+            }else{
+                return url
+            }
+        }
+        return newUrl
+    }
+
+    private fun replaceHttpToHttps(url: String) : String{
+        var newUrl = ""
+        url.run{
+            //将http替换为https
+            if (!startsWith(ModuleImageConstant.HTTPS)){
+                newUrl = replace(ModuleImageConstant.HTTP, ModuleImageConstant.HTTPS)
+            }else{
+                return url
+            }
+        }
+        return newUrl
+    }
+
+
 }
