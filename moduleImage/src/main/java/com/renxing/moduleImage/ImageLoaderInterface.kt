@@ -1,4 +1,4 @@
-package com.renxing.moduleImage.loaderStrategy.control
+package com.renxing.moduleImage
 
 import android.graphics.Bitmap
 import android.widget.ImageView

@@ -24,7 +24,7 @@ import com.bumptech.glide.request.target.Target
 import com.renxing.moduleImage.imageUtils.DisplayUtils
 import com.renxing.moduleImage.imageUtils.ImageToUtil
 import com.renxing.moduleImage.imageUtils.ModuleImageConstant
-import com.renxing.moduleImage.loaderStrategy.control.ImageLoaderInterface
+import com.renxing.moduleImage.ImageLoaderInterface
 import java.io.ByteArrayOutputStream
 
 @SuppressLint("CheckResult")

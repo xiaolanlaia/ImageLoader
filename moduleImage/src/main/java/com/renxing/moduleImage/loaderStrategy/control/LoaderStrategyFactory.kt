@@ -1,5 +1,6 @@
 package com.renxing.moduleImage.loaderStrategy.control
 
+import com.renxing.moduleImage.ImageLoaderInterface
 import com.renxing.moduleImage.loaderStrategy.glide.ImageLoaderGlide
 
 class LoaderStrategyFactory private constructor(){

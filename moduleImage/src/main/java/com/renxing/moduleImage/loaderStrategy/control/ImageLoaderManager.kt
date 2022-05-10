@@ -3,6 +3,7 @@ package com.renxing.moduleImage.loaderStrategy.control
 import android.graphics.Bitmap
 import android.widget.ImageView
 import com.bumptech.glide.request.target.CustomTarget
+import com.renxing.moduleImage.ImageLoaderInterface
 import com.renxing.moduleImage.loaderStrategy.glide.GlideRoundedCornersTransform
 
 class ImageLoaderManager : ImageLoaderInterface {
