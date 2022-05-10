@@ -8,25 +8,108 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/btn_1"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"/>
-    <Button
-        android:id="@+id/btn_2"
+        android:layout_height="?attr/actionBarSize">
+        <Button
+            android:id="@+id/btn_1"
+            android:text="url"
+            android:textSize="10sp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="?attr/actionBarSize"/>
+        <Button
+            android:id="@+id/btn_2"
+            android:text="id"
+            android:textSize="10sp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="?attr/actionBarSize"/>
+        <Button
+            android:id="@+id/btn_3"
+            android:text="url,占位符"
+            android:textSize="10sp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="?attr/actionBarSize"/>
+        <Button
+            android:id="@+id/btn_4"
+            android:text="url FitCenter"
+            android:textSize="10sp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="?attr/actionBarSize"/>
+    </LinearLayout>
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"/>
-    <Button
-        android:id="@+id/btn_3"
+        android:layout_height="?attr/actionBarSize">
+        <Button
+            android:id="@+id/btn_5"
+            android:text="id fitCenter"
+            android:textSize="10sp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="?attr/actionBarSize"/>
+        <Button
+            android:id="@+id/btn_6"
+            android:text="url CenterCrop"
+            android:textSize="10sp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="?attr/actionBarSize"/>
+        <Button
+            android:id="@+id/btn_7"
+            android:text="id,CenterCrop"
+            android:textSize="10sp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="?attr/actionBarSize"/>
+        <Button
+            android:id="@+id/btn_8"
+            android:text="url CenterInside"
+            android:textSize="10sp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="?attr/actionBarSize"/>
+    </LinearLayout>
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"/>
-    <Button
-        android:id="@+id/btn_4"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"/>
+        android:layout_height="?attr/actionBarSize">
+        <Button
+            android:id="@+id/loadCircleImage"
+            android:text="loadCircleImage"
+            android:textSize="10sp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="?attr/actionBarSize"/>
+        <Button
+            android:id="@+id/loadRoundedCornersImage"
+            android:text="loadRoundedCornersImage"
+            android:textSize="10sp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="?attr/actionBarSize"/>
+        <Button
+            android:id="@+id/loadRoundedCornersImage_2"
+            android:text="loadRoundedCornersImage"
+            android:textSize="10sp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="?attr/actionBarSize"/>
+        <Button
+            android:id="@+id/loadRoundedCornersImage_3"
+            android:text="loadRoundedCornersImage"
+            android:textSize="10sp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="?attr/actionBarSize"/>
+    </LinearLayout>
+
     <ImageView
         android:id="@+id/test_iv"
-        android:layout_width="300dp"
-        android:layout_height="300dp"/>
+        android:text="url加载图片"
+        android:textSize="10sp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 </LinearLayout>

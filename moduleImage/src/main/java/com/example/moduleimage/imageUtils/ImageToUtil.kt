@@ -40,4 +40,18 @@ object ImageToUtil {
         }
         return values
     }
+
+    fun appendUrl(url: String, width: Int, height: Int, needToPx: Boolean): String {
+        var newUrl = ""
+        url.run{
+            if (!this.contains(ModuleImageConstant.URL_APPEND_WIDTH)) {
+                newUrl = if (needToPx) {
+                    this + ModuleImageConstant.URL_APPEND_WIDTH + DisplayUtils.dp2px(width.toFloat()) + ModuleImageConstant.URL_APPEND_HEIGHT + DisplayUtils.dp2px(height.toFloat()) + ModuleImageConstant.interlaceStr
+                } else {
+                    this + ModuleImageConstant.URL_APPEND_WIDTH + width + ModuleImageConstant.URL_APPEND_HEIGHT + height + ModuleImageConstant.interlaceStr
+                }
+            }
+        }
+        return newUrl
+    }
 }

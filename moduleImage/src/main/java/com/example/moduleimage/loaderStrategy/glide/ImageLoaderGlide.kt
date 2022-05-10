@@ -1,20 +1,139 @@
 package com.example.moduleimage.loaderStrategy.glide
 
+import android.annotation.SuppressLint
 import android.content.res.Resources
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.moduleimage.loaderStrategy.glide.GlideRoundedCornersTransform.CornerType
 import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.util.TypedValue
 import android.widget.ImageView
+import androidx.vectordrawable.graphics.drawable.Animatable2Compat
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.load.resource.gif.GifDrawable
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.target.Target
+import com.example.moduleimage.imageUtils.ImageToUtil
 import com.example.moduleimage.loaderStrategy.control.ImageLoaderInterface
 import java.io.ByteArrayOutputStream
 
+@SuppressLint("CheckResult")
 object ImageLoaderGlide : ImageLoaderInterface {
-    override fun loadImageUrl(url: String?, imageView: ImageView) {
+    private var requestOptions = RequestOptions()
+    override fun loadImage(url: String, imageView: ImageView) {
+        Glide.with(imageView.context).load(url).into(imageView)
+    }
+
+    override fun loadImage(id: Int, imageView: ImageView) {
+        Glide.with(imageView.context).load(id).into(imageView)
+    }
+
+    override fun loadImage(url: String, imageView: ImageView, defaultIv: Int) {
+        requestOptions
+            .placeholder(defaultIv)
+            .error(defaultIv)
+        Glide.with(imageView.context).load(url).apply(requestOptions).into(imageView)
+
+    }
+
+    override fun loadImage(url: String, imageView: ImageView, width: Int, height: Int) {
+
+        Glide.with(imageView.context)
+            .load(ImageToUtil.appendUrl(url, width, height, false))
+            .apply(requestOptions)
+            .into(imageView)
+    }
+
+    override fun loadImage(url: String, imageView: ImageView, defaultIv: Int, width: Int, height: Int) {
+        requestOptions
+            .placeholder(defaultIv)
+            .error(defaultIv)
+
+        Glide.with(imageView.context)
+            .load(ImageToUtil.appendUrl(url, width, height, false))
+            .apply(requestOptions)
+            .into(imageView)
+
+    }
+
+    override fun loadImageWithFitCenter(url: String, imageView: ImageView) {
+        requestOptions.fitCenter()
+
         Glide.with(imageView.context)
             .load(url)
+            .apply(requestOptions)
+            .into(imageView)
+    }
+
+    override fun loadImageWithFitCenter(id: Int, imageView: ImageView) {
+        requestOptions.fitCenter()
+
+        Glide.with(imageView.context)
+            .load(id)
+            .apply(requestOptions)
+            .into(imageView)
+    }
+
+    override fun loadImageWithCenterCrop(url: String, imageView: ImageView) {
+        requestOptions.centerCrop()
+
+        Glide.with(imageView.context)
+            .load(url)
+            .apply(requestOptions)
+            .into(imageView)
+    }
+
+    override fun loadImageWithCenterCrop(id: Int, imageView: ImageView) {
+        requestOptions.centerCrop()
+
+        Glide.with(imageView.context)
+            .load(id)
+            .apply(requestOptions)
+            .into(imageView)
+    }
+
+    override fun loadImageWithCenterInside(url: String, imageView: ImageView) {
+        requestOptions.centerInside()
+
+        Glide.with(imageView.context)
+            .load(url)
+            .apply(requestOptions)
+            .into(imageView)
+    }
+
+    override fun loadImageWithCenterInside(id: Int, imageView: ImageView) {
+        requestOptions.centerInside()
+
+        Glide.with(imageView.context)
+            .load(id)
+            .apply(requestOptions)
+            .into(imageView)
+    }
+
+    override fun loadImageWithSkipCache(url: String, imageView: ImageView) {
+        requestOptions = RequestOptions()
+            .skipMemoryCache(true)
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
+
+        Glide.with(imageView.context)
+            .load(url)
+            .apply(requestOptions)
+            .into(imageView)
+    }
+
+    override fun loadImageWithSkipCache(url: String, imageView: ImageView, width: Int, height: Int) {
+        requestOptions = RequestOptions()
+            .skipMemoryCache(true)
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
+
+        Glide.with(imageView.context)
+            .load(ImageToUtil.appendUrl(url,width,height,false))
+            .apply(requestOptions)
             .into(imageView)
     }
 
@@ -37,6 +156,62 @@ object ImageLoaderGlide : ImageLoaderInterface {
     override fun loadRoundedCornersImage(bitmap: Bitmap, imageView: ImageView, radius: Float, cornerType: CornerType) {
         val requestOptions = RequestOptions().optionalTransform(GlideRoundedCornersTransform(dp2px(radius) + 0.5f, cornerType))
         loadImageBytes(bitmap2Bytes(bitmap), imageView, requestOptions)
+    }
+
+    override fun loadGif(url: String, imageView: ImageView) {
+        Glide.with(imageView.context)
+            .asGif()
+            .load(url)
+            .skipMemoryCache(true)
+            .listener(object : RequestListener<GifDrawable> {
+
+                override fun onResourceReady(resource: GifDrawable, model: Any, target: Target<GifDrawable>, dataSource: DataSource, isFirstResource: Boolean): Boolean {
+                    resource.setLoopCount(1) //只播放一次
+                    resource.registerAnimationCallback(object : Animatable2Compat.AnimationCallback() {
+                        override fun onAnimationStart(drawable: Drawable) {
+                            super.onAnimationStart(drawable)
+                            resource.start()
+//                            mOnAnimationStatus.onAnimationStart()
+                        }
+
+                        override fun onAnimationEnd(drawable: Drawable) {
+                            super.onAnimationEnd(drawable)
+                            resource.recycle()
+//                            mOnAnimationStatus.onAnimationEnd()
+                        }
+                    })
+                    return false
+                }
+
+                override fun onLoadFailed(
+                    e: GlideException?,
+                    model: Any?,
+                    target: Target<GifDrawable>?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    return false
+                }
+            }).into(imageView)
+    }
+
+    override fun loadGif(id: Int, imageView: ImageView) {
+        TODO("Not yet implemented")
+    }
+
+    override fun loadGifWithLoop(url: String, imageView: ImageView) {
+        TODO("Not yet implemented")
+    }
+
+    override fun loadGifWithLoop(id: Int, imageView: ImageView) {
+        TODO("Not yet implemented")
+    }
+
+    override fun loadImageWithCustomTarget(url: String, customTarget: CustomTarget<Bitmap>) {
+        TODO("Not yet implemented")
+    }
+
+    override fun load9Png(url: String, imageView: ImageView, resId: Int) {
+        TODO("Not yet implemented")
     }
 
     /**
