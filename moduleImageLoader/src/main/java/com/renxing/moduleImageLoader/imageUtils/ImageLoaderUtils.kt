@@ -2,10 +2,16 @@ package com.renxing.moduleImageLoader.imageUtils
 
 import android.app.Activity
 import android.content.Context
+import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Rect
 import android.text.TextUtils
+import android.util.TypedValue
+import android.widget.ImageView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import java.io.ByteArrayOutputStream
 
 object ImageLoaderUtils {
     /**
@@ -108,6 +114,32 @@ object ImageLoaderUtils {
             }
         }
         return newUrl
+    }
+
+    /**
+     * 把Bitmap转Byte
+     */
+    fun bitmap2Bytes(bitmap: Bitmap): ByteArray {
+        val baos = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos)
+        return baos.toByteArray()
+    }
+
+
+    fun loadImageUrl(url: String, imageView: ImageView, requestOptions: RequestOptions) {
+        Glide.with(imageView.context)
+            .load(url)
+            .apply(requestOptions)
+            .into(imageView)
+    }
+
+    fun loadImageBytes(bytes: ByteArray, imageView: ImageView, requestOptions: RequestOptions) {
+        Glide.with(imageView.context).asBitmap().load(bytes).apply(requestOptions).into(imageView)
+    }
+
+
+    fun dp2px(value: Float): Float {
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value, Resources.getSystem().displayMetrics)
     }
 
 

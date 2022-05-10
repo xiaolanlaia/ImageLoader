@@ -1,6 +1,8 @@
 package com.renxing.moduleImageLoader.loaderStrategy.control
 
+import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import com.bumptech.glide.request.target.CustomTarget
 import com.renxing.moduleImageLoader.ImageLoaderInterface
@@ -115,11 +117,15 @@ class ImageLoaderManager : ImageLoaderInterface {
         TODO("Not yet implemented")
     }
 
-    override fun loadImageWithCustomTarget(url: String, customTarget: CustomTarget<Bitmap>) {
+    override fun loadImageWithCustomTarget(context : Context, url: String, customTarget: CustomTarget<Bitmap>) {
         TODO("Not yet implemented")
     }
 
-    override fun load9Png(url: String, imageView: ImageView, resId: Int) {
+    override fun load9Png(url: String, imageView: ImageView) {
+        TODO("Not yet implemented")
+    }
+
+    override fun load9Png(context: Context, id: Int, imageView: ImageView) {
         TODO("Not yet implemented")
     }
 }

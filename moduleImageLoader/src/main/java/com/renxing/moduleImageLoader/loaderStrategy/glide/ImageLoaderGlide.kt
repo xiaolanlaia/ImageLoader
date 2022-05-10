@@ -1,26 +1,33 @@
 package com.renxing.moduleImageLoader.loaderStrategy.glide
 
 import android.annotation.SuppressLint
-import android.content.res.Resources
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.renxing.moduleImageLoader.loaderStrategy.glide.GlideRoundedCornersTransform.CornerType
+import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.NinePatch
+import android.graphics.Rect
+import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
-import android.util.TypedValue
+import android.graphics.drawable.NinePatchDrawable
 import android.widget.ImageView
 import androidx.vectordrawable.graphics.drawable.Animatable2Compat
+import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.gif.GifDrawable
 import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.target.Target
-import com.renxing.moduleImageLoader.imageUtils.ImageLoaderUtils
+import com.bumptech.glide.request.transition.Transition
 import com.renxing.moduleImageLoader.ImageLoaderInterface
-import java.io.ByteArrayOutputStream
+import com.renxing.moduleImageLoader.imageUtils.ImageLoaderUtils
+import com.renxing.moduleImageLoader.imageUtils.NinePatchChunk
+import com.renxing.moduleImageLoader.loaderStrategy.glide.GlideRoundedCornersTransform.CornerType
+import java.io.File
+import java.io.FileInputStream
 
 @SuppressLint("CheckResult")
 object ImageLoaderGlide : ImageLoaderInterface {
@@ -140,30 +147,29 @@ object ImageLoaderGlide : ImageLoaderInterface {
 
     override fun loadCircleImage(url: String, imageView: ImageView) {
         val requestOptions = RequestOptions().circleCrop()
-        loadImageUrl(url, imageView, requestOptions)
+        ImageLoaderUtils.loadImageUrl(url, imageView, requestOptions)
     }
 
     override fun loadRoundedCornersImage(url: String, imageView: ImageView, radius: Float) {
         val requestOptions =
-            RequestOptions().transform(RoundedCorners((dp2px(radius) + 0.5f).toInt()))
-        loadImageUrl(url, imageView, requestOptions)
+            RequestOptions().transform(RoundedCorners((ImageLoaderUtils.dp2px(radius) + 0.5f).toInt()))
+        ImageLoaderUtils.loadImageUrl(url, imageView, requestOptions)
     }
 
     override fun loadRoundedCornersImage(url: String, imageView: ImageView, radius: Float, cornerType: CornerType) {
-        val requestOptions = RequestOptions().optionalTransform(GlideRoundedCornersTransform(dp2px(radius) + 0.5f, cornerType))
-        loadImageUrl(url, imageView, requestOptions)
+        val requestOptions = RequestOptions().optionalTransform(GlideRoundedCornersTransform(ImageLoaderUtils.dp2px(radius) + 0.5f, cornerType))
+        ImageLoaderUtils.loadImageUrl(url, imageView, requestOptions)
     }
 
     override fun loadRoundedCornersImage(bitmap: Bitmap, imageView: ImageView, radius: Float, cornerType: CornerType) {
-        val requestOptions = RequestOptions().optionalTransform(GlideRoundedCornersTransform(dp2px(radius) + 0.5f, cornerType))
-        loadImageBytes(bitmap2Bytes(bitmap), imageView, requestOptions)
+        val requestOptions = RequestOptions().optionalTransform(GlideRoundedCornersTransform(ImageLoaderUtils.dp2px(radius) + 0.5f, cornerType))
+        ImageLoaderUtils.loadImageBytes(ImageLoaderUtils.bitmap2Bytes(bitmap), imageView, requestOptions)
     }
 
     override fun loadGif(url: String, imageView: ImageView) {
         Glide.with(imageView.context)
             .asGif()
             .load(url)
-            .skipMemoryCache(true)
             .listener(object : RequestListener<GifDrawable> {
 
                 override fun onResourceReady(resource: GifDrawable, model: Any, target: Target<GifDrawable>, dataSource: DataSource, isFirstResource: Boolean): Boolean {
@@ -172,13 +178,12 @@ object ImageLoaderGlide : ImageLoaderInterface {
                         override fun onAnimationStart(drawable: Drawable) {
                             super.onAnimationStart(drawable)
                             resource.start()
-//                            mOnAnimationStatus.onAnimationStart()
                         }
 
                         override fun onAnimationEnd(drawable: Drawable) {
                             super.onAnimationEnd(drawable)
-                            resource.recycle()
-//                            mOnAnimationStatus.onAnimationEnd()
+                            //回收则图片展示被清除
+//                            resource.recycle()
                         }
                     })
                     return false
@@ -196,48 +201,87 @@ object ImageLoaderGlide : ImageLoaderInterface {
     }
 
     override fun loadGif(id: Int, imageView: ImageView) {
-        TODO("Not yet implemented")
-    }
-
-    override fun loadGifWithLoop(url: String, imageView: ImageView) {
-        TODO("Not yet implemented")
-    }
-
-    override fun loadGifWithLoop(id: Int, imageView: ImageView) {
-        TODO("Not yet implemented")
-    }
-
-    override fun loadImageWithCustomTarget(url: String, customTarget: CustomTarget<Bitmap>) {
-        TODO("Not yet implemented")
-    }
-
-    override fun load9Png(url: String, imageView: ImageView, resId: Int) {
-        TODO("Not yet implemented")
-    }
-
-    /**
-     * 把Bitmap转Byte
-     */
-    private fun bitmap2Bytes(bitmap: Bitmap): ByteArray {
-        val baos = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos)
-        return baos.toByteArray()
-    }
-
-
-    private fun loadImageUrl(url: String, imageView: ImageView, requestOptions: RequestOptions) {
         Glide.with(imageView.context)
-            .load(url)
-            .apply(requestOptions)
+            .asGif()
+            .load(id)
             .into(imageView)
     }
 
-    private fun loadImageBytes(bytes: ByteArray, imageView: ImageView, requestOptions: RequestOptions) {
-        Glide.with(imageView.context).asBitmap().load(bytes).apply(requestOptions).into(imageView)
+    override fun loadGifWithLoop(url: String, imageView: ImageView) {
+        Glide.with(imageView.context)
+            .asGif()
+            .load(url)
+            .into(imageView)
+    }
+
+    override fun loadGifWithLoop(id: Int, imageView: ImageView) {
+        Glide.with(imageView.context)
+            .asGif()
+            .load(id)
+            .into(imageView)
+    }
+
+    override fun loadImageWithCustomTarget(context : Context,url: String, customTarget: CustomTarget<Bitmap>) {
+        Glide.with(context)
+            .asBitmap()
+            .load(url)
+            .into<CustomTarget<Bitmap>>(customTarget)
+    }
+
+    override fun load9Png(url: String, imageView: ImageView) {
+        Glide.with(imageView.context)
+            .asFile()
+            .load(url)
+            .into(object : CustomTarget<File?>() {
+                override fun onResourceReady(resource: File, transition: Transition<in File?>?) {
+                    try {
+                        val inputStream = FileInputStream(resource)
+                        val bitmap = BitmapFactory.decodeStream(inputStream)
+                        val drawable: Drawable =
+                            getNinePatchDrawable(
+                                bitmap,
+                                imageView.context
+                            )
+                        imageView.background = drawable
+                        inputStream.close()
+                    } catch (e: Exception) {
+                    }
+                }
+
+                override fun onLoadCleared(placeholder: Drawable?) {}
+
+            })
+
+    }
+
+    private fun getNinePatchDrawable(bitmap: Bitmap, context: Context): Drawable {
+        val chunk = bitmap.ninePatchChunk
+        var ninePatchDrawable: NinePatchDrawable? = null
+        ninePatchDrawable = if (NinePatch.isNinePatchChunk(chunk)) {
+            NinePatchDrawable(context.resources, bitmap, chunk, Rect(), null)
+        } else {
+            return BitmapDrawable(context.resources, bitmap)
+        }
+        return ninePatchDrawable
+    }
+
+    override fun load9Png(context: Context,id: Int, imageView: ImageView) {
+        val res = context.resources
+
+        val bitmap = BitmapFactory.decodeResource(res, id) ?: return
+
+        val chunk: ByteArray = bitmap.ninePatchChunk
+        if (NinePatch.isNinePatchChunk(chunk)) {
+            val patchy = NinePatchDrawable(
+                context.resources,
+                bitmap,
+                chunk,
+                NinePatchChunk.deserialize(chunk).mPaddings,
+                null
+            )
+            Glide.with(context).load(patchy).into(imageView)
+        }
     }
 
 
-    private fun dp2px(value: Float): Float {
-        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value, Resources.getSystem().displayMetrics)
-    }
 }

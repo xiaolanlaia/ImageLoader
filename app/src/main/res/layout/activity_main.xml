@@ -104,11 +104,73 @@
             android:layout_weight="1"
             android:layout_height="?attr/actionBarSize"/>
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
+        <Button
+            android:id="@+id/load_gif"
+            android:text="load_gif"
+            android:textSize="10sp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="?attr/actionBarSize"/>
+        <Button
+            android:id="@+id/load_gif_id"
+            android:text="load_gif_id"
+            android:textSize="10sp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="?attr/actionBarSize"/>
+        <Button
+            android:id="@+id/load_gif_loop"
+            android:text="load_gif_loop"
+            android:textSize="10sp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="?attr/actionBarSize"/>
+        <Button
+            android:id="@+id/customTarget"
+            android:text="customTarget"
+            android:textSize="10sp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="?attr/actionBarSize"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
+        <Button
+            android:id="@+id/png9"
+            android:text="png9"
+            android:textSize="10sp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="?attr/actionBarSize"/>
+        <Button
+            android:id="@+id/nine_btn"
+            android:text="nine_btn"
+            android:textSize="10sp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="?attr/actionBarSize"/>
+<!--        <Button-->
+<!--            android:id="@+id/load_gif_loop"-->
+<!--            android:text="load_gif_loop"-->
+<!--            android:textSize="10sp"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:layout_height="?attr/actionBarSize"/>-->
+<!--        <Button-->
+<!--            android:id="@+id/customTarget"-->
+<!--            android:text="customTarget"-->
+<!--            android:textSize="10sp"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:layout_height="?attr/actionBarSize"/>-->
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/test_iv"
-        android:text="url加载图片"
-        android:textSize="10sp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

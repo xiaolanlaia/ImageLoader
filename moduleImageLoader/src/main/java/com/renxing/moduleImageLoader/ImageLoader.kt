@@ -1,6 +1,8 @@
 package com.renxing.moduleImageLoader
 
+import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import com.bumptech.glide.request.target.CustomTarget
 import com.renxing.moduleImageLoader.loaderStrategy.control.LoaderStrategyFactory
@@ -115,11 +117,14 @@ object ImageLoader : ImageLoaderInterface {
         imageLoaderStrategy.loadGifWithLoop(id,imageView)
     }
 
-    override fun loadImageWithCustomTarget(url: String, customTarget: CustomTarget<Bitmap>) {
-        imageLoaderStrategy.loadImageWithCustomTarget(url,customTarget)
+    override fun loadImageWithCustomTarget(context: Context, url: String, customTarget: CustomTarget<Bitmap>) {
+        imageLoaderStrategy.loadImageWithCustomTarget(context,url,customTarget)
     }
 
-    override fun load9Png(url: String, imageView: ImageView, resId: Int) {
-        imageLoaderStrategy.load9Png(url,imageView,resId)
+    override fun load9Png(url: String, imageView: ImageView) {
+        imageLoaderStrategy.load9Png(url,imageView)
+    }
+    override fun load9Png(context: Context, id: Int, imageView: ImageView) {
+        imageLoaderStrategy.load9Png(context, id,imageView)
     }
 }

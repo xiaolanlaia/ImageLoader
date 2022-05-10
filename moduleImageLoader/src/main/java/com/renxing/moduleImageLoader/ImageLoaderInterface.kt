@@ -1,6 +1,8 @@
 package com.renxing.moduleImageLoader
 
+import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import com.bumptech.glide.request.target.CustomTarget
 import com.renxing.moduleImageLoader.loaderStrategy.glide.GlideRoundedCornersTransform
@@ -122,9 +124,10 @@ interface ImageLoaderInterface {
      * @url: String
      * @customTarget: CustomTarget<Bitmap>
      */
-    fun loadImageWithCustomTarget(url: String, customTarget: CustomTarget<Bitmap>)
+    fun loadImageWithCustomTarget(context : Context, url: String, customTarget: CustomTarget<Bitmap>)
 
-    fun load9Png(url: String, imageView: ImageView, resId: Int)
+    fun load9Png(url: String, imageView: ImageView)
+    fun load9Png(context: Context, id: Int, imageView: ImageView)
 
 
 }
