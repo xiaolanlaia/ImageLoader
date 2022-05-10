@@ -14,10 +14,6 @@ import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 import java.security.MessageDigest;
 
 /**
- * author : Irene
- * e-mail : 821970751@qq.com
- * date   : 2020/3/20 15:16
- * desc   :
  */
 public class GlideRoundTransform extends BitmapTransformation {
 

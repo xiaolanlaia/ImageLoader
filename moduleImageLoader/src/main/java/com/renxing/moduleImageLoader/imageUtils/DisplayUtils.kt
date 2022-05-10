@@ -13,10 +13,6 @@ import android.view.View
 import java.lang.Exception
 
 /**
- * author : Irene
- * e-mail : 821970751@qq.com
- * date   : 2020/3/17 12:05
- * desc   :
  */
 object DisplayUtils {
     /**

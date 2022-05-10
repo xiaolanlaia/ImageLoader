@@ -11,9 +11,6 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
- * 作者：肖程成 on  2019/10/25 13:29
- * 邮箱：253682355@qq.com
- * 功能：
  */
 public class FileUtils {
 
