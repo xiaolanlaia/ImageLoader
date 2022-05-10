@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.imageloader.R
-import com.renxing.moduleImage.ImageLoader
-import com.renxing.moduleImage.loaderStrategy.glide.GlideRoundedCornersTransform
+import com.renxing.moduleImageLoader.ImageLoader
+import com.renxing.moduleImageLoader.loaderStrategy.glide.GlideRoundedCornersTransform
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(),View.OnClickListener {

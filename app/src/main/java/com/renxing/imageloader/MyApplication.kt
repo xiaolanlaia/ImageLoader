@@ -1,7 +1,7 @@
 package com.renxing.imageloader
 
 import android.app.Application
-import com.renxing.moduleImage.imageUtils.ModuleImageConstant
+import com.renxing.moduleImageLoader.imageUtils.ModuleImageConstant
 
 class MyApplication : Application() {
 
