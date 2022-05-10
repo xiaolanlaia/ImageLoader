@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.moduleimage.ImageLoader
+import com.example.moduleimage.loaderStrategy.control.LoaderStrategyFactory
 import com.example.moduleimage.loaderStrategy.glide.GlideRoundedCornersTransform
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -50,7 +51,6 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
             }
             R.id.btn_5 -> {
                 ImageLoader.loadImageWithFitCenter(url,test_iv)
-
             }
             R.id.btn_6 -> {
                 ImageLoader.loadImageWithCenterCrop(url,test_iv)

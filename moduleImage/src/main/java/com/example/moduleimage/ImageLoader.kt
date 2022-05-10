@@ -9,6 +9,13 @@ import com.example.moduleimage.loaderStrategy.glide.GlideRoundedCornersTransform
 
 object ImageLoader : ImageLoaderInterface {
     private var imageLoaderStrategy = LoaderStrategyFactory.instance.getLoaderStrategy()
+
+    /**
+     * 用来改变图片加载框架策略
+     */
+    fun changeLoaderStrategy(strategyTypeEnum: LoaderStrategyFactory.StrategyTypeEnum){
+        imageLoaderStrategy = LoaderStrategyFactory.instance.getLoaderStrategy(strategyTypeEnum)
+    }
     override fun loadImage(url: String, imageView: ImageView) {
     imageLoaderStrategy.loadImage(url,imageView)
     }
@@ -60,11 +67,11 @@ object ImageLoader : ImageLoaderInterface {
     }
 
     override fun loadImageWithSkipCache(url: String, imageView: ImageView) {
-        TODO("Not yet implemented")
+        imageLoaderStrategy.loadImageWithSkipCache(url,imageView)
     }
 
     override fun loadImageWithSkipCache(url: String, imageView: ImageView, width: Int, height: Int) {
-        TODO("Not yet implemented")
+        imageLoaderStrategy.loadImageWithSkipCache(url,imageView,width,height)
     }
 
     override fun loadCircleImage(url: String, imageView: ImageView) {
@@ -94,26 +101,26 @@ object ImageLoader : ImageLoaderInterface {
     }
 
     override fun loadGif(url: String, imageView: ImageView) {
-        TODO("Not yet implemented")
+        imageLoaderStrategy.loadGif(url,imageView)
     }
 
     override fun loadGif(id: Int, imageView: ImageView) {
-        TODO("Not yet implemented")
+        imageLoaderStrategy.loadGif(id,imageView)
     }
 
     override fun loadGifWithLoop(url: String, imageView: ImageView) {
-        TODO("Not yet implemented")
+        imageLoaderStrategy.loadGifWithLoop(url,imageView)
     }
 
     override fun loadGifWithLoop(id: Int, imageView: ImageView) {
-        TODO("Not yet implemented")
+        imageLoaderStrategy.loadGifWithLoop(id,imageView)
     }
 
     override fun loadImageWithCustomTarget(url: String, customTarget: CustomTarget<Bitmap>) {
-        TODO("Not yet implemented")
+        imageLoaderStrategy.loadImageWithCustomTarget(url,customTarget)
     }
 
     override fun load9Png(url: String, imageView: ImageView, resId: Int) {
-        TODO("Not yet implemented")
+        imageLoaderStrategy.load9Png(url,imageView,resId)
     }
 }
