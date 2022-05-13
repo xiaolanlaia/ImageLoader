@@ -1,11 +1,13 @@
 package com.renxing.moduleImageLoader.loaderStrategy.glide
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.NinePatch
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.NinePatchDrawable
+import android.view.View
 import android.widget.ImageView
 import androidx.vectordrawable.graphics.drawable.Animatable2Compat
 import com.bumptech.glide.Glide
@@ -16,14 +18,20 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.gif.GifDrawable
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.target.Target
-import com.renxing.moduleImageLoader.imageUtils.*
+import com.bumptech.glide.request.transition.Transition
 import com.renxing.moduleImageLoader.imageUtils.ImageLoaderUtils
+import com.renxing.moduleImageLoader.imageUtils.ModuleImageConstant
 import com.renxing.moduleImageLoader.loaderStrategy.control.ImageLoaderInterface
-import com.renxing.moduleImageLoader.loaderStrategy.glide.tools.CircleBorderTransformation
-import com.renxing.moduleImageLoader.loaderStrategy.glide.tools.NinePatchChunk
-import com.renxing.moduleImageLoader.loaderStrategy.glide.tools.RXCustomTarget
-import com.renxing.moduleImageLoader.loaderStrategy.glide.tools.RoundedCornersTransform
+import com.renxing.moduleImageLoader.loaderStrategy.glide.ninePic.NinePatchChunk
+import com.renxing.moduleImageLoader.loaderStrategy.glide.placeholder.CircleRoundDrawable
+import com.renxing.moduleImageLoader.loaderStrategy.glide.target.RXCustomTarget
+import com.renxing.moduleImageLoader.loaderStrategy.glide.transformation.CircleBorderTransformation
+import com.renxing.moduleImageLoader.loaderStrategy.glide.transformation.RoundedCornersTransform
+import java.io.File
+import java.io.FileInputStream
+import java.io.IOException
 
 /**
  *@author  :  WuJianFeng
@@ -41,8 +49,8 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
     override fun loadImage(url: String, imageView: ImageView, defaultIv: Int) {
         glideLoadUrl(url, imageView,
             RequestOptions()
-                .placeholder(defaultIv)
-                .error(defaultIv))
+                .placeholder(CircleRoundDrawable(imageView.context,defaultIv))
+                .error(CircleRoundDrawable(imageView.context,defaultIv)))
 
     }
 
@@ -167,13 +175,31 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
 
     }
 
-    //@hide
-//    override fun load9Png(url: String, imageView: ImageView) {
-//
-//        throw Exception("url加载点9图待验证")
-//        //todo url加载点9图待验证
-//
-//    }
+    override fun load9Png(url: String, imageView: ImageView) {
+
+        Glide.with(imageView.context)
+            .asFile()
+            .load(url)
+            .into(object : CustomTarget<File>() {
+                override fun onResourceReady(resource: File, transition: Transition<in File>?) {
+                    try {
+                        val fileInputStream = FileInputStream(resource)
+                        val bitmap = BitmapFactory.decodeStream(fileInputStream) ?: return
+                        val chunk = bitmap.ninePatchChunk
+                        if (NinePatch.isNinePatchChunk(chunk)) {
+                            val patchy = NinePatchDrawable(imageView.context.resources, bitmap, chunk, NinePatchChunk.deserialize(chunk).mPaddings, null)
+                            glideLoadDrawable(patchy,imageView)
+                        }
+                        fileInputStream.close()
+                    } catch (e: IOException) {
+                        e.printStackTrace()
+                    }
+                }
+
+                override fun onLoadCleared(placeholder: Drawable?) {}
+            })
+
+    }
 
     override fun load9Png(id: Int, imageView: ImageView) {
         val res = imageView.context.resources
@@ -182,13 +208,7 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
 
         val chunk: ByteArray = bitmap.ninePatchChunk
         if (NinePatch.isNinePatchChunk(chunk)) {
-            val patchy = NinePatchDrawable(
-                imageView.context.resources,
-                bitmap,
-                chunk,
-                NinePatchChunk.deserialize(chunk).mPaddings,
-                null
-            )
+            val patchy = NinePatchDrawable(imageView.context.resources, bitmap, chunk, NinePatchChunk.deserialize(chunk).mPaddings, null)
             glideLoadDrawable(patchy,imageView)
         }
     }

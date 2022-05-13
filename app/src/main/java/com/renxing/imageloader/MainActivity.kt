@@ -6,14 +6,17 @@ import android.graphics.Canvas
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.request.transition.Transition
 import com.example.imageloader.R
 import com.renxing.moduleImageLoader.RXImageLoader
+import com.renxing.moduleImageLoader.imageUtils.DevicesUtils
 import com.renxing.moduleImageLoader.imageUtils.ModuleImageConstant
-import com.renxing.moduleImageLoader.loaderStrategy.glide.tools.RXCustomTarget
+import com.renxing.moduleImageLoader.loaderStrategy.glide.ninePic.LoadDian9TuUtil
+import com.renxing.moduleImageLoader.loaderStrategy.glide.target.RXCustomTarget
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(),View.OnClickListener {
@@ -44,8 +47,9 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
         img_border_url_corner.setOnClickListener(this)
         img_border_id_corner.setOnClickListener(this)
     }
+    val url = "https://voimigo.chongqiwawa6.com/public/2021/7/krd6bgit1626853077605@3x.png"
 
-    val url = "https://t7.baidu.com/it/u=1595072465,3644073269&fm=193&f=GIF"
+//    val url = "https://t7.baidu.com/it/u=1595072465,3644073269&fm=193&f=GIF"
     val urlGif = "https://tse1-mm.cn.bing.net/th/id/R-C.9d17d28183f39907a04ec2a54e3f8dd3?rik=wJ4gqd49C1SP8A&riu=http%3a%2f%2fwww.qqpao.com%2fuploads%2fallimg%2f181116%2f10-1Q116102132.gif&ehk=F5wDRW473O%2bVTC2s3AbfGzPwbvkUFfa390Elf9t4XQI%3d&risl=&pid=ImgRaw&r=0"
 
 //    val url = "https://github.com/xiaolanlaia/RXImageLoader/blob/main/app/src/main/res/mipmap-xxhdpi/charff.9.png"
@@ -56,10 +60,10 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
 
         when (v.id) {
             R.id.btn_1 -> {
-                RXImageLoader.loadImage("url",test_iv,R.mipmap.default_photo)
+                RXImageLoader.loadImage(url,test_iv,R.mipmap.default_photo)
             }
             R.id.btn_2 -> {
-                RXImageLoader.loadImage("imgId",test_iv)
+                RXImageLoader.loadImage(imgId,test_iv)
 
             }
             R.id.btn_3 -> {
@@ -161,18 +165,20 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
 
             }
             R.id.img_border_url_corner ->{
+//                DevicesUtils.getDiskRemainSize(this)
+//
+//                val totalMem = DevicesUtils.getMemoryInfo(this).totalMem * 1.0/ (1024 * 1024)
+//                val availMem = DevicesUtils.getMemoryInfo(this).availMem * 1.0/ (1024 * 1024)
+
+//                LoadDian9TuUtil.loadDian9Tu(this,test_iv,url)
+
+                RXImageLoader.load9Png(url,test_tv)
+                RXImageLoader.load9Png(url,test_tv_2)
+                RXImageLoader.load9Png(url,test_tv_3)
+
             }
         }
 
     }
 
-
-    fun NinePatch2Bitmap(context: Context, resId: Int, width: Int, height: Int): Bitmap? {
-        val drawable: Drawable = context.resources.getDrawable(resId)
-        val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-        val canvas = Canvas(bitmap)
-        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight())
-        drawable.draw(canvas)
-        return bitmap
-    }
 }

@@ -14,42 +14,7 @@ import java.lang.Exception
 
 
 internal object DisplayUtils {
-    /**
-     * 得到该手机的drawable文件夹密码
-     *
-     * @param context
-     */
-    fun getDensityString(context: Context): String {
-        val density = getDipScale(context)
-        val desintyString: String = when {
-            0.75 == density.toDouble() -> {
-                "ldpi"
-            }
-            1.0 == density.toDouble() -> {
-                "mdpi"
-            }
-            1.5 == density.toDouble() -> {
-                "hdpi"
-            }
-            2.0 == density.toDouble() -> {
-                "xhdpi"
-            }
-            3.0 == density.toDouble() -> {
-                "xxhdpi"
-            }
-            4.0 == density.toDouble() -> {
-                "xxxhdpi"
-            }
-            else -> {
-                "hdpi"
-            }
-        }
-        return desintyString
-    }
 
-    fun getDipScale(context: Context): Float {
-        return context.resources.displayMetrics.density
-    }
 
     fun px(dipValue: Float): Int {
         val r = Resources.getSystem()
@@ -81,7 +46,7 @@ internal object DisplayUtils {
     /**
      * 将dip或dp值转换为px值，保证尺寸大小不变
      */
-    fun dpToPx(dp: Int): Int {
+    fun dp2Px(dp: Int): Int {
         val r = ModuleImageConstant.moduleImageApplication!!.resources
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp.toFloat(), r.displayMetrics).toInt()
     }
@@ -243,77 +208,5 @@ internal object DisplayUtils {
             decorView.systemUiVisibility = uiOptions
         }
     }
-    /**
-     * Return the bitmap of screen.
-     *
-     * @param activity          The activity.
-     * @param isDeleteStatusBar True to delete status bar, false otherwise.
-     * @return the bitmap of screen
-     */
-    /**
-     * Return the bitmap of screen.
-     *
-     * @param activity The activity.
-     * @return the bitmap of screen
-     */
-    @JvmOverloads
-    fun screenShot(activity: Activity, isDeleteStatusBar: Boolean = false): Bitmap? {
-        val decorView: View = activity.getWindow().getDecorView()
-        decorView.isDrawingCacheEnabled = true
-        decorView.setWillNotCacheDrawing(false)
-        val bmp = decorView.drawingCache ?: return null
-        val dm = DisplayMetrics()
-        activity.getWindowManager().getDefaultDisplay().getMetrics(dm)
-        val ret: Bitmap
-        ret = if (isDeleteStatusBar) {
-            val resources: Resources = activity.getResources()
-            val resourceId = resources.getIdentifier("status_bar_height", "dimen", "android")
-            val statusBarHeight = resources.getDimensionPixelSize(resourceId)
-            Bitmap.createBitmap(
-                bmp,
-                0,
-                statusBarHeight,
-                dm.widthPixels,
-                dm.heightPixels - statusBarHeight
-            )
-        } else {
-            Bitmap.createBitmap(bmp, 0, 0, dm.widthPixels, dm.heightPixels)
-        }
-        decorView.destroyDrawingCache()
-        return ret
-    }
 
-    /**
-     * Return whether screen is landscape.
-     *
-     * @return `true`: yes<br></br>`false`: no
-     */
-    val isLandscape: Boolean
-        get() = (ModuleImageConstant.moduleImageApplication!!.resources.configuration.orientation
-                == Configuration.ORIENTATION_LANDSCAPE)
-
-    /**
-     * Return whether screen is portrait.
-     *
-     * @return `true`: yes<br></br>`false`: no
-     */
-    val isPortrait: Boolean
-        get() = (ModuleImageConstant.moduleImageApplication!!.resources.configuration.orientation
-                == Configuration.ORIENTATION_PORTRAIT)
-
-    /**
-     * Return the rotation of screen.
-     *
-     * @param activity The activity.
-     * @return the rotation of screen
-     */
-    fun getScreenRotation(activity: Activity): Int {
-        return when (activity.getWindowManager().getDefaultDisplay().getRotation()) {
-            Surface.ROTATION_0 -> 0
-            Surface.ROTATION_90 -> 90
-            Surface.ROTATION_180 -> 180
-            Surface.ROTATION_270 -> 270
-            else -> 0
-        }
-    }
 }

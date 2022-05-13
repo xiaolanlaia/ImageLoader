@@ -5,7 +5,7 @@ import android.widget.ImageView
 import com.renxing.moduleImageLoader.imageUtils.ModuleImageConstant
 import com.renxing.moduleImageLoader.loaderStrategy.control.ImageLoaderInterface
 import com.renxing.moduleImageLoader.loaderStrategy.control.LoaderStrategyFactory
-import com.renxing.moduleImageLoader.loaderStrategy.glide.tools.RXCustomTarget
+import com.renxing.moduleImageLoader.loaderStrategy.glide.target.RXCustomTarget
 
 /**
  *@author  :  WuJianFeng
@@ -115,9 +115,9 @@ object RXImageLoader : ImageLoaderInterface {
         imageLoaderStrategy.loadImageWithRxCustomTarget(url,imageView,rxCustomTarget)
     }
 
-//    override fun load9Png(url: String, imageView: ImageView) {
-//        imageLoaderStrategy.load9Png(url, imageView)
-//    }
+    override fun load9Png(url: String, imageView: ImageView) {
+        imageLoaderStrategy.load9Png(url, imageView)
+    }
 
     override fun load9Png(id: Int, imageView: ImageView) {
         imageLoaderStrategy.load9Png(id, imageView)

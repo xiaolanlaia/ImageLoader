@@ -15,7 +15,6 @@ class LoaderStrategyFactory private constructor(){
     enum class StrategyTypeEnum { GLIDE, }
 
     //策略池
-    //todo 将所有策略放进缓存池是否导致不必要的内存消耗
     private var loaderStrategyMap = object : HashMap<StrategyTypeEnum, ImageLoaderInterface>(){
         init {
             put(StrategyTypeEnum.GLIDE, ImageLoaderGlide())

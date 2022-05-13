@@ -3,7 +3,7 @@ package com.renxing.moduleImageLoader.loaderStrategy.control
 import android.graphics.Bitmap
 import android.widget.ImageView
 import com.renxing.moduleImageLoader.imageUtils.ModuleImageConstant
-import com.renxing.moduleImageLoader.loaderStrategy.glide.tools.RXCustomTarget
+import com.renxing.moduleImageLoader.loaderStrategy.glide.target.RXCustomTarget
 
 /**
  *@author  :  WuJianFeng
@@ -137,10 +137,10 @@ interface ImageLoaderInterface {
      */
     fun loadImageWithRxCustomTarget(url: String, imageView: ImageView, rxCustomTarget: RXCustomTarget<Bitmap>)
 
-//    /**
-//     * @url: String
-//     */
-//    fun load9Png(url: String, imageView: ImageView)
+    /**
+     * @url: String
+     */
+    fun load9Png(url: String, imageView: ImageView)
 
     /**
      * @id: Int

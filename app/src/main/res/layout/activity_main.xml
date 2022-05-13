@@ -204,10 +204,33 @@
                 android:layout_height="?attr/actionBarSize"/>
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/test_tv"
+            android:gravity="center"
+            android:layout_margin="20dp"
+            android:text="测试内容testContent"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"/>
+        <TextView
+            android:id="@+id/test_tv_2"
+            android:gravity="center"
+            android:layout_margin="20dp"
+            android:text="测试内容testContent \n dduhfbsabfdabgui"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"/>
+        <TextView
+            android:id="@+id/test_tv_3"
+            android:gravity="center"
+            android:layout_margin="20dp"
+            android:text="测试内容testContent \n dvagsdfhsdbvscvsdf \n djhuafbknvaifudisa"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"/>
         <ImageView
             android:id="@+id/test_iv"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
+
     </LinearLayout>
 
 </ScrollView>
