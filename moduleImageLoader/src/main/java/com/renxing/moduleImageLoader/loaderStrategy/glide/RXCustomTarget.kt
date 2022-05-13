@@ -1,10 +1,9 @@
-package com.renxing.moduleImageLoader.loaderStrategy.glide.target
+package com.renxing.moduleImageLoader.loaderStrategy.glide
 
 import android.graphics.drawable.Drawable
 import com.bumptech.glide.request.Request
 import com.bumptech.glide.request.target.SizeReadyCallback
 import com.bumptech.glide.request.target.Target
-import com.bumptech.glide.request.transition.Transition
 import com.bumptech.glide.util.Util
 
 /**

@@ -6,7 +6,6 @@ import android.graphics.BitmapFactory
 import android.graphics.NinePatch
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.NinePatchDrawable
-import android.view.View
 import android.widget.ImageView
 import androidx.vectordrawable.graphics.drawable.Animatable2Compat
 import com.bumptech.glide.Glide
@@ -18,13 +17,10 @@ import com.bumptech.glide.load.resource.gif.GifDrawable
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
-import com.bumptech.glide.request.transition.Transition
-import com.renxing.moduleImageLoader.imageUtils.DisplayUtils
 import com.renxing.moduleImageLoader.imageUtils.ImageLoaderUtils
 import com.renxing.moduleImageLoader.imageUtils.ModuleImageConstant
 import com.renxing.moduleImageLoader.imageUtils.NinePatchChunk
 import com.renxing.moduleImageLoader.loaderStrategy.control.ImageLoaderInterface
-import com.renxing.moduleImageLoader.loaderStrategy.glide.target.RXCustomTarget
 
 @SuppressLint("CheckResult")
 class ImageLoaderGlide : ImageLoaderInterface {
