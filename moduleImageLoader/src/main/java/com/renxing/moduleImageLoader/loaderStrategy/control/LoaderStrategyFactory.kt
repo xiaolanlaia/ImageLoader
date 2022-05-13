@@ -14,7 +14,7 @@ class LoaderStrategyFactory private constructor(){
     //策略池
     private var loaderStrategyMap = object : HashMap<StrategyTypeEnum, ImageLoaderInterface>(){
         init {
-            put(StrategyTypeEnum.GLIDE, ImageLoaderGlide)
+            put(StrategyTypeEnum.GLIDE, ImageLoaderGlide())
         }
     }
     //获取策略

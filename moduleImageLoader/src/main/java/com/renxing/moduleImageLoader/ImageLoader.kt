@@ -2,9 +2,9 @@ package com.renxing.moduleImageLoader
 
 import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import com.bumptech.glide.request.target.CustomTarget
+import com.renxing.moduleImageLoader.imageUtils.CornerType
 import com.renxing.moduleImageLoader.loaderStrategy.control.LoaderStrategyFactory
 import com.renxing.moduleImageLoader.loaderStrategy.glide.GlideRoundedCornersTransform
 
@@ -87,7 +87,7 @@ object ImageLoader : ImageLoaderInterface {
         url: String,
         imageView: ImageView,
         radius: Float,
-        cornerType: GlideRoundedCornersTransform.CornerType
+        cornerType: CornerType
     ) {
         imageLoaderStrategy.loadRoundedCornersImage(url,imageView,radius,cornerType)
     }
@@ -96,10 +96,19 @@ object ImageLoader : ImageLoaderInterface {
         bitmap: Bitmap,
         imageView: ImageView,
         radius: Float,
-        cornerType: GlideRoundedCornersTransform.CornerType
+        cornerType: CornerType
     ) {
         imageLoaderStrategy.loadRoundedCornersImage(bitmap,imageView,radius,cornerType)
     }
+
+    override fun loadCircleImageWithBorder(url: String, imageView: ImageView, borderColor : Int, borderWidth : Float) {
+        imageLoaderStrategy.loadCircleImageWithBorder(url,imageView, borderColor, borderWidth)
+    }
+
+    override fun loadCircleImageWithBorder(id: Int, imageView: ImageView, borderColor : Int, borderWidth : Float) {
+        imageLoaderStrategy.loadCircleImageWithBorder(id,imageView, borderColor, borderWidth)
+    }
+
 
     override fun loadGif(url: String, imageView: ImageView) {
         imageLoaderStrategy.loadGif(url,imageView)
@@ -117,14 +126,14 @@ object ImageLoader : ImageLoaderInterface {
         imageLoaderStrategy.loadGifWithLoop(id,imageView)
     }
 
-    override fun loadImageWithCustomTarget(context: Context, url: String, customTarget: CustomTarget<Bitmap>) {
-        imageLoaderStrategy.loadImageWithCustomTarget(context,url,customTarget)
+    override fun loadImageWithCustomTarget(context: Context, url: String, imageView: ImageView, width : Int, height : Int) {
+        imageLoaderStrategy.loadImageWithCustomTarget(context,url,imageView, width, height)
     }
 
     override fun load9Png(url: String, imageView: ImageView) {
         imageLoaderStrategy.load9Png(url,imageView)
     }
-    override fun load9Png(context: Context, id: Int, imageView: ImageView) {
-        imageLoaderStrategy.load9Png(context, id,imageView)
+    override fun load9Png(id: Int, imageView: ImageView) {
+        imageLoaderStrategy.load9Png(id,imageView)
     }
 }

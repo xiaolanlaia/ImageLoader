@@ -4,6 +4,7 @@ import android.graphics.*
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool
 import com.renxing.moduleImageLoader.BuildConfig
+import com.renxing.moduleImageLoader.imageUtils.CornerType
 import java.security.MessageDigest
 
 /**
@@ -18,22 +19,7 @@ class GlideRoundedCornersTransform
         private val ID_BYTES = ID.toByteArray(CHARSET)
     }
 
-    enum class CornerType {
-        ALL,
-        TOP_LEFT,
-        TOP_RIGHT,
-        BOTTOM_LEFT,
-        BOTTOM_RIGHT,
-        TOP,
-        BOTTOM,
-        LEFT,
-        RIGHT,
-        TOP_LEFT_BOTTOM_RIGHT,
-        TOP_RIGHT_BOTTOM_LEFT,
-        TOP_LEFT_TOP_RIGHT_BOTTOM_RIGHT,
-        TOP_RIGHT_BOTTOM_RIGHT_BOTTOM_LEFT,
-        DEFAULT
-    }
+
 
     override fun transform(pool: BitmapPool, toTransform: Bitmap, outWidth: Int, outHeight: Int): Bitmap {
         return roundCrop(pool, toTransform)!!

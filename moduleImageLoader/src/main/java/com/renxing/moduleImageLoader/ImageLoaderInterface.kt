@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import com.bumptech.glide.request.target.CustomTarget
+import com.renxing.moduleImageLoader.imageUtils.CornerType
 import com.renxing.moduleImageLoader.loaderStrategy.glide.GlideRoundedCornersTransform
 
 interface ImageLoaderInterface {
@@ -93,12 +94,23 @@ interface ImageLoaderInterface {
      * 指定圆角边的圆角图
      * @url: String
      */
-    fun loadRoundedCornersImage(url: String, imageView: ImageView, radius: Float, cornerType: GlideRoundedCornersTransform.CornerType)
+    fun loadRoundedCornersImage(url: String, imageView: ImageView, radius: Float, cornerType: CornerType)
     /**
      * 指定圆角边的圆角图
      * @bitmap: Bitmap
      */
-    fun loadRoundedCornersImage(bitmap: Bitmap, imageView: ImageView, radius: Float, cornerType: GlideRoundedCornersTransform.CornerType)
+    fun loadRoundedCornersImage(bitmap: Bitmap, imageView: ImageView, radius: Float, cornerType: CornerType)
+
+    /**
+     * 带边框图
+     * url: String
+     */
+    fun loadCircleImageWithBorder(url: String, imageView: ImageView, borderColor : Int, borderWidth : Float)
+    /**
+     * 带边框图
+     * id: Int
+     */
+    fun loadCircleImageWithBorder(id: Int, imageView: ImageView, borderColor : Int, borderWidth : Float)
 
     /**
      * @url: String
@@ -124,10 +136,16 @@ interface ImageLoaderInterface {
      * @url: String
      * @customTarget: CustomTarget<Bitmap>
      */
-    fun loadImageWithCustomTarget(context : Context, url: String, customTarget: CustomTarget<Bitmap>)
-
+    fun loadImageWithCustomTarget(context : Context, url: String, imageView: ImageView, width : Int, height : Int)
+    /**
+     * @url: String
+     */
     fun load9Png(url: String, imageView: ImageView)
-    fun load9Png(context: Context, id: Int, imageView: ImageView)
+
+    /**
+     * @id: Int
+     */
+    fun load9Png(id: Int, imageView: ImageView)
 
 
 }

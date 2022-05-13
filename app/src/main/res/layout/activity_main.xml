@@ -1,177 +1,213 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.renxing.imageloader.MainActivity">
 
     <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize">
-        <Button
-            android:id="@+id/btn_1"
-            android:text="url"
-            android:textSize="10sp"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="?attr/actionBarSize"/>
-        <Button
-            android:id="@+id/btn_2"
-            android:text="id"
-            android:textSize="10sp"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="?attr/actionBarSize"/>
-        <Button
-            android:id="@+id/btn_3"
-            android:text="url,占位符"
-            android:textSize="10sp"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="?attr/actionBarSize"/>
-        <Button
-            android:id="@+id/btn_4"
-            android:text="url FitCenter"
-            android:textSize="10sp"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="?attr/actionBarSize"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize">
-        <Button
-            android:id="@+id/btn_5"
-            android:text="id fitCenter"
-            android:textSize="10sp"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="?attr/actionBarSize"/>
-        <Button
-            android:id="@+id/btn_6"
-            android:text="url CenterCrop"
-            android:textSize="10sp"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="?attr/actionBarSize"/>
-        <Button
-            android:id="@+id/btn_7"
-            android:text="id,CenterCrop"
-            android:textSize="10sp"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="?attr/actionBarSize"/>
-        <Button
-            android:id="@+id/btn_8"
-            android:text="url CenterInside"
-            android:textSize="10sp"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="?attr/actionBarSize"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize">
-        <Button
-            android:id="@+id/loadCircleImage"
-            android:text="loadCircleImage"
-            android:textSize="10sp"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="?attr/actionBarSize"/>
-        <Button
-            android:id="@+id/loadRoundedCornersImage"
-            android:text="loadRoundedCornersImage"
-            android:textSize="10sp"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="?attr/actionBarSize"/>
-        <Button
-            android:id="@+id/loadRoundedCornersImage_2"
-            android:text="loadRoundedCornersImage"
-            android:textSize="10sp"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="?attr/actionBarSize"/>
-        <Button
-            android:id="@+id/loadRoundedCornersImage_3"
-            android:text="loadRoundedCornersImage"
-            android:textSize="10sp"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="?attr/actionBarSize"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize">
-        <Button
-            android:id="@+id/load_gif"
-            android:text="load_gif"
-            android:textSize="10sp"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="?attr/actionBarSize"/>
-        <Button
-            android:id="@+id/load_gif_id"
-            android:text="load_gif_id"
-            android:textSize="10sp"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="?attr/actionBarSize"/>
-        <Button
-            android:id="@+id/load_gif_loop"
-            android:text="load_gif_loop"
-            android:textSize="10sp"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="?attr/actionBarSize"/>
-        <Button
-            android:id="@+id/customTarget"
-            android:text="customTarget"
-            android:textSize="10sp"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="?attr/actionBarSize"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize">
-        <Button
-            android:id="@+id/png9"
-            android:text="png9"
-            android:textSize="10sp"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="?attr/actionBarSize"/>
-        <Button
-            android:id="@+id/nine_btn"
-            android:text="nine_btn"
-            android:textSize="10sp"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="?attr/actionBarSize"/>
-<!--        <Button-->
-<!--            android:id="@+id/load_gif_loop"-->
-<!--            android:text="load_gif_loop"-->
-<!--            android:textSize="10sp"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_weight="1"-->
-<!--            android:layout_height="?attr/actionBarSize"/>-->
-<!--        <Button-->
-<!--            android:id="@+id/customTarget"-->
-<!--            android:text="customTarget"-->
-<!--            android:textSize="10sp"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_weight="1"-->
-<!--            android:layout_height="?attr/actionBarSize"/>-->
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize">
+            <Button
+                android:id="@+id/btn_1"
+                android:text="url"
+                android:textSize="10sp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="?attr/actionBarSize"/>
+            <Button
+                android:id="@+id/btn_2"
+                android:text="id"
+                android:textSize="10sp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="?attr/actionBarSize"/>
+            <Button
+                android:id="@+id/btn_3"
+                android:text="url,占位符"
+                android:textSize="10sp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="?attr/actionBarSize"/>
+            <Button
+                android:id="@+id/btn_4"
+                android:text="url FitCenter"
+                android:textSize="10sp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="?attr/actionBarSize"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize">
+            <Button
+                android:id="@+id/btn_5"
+                android:text="id fitCenter"
+                android:textSize="10sp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="?attr/actionBarSize"/>
+            <Button
+                android:id="@+id/btn_6"
+                android:text="url CenterCrop"
+                android:textSize="10sp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="?attr/actionBarSize"/>
+            <Button
+                android:id="@+id/btn_7"
+                android:text="id,CenterCrop"
+                android:textSize="10sp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="?attr/actionBarSize"/>
+            <Button
+                android:id="@+id/btn_8"
+                android:text="url CenterInside"
+                android:textSize="10sp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="?attr/actionBarSize"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize">
+            <Button
+                android:id="@+id/loadCircleImage"
+                android:text="loadCircleImage"
+                android:textSize="10sp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="?attr/actionBarSize"/>
+            <Button
+                android:id="@+id/loadRoundedCornersImage"
+                android:text="loadRoundedCornersImage"
+                android:textSize="10sp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="?attr/actionBarSize"/>
+            <Button
+                android:id="@+id/loadRoundedCornersImage_2"
+                android:text="loadRoundedCornersImage"
+                android:textSize="10sp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="?attr/actionBarSize"/>
+            <Button
+                android:id="@+id/loadRoundedCornersImage_3"
+                android:text="loadRoundedCornersImage"
+                android:textSize="10sp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="?attr/actionBarSize"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize">
+            <Button
+                android:id="@+id/load_gif"
+                android:text="load_gif"
+                android:textSize="10sp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="?attr/actionBarSize"/>
+            <Button
+                android:id="@+id/load_gif_id"
+                android:text="load_gif_id"
+                android:textSize="10sp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="?attr/actionBarSize"/>
+            <Button
+                android:id="@+id/load_gif_loop"
+                android:text="load_gif_loop"
+                android:textSize="10sp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="?attr/actionBarSize"/>
+            <Button
+                android:id="@+id/customTarget"
+                android:text="customTarget"
+                android:textSize="10sp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="?attr/actionBarSize"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize">
+            <Button
+                android:id="@+id/png9"
+                android:text="png9"
+                android:textSize="10sp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="?attr/actionBarSize"/>
+            <Button
+                android:id="@+id/nine_btn"
+                android:text="nine_btn"
+                android:textSize="10sp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="?attr/actionBarSize"/>
+            <!--        <Button-->
+            <!--            android:id="@+id/load_gif_loop"-->
+            <!--            android:text="load_gif_loop"-->
+            <!--            android:textSize="10sp"-->
+            <!--            android:layout_width="0dp"-->
+            <!--            android:layout_weight="1"-->
+            <!--            android:layout_height="?attr/actionBarSize"/>-->
+            <!--        <Button-->
+            <!--            android:id="@+id/customTarget"-->
+            <!--            android:text="customTarget"-->
+            <!--            android:textSize="10sp"-->
+            <!--            android:layout_width="0dp"-->
+            <!--            android:layout_weight="1"-->
+            <!--            android:layout_height="?attr/actionBarSize"/>-->
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize">
+            <Button
+                android:id="@+id/img_border_url"
+                android:text="边框图 url"
+                android:textSize="10sp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="?attr/actionBarSize"/>
+            <Button
+                android:id="@+id/img_border_id"
+                android:text="边框图 id"
+                android:textSize="10sp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="?attr/actionBarSize"/>
+            <Button
+                android:id="@+id/img_border_url_corner"
+                android:text="圆角边框图 url"
+                android:textSize="10sp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="?attr/actionBarSize"/>
+            <Button
+                android:id="@+id/img_border_id_corner"
+                android:text="圆角边框图 id"
+                android:textSize="10sp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="?attr/actionBarSize"/>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/test_iv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/test_iv"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
-</LinearLayout>
+</ScrollView>

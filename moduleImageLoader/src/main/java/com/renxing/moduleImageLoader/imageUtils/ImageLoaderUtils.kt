@@ -13,7 +13,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import java.io.ByteArrayOutputStream
 
-object ImageLoaderUtils {
+internal object ImageLoaderUtils {
     /**
      * 制作一张画布，将四小图合成大图
      */
@@ -103,7 +103,7 @@ object ImageLoaderUtils {
         return newUrl
     }
 
-    private fun replaceHttpToHttps(url: String) : String{
+    fun replaceHttpToHttps(url: String) : String{
         var newUrl = ""
         url.run{
             //将http替换为https
@@ -129,6 +129,12 @@ object ImageLoaderUtils {
     fun loadImageUrl(url: String, imageView: ImageView, requestOptions: RequestOptions) {
         Glide.with(imageView.context)
             .load(url)
+            .apply(requestOptions)
+            .into(imageView)
+    }
+    fun loadImageId(id: Int, imageView: ImageView, requestOptions: RequestOptions) {
+        Glide.with(imageView.context)
+            .load(id)
             .apply(requestOptions)
             .into(imageView)
     }
