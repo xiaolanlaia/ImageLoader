@@ -7,6 +7,9 @@ import com.renxing.moduleImageLoader.loaderStrategy.control.ImageLoaderInterface
 import com.renxing.moduleImageLoader.loaderStrategy.control.LoaderStrategyFactory
 import com.renxing.moduleImageLoader.loaderStrategy.glide.tools.RXCustomTarget
 
+/**
+ *@author  :  WuJianFeng
+ */
 object RXImageLoader : ImageLoaderInterface {
     private var imageLoaderStrategy = LoaderStrategyFactory.instance.getLoaderStrategy()
 

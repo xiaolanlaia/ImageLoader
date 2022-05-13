@@ -5,6 +5,9 @@ import android.graphics.Rect;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
+/**
+ *@author  :  WuJianFeng
+ */
 public class NinePatchChunk {
 
 

@@ -5,6 +5,9 @@ import android.widget.ImageView
 import com.renxing.moduleImageLoader.imageUtils.ModuleImageConstant
 import com.renxing.moduleImageLoader.loaderStrategy.glide.tools.RXCustomTarget
 
+/**
+ *@author  :  WuJianFeng
+ */
 interface ImageLoaderInterface {
     /**
      * @url: String

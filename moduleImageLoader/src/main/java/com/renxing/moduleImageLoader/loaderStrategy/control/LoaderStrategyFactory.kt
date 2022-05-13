@@ -3,6 +3,9 @@ package com.renxing.moduleImageLoader.loaderStrategy.control
 import com.renxing.moduleImageLoader.loaderStrategy.glide.ImageLoaderGlide
 import java.lang.NullPointerException
 
+/**
+ *@author  :  WuJianFeng
+ */
 class LoaderStrategyFactory private constructor(){
     companion object {
         //对外提供的单例

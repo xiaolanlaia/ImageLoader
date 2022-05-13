@@ -13,7 +13,6 @@ import android.view.View
 import java.lang.Exception
 
 
-
 internal object DisplayUtils {
     /**
      * 得到该手机的drawable文件夹密码

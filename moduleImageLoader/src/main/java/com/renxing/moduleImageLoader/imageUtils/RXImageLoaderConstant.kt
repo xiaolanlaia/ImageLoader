@@ -17,6 +17,7 @@ const val URL_APPEND_HEIGHT = "/h/"
 const val interlaceStr = "/interlace/1/q/75"
 
 /**
+ *@author  :  WuJianFeng
  * 对外提供
  */
 class ModuleImageConstant {

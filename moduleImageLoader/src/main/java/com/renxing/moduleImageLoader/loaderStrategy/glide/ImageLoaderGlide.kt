@@ -25,6 +25,9 @@ import com.renxing.moduleImageLoader.loaderStrategy.glide.tools.CircleBorderTran
 import com.renxing.moduleImageLoader.loaderStrategy.glide.tools.RXCustomTarget
 import com.renxing.moduleImageLoader.loaderStrategy.glide.tools.RoundedCornersTransform
 
+/**
+ *@author  :  WuJianFeng
+ */
 @SuppressLint("CheckResult")
 class ImageLoaderGlide : ImageLoaderInterface {
     override fun loadImage(url: String, imageView: ImageView) {
