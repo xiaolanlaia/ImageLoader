@@ -1,4 +1,4 @@
-package com.renxing.RXImageLoader
+package com.renxing.imageloader
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -9,9 +9,11 @@ import android.os.Bundle
 import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.request.transition.Transition
 import com.example.imageloader.R
 import com.renxing.moduleImageLoader.RXImageLoader
 import com.renxing.moduleImageLoader.imageUtils.ModuleImageConstant
+import com.renxing.moduleImageLoader.loaderStrategy.glide.target.RXCustomTarget
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(),View.OnClickListener {
@@ -116,7 +118,27 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
 
 
 
-                RXImageLoader.loadImageCustomTargetForBitmap(url,test_iv,500,500)
+                RXImageLoader.loadImageWithRxCustomTarget(url,test_iv,object : RXCustomTarget<Bitmap>(){
+                    override fun onResourceReady(
+                        resource: Bitmap,
+                        transition: Transition<in Bitmap>?
+                    ) {
+
+
+                        val scale: Float = resource.height.toFloat() / 300
+                        val params = test_iv.layoutParams
+                        params.height = 300
+                        params.width = (resource.width / scale).toInt()
+                        test_iv.layoutParams = params
+
+                        test_iv.setImageBitmap(resource)
+                        test_iv.visibility = View.VISIBLE
+                    }
+
+                    override fun onLoadCleared(placeholder: Drawable?) {
+                    }
+
+                })
 
             }
             R.id.png9 -> {
@@ -128,7 +150,6 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
 //                LoadDian9TuUtil.setNinePathImage(this,test_iv,res_bmp)
 //                LoadDian9TuUtil.loadDian9Tu(this,test_iv,url)
 //                RXImageLoader.load9Png(this,R.mipmap.charff,test_iv)
-                RXImageLoader.loadImageCustomTargetForBitmap(url,test_iv, 300, 300)
 
             }
 

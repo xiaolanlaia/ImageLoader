@@ -5,6 +5,7 @@ import android.widget.ImageView
 import com.renxing.moduleImageLoader.imageUtils.ModuleImageConstant
 import com.renxing.moduleImageLoader.loaderStrategy.control.ImageLoaderInterface
 import com.renxing.moduleImageLoader.loaderStrategy.control.LoaderStrategyFactory
+import com.renxing.moduleImageLoader.loaderStrategy.glide.target.RXCustomTarget
 
 object RXImageLoader : ImageLoaderInterface {
     private var imageLoaderStrategy = LoaderStrategyFactory.instance.getLoaderStrategy()
@@ -105,8 +106,8 @@ object RXImageLoader : ImageLoaderInterface {
         imageLoaderStrategy.loadGif(id,imageView)
     }
 
-    override fun loadImageCustomTargetForBitmap(url: String, imageView: ImageView, width : Int, height : Int) {
-        imageLoaderStrategy.loadImageCustomTargetForBitmap(url,imageView,width,height)
+    override fun loadImageWithRxCustomTarget(url: String, imageView: ImageView,rxCustomTarget: RXCustomTarget<Bitmap>) {
+        imageLoaderStrategy.loadImageWithRxCustomTarget(url,imageView,rxCustomTarget)
     }
 
 //    override fun load9Png(url: String, imageView: ImageView) {

@@ -17,7 +17,6 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.gif.GifDrawable
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
-import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
 import com.renxing.moduleImageLoader.imageUtils.DisplayUtils
@@ -25,6 +24,7 @@ import com.renxing.moduleImageLoader.imageUtils.ImageLoaderUtils
 import com.renxing.moduleImageLoader.imageUtils.ModuleImageConstant
 import com.renxing.moduleImageLoader.imageUtils.NinePatchChunk
 import com.renxing.moduleImageLoader.loaderStrategy.control.ImageLoaderInterface
+import com.renxing.moduleImageLoader.loaderStrategy.glide.target.RXCustomTarget
 
 @SuppressLint("CheckResult")
 class ImageLoaderGlide : ImageLoaderInterface {
@@ -209,28 +209,12 @@ class ImageLoaderGlide : ImageLoaderInterface {
             }).into(imageView)
     }
 
-    override fun loadImageCustomTargetForBitmap(url: String, imageView: ImageView, width : Int, height : Int) {
-
+    override fun loadImageWithRxCustomTarget(url: String, imageView: ImageView, rxCustomTarget: RXCustomTarget<Bitmap>) {
         Glide.with(imageView.context)
             .asBitmap()
             .load(url)
-            .into<CustomTarget<Bitmap>>(object : CustomTarget<Bitmap>() {
-                override fun onResourceReady(
-                    resource: Bitmap,
-                    transition: Transition<in Bitmap>?
-                ){
+            .into(rxCustomTarget)
 
-                    val params = imageView.layoutParams
-                    params.height = DisplayUtils.dp2px(height.toFloat())
-                    params.width = DisplayUtils.dp2px(width.toFloat())
-                    imageView.layoutParams = params
-                    imageView.setImageBitmap(resource)
-                    imageView.visibility = View.VISIBLE
-                }
-
-                override fun onLoadCleared(placeholder: Drawable?) {}
-
-            })
     }
 
     //@hide
