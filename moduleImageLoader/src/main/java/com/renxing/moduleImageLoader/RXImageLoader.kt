@@ -13,12 +13,6 @@ import com.renxing.moduleImageLoader.loaderStrategy.glide.tools.RXCustomTarget
 object RXImageLoader : ImageLoaderInterface {
     private var imageLoaderStrategy = LoaderStrategyFactory.instance.getLoaderStrategy()
 
-    /**
-     * 用来改变图片加载框架策略
-     */
-    fun changeLoaderStrategy(strategyTypeEnum: LoaderStrategyFactory.StrategyTypeEnum){
-        imageLoaderStrategy = LoaderStrategyFactory.instance.getLoaderStrategy(strategyTypeEnum)
-    }
 
     override fun loadImage(url: String, imageView: ImageView) {
     imageLoaderStrategy.loadImage(url,imageView)
