@@ -21,17 +21,18 @@ class LoaderStrategyFactory private constructor(){
             put(StrategyTypeEnum.GLIDE, ImageLoaderGlide())
         }
     }
+    //获取默认策略
+    fun getLoaderStrategy() : ImageLoaderInterface {
+        if (loaderStrategyMap[StrategyTypeEnum.GLIDE] == null){
+            throw NullPointerException("Glide Strategy is Empty")
+        }
+        return loaderStrategyMap[StrategyTypeEnum.GLIDE]!!
+    }
     //获取策略
-    fun getLoaderStrategy(vararg strategyTypeEnum: StrategyTypeEnum) : ImageLoaderInterface {
-        if (strategyTypeEnum.isEmpty()){
-            if (loaderStrategyMap[StrategyTypeEnum.GLIDE] == null){
-                throw NullPointerException("Glide Strategy is Empty")
-            }
-            return loaderStrategyMap[StrategyTypeEnum.GLIDE]!!
+    fun getLoaderStrategy(strategyTypeEnum: StrategyTypeEnum) : ImageLoaderInterface {
+        if (loaderStrategyMap[strategyTypeEnum] == null){
+            throw NullPointerException("Strategy is Empty")
         }
-        if (strategyTypeEnum.size > 1){
-            throw IllegalArgumentException("strategyTypeEnum argument error")
-        }
-        return loaderStrategyMap[strategyTypeEnum[0]]!!
+        return loaderStrategyMap[strategyTypeEnum]!!
     }
 }

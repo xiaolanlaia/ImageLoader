@@ -101,11 +101,19 @@ object RXImageLoader : ImageLoaderInterface {
         imageLoaderStrategy.loadCircleImageWithBorder(id,imageView, borderColor, borderWidth)
     }
 
-    override fun loadGif(url: String, imageView: ImageView, vararg playTimes : Int) {
+    override fun loadGif(url: String, imageView: ImageView, playTimes : Int) {
+        imageLoaderStrategy.loadGif(url,imageView,playTimes)
+    }
+
+    override fun loadGif(id: Int, imageView: ImageView, playTimes : Int) {
+        imageLoaderStrategy.loadGif(id,imageView)
+    }
+
+    override fun loadGif(url: String, imageView: ImageView) {
         imageLoaderStrategy.loadGif(url,imageView)
     }
 
-    override fun loadGif(id: Int, imageView: ImageView, vararg playTimes : Int) {
+    override fun loadGif(id: Int, imageView: ImageView) {
         imageLoaderStrategy.loadGif(id,imageView)
     }
 

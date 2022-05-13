@@ -17,11 +17,11 @@ import com.bumptech.glide.load.resource.gif.GifDrawable
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
+import com.renxing.moduleImageLoader.imageUtils.*
 import com.renxing.moduleImageLoader.imageUtils.ImageLoaderUtils
-import com.renxing.moduleImageLoader.imageUtils.ModuleImageConstant
-import com.renxing.moduleImageLoader.loaderStrategy.glide.tools.NinePatchChunk
 import com.renxing.moduleImageLoader.loaderStrategy.control.ImageLoaderInterface
 import com.renxing.moduleImageLoader.loaderStrategy.glide.tools.CircleBorderTransformation
+import com.renxing.moduleImageLoader.loaderStrategy.glide.tools.NinePatchChunk
 import com.renxing.moduleImageLoader.loaderStrategy.glide.tools.RXCustomTarget
 import com.renxing.moduleImageLoader.loaderStrategy.glide.tools.RoundedCornersTransform
 
@@ -29,9 +29,9 @@ import com.renxing.moduleImageLoader.loaderStrategy.glide.tools.RoundedCornersTr
  *@author  :  WuJianFeng
  */
 @SuppressLint("CheckResult")
-class ImageLoaderGlide : ImageLoaderInterface {
+internal class ImageLoaderGlide : ImageLoaderInterface {
     override fun loadImage(url: String, imageView: ImageView) {
-        glideLoadUrl(ImageLoaderUtils.replaceHttpToHttps(url),imageView)
+        glideLoadUrl(url,imageView)
     }
 
     override fun loadImage(id: Int, imageView: ImageView) {
@@ -39,7 +39,7 @@ class ImageLoaderGlide : ImageLoaderInterface {
     }
 
     override fun loadImage(url: String, imageView: ImageView, defaultIv: Int) {
-        glideLoadUrl(ImageLoaderUtils.replaceHttpToHttps(url), imageView,
+        glideLoadUrl(url, imageView,
             RequestOptions()
                 .placeholder(defaultIv)
                 .error(defaultIv))
@@ -47,11 +47,11 @@ class ImageLoaderGlide : ImageLoaderInterface {
     }
 
     override fun loadImage(url: String, imageView: ImageView, width: Int, height: Int) {
-        glideLoadUrl(ImageLoaderUtils.appendUrl(ImageLoaderUtils.replaceHttpToHttps(url), width, height, false),imageView)
+        glideLoadUrl(ImageLoaderUtils.appendUrl(url, width, height, false),imageView)
     }
 
     override fun loadImage(url: String, imageView: ImageView, defaultIv: Int, width: Int, height: Int) {
-        glideLoadUrl(ImageLoaderUtils.replaceHttpToHttps(url), imageView,
+        glideLoadUrl(url, imageView,
             RequestOptions()
                 .placeholder(defaultIv)
                 .error(defaultIv))
@@ -59,7 +59,7 @@ class ImageLoaderGlide : ImageLoaderInterface {
     }
 
     override fun loadImageWithFitCenter(url: String, imageView: ImageView) {
-        glideLoadUrl(ImageLoaderUtils.replaceHttpToHttps(url), imageView, RequestOptions().fitCenter())
+        glideLoadUrl(url, imageView, RequestOptions().fitCenter())
 
     }
 
@@ -69,7 +69,7 @@ class ImageLoaderGlide : ImageLoaderInterface {
     }
 
     override fun loadImageWithCenterCrop(url: String, imageView: ImageView) {
-        glideLoadUrl(ImageLoaderUtils.replaceHttpToHttps(url), imageView, RequestOptions().centerCrop())
+        glideLoadUrl(url, imageView, RequestOptions().centerCrop())
 
     }
 
@@ -79,7 +79,7 @@ class ImageLoaderGlide : ImageLoaderInterface {
     }
 
     override fun loadImageWithCenterInside(url: String, imageView: ImageView) {
-        glideLoadUrl(ImageLoaderUtils.replaceHttpToHttps(url), imageView, RequestOptions().centerInside())
+        glideLoadUrl(url, imageView, RequestOptions().centerInside())
 
     }
 
@@ -91,7 +91,7 @@ class ImageLoaderGlide : ImageLoaderInterface {
     override fun loadImageWithSkipCache(url: String, imageView: ImageView) {
 
 
-        glideLoadUrl(ImageLoaderUtils.replaceHttpToHttps(url), imageView,
+        glideLoadUrl(url, imageView,
             RequestOptions()
             .skipMemoryCache(true)
             .diskCacheStrategy(DiskCacheStrategy.NONE))
@@ -101,7 +101,7 @@ class ImageLoaderGlide : ImageLoaderInterface {
     override fun loadImageWithSkipCache(url: String, imageView: ImageView, width: Int, height: Int) {
 
 
-        glideLoadUrl(ImageLoaderUtils.appendUrl(ImageLoaderUtils.replaceHttpToHttps(url),width,height,false),
+        glideLoadUrl(ImageLoaderUtils.appendUrl(url,width,height,false),
             imageView,
             RequestOptions()
                 .skipMemoryCache(true)
@@ -109,16 +109,16 @@ class ImageLoaderGlide : ImageLoaderInterface {
     }
 
     override fun loadCircleImage(url: String, imageView: ImageView) {
-        glideLoadUrl(ImageLoaderUtils.replaceHttpToHttps(url), imageView, RequestOptions().circleCrop())
+        glideLoadUrl(url, imageView, RequestOptions().circleCrop())
     }
 
     override fun loadRoundedCornersImage(url: String, imageView: ImageView, radius: Float) {
-        glideLoadUrl(ImageLoaderUtils.replaceHttpToHttps(url), imageView, RequestOptions().transform(RoundedCorners((ImageLoaderUtils.dp2px(radius) + 0.5f).toInt())))
+        glideLoadUrl(url, imageView, RequestOptions().transform(RoundedCorners((ImageLoaderUtils.dp2px(radius) + 0.5f).toInt())))
     }
 
     override fun loadRoundedCornersImage(url: String, imageView: ImageView, radius: Float, cornerType: ModuleImageConstant.CornerType) {
 
-        glideLoadUrl(ImageLoaderUtils.replaceHttpToHttps(url), imageView,
+        glideLoadUrl(url, imageView,
             RequestOptions().optionalTransform(RoundedCornersTransform(ImageLoaderUtils.dp2px(radius) + 0.5f, cornerType)))
     }
 
@@ -133,7 +133,7 @@ class ImageLoaderGlide : ImageLoaderInterface {
         borderColor: Int,
         borderWidth: Float
     ) {
-        glideLoadUrl(ImageLoaderUtils.replaceHttpToHttps(url), imageView,
+        glideLoadUrl(url, imageView,
             RequestOptions().optionalTransform(CircleBorderTransformation(borderWidth,borderColor)))
     }
 
@@ -147,75 +147,23 @@ class ImageLoaderGlide : ImageLoaderInterface {
             RequestOptions().optionalTransform(CircleBorderTransformation(borderWidth,borderColor)))
     }
 
-    override fun loadGif(url: String, imageView: ImageView, vararg playTimes : Int) {
-        Glide.with(imageView.context)
-            .asGif()
-            .load(ImageLoaderUtils.replaceHttpToHttps(url))
-            .listener(object : RequestListener<GifDrawable> {
-
-                override fun onResourceReady(resource: GifDrawable, model: Any, target: Target<GifDrawable>, dataSource: DataSource, isFirstResource: Boolean): Boolean {
-                    resource.setLoopCount(if(playTimes.isNotEmpty()) playTimes[0] else GifDrawable.LOOP_FOREVER) //只播放一次
-                    resource.registerAnimationCallback(object : Animatable2Compat.AnimationCallback() {
-                        override fun onAnimationStart(drawable: Drawable) {
-                            super.onAnimationStart(drawable)
-                            resource.start()
-                        }
-
-                        override fun onAnimationEnd(drawable: Drawable) {
-                            super.onAnimationEnd(drawable)
-                        }
-                    })
-                    return false
-                }
-
-                override fun onLoadFailed(
-                    e: GlideException?,
-                    model: Any?,
-                    target: Target<GifDrawable>?,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    return false
-                }
-            }).into(imageView)
+    override fun loadGif(url: String, imageView: ImageView, playTimes : Int) {
+        glideLoadGifUrl(url, imageView, playTimes)
     }
 
-    override fun loadGif(id: Int, imageView: ImageView, vararg playTimes : Int) {
-        Glide.with(imageView.context)
-            .asGif()
-            .load(id)
-            .listener(object : RequestListener<GifDrawable> {
+    override fun loadGif(url: String, imageView: ImageView) {
+        glideLoadGifUrl(url, imageView, GifDrawable.LOOP_FOREVER)
+    }
 
-                override fun onResourceReady(resource: GifDrawable, model: Any, target: Target<GifDrawable>, dataSource: DataSource, isFirstResource: Boolean): Boolean {
-                    resource.setLoopCount(if(playTimes.isNotEmpty()) playTimes[0] else GifDrawable.LOOP_FOREVER) //只播放一次
-                    resource.registerAnimationCallback(object : Animatable2Compat.AnimationCallback() {
-                        override fun onAnimationStart(drawable: Drawable) {
-                            super.onAnimationStart(drawable)
-                            resource.start()
-                        }
-
-                        override fun onAnimationEnd(drawable: Drawable) {
-                            super.onAnimationEnd(drawable)
-                        }
-                    })
-                    return false
-                }
-
-                override fun onLoadFailed(
-                    e: GlideException?,
-                    model: Any?,
-                    target: Target<GifDrawable>?,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    return false
-                }
-            }).into(imageView)
+    override fun loadGif(id: Int, imageView: ImageView, playTimes : Int) {
+        glideLoadGifId(id, imageView, playTimes)
+    }
+    override fun loadGif(id: Int, imageView: ImageView) {
+        glideLoadGifId(id, imageView, GifDrawable.LOOP_FOREVER)
     }
 
     override fun loadImageWithRxCustomTarget(url: String, imageView: ImageView, rxCustomTarget: RXCustomTarget<Bitmap>) {
-        Glide.with(imageView.context)
-            .asBitmap()
-            .load(url)
-            .into(rxCustomTarget)
+        glideRxCustomTarget(url,imageView,rxCustomTarget)
 
     }
 
@@ -234,7 +182,7 @@ class ImageLoaderGlide : ImageLoaderInterface {
 
         val chunk: ByteArray = bitmap.ninePatchChunk
         if (NinePatch.isNinePatchChunk(chunk)) {
-            val patchy : NinePatchDrawable = NinePatchDrawable(
+            val patchy = NinePatchDrawable(
                 imageView.context.resources,
                 bitmap,
                 chunk,
@@ -246,6 +194,9 @@ class ImageLoaderGlide : ImageLoaderInterface {
     }
 
 
+    /**
+     * Glide加载图片的最终方法
+     */
 
     private fun glideLoadBytes(bytes: ByteArray, imageView: ImageView, requestOptions: RequestOptions) {
         Glide
@@ -261,9 +212,16 @@ class ImageLoaderGlide : ImageLoaderInterface {
             .into(imageView)
     }
 
+    private fun glideRxCustomTarget(url: String, imageView: ImageView, rxCustomTarget: RXCustomTarget<Bitmap>){
+        Glide.with(imageView.context)
+            .asBitmap()
+            .load(ImageLoaderUtils.replaceHttpToHttps(url))
+            .into(rxCustomTarget)
+    }
+
     private fun glideLoadUrl(url: String, imageView: ImageView) {
         Glide.with(imageView.context)
-            .load(url)
+            .load(ImageLoaderUtils.replaceHttpToHttps(url))
             .into(imageView)
     }
 
@@ -274,7 +232,7 @@ class ImageLoaderGlide : ImageLoaderInterface {
     }
     private fun glideLoadUrl(url: String, imageView: ImageView, requestOptions: RequestOptions) {
         Glide.with(imageView.context)
-            .load(url)
+            .load(ImageLoaderUtils.replaceHttpToHttps(url))
             .apply(requestOptions)
             .into(imageView)
     }
@@ -284,5 +242,83 @@ class ImageLoaderGlide : ImageLoaderInterface {
             .apply(requestOptions)
             .into(imageView)
     }
+    private fun glideLoadGifUrl(url: String, imageView: ImageView, playTimes: Int) {
+        Glide.with(imageView.context)
+            .asGif()
+            .load(ImageLoaderUtils.replaceHttpToHttps(url))
+            .listener(object : RequestListener<GifDrawable> {
+
+                override fun onResourceReady(
+                    resource: GifDrawable,
+                    model: Any,
+                    target: Target<GifDrawable>,
+                    dataSource: DataSource,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    resource.setLoopCount(playTimes) //只播放一次
+                    resource.registerAnimationCallback(object :
+                        Animatable2Compat.AnimationCallback() {
+                        override fun onAnimationStart(drawable: Drawable) {
+                            super.onAnimationStart(drawable)
+                            resource.start()
+                        }
+
+                        override fun onAnimationEnd(drawable: Drawable) {
+                            super.onAnimationEnd(drawable)
+                        }
+                    })
+                    return false
+                }
+
+                override fun onLoadFailed(
+                    e: GlideException?,
+                    model: Any?,
+                    target: Target<GifDrawable>?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    return false
+                }
+            }).into(imageView)
+    }
+
+    private fun glideLoadGifId(id: Int, imageView: ImageView, playTimes: Int) {
+        Glide.with(imageView.context)
+            .asGif()
+            .load(id)
+            .listener(object : RequestListener<GifDrawable> {
+
+                override fun onResourceReady(
+                    resource: GifDrawable,
+                    model: Any,
+                    target: Target<GifDrawable>,
+                    dataSource: DataSource,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    resource.setLoopCount(playTimes) //只播放一次
+                    resource.registerAnimationCallback(object :
+                        Animatable2Compat.AnimationCallback() {
+                        override fun onAnimationStart(drawable: Drawable) {
+                            super.onAnimationStart(drawable)
+                            resource.start()
+                        }
+
+                        override fun onAnimationEnd(drawable: Drawable) {
+                            super.onAnimationEnd(drawable)
+                        }
+                    })
+                    return false
+                }
+
+                override fun onLoadFailed(
+                    e: GlideException?,
+                    model: Any?,
+                    target: Target<GifDrawable>?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    return false
+                }
+            }).into(imageView)
+    }
+
 
 }

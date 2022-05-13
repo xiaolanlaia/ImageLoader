@@ -115,12 +115,22 @@ interface ImageLoaderInterface {
     /**
      * @url: String
      */
-    fun loadGif(url: String, imageView: ImageView, vararg playTimes : Int)
+    fun loadGif(url: String, imageView: ImageView)
+
+    /**
+     * @url: String
+     */
+    fun loadGif(url: String, imageView: ImageView, playTimes : Int)
 
     /**
      * @id: Int
      */
-    fun loadGif(id: Int, imageView: ImageView, vararg playTimes : Int)
+    fun loadGif(id: Int, imageView: ImageView)
+
+    /**
+     * @id: Int
+     */
+    fun loadGif(id: Int, imageView: ImageView, playTimes : Int)
 
     /**
      * @url: String
