@@ -19,8 +19,11 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.renxing.moduleImageLoader.imageUtils.ImageLoaderUtils
 import com.renxing.moduleImageLoader.imageUtils.ModuleImageConstant
-import com.renxing.moduleImageLoader.imageUtils.NinePatchChunk
+import com.renxing.moduleImageLoader.loaderStrategy.glide.tools.NinePatchChunk
 import com.renxing.moduleImageLoader.loaderStrategy.control.ImageLoaderInterface
+import com.renxing.moduleImageLoader.loaderStrategy.glide.tools.CircleBorderTransformation
+import com.renxing.moduleImageLoader.loaderStrategy.glide.tools.RXCustomTarget
+import com.renxing.moduleImageLoader.loaderStrategy.glide.tools.RoundedCornersTransform
 
 @SuppressLint("CheckResult")
 class ImageLoaderGlide : ImageLoaderInterface {

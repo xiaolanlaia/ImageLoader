@@ -13,7 +13,7 @@ import com.bumptech.glide.request.transition.Transition
 import com.example.imageloader.R
 import com.renxing.moduleImageLoader.RXImageLoader
 import com.renxing.moduleImageLoader.imageUtils.ModuleImageConstant
-import com.renxing.moduleImageLoader.loaderStrategy.glide.RXCustomTarget
+import com.renxing.moduleImageLoader.loaderStrategy.glide.tools.RXCustomTarget
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(),View.OnClickListener {

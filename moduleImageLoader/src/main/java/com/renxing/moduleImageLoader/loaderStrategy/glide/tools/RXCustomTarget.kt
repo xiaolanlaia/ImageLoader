@@ -1,4 +1,4 @@
-package com.renxing.moduleImageLoader.loaderStrategy.glide
+package com.renxing.moduleImageLoader.loaderStrategy.glide.tools
 
 import android.graphics.drawable.Drawable
 import com.bumptech.glide.request.Request

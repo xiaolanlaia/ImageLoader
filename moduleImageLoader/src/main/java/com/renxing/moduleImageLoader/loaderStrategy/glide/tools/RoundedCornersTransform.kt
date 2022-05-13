@@ -1,4 +1,4 @@
-package com.renxing.moduleImageLoader.loaderStrategy.glide
+package com.renxing.moduleImageLoader.loaderStrategy.glide.tools
 
 import android.graphics.*
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation

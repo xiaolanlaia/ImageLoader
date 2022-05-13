@@ -5,7 +5,7 @@ import android.widget.ImageView
 import com.renxing.moduleImageLoader.imageUtils.ModuleImageConstant
 import com.renxing.moduleImageLoader.loaderStrategy.control.ImageLoaderInterface
 import com.renxing.moduleImageLoader.loaderStrategy.control.LoaderStrategyFactory
-import com.renxing.moduleImageLoader.loaderStrategy.glide.RXCustomTarget
+import com.renxing.moduleImageLoader.loaderStrategy.glide.tools.RXCustomTarget
 
 object RXImageLoader : ImageLoaderInterface {
     private var imageLoaderStrategy = LoaderStrategyFactory.instance.getLoaderStrategy()
