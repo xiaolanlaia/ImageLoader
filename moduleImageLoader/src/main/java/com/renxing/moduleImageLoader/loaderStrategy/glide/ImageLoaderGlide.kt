@@ -51,12 +51,10 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
     }
 
     override fun loadImage(url: String, imageView: ImageView, width: Int, height: Int) {
-
-        ImageLoaderUtils.loadImageUrl(ImageLoaderUtils.appendUrl(ImageLoaderUtils.replaceHttpToHttps(url), width, height, false), imageView, requestOptions)
+        Glide.with(imageView.context).load(ImageLoaderUtils.appendUrl(ImageLoaderUtils.replaceHttpToHttps(url), width, height, false)).into(imageView)
     }
 
     override fun loadImage(url: String, imageView: ImageView, defaultIv: Int, width: Int, height: Int) {
-
 
         ImageLoaderUtils.loadImageUrl(ImageLoaderUtils.replaceHttpToHttps(url), imageView,
             RequestOptions()
