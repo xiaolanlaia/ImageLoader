@@ -18,7 +18,7 @@ class CircleBorderTransformation(borderWidth: Float, @ColorInt borderColor: Int)
     override fun transform(
         pool: BitmapPool, toTransform: Bitmap, outWidth: Int, outHeight: Int
     ): Bitmap {
-        return GlideTransformationUtils.circleCrop(
+        return TransformationUtils.circleCrop(
             pool,
             toTransform,
             outWidth,

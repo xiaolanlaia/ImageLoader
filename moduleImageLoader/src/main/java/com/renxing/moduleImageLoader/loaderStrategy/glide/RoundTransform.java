@@ -13,9 +13,8 @@ import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 
 import java.security.MessageDigest;
 
-/**
- */
-public class GlideRoundTransform extends BitmapTransformation {
+
+public class RoundTransform extends BitmapTransformation {
 
 
     private static float radius = 0f;
@@ -24,11 +23,11 @@ public class GlideRoundTransform extends BitmapTransformation {
     private boolean isLeftBottom = true;
     private boolean isRightBottom = true;
 
-    public GlideRoundTransform() {
+    public RoundTransform() {
         this(4);
     }
 
-    public GlideRoundTransform(float dp) {
+    public RoundTransform(float dp) {
         super();
         this.radius = Resources.getSystem().getDisplayMetrics().density * dp;
     }

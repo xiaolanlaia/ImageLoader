@@ -1,4 +1,4 @@
-package com.renxing.imageloader
+package com.renxing.RXImageLoader
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -10,8 +10,8 @@ import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.example.imageloader.R
-import com.renxing.moduleImageLoader.ImageLoader
-import com.renxing.moduleImageLoader.imageUtils.CornerType
+import com.renxing.moduleImageLoader.RXImageLoader
+import com.renxing.moduleImageLoader.imageUtils.ModuleImageConstant
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(),View.OnClickListener {
@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
     val url = "https://t7.baidu.com/it/u=1595072465,3644073269&fm=193&f=GIF"
     val urlGif = "https://tse1-mm.cn.bing.net/th/id/R-C.9d17d28183f39907a04ec2a54e3f8dd3?rik=wJ4gqd49C1SP8A&riu=http%3a%2f%2fwww.qqpao.com%2fuploads%2fallimg%2f181116%2f10-1Q116102132.gif&ehk=F5wDRW473O%2bVTC2s3AbfGzPwbvkUFfa390Elf9t4XQI%3d&risl=&pid=ImgRaw&r=0"
 
-//    val url = "https://github.com/xiaolanlaia/ImageLoader/blob/main/app/src/main/res/mipmap-xxhdpi/charff.9.png"
+//    val url = "https://github.com/xiaolanlaia/RXImageLoader/blob/main/app/src/main/res/mipmap-xxhdpi/charff.9.png"
     val imgId = R.mipmap.charff
     val placeHoldId = R.mipmap.ic_launcher
     @RequiresApi(Build.VERSION_CODES.O)
@@ -54,61 +54,61 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
 
         when (v.id) {
             R.id.btn_1 -> {
-                ImageLoader.loadImage("url",test_iv,R.mipmap.default_photo)
+                RXImageLoader.loadImage("url",test_iv,R.mipmap.default_photo)
             }
             R.id.btn_2 -> {
-                ImageLoader.loadImage("imgId",test_iv)
+                RXImageLoader.loadImage("imgId",test_iv)
 
             }
             R.id.btn_3 -> {
-                ImageLoader.loadImage(url,test_iv,placeHoldId)
+                RXImageLoader.loadImage(url,test_iv,placeHoldId)
 
             }
             R.id.btn_4 -> {
-                ImageLoader.loadImageWithFitCenter(imgId,test_iv)
+                RXImageLoader.loadImageWithFitCenter(imgId,test_iv)
 
             }
             R.id.btn_5 -> {
-                ImageLoader.loadImageWithFitCenter(url,test_iv)
+                RXImageLoader.loadImageWithFitCenter(url,test_iv)
             }
             R.id.btn_6 -> {
-                ImageLoader.loadImageWithCenterCrop(url,test_iv)
+                RXImageLoader.loadImageWithCenterCrop(url,test_iv)
 
             }
             R.id.btn_7 -> {
-                ImageLoader.loadImageWithCenterCrop(imgId,test_iv)
+                RXImageLoader.loadImageWithCenterCrop(imgId,test_iv)
 
             }
             R.id.btn_8 -> {
-                ImageLoader.loadImageWithCenterInside(url,test_iv)
+                RXImageLoader.loadImageWithCenterInside(url,test_iv)
 
             }
             R.id.loadCircleImage -> {
-                ImageLoader.loadCircleImage(url,test_iv)
+                RXImageLoader.loadCircleImage(url,test_iv)
 
             }
             R.id.loadRoundedCornersImage -> {
-                ImageLoader.loadRoundedCornersImage(url,test_iv,20f)
+                RXImageLoader.loadRoundedCornersImage(url,test_iv,20f)
 
             }
             R.id.loadRoundedCornersImage_2 -> {
-                ImageLoader.loadRoundedCornersImage(url,test_iv,20f, CornerType.BOTTOM)
+                RXImageLoader.loadRoundedCornersImage(url,test_iv,20f, ModuleImageConstant.CornerType.BOTTOM)
 
             }
 //            R.id.loadRoundedCornersImage_3 -> {
-//                ImageLoader.loadRoundedCornersImage(url,test_iv,20f, CornerType.ALL)
+//                RXImageLoader.loadRoundedCornersImage(url,test_iv,20f, CornerType.ALL)
 //
 //            }
             R.id.load_gif -> {
-                ImageLoader.loadGif(urlGif,test_iv)
+                RXImageLoader.loadGif(urlGif,test_iv)
 
             }
             R.id.load_gif_id -> {
-                ImageLoader.loadGif(R.mipmap.cat,test_iv)
+                RXImageLoader.loadGif(R.mipmap.cat,test_iv)
 
             }
             R.id.load_gif_loop -> {
-                ImageLoader.loadGifWithLoop(urlGif,test_iv)
+                RXImageLoader.loadGif(urlGif,test_iv)
 
             }
 
@@ -116,7 +116,7 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
 
 
 
-                ImageLoader.loadImageWithCustomTarget(this,url,test_iv,500,500)
+                RXImageLoader.loadImageCustomTargetForBitmap(url,test_iv,500,500)
 
             }
             R.id.png9 -> {
@@ -127,16 +127,16 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
 
 //                LoadDian9TuUtil.setNinePathImage(this,test_iv,res_bmp)
 //                LoadDian9TuUtil.loadDian9Tu(this,test_iv,url)
-//                ImageLoader.load9Png(this,R.mipmap.charff,test_iv)
-                ImageLoader.loadImageWithCustomTarget(this,url,test_iv, 300, 300)
+//                RXImageLoader.load9Png(this,R.mipmap.charff,test_iv)
+                RXImageLoader.loadImageCustomTargetForBitmap(url,test_iv, 300, 300)
 
             }
 
             R.id.img_border_url ->{
-                ImageLoader.loadCircleImageWithBorder(url,test_iv,resources.getColor(R.color.black),2f)
+                RXImageLoader.loadCircleImageWithBorder(url,test_iv,resources.getColor(R.color.black),2f)
             }
             R.id.img_border_id ->{
-                ImageLoader.loadCircleImageWithBorder(R.mipmap.img4,test_iv,resources.getColor(R.color.black),2f)
+                RXImageLoader.loadCircleImageWithBorder(R.mipmap.img4,test_iv,resources.getColor(R.color.black),2f)
 
             }
             R.id.img_border_url_corner ->{

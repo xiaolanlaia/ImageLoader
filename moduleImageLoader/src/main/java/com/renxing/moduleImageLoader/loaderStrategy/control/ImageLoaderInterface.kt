@@ -1,12 +1,8 @@
-package com.renxing.moduleImageLoader
+package com.renxing.moduleImageLoader.loaderStrategy.control
 
-import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
 import android.widget.ImageView
-import com.bumptech.glide.request.target.CustomTarget
-import com.renxing.moduleImageLoader.imageUtils.CornerType
-import com.renxing.moduleImageLoader.loaderStrategy.glide.GlideRoundedCornersTransform
+import com.renxing.moduleImageLoader.imageUtils.ModuleImageConstant
 
 interface ImageLoaderInterface {
     /**
@@ -94,12 +90,12 @@ interface ImageLoaderInterface {
      * 指定圆角边的圆角图
      * @url: String
      */
-    fun loadRoundedCornersImage(url: String, imageView: ImageView, radius: Float, cornerType: CornerType)
+    fun loadRoundedCornersImage(url: String, imageView: ImageView, radius: Float, cornerType: ModuleImageConstant.CornerType)
     /**
      * 指定圆角边的圆角图
      * @bitmap: Bitmap
      */
-    fun loadRoundedCornersImage(bitmap: Bitmap, imageView: ImageView, radius: Float, cornerType: CornerType)
+    fun loadRoundedCornersImage(bitmap: Bitmap, imageView: ImageView, radius: Float, cornerType: ModuleImageConstant.CornerType)
 
     /**
      * 带边框图
@@ -115,32 +111,22 @@ interface ImageLoaderInterface {
     /**
      * @url: String
      */
-    fun loadGif(url: String, imageView: ImageView)
+    fun loadGif(url: String, imageView: ImageView, vararg playTimes : Int)
 
     /**
      * @id: Int
      */
-    fun loadGif(id: Int, imageView: ImageView)
+    fun loadGif(id: Int, imageView: ImageView, vararg playTimes : Int)
 
     /**
      * @url: String
      */
-    fun loadGifWithLoop(url: String, imageView: ImageView)
+    fun loadImageCustomTargetForBitmap(url: String, imageView: ImageView, width : Int, height : Int)
 
-    /**
-     * @id: Int
-     */
-    fun loadGifWithLoop(id: Int, imageView: ImageView)
-
-    /**
-     * @url: String
-     * @customTarget: CustomTarget<Bitmap>
-     */
-    fun loadImageWithCustomTarget(context : Context, url: String, imageView: ImageView, width : Int, height : Int)
-    /**
-     * @url: String
-     */
-    fun load9Png(url: String, imageView: ImageView)
+//    /**
+//     * @url: String
+//     */
+//    fun load9Png(url: String, imageView: ImageView)
 
     /**
      * @id: Int

@@ -4,22 +4,20 @@ import android.graphics.*
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool
 import com.renxing.moduleImageLoader.BuildConfig
-import com.renxing.moduleImageLoader.imageUtils.CornerType
+import com.renxing.moduleImageLoader.imageUtils.ModuleImageConstant
 import java.security.MessageDigest
 
 /**
  * desc : 将图片转化为给类的特殊圆角图片
  */
-class GlideRoundedCornersTransform
-    (private val mRadius: Float, private val mCornerType: CornerType) : BitmapTransformation() {
+class RoundedCornersTransform
+    (private val mRadius: Float, private val mCornerType: ModuleImageConstant.CornerType) : BitmapTransformation() {
 
     companion object {
         private const val VERSION = 1
         private const val ID = BuildConfig.LIBRARY_PACKAGE_NAME + "GlideRoundedCornersTransform." + VERSION
         private val ID_BYTES = ID.toByteArray(CHARSET)
     }
-
-
 
     override fun transform(pool: BitmapPool, toTransform: Bitmap, outWidth: Int, outHeight: Int): Bitmap {
         return roundCrop(pool, toTransform)!!
@@ -48,61 +46,61 @@ class GlideRoundedCornersTransform
     private fun drawRoundRect(canvas: Canvas, paint: Paint, path: Path, width: Int, height: Int) {
         val rids: FloatArray
         when (mCornerType) {
-            CornerType.ALL -> {
+            ModuleImageConstant.CornerType.ALL -> {
                 rids = floatArrayOf(mRadius, mRadius, mRadius, mRadius, mRadius, mRadius, mRadius, mRadius)
                 drawPath(rids, canvas, paint, path, width, height)
             }
-            CornerType.TOP_LEFT -> {
+            ModuleImageConstant.CornerType.TOP_LEFT -> {
                 rids = floatArrayOf(mRadius, mRadius, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f)
                 drawPath(rids, canvas, paint, path, width, height)
             }
-            CornerType.TOP_RIGHT -> {
+            ModuleImageConstant.CornerType.TOP_RIGHT -> {
                 rids = floatArrayOf(0.0f, 0.0f, mRadius, mRadius, 0.0f, 0.0f, 0.0f, 0.0f)
                 drawPath(rids, canvas, paint, path, width, height)
             }
-            CornerType.BOTTOM_RIGHT -> {
+            ModuleImageConstant.CornerType.BOTTOM_RIGHT -> {
                 rids = floatArrayOf(0.0f, 0.0f, 0.0f, 0.0f, mRadius, mRadius, 0.0f, 0.0f)
                 drawPath(rids, canvas, paint, path, width, height)
             }
-            CornerType.BOTTOM_LEFT -> {
+            ModuleImageConstant.CornerType.BOTTOM_LEFT -> {
                 rids = floatArrayOf(0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, mRadius, mRadius)
                 drawPath(rids, canvas, paint, path, width, height)
             }
-            CornerType.TOP -> {
+            ModuleImageConstant.CornerType.TOP -> {
                 rids = floatArrayOf(mRadius, mRadius, mRadius, mRadius, 0.0f, 0.0f, 0.0f, 0.0f)
                 drawPath(rids, canvas, paint, path, width, height)
             }
-            CornerType.BOTTOM -> {
+            ModuleImageConstant.CornerType.BOTTOM -> {
                 rids = floatArrayOf(0.0f, 0.0f, 0.0f, 0.0f, mRadius, mRadius, mRadius, mRadius)
                 drawPath(rids, canvas, paint, path, width, height)
             }
-            CornerType.LEFT -> {
+            ModuleImageConstant.CornerType.LEFT -> {
                 rids = floatArrayOf(mRadius, mRadius, 0.0f, 0.0f, 0.0f, 0.0f, mRadius, mRadius)
                 drawPath(rids, canvas, paint, path, width, height)
             }
-            CornerType.RIGHT -> {
+            ModuleImageConstant.CornerType.RIGHT -> {
                 rids = floatArrayOf(0.0f, 0.0f, mRadius, mRadius, mRadius, mRadius, 0.0f, 0.0f)
                 drawPath(rids, canvas, paint, path, width, height)
             }
-            CornerType.TOP_LEFT_BOTTOM_RIGHT -> {
+            ModuleImageConstant.CornerType.TOP_LEFT_BOTTOM_RIGHT -> {
                 rids = floatArrayOf(mRadius, mRadius, 0.0f, 0.0f, mRadius, mRadius, 0.0f, 0.0f)
                 drawPath(rids, canvas, paint, path, width, height)
             }
-            CornerType.TOP_RIGHT_BOTTOM_LEFT -> {
+            ModuleImageConstant.CornerType.TOP_RIGHT_BOTTOM_LEFT -> {
                 rids = floatArrayOf(0.0f, 0.0f, mRadius, mRadius, 0.0f, 0.0f, mRadius, mRadius)
                 drawPath(rids, canvas, paint, path, width, height)
             }
-            CornerType.TOP_LEFT_TOP_RIGHT_BOTTOM_RIGHT -> {
+            ModuleImageConstant.CornerType.TOP_LEFT_TOP_RIGHT_BOTTOM_RIGHT -> {
                 rids =
                     floatArrayOf(mRadius, mRadius, mRadius, mRadius, mRadius, mRadius, 0.0f, 0.0f)
                 drawPath(rids, canvas, paint, path, width, height)
             }
-            CornerType.TOP_RIGHT_BOTTOM_RIGHT_BOTTOM_LEFT -> {
+            ModuleImageConstant.CornerType.TOP_RIGHT_BOTTOM_RIGHT_BOTTOM_LEFT -> {
                 rids =
                     floatArrayOf(0.0f, 0.0f, mRadius, mRadius, mRadius, mRadius, mRadius, mRadius)
                 drawPath(rids, canvas, paint, path, width, height)
             }
-            CornerType.DEFAULT -> {
+            ModuleImageConstant.CornerType.DEFAULT -> {
                 rids = floatArrayOf(0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f)
                 drawPath(rids, canvas, paint, path, width, height)
             }
@@ -118,7 +116,7 @@ class GlideRoundedCornersTransform
     }
 
     override fun equals(o: Any?): Boolean {
-        return o is GlideRoundedCornersTransform
+        return o is RoundedCornersTransform
     }
 
     override fun hashCode(): Int {

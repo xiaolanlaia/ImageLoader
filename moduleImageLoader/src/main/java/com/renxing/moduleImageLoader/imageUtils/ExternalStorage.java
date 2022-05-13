@@ -2,8 +2,7 @@ package com.renxing.moduleImageLoader.imageUtils;
 
 import android.os.Environment;
 
-/**
- */
+
 public class ExternalStorage {
     private static ExternalStorage instance;
 

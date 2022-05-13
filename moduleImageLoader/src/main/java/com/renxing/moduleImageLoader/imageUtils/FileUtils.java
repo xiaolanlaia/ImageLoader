@@ -6,12 +6,12 @@ import android.os.StatFs;
 import android.text.TextUtils;
 
 
+
 import java.io.File;
 import java.math.BigDecimal;
 import java.util.Objects;
 
-/**
- */
+
 public class FileUtils {
 
     /**
@@ -22,15 +22,20 @@ public class FileUtils {
     public static String getCacheDirPath() {
         String cachePath;
         if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState()) || !Environment.isExternalStorageRemovable()) {
-            if (Objects.requireNonNull(ModuleImageConstant.INSTANCE.getApplication()).getExternalCacheDir() != null) {
-                cachePath = ModuleImageConstant.INSTANCE.getApplication().getExternalCacheDir().getAbsolutePath();
+            if (Objects.requireNonNull(ModuleImageConstant.Companion.getModuleImageApplication()).getExternalCacheDir() != null) {
+                cachePath = ModuleImageConstant.Companion.getModuleImageApplication().getExternalCacheDir().getAbsolutePath();
             } else {
-                cachePath = ModuleImageConstant.INSTANCE.getApplication().getCacheDir().getAbsolutePath();
+                cachePath = ModuleImageConstant.Companion.getModuleImageApplication().getCacheDir().getAbsolutePath();
             }
         } else {
-            cachePath = Objects.requireNonNull(ModuleImageConstant.INSTANCE.getApplication()).getCacheDir().getAbsolutePath();
+            cachePath = Objects.requireNonNull(ModuleImageConstant.Companion.getModuleImageApplication()).getCacheDir().getAbsolutePath();
         }
         return cachePath;
+    }
+
+    void testF(int kkk){
+
+        int ll = kkk > 0 ? kkk:-2;
     }
 
     /**

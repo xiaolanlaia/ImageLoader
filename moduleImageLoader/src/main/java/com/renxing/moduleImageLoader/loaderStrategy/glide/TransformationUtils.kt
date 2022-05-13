@@ -12,14 +12,14 @@ import java.util.concurrent.locks.Condition
 import java.util.concurrent.locks.Lock
 import java.util.concurrent.locks.ReentrantLock
 
-object GlideTransformationUtils {
-    const val PAINT_FLAGS =
+object TransformationUtils {
+    private const val PAINT_FLAGS =
         Paint.DITHER_FLAG or Paint.FILTER_BITMAP_FLAG
     private const val CIRCLE_CROP_PAINT_FLAGS =
         PAINT_FLAGS or Paint.ANTI_ALIAS_FLAG
     private val CIRCLE_CROP_SHAPE_PAINT =
         Paint(CIRCLE_CROP_PAINT_FLAGS)
-    private var CIRCLE_CROP_BITMAP_PAINT: Paint
+    private var CIRCLE_CROP_BITMAP_PAINT: Paint = Paint(CIRCLE_CROP_PAINT_FLAGS)
 
     // See #738.
     private val MODELS_REQUIRING_BITMAP_LOCK: Set<String> =
@@ -381,7 +381,6 @@ object GlideTransformationUtils {
     }
 
     init {
-        CIRCLE_CROP_BITMAP_PAINT = Paint(CIRCLE_CROP_PAINT_FLAGS)
         CIRCLE_CROP_BITMAP_PAINT.xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_IN)
     }
 }

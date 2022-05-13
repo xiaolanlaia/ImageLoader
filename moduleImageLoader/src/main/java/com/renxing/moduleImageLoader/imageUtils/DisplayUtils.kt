@@ -12,9 +12,9 @@ import android.view.Surface
 import android.view.View
 import java.lang.Exception
 
-/**
- */
-object DisplayUtils {
+
+
+internal object DisplayUtils {
     /**
      * 得到该手机的drawable文件夹密码
      *
@@ -62,7 +62,7 @@ object DisplayUtils {
      * 将px值转换为dip或dp值，保证尺寸大小不变
      */
     fun px2dip(pxValue: Float): Int {
-        val scale = ModuleImageConstant.application!!.resources.displayMetrics.density
+        val scale = ModuleImageConstant.moduleImageApplication!!.resources.displayMetrics.density
         return (pxValue / scale + 0.5f).toInt()
     }
 
@@ -75,7 +75,7 @@ object DisplayUtils {
     }
 
     fun dp2px(dp: Float): Int {
-        val scale = ModuleImageConstant.application!!.resources.displayMetrics.density
+        val scale = ModuleImageConstant.moduleImageApplication!!.resources.displayMetrics.density
         return (dp * scale + 0.5f).toInt()
     }
 
@@ -83,7 +83,7 @@ object DisplayUtils {
      * 将dip或dp值转换为px值，保证尺寸大小不变
      */
     fun dpToPx(dp: Int): Int {
-        val r = ModuleImageConstant.application!!.resources
+        val r = ModuleImageConstant.moduleImageApplication!!.resources
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp.toFloat(), r.displayMetrics).toInt()
     }
 
@@ -91,7 +91,7 @@ object DisplayUtils {
      * 将dimen中的值转换为px值，保证尺寸大小不变
      */
     fun dimenToPx(rDimen: Int): Int {
-        val r = ModuleImageConstant.application!!.resources
+        val r = ModuleImageConstant.moduleImageApplication!!.resources
         return r.getDimensionPixelSize(rDimen)
     }
 
@@ -123,7 +123,7 @@ object DisplayUtils {
     val displayPxArray: IntArray
         get() {
             val displays = IntArray(2)
-            val dm: DisplayMetrics = ModuleImageConstant.application!!.resources.displayMetrics
+            val dm: DisplayMetrics = ModuleImageConstant.moduleImageApplication!!.resources.displayMetrics
             displays[0] = dm.widthPixels
             displays[1] = dm.heightPixels
             return displays
@@ -134,7 +134,7 @@ object DisplayUtils {
      */
     val displayPxHeight: Int
         get() {
-            val dm: DisplayMetrics = ModuleImageConstant.application!!.resources.displayMetrics
+            val dm: DisplayMetrics = ModuleImageConstant.moduleImageApplication!!.resources.displayMetrics
             return dm.heightPixels
         }
 
@@ -143,7 +143,7 @@ object DisplayUtils {
      */
     val displayPxWidth: Int
         get() {
-            val dm: DisplayMetrics = ModuleImageConstant.application!!.resources.displayMetrics
+            val dm: DisplayMetrics = ModuleImageConstant.moduleImageApplication!!.resources.displayMetrics
             return dm.widthPixels
         }
 
@@ -173,7 +173,7 @@ object DisplayUtils {
      * @return
      */
     fun dip2px(dipValue: Float): Int {
-        val scale = ModuleImageConstant.application!!.resources.displayMetrics.density
+        val scale = ModuleImageConstant.moduleImageApplication!!.resources.displayMetrics.density
         return (dipValue * scale + 0.5f).toInt()
     }
 
@@ -185,7 +185,7 @@ object DisplayUtils {
      * @return
      */
     fun px2sp(pxValue: Float): Int {
-        val fontScale = ModuleImageConstant.application!!.resources.displayMetrics.scaledDensity
+        val fontScale = ModuleImageConstant.moduleImageApplication!!.resources.displayMetrics.scaledDensity
         return (pxValue / fontScale + 0.5f).toInt()
     }
 
@@ -197,7 +197,7 @@ object DisplayUtils {
      * @return
      */
     fun sp2px(spValue: Float): Int {
-        val fontScale = ModuleImageConstant.application!!.resources.displayMetrics.scaledDensity
+        val fontScale = ModuleImageConstant.moduleImageApplication!!.resources.displayMetrics.scaledDensity
         return (spValue * fontScale + 0.5f).toInt()
     }
 
@@ -215,7 +215,7 @@ object DisplayUtils {
     val screen: IntArray
         get() {
             val screen = IntArray(2)
-            val dm: DisplayMetrics = ModuleImageConstant.application!!.resources.displayMetrics
+            val dm: DisplayMetrics = ModuleImageConstant.moduleImageApplication!!.resources.displayMetrics
             screen[0] = dm.widthPixels
             screen[1] = dm.heightPixels
             return screen
@@ -228,7 +228,7 @@ object DisplayUtils {
      */
     val screenDpi: Int
         get() {
-            val dm: DisplayMetrics = ModuleImageConstant.application!!.resources.displayMetrics
+            val dm: DisplayMetrics = ModuleImageConstant.moduleImageApplication!!.resources.displayMetrics
             return dm.densityDpi
         }
 
@@ -290,7 +290,7 @@ object DisplayUtils {
      * @return `true`: yes<br></br>`false`: no
      */
     val isLandscape: Boolean
-        get() = (ModuleImageConstant.application!!.resources.configuration.orientation
+        get() = (ModuleImageConstant.moduleImageApplication!!.resources.configuration.orientation
                 == Configuration.ORIENTATION_LANDSCAPE)
 
     /**
@@ -299,7 +299,7 @@ object DisplayUtils {
      * @return `true`: yes<br></br>`false`: no
      */
     val isPortrait: Boolean
-        get() = (ModuleImageConstant.application!!.resources.configuration.orientation
+        get() = (ModuleImageConstant.moduleImageApplication!!.resources.configuration.orientation
                 == Configuration.ORIENTATION_PORTRAIT)
 
     /**

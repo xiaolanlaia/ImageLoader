@@ -1,14 +1,12 @@
 package com.renxing.moduleImageLoader
 
-import android.content.Context
 import android.graphics.Bitmap
 import android.widget.ImageView
-import com.bumptech.glide.request.target.CustomTarget
-import com.renxing.moduleImageLoader.imageUtils.CornerType
+import com.renxing.moduleImageLoader.imageUtils.ModuleImageConstant
+import com.renxing.moduleImageLoader.loaderStrategy.control.ImageLoaderInterface
 import com.renxing.moduleImageLoader.loaderStrategy.control.LoaderStrategyFactory
-import com.renxing.moduleImageLoader.loaderStrategy.glide.GlideRoundedCornersTransform
 
-object ImageLoader : ImageLoaderInterface {
+object RXImageLoader : ImageLoaderInterface {
     private var imageLoaderStrategy = LoaderStrategyFactory.instance.getLoaderStrategy()
 
     /**
@@ -17,6 +15,7 @@ object ImageLoader : ImageLoaderInterface {
     fun changeLoaderStrategy(strategyTypeEnum: LoaderStrategyFactory.StrategyTypeEnum){
         imageLoaderStrategy = LoaderStrategyFactory.instance.getLoaderStrategy(strategyTypeEnum)
     }
+
     override fun loadImage(url: String, imageView: ImageView) {
     imageLoaderStrategy.loadImage(url,imageView)
     }
@@ -33,13 +32,7 @@ object ImageLoader : ImageLoaderInterface {
         imageLoaderStrategy.loadImage(url,imageView,width,height)
     }
 
-    override fun loadImage(
-        url: String,
-        imageView: ImageView,
-        defaultIv: Int,
-        width: Int,
-        height: Int
-    ) {
+    override fun loadImage(url: String, imageView: ImageView, defaultIv: Int, width: Int, height: Int) {
         imageLoaderStrategy.loadImage(url,imageView,defaultIv,width,height)
     }
 
@@ -83,12 +76,7 @@ object ImageLoader : ImageLoaderInterface {
         imageLoaderStrategy.loadRoundedCornersImage(url,imageView,radius)
     }
 
-    override fun loadRoundedCornersImage(
-        url: String,
-        imageView: ImageView,
-        radius: Float,
-        cornerType: CornerType
-    ) {
+    override fun loadRoundedCornersImage(url: String, imageView: ImageView, radius: Float, cornerType: ModuleImageConstant.CornerType) {
         imageLoaderStrategy.loadRoundedCornersImage(url,imageView,radius,cornerType)
     }
 
@@ -96,7 +84,7 @@ object ImageLoader : ImageLoaderInterface {
         bitmap: Bitmap,
         imageView: ImageView,
         radius: Float,
-        cornerType: CornerType
+        cornerType: ModuleImageConstant.CornerType
     ) {
         imageLoaderStrategy.loadRoundedCornersImage(bitmap,imageView,radius,cornerType)
     }
@@ -109,31 +97,23 @@ object ImageLoader : ImageLoaderInterface {
         imageLoaderStrategy.loadCircleImageWithBorder(id,imageView, borderColor, borderWidth)
     }
 
-
-    override fun loadGif(url: String, imageView: ImageView) {
+    override fun loadGif(url: String, imageView: ImageView, vararg playTimes : Int) {
         imageLoaderStrategy.loadGif(url,imageView)
     }
 
-    override fun loadGif(id: Int, imageView: ImageView) {
+    override fun loadGif(id: Int, imageView: ImageView, vararg playTimes : Int) {
         imageLoaderStrategy.loadGif(id,imageView)
     }
 
-    override fun loadGifWithLoop(url: String, imageView: ImageView) {
-        imageLoaderStrategy.loadGifWithLoop(url,imageView)
+    override fun loadImageCustomTargetForBitmap(url: String, imageView: ImageView, width : Int, height : Int) {
+        imageLoaderStrategy.loadImageCustomTargetForBitmap(url,imageView,width,height)
     }
 
-    override fun loadGifWithLoop(id: Int, imageView: ImageView) {
-        imageLoaderStrategy.loadGifWithLoop(id,imageView)
-    }
+//    override fun load9Png(url: String, imageView: ImageView) {
+//        imageLoaderStrategy.load9Png(url, imageView)
+//    }
 
-    override fun loadImageWithCustomTarget(context: Context, url: String, imageView: ImageView, width : Int, height : Int) {
-        imageLoaderStrategy.loadImageWithCustomTarget(context,url,imageView, width, height)
-    }
-
-    override fun load9Png(url: String, imageView: ImageView) {
-        imageLoaderStrategy.load9Png(url,imageView)
-    }
     override fun load9Png(id: Int, imageView: ImageView) {
-        imageLoaderStrategy.load9Png(id,imageView)
+        imageLoaderStrategy.load9Png(id, imageView)
     }
 }
