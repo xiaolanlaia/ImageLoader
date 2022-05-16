@@ -12,19 +12,15 @@ import com.renxing.moduleImageLoader.loaderStrategy.glide.target.RXCustomTarget
  */
 interface ImageLoaderInterface {
     /**
-     * @url: String
+     * @urlOrId: String类型或Int类型
      */
-    fun loadImage(url: String, imageView: ImageView)
-    /**
-     * @id: Int 图片id
-     */
-    fun loadImage(id: Int, imageView: ImageView)
+    fun loadImage(urlOrId: Any, imageView: ImageView)
 
     /**
-     * @url: String
+     * @urlOrId: String类型或Int类型
      * @defaultIv: Int 默认图
      */
-    fun loadImage(url: String, imageView: ImageView, defaultIv: Int)
+    fun loadImage(urlOrId: Any, imageView: ImageView, defaultIv: Int)
 
     /**
      * @url: String
@@ -44,36 +40,23 @@ interface ImageLoaderInterface {
     fun loadImage(url: String, imageView: ImageView, defaultIv: Int, width: Int, height: Int)
 
     /**
-     * @url: String
+     * @urlOrId: String类型或Int类型
      */
-    fun loadImageWithFitCenter(url: String, imageView: ImageView)
+    fun loadImageWithFitCenter(urlOrId: Any, imageView: ImageView)
+    /**
+     * @urlOrId: String类型或Int类型
+     */
+    fun loadImageWithCenterCrop(urlOrId: Any, imageView: ImageView)
 
     /**
-     * @id: Int 图片id
+     * @urlOrId: String类型或Int类型
      */
-    fun loadImageWithFitCenter(id: Int, imageView: ImageView)
-    /**
-     * @url: String
-     */
-    fun loadImageWithCenterCrop(url: String, imageView: ImageView)
-    /**
-     * @id: Int 图片id
-     */
-    fun loadImageWithCenterCrop(id: Int, imageView: ImageView)
+    fun loadImageWithCenterInside(urlOrId: Any, imageView: ImageView)
 
     /**
-     * @url: String
+     * @urlOrId: String类型或Int类型
      */
-    fun loadImageWithCenterInside(url: String, imageView: ImageView)
-    /**
-     * @id: Int 图片id
-     */
-    fun loadImageWithCenterInside(id: Int, imageView: ImageView)
-
-    /**
-     * @url: String
-     */
-    fun loadImageWithSkipCache(url: String, imageView: ImageView)
+    fun loadImageWithSkipCache(urlOrId: Any, imageView: ImageView)
 
     /**
      * @url: String
@@ -82,37 +65,21 @@ interface ImageLoaderInterface {
 
     /**
      * 圆形图
-     * @id: Int
+     * @urlOrId: String类型或Int类型
      */
-    fun loadCircleImage(url: String, imageView: ImageView)
-    /**
-     * 圆形图
-     * @url: String
-     */
-    fun loadCircleImage(id: Int, imageView: ImageView)
+    fun loadCircleImage(urlOrId: Any, imageView: ImageView)
 
     /**
      * 圆角图
-     * @url: String
+     * @urlOrId: String类型或Int类型
      */
-    fun loadRoundedCornersImage(url: String, imageView: ImageView, radius: Float)
-
-    /**
-     * 圆角图
-     * @id: Int
-     */
-    fun loadRoundedCornersImage(id: Int, imageView: ImageView, radius: Float)
+    fun loadRoundedCornersImage(urlOrId: Any, imageView: ImageView, radius: Float)
 
     /**
      * 指定圆角边的圆角图
-     * @url: String
+     * @urlOrId: String类型或Int类型
      */
-    fun loadRoundedCornersImage(url: String, imageView: ImageView, radius: Float, cornerType: ModuleImageConstant.CornerType)
-    /**
-     * 指定圆角边的圆角图
-     * @id: Int
-     */
-    fun loadRoundedCornersImage(id: Int, imageView: ImageView, radius: Float, cornerType: ModuleImageConstant.CornerType)
+    fun loadRoundedCornersImage(urlOrId: Any, imageView: ImageView, radius: Float, cornerType: ModuleImageConstant.CornerType)
     /**
      * 指定圆角边的圆角图
      * @bitmap: Bitmap
@@ -121,130 +88,67 @@ interface ImageLoaderInterface {
 
     /**
      * 带边框圆形图
-     * url: String
+     * urlOrId: String类型或Int类型
      */
-    fun loadBorderCircleImage(url: String, imageView: ImageView, borderColor : Int, borderWidth : Float)
-    /**
-     * 带边框圆形图
-     * id: Int
-     */
-    fun loadBorderCircleImage(id: Int, imageView: ImageView, borderColor : Int, borderWidth : Float)
+    fun loadBorderCircleImage(urlOrId: Any, imageView: ImageView, borderColor : Int, borderWidth : Float)
 
     /**
      * 带边框圆角图
-     * id: Int
+     * urlOrId: String类型或Int类型
      */
-    fun loadBorderCornerImage(id: Int, imageView: ImageView, borderWidth: Float, borderColor: Int, cornerWidth : Int)
+    fun loadBorderCornerImage(urlOrId: Any, imageView: ImageView, borderWidth: Float, borderColor: Int, cornerWidth : Int)
 
     /**
-     * 带边框圆角图
-     * url: String
+     * @urlOrId: String类型或Int类型
      */
-    fun loadBorderCornerImage(url: String, imageView: ImageView, borderWidth: Float, borderColor: Int, cornerWidth : Int)
+    fun loadGif(urlOrId: Any, imageView: ImageView)
 
     /**
-     * @url: String
+     * @urlOrId: String类型或Int类型
      */
-    fun loadGif(url: String, imageView: ImageView)
+    fun loadGif(urlOrId: Any, imageView: ImageView, playTimes : Int)
 
     /**
-     * @url: String
+     * @urlOrId: String类型或Int类型
      */
-    fun loadGif(url: String, imageView: ImageView, playTimes : Int)
+    fun loadCircleGif(urlOrId: Any, imageView: ImageView)
 
     /**
-     * @id: Int
+     * @uurlOrId: String类型或Int类型
      */
-    fun loadGif(id: Int, imageView: ImageView)
+    fun loadCircleGif(urlOrId: Any, imageView: ImageView, playTimes : Int)
 
     /**
-     * @id: Int
+     * @urlOrId: String类型或Int类型
      */
-    fun loadGif(id: Int, imageView: ImageView, playTimes : Int)
+    fun loadRoundedCornerGif(urlOrId: Any, imageView: ImageView, radius: Float)
 
     /**
-     * @url: String
+     * @urlOrId: String类型或Int类型
      */
-    fun loadCircleGif(url: String, imageView: ImageView)
-
-    /**
-     * @url: String
-     */
-    fun loadCircleGif(url: String, imageView: ImageView, playTimes : Int)
-
-    /**
-     * @id: Int
-     */
-    fun loadCircleGif(id: Int, imageView: ImageView)
-
-    /**
-     * @id: Int
-     */
-    fun loadCircleGif(id: Int, imageView: ImageView, playTimes : Int)
-
-    /**
-     * @url: String
-     */
-    fun loadRoundedCornerGif(url: String, imageView: ImageView, radius: Float)
-
-    /**
-     * @url: String
-     */
-    fun loadRoundedCornerGif(url: String, imageView: ImageView, radius: Float, playTimes : Int)
-
-    /**
-     * @id: Int
-     */
-    fun loadRoundedCornerGif(id: Int, imageView: ImageView, radius: Float)
-
-    /**
-     * @id: Int
-     */
-    fun loadRoundedCornerGif(id: Int, imageView: ImageView, radius: Float, playTimes : Int)
+    fun loadRoundedCornerGif(urlOrId: Any, imageView: ImageView, radius: Float, playTimes : Int)
 
     /**
      * 带边框圆角gif
-     * @id: Int
+     * @urlOrId: String类型或Int类型
      */
-    fun loadBorderCornerGif(id: Int, imageView: ImageView, borderWidth: Float, borderColor: Int, cornerWidth : Int)
+    fun loadBorderCornerGif(urlOrId: Any, imageView: ImageView, borderWidth: Float, borderColor: Int, cornerWidth : Int)
 
     /**
      * 带边框圆角gif
-     * @id: Int
+     * @urlOrId: String类型或Int类型
      */
-    fun loadBorderCornerGif(id: Int, imageView: ImageView, borderWidth: Float, borderColor: Int, cornerWidth : Int, playTimes: Int)
+    fun loadBorderCornerGif(urlOrId: Any, imageView: ImageView, borderWidth: Float, borderColor: Int, cornerWidth : Int, playTimes: Int)
 
     /**
-     * 带边框圆角gif
-     * @url: String
+     * @urlOrId: String类型或Int类型
      */
-    fun loadBorderCornerGif(url: String, imageView: ImageView, borderWidth: Float, borderColor: Int, cornerWidth : Int)
+    fun loadImageWithRXCustomTarget(urlOrId: Any, context: Context, rxCustomTarget: RXCustomTarget<Bitmap>)
 
     /**
-     * 带边框圆角gif
-     * @url: String
+     * @urlOrId: String类型或Int类型
      */
-    fun loadBorderCornerGif(url: String, imageView: ImageView, borderWidth: Float, borderColor: Int, cornerWidth : Int, playTimes: Int)
-
-    /**
-     * @url: String
-     */
-    fun loadImageWithRXCustomTarget(url: String, context: Context, rxCustomTarget: RXCustomTarget<Bitmap>)
-
-    /**
-     * @id: Int
-     */
-    fun loadImageWithRXCustomTarget(id: Int, context: Context, rxCustomTarget: RXCustomTarget<Bitmap>)
-
-    /**
-     * @url: String
-     */
-    fun load9Png(url: String, view: View)
-
-    /**
-     * @id: Int
-     */
-    fun load9Png(id: Int, view: View)
+    fun load9Png(urlOrId: Any, view: View)
 
 
 }
