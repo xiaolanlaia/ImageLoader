@@ -40,16 +40,17 @@ import java.io.IOException
  */
 @SuppressLint("CheckResult")
 internal class ImageLoaderGlide : ImageLoaderInterface {
+
     override fun loadImage(url: String, imageView: ImageView) {
-        glideLoadUrl(url, imageView)
+        glideLoad(url, imageView)
     }
 
     override fun loadImage(id: Int, imageView: ImageView) {
-        glideLoadId(id, imageView)
+        glideLoad(id, imageView)
     }
 
     override fun loadImage(url: String, imageView: ImageView, defaultIv: Int) {
-        glideLoadUrl(
+        glideLoad(
             url, imageView,
             RequestOptions()
                 .placeholder(CircleRoundDrawable(imageView.context, defaultIv))
@@ -59,77 +60,59 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
     }
 
     override fun loadImage(url: String, imageView: ImageView, width: Int, height: Int) {
-        glideLoadUrl(ImageLoaderUtils.appendUrl(url, width, height, false), imageView)
+        glideLoad(ImageLoaderUtils.appendUrl(url, width, height, false), imageView)
     }
 
-    override fun loadImage(
-        url: String,
-        imageView: ImageView,
-        defaultIv: Int,
-        width: Int,
-        height: Int
-    ) {
-        glideLoadUrl(
-            url, imageView,
+    override fun loadImage(url: String, imageView: ImageView, defaultIv: Int, width: Int, height: Int) {
+        glideLoad(url, imageView,
             RequestOptions()
                 .placeholder(defaultIv)
-                .error(defaultIv)
-        )
+                .error(defaultIv))
 
     }
 
     override fun loadImageWithFitCenter(url: String, imageView: ImageView) {
-        glideLoadUrl(url, imageView, RequestOptions().fitCenter())
+        glideLoad(url, imageView, RequestOptions().fitCenter())
 
     }
 
     override fun loadImageWithFitCenter(id: Int, imageView: ImageView) {
-        glideLoadId(id, imageView, RequestOptions().fitCenter())
+        glideLoad(id, imageView, RequestOptions().fitCenter())
 
     }
 
     override fun loadImageWithCenterCrop(url: String, imageView: ImageView) {
-        glideLoadUrl(url, imageView, RequestOptions().centerCrop())
+        glideLoad(url, imageView, RequestOptions().centerCrop())
 
     }
 
     override fun loadImageWithCenterCrop(id: Int, imageView: ImageView) {
-        glideLoadId(id, imageView, RequestOptions().centerCrop())
+        glideLoad(id, imageView, RequestOptions().centerCrop())
 
     }
 
     override fun loadImageWithCenterInside(url: String, imageView: ImageView) {
-        glideLoadUrl(url, imageView, RequestOptions().centerInside())
+        glideLoad(url, imageView, RequestOptions().centerInside())
 
     }
 
     override fun loadImageWithCenterInside(id: Int, imageView: ImageView) {
-        glideLoadId(id, imageView, RequestOptions().centerInside())
+        glideLoad(id, imageView, RequestOptions().centerInside())
 
     }
 
     override fun loadImageWithSkipCache(url: String, imageView: ImageView) {
 
-
-        glideLoadUrl(
-            url, imageView,
+        glideLoad(url, imageView,
             RequestOptions()
                 .skipMemoryCache(true)
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
-        )
+                .diskCacheStrategy(DiskCacheStrategy.NONE))
 
     }
 
-    override fun loadImageWithSkipCache(
-        url: String,
-        imageView: ImageView,
-        width: Int,
-        height: Int
-    ) {
+    override fun loadImageWithSkipCache(url: String, imageView: ImageView, width: Int, height: Int) {
 
-
-        glideLoadUrl(
-            ImageLoaderUtils.appendUrl(url, width, height, false),
+        glideLoad(ImageLoaderUtils.appendUrl(url, width, height, false),
             imageView,
             RequestOptions()
                 .skipMemoryCache(true)
@@ -138,15 +121,15 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
     }
 
     override fun loadCircleImage(url: String, imageView: ImageView) {
-        glideLoadUrl(url, imageView, RequestOptions().circleCrop())
+        glideLoad(url, imageView, RequestOptions().circleCrop())
     }
 
     override fun loadCircleImage(id: Int, imageView: ImageView) {
-        glideLoadId(id, imageView, RequestOptions().circleCrop())
+        glideLoad(id, imageView, RequestOptions().circleCrop())
     }
 
     override fun loadRoundedCornersImage(url: String, imageView: ImageView, radius: Float) {
-        glideLoadUrl(
+        glideLoad(
             url,
             imageView,
             RequestOptions().transform(RoundedCorners((ImageLoaderUtils.dp2px(radius) + 0.5f).toInt()))
@@ -154,7 +137,7 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
     }
 
     override fun loadRoundedCornersImage(id: Int, imageView: ImageView, radius: Float) {
-        glideLoadId(
+        glideLoad(
             id,
             imageView,
             RequestOptions().transform(RoundedCorners((ImageLoaderUtils.dp2px(radius) + 0.5f).toInt()))
@@ -168,7 +151,7 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
         cornerType: ModuleImageConstant.CornerType
     ) {
 
-        glideLoadUrl(
+        glideLoad(
             url, imageView,
             RequestOptions().optionalTransform(
                 RoundedCornersTransform(
@@ -185,7 +168,7 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
         radius: Float,
         cornerType: ModuleImageConstant.CornerType
     ) {
-        glideLoadId(
+        glideLoad(
             id, imageView,
             RequestOptions().optionalTransform(
                 RoundedCornersTransform(
@@ -219,7 +202,7 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
         borderColor: Int,
         borderWidth: Float
     ) {
-        glideLoadUrl(
+        glideLoad(
             url, imageView,
             RequestOptions().optionalTransform(CircleBorderTransformation(borderWidth, borderColor))
         )
@@ -231,7 +214,7 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
         borderColor: Int,
         borderWidth: Float
     ) {
-        glideLoadId(
+        glideLoad(
             id, imageView,
             RequestOptions().optionalTransform(CircleBorderTransformation(borderWidth, borderColor))
         )
@@ -244,7 +227,7 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
         borderColor: Int,
         cornerWidth: Int
     ) {
-        glideLoadId(
+        glideLoad(
             id, imageView,
             RequestOptions().transform(BorderRoundTransform(borderWidth,borderColor,cornerWidth))
         )
@@ -252,7 +235,7 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
 
     override fun loadBorderCornerImage(url: String, imageView: ImageView, borderWidth: Float, borderColor: Int, cornerWidth : Int) {
 
-        glideLoadUrl(
+        glideLoad(
             url, imageView,
             RequestOptions().transform(BorderRoundTransform(borderWidth,borderColor,cornerWidth))
         )
@@ -260,40 +243,40 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
     }
 
     override fun loadGif(url: String, imageView: ImageView, playTimes: Int) {
-        glideLoadGifUrl(url, imageView, playTimes)
+        glideLoadGif(url, imageView, playTimes)
     }
 
     override fun loadGif(url: String, imageView: ImageView) {
-        glideLoadGifUrl(url, imageView, GifDrawable.LOOP_FOREVER)
+        glideLoadGif(url, imageView, GifDrawable.LOOP_FOREVER)
     }
 
     override fun loadGif(id: Int, imageView: ImageView, playTimes: Int) {
-        glideLoadGifId(id, imageView, playTimes)
+        glideLoadGif(id, imageView, playTimes)
     }
 
     override fun loadGif(id: Int, imageView: ImageView) {
-        glideLoadGifId(id, imageView, GifDrawable.LOOP_FOREVER)
+        glideLoadGif(id, imageView, GifDrawable.LOOP_FOREVER)
     }
 
     override fun loadCircleGif(id: Int, imageView: ImageView) {
-        glideLoadCircleGifId(id, imageView, GifDrawable.LOOP_FOREVER)
+        glideLoadCircleGif(id, imageView, GifDrawable.LOOP_FOREVER)
 
     }
 
     override fun loadCircleGif(id: Int, imageView: ImageView, playTimes: Int) {
-        glideLoadCircleGifId(id, imageView, playTimes)
+        glideLoadCircleGif(id, imageView, playTimes)
     }
 
     override fun loadCircleGif(url: String, imageView: ImageView) {
-        glideLoadCircleGifUrl(url, imageView, GifDrawable.LOOP_FOREVER)
+        glideLoadCircleGif(url, imageView, GifDrawable.LOOP_FOREVER)
     }
 
     override fun loadCircleGif(url: String, imageView: ImageView, playTimes: Int) {
-        glideLoadCircleGifUrl(url, imageView, playTimes)
+        glideLoadCircleGif(url, imageView, playTimes)
     }
 
     override fun loadRoundedCornerGif(url: String, imageView: ImageView, radius: Float) {
-        glideLoadRoundedCornerGifUrl(url, imageView, radius, GifDrawable.LOOP_FOREVER)
+        glideLoadRoundedCornerGif(url, imageView, radius, GifDrawable.LOOP_FOREVER)
     }
 
 
@@ -303,11 +286,11 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
         radius: Float,
         playTimes: Int
     ) {
-        glideLoadRoundedCornerGifUrl(url, imageView, radius, playTimes)
+        glideLoadRoundedCornerGif(url, imageView, radius, playTimes)
     }
 
     override fun loadRoundedCornerGif(id: Int, imageView: ImageView, radius: Float) {
-        glideLoadRoundedCornerGifId(id, imageView, radius, GifDrawable.LOOP_FOREVER)
+        glideLoadRoundedCornerGif(id, imageView, radius, GifDrawable.LOOP_FOREVER)
     }
 
     override fun loadRoundedCornerGif(
@@ -316,7 +299,7 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
         radius: Float,
         playTimes: Int
     ) {
-        glideLoadRoundedCornerGifId(id, imageView, radius, playTimes)
+        glideLoadRoundedCornerGif(id, imageView, radius, playTimes)
     }
 
     override fun loadBorderCornerGif(
@@ -326,7 +309,7 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
         borderColor: Int,
         cornerWidth: Int
     ) {
-        glideLoadBorderCornerGifId(id, imageView, borderWidth, borderColor, cornerWidth, GifDrawable.LOOP_FOREVER)
+        glideLoadBorderCornerGif(id, imageView, borderWidth, borderColor, cornerWidth, GifDrawable.LOOP_FOREVER)
     }
 
     override fun loadBorderCornerGif(
@@ -337,7 +320,7 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
         cornerWidth: Int,
         playTimes: Int
     ) {
-        glideLoadBorderCornerGifId(id, imageView, borderWidth, borderColor, cornerWidth, playTimes)
+        glideLoadBorderCornerGif(id, imageView, borderWidth, borderColor, cornerWidth, playTimes)
     }
 
     override fun loadBorderCornerGif(
@@ -347,7 +330,7 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
         borderColor: Int,
         cornerWidth: Int
     ) {
-        glideLoadBorderCornerGifUrl(url, imageView, borderWidth, borderColor, cornerWidth, GifDrawable.LOOP_FOREVER)
+        glideLoadBorderCornerGif(url, imageView, borderWidth, borderColor, cornerWidth, GifDrawable.LOOP_FOREVER)
     }
 
     override fun loadBorderCornerGif(
@@ -358,7 +341,7 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
         cornerWidth: Int,
         playTimes: Int
     ) {
-        glideLoadBorderCornerGifUrl(url, imageView, borderWidth, borderColor, cornerWidth, playTimes)
+        glideLoadBorderCornerGif(url, imageView, borderWidth, borderColor, cornerWidth, playTimes)
     }
 
     override fun loadImageWithRXCustomTarget(
@@ -366,7 +349,7 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
         context: Context,
         rxCustomTarget: RXCustomTarget<Bitmap>
     ) {
-        glideRXCustomTargetUrl(url, context, rxCustomTarget)
+        glideRXCustomTarget(url, context, rxCustomTarget)
 
     }
 
@@ -375,37 +358,11 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
         context: Context,
         rxCustomTarget: RXCustomTarget<Bitmap>
     ) {
-        glideRXCustomTargetId(id, context, rxCustomTarget)
+        glideRXCustomTarget(id, context, rxCustomTarget)
     }
 
     override fun load9Png(url: String, view: View) {
-
-        Glide.with(view.context)
-            .asFile()
-            .load(url)
-            .into(object : CustomTarget<File>() {
-                override fun onResourceReady(resource: File, transition: Transition<in File>?) {
-
-                    try {
-                        val fileInputStream = FileInputStream(resource)
-                        ImageLoaderUtils.setNinePathImage(
-                            view.context,
-                            view,
-                            BitmapFactory.decodeStream(fileInputStream)
-                        )
-                        fileInputStream.close()
-                    } catch (e: FileNotFoundException) {
-                        e.printStackTrace()
-                    } catch (e: IOException) {
-                        e.printStackTrace()
-                    }
-
-
-                }
-
-                override fun onLoadCleared(placeholder: Drawable?) {}
-            })
-
+        glideLoad9Png(url,view)
     }
 
     override fun load9Png(id: Int, view: View) {
@@ -432,6 +389,7 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
 
     /**
      * Glide加载图片的最终方法
+     * 所有的方法url都要将http换成https
      */
 
     private fun glideLoadBytes(
@@ -445,6 +403,35 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
             .load(bytes)
             .apply(requestOptions).into(imageView)
     }
+
+    private fun glideLoad9Png(url : String, view : View){
+        Glide.with(view.context)
+            .asFile()
+            .load(ImageLoaderUtils.replaceHttpToHttps(url))
+            .into(object : CustomTarget<File>() {
+                override fun onResourceReady(resource: File, transition: Transition<in File>?) {
+
+                    try {
+                        val fileInputStream = FileInputStream(resource)
+                        ImageLoaderUtils.setNinePathImage(
+                            view.context,
+                            view,
+                            BitmapFactory.decodeStream(fileInputStream)
+                        )
+                        fileInputStream.close()
+                    } catch (e: FileNotFoundException) {
+                        e.printStackTrace()
+                    } catch (e: IOException) {
+                        e.printStackTrace()
+                    }
+
+
+                }
+
+                override fun onLoadCleared(placeholder: Drawable?) {}
+            })
+    }
+
 
     private fun glideLoadDrawable(drawable: Drawable, view: View) {
 
@@ -463,58 +450,35 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
             })
     }
 
-    private fun glideRXCustomTargetUrl(
-        url: String,
+    private fun glideRXCustomTarget(
+        urlOrId: Any,
         context: Context,
         rxCustomTarget: RXCustomTarget<Bitmap>
     ) {
         Glide.with(context)
             .asBitmap()
-            .load(ImageLoaderUtils.replaceHttpToHttps(url))
+            .load(if (urlOrId is String) ImageLoaderUtils.replaceHttpToHttps(urlOrId) else urlOrId)
             .into(rxCustomTarget)
     }
 
-    private fun glideRXCustomTargetId(
-        id: Int,
-        context: Context,
-        rxCustomTarget: RXCustomTarget<Bitmap>
-    ) {
-        Glide.with(context)
-            .asBitmap()
-            .load(id)
-            .into(rxCustomTarget)
-    }
-
-    private fun glideLoadUrl(url: String, imageView: ImageView) {
+    private fun glideLoad(urlOrId: Any, imageView: ImageView) {
         Glide.with(imageView.context)
-            .load(ImageLoaderUtils.replaceHttpToHttps(url))
+            .load(if (urlOrId is String) ImageLoaderUtils.replaceHttpToHttps(urlOrId) else urlOrId)
             .into(imageView)
     }
 
-    private fun glideLoadId(id: Int, imageView: ImageView) {
+    private fun glideLoad(urlOrId: Any, imageView: ImageView, requestOptions: RequestOptions) {
         Glide.with(imageView.context)
-            .load(id)
-            .into(imageView)
-    }
-
-    private fun glideLoadUrl(url: String, imageView: ImageView, requestOptions: RequestOptions) {
-        Glide.with(imageView.context)
-            .load(ImageLoaderUtils.replaceHttpToHttps(url))
+            .load(if (urlOrId is String) ImageLoaderUtils.replaceHttpToHttps(urlOrId) else urlOrId)
             .apply(requestOptions)
             .into(imageView)
     }
 
-    private fun glideLoadId(id: Int, imageView: ImageView, requestOptions: RequestOptions) {
-        Glide.with(imageView.context)
-            .load(id)
-            .apply(requestOptions)
-            .into(imageView)
-    }
 
-    private fun glideLoadGifUrl(url: String, imageView: ImageView, playTimes: Int) {
+    private fun glideLoadGif(urlOrId: Any, imageView: ImageView, playTimes: Int) {
         Glide.with(imageView.context)
             .asGif()
-            .load(ImageLoaderUtils.replaceHttpToHttps(url))
+            .load(if (urlOrId is String) ImageLoaderUtils.replaceHttpToHttps(urlOrId) else urlOrId)
             .listener(object : RequestListener<GifDrawable> {
 
                 override fun onResourceReady(
@@ -550,10 +514,10 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
             }).into(imageView)
     }
 
-    private fun glideLoadGifId(id: Int, imageView: ImageView, playTimes: Int) {
+    private fun glideLoadCircleGif(urlOrId: Any, imageView: ImageView, playTimes: Int) {
         Glide.with(imageView.context)
             .asGif()
-            .load(id)
+            .load(if (urlOrId is String) ImageLoaderUtils.replaceHttpToHttps(urlOrId) else urlOrId)
             .listener(object : RequestListener<GifDrawable> {
 
                 override fun onResourceReady(
@@ -589,94 +553,17 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
             }).into(imageView)
     }
 
-    private fun glideLoadCircleGifUrl(url: String, imageView: ImageView, playTimes: Int) {
-        Glide.with(imageView.context)
-            .asGif()
-            .load(ImageLoaderUtils.replaceHttpToHttps(url))
-            .listener(object : RequestListener<GifDrawable> {
-
-                override fun onResourceReady(
-                    resource: GifDrawable,
-                    model: Any,
-                    target: Target<GifDrawable>,
-                    dataSource: DataSource,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    resource.setLoopCount(playTimes) //只播放一次
-                    resource.registerAnimationCallback(object :
-                        Animatable2Compat.AnimationCallback() {
-                        override fun onAnimationStart(drawable: Drawable) {
-                            super.onAnimationStart(drawable)
-                            resource.start()
-                        }
-
-                        override fun onAnimationEnd(drawable: Drawable) {
-                            super.onAnimationEnd(drawable)
-                        }
-                    })
-                    return false
-                }
-
-                override fun onLoadFailed(
-                    e: GlideException?,
-                    model: Any?,
-                    target: Target<GifDrawable>?,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    return false
-                }
-            }).into(imageView)
-    }
-
-    private fun glideLoadCircleGifId(id: Int, imageView: ImageView, playTimes: Int) {
-        Glide.with(imageView.context)
-            .asGif()
-            .load(id)
-            .listener(object : RequestListener<GifDrawable> {
-
-                override fun onResourceReady(
-                    resource: GifDrawable,
-                    model: Any,
-                    target: Target<GifDrawable>,
-                    dataSource: DataSource,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    resource.setLoopCount(playTimes) //只播放一次
-                    resource.registerAnimationCallback(object :
-                        Animatable2Compat.AnimationCallback() {
-                        override fun onAnimationStart(drawable: Drawable) {
-                            super.onAnimationStart(drawable)
-                            resource.start()
-                        }
-
-                        override fun onAnimationEnd(drawable: Drawable) {
-                            super.onAnimationEnd(drawable)
-                        }
-                    })
-                    return false
-                }
-
-                override fun onLoadFailed(
-                    e: GlideException?,
-                    model: Any?,
-                    target: Target<GifDrawable>?,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    return false
-                }
-            }).into(imageView)
-    }
-
-    private fun glideLoadRoundedCornerGifUrl(
-        url: String,
+    private fun glideLoadRoundedCornerGif(
+        urlOrId: Any,
         imageView: ImageView,
         radius: Float,
         playTimes: Int
     ) {
+
         Glide.with(imageView.context)
             .asGif()
             .apply(RequestOptions().transform(RoundedCorners((ImageLoaderUtils.dp2px(radius) + 0.5f).toInt())))
-            .load(ImageLoaderUtils.replaceHttpToHttps(url))
+            .load(if (urlOrId is String) ImageLoaderUtils.replaceHttpToHttps(urlOrId) else urlOrId)
             .listener(object : RequestListener<GifDrawable> {
 
                 override fun onResourceReady(
@@ -712,53 +599,9 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
             }).into(imageView)
     }
 
-    private fun glideLoadRoundedCornerGifId(
-        id: Int,
-        imageView: ImageView,
-        radius: Float,
-        playTimes: Int
-    ) {
-        Glide.with(imageView.context)
-            .asGif()
-            .apply(RequestOptions().transform(RoundedCorners((ImageLoaderUtils.dp2px(radius) + 0.5f).toInt())))
-            .load(id)
-            .listener(object : RequestListener<GifDrawable> {
 
-                override fun onResourceReady(
-                    resource: GifDrawable,
-                    model: Any,
-                    target: Target<GifDrawable>,
-                    dataSource: DataSource,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    resource.setLoopCount(playTimes) //只播放一次
-                    resource.registerAnimationCallback(object :
-                        Animatable2Compat.AnimationCallback() {
-                        override fun onAnimationStart(drawable: Drawable) {
-                            super.onAnimationStart(drawable)
-                            resource.start()
-                        }
-
-                        override fun onAnimationEnd(drawable: Drawable) {
-                            super.onAnimationEnd(drawable)
-                        }
-                    })
-                    return false
-                }
-
-                override fun onLoadFailed(
-                    e: GlideException?,
-                    model: Any?,
-                    target: Target<GifDrawable>?,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    return false
-                }
-            }).into(imageView)
-    }
-
-    private fun glideLoadBorderCornerGifId(
-        id: Int,
+    private fun glideLoadBorderCornerGif(
+        urlOrId: Any,
         imageView: ImageView,
         borderWidth: Float,
         borderColor: Int,
@@ -768,54 +611,7 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
         Glide.with(imageView.context)
             .asGif()
             .apply(RequestOptions().transform(BorderRoundTransform(borderWidth,borderColor,cornerWidth)))
-            .load(id)
-            .listener(object : RequestListener<GifDrawable> {
-
-                override fun onResourceReady(
-                    resource: GifDrawable,
-                    model: Any,
-                    target: Target<GifDrawable>,
-                    dataSource: DataSource,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    resource.setLoopCount(playTimes) //只播放一次
-                    resource.registerAnimationCallback(object :
-                        Animatable2Compat.AnimationCallback() {
-                        override fun onAnimationStart(drawable: Drawable) {
-                            super.onAnimationStart(drawable)
-                            resource.start()
-                        }
-
-                        override fun onAnimationEnd(drawable: Drawable) {
-                            super.onAnimationEnd(drawable)
-                        }
-                    })
-                    return false
-                }
-
-                override fun onLoadFailed(
-                    e: GlideException?,
-                    model: Any?,
-                    target: Target<GifDrawable>?,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    return false
-                }
-            }).into(imageView)
-    }
-
-    private fun glideLoadBorderCornerGifUrl(
-        url: String,
-        imageView: ImageView,
-        borderWidth: Float,
-        borderColor: Int,
-        cornerWidth: Int,
-        playTimes: Int
-    ) {
-        Glide.with(imageView.context)
-            .asGif()
-            .apply(RequestOptions().transform(BorderRoundTransform(borderWidth,borderColor,cornerWidth)))
-            .load(url)
+            .load(if (urlOrId is String) ImageLoaderUtils.replaceHttpToHttps(urlOrId) else urlOrId)
             .listener(object : RequestListener<GifDrawable> {
 
                 override fun onResourceReady(
