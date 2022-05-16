@@ -140,9 +140,21 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
         glideLoadUrl(url, imageView, RequestOptions().circleCrop())
     }
 
+    override fun loadCircleImage(id: Int, imageView: ImageView) {
+        glideLoadId(id, imageView, RequestOptions().circleCrop())
+    }
+
     override fun loadRoundedCornersImage(url: String, imageView: ImageView, radius: Float) {
         glideLoadUrl(
             url,
+            imageView,
+            RequestOptions().transform(RoundedCorners((ImageLoaderUtils.dp2px(radius) + 0.5f).toInt()))
+        )
+    }
+
+    override fun loadRoundedCornersImage(id: Int, imageView: ImageView, radius: Float) {
+        glideLoadId(
+            id,
             imageView,
             RequestOptions().transform(RoundedCorners((ImageLoaderUtils.dp2px(radius) + 0.5f).toInt()))
         )
@@ -157,6 +169,23 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
 
         glideLoadUrl(
             url, imageView,
+            RequestOptions().optionalTransform(
+                RoundedCornersTransform(
+                    ImageLoaderUtils.dp2px(radius) + 0.5f,
+                    cornerType
+                )
+            )
+        )
+    }
+
+    override fun loadRoundedCornersImage(
+        id: Int,
+        imageView: ImageView,
+        radius: Float,
+        cornerType: ModuleImageConstant.CornerType
+    ) {
+        glideLoadId(
+            id, imageView,
             RequestOptions().optionalTransform(
                 RoundedCornersTransform(
                     ImageLoaderUtils.dp2px(radius) + 0.5f,
@@ -228,8 +257,16 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
         context: Context,
         rxCustomTarget: RXCustomTarget<Bitmap>
     ) {
-        glideRxCustomTarget(url, context, rxCustomTarget)
+        glideRxCustomTargetUrl(url, context, rxCustomTarget)
 
+    }
+
+    override fun loadImageWithRxCustomTarget(
+        id: Int,
+        context: Context,
+        rxCustomTarget: RXCustomTarget<Bitmap>
+    ) {
+        glideRxCustomTargetId(id, context, rxCustomTarget)
     }
 
     override fun load9Png(url: String, view: View) {
@@ -266,6 +303,7 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
         val res = view.context.resources
 
         val bitmap = BitmapFactory.decodeResource(res, id) ?: return
+        if (bitmap.ninePatchChunk == null) return
 
         val chunk: ByteArray = bitmap.ninePatchChunk
         if (NinePatch.isNinePatchChunk(chunk)) {
@@ -329,10 +367,17 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
             })
     }
 
-    private fun glideRxCustomTarget(url: String, context: Context, rxCustomTarget: RXCustomTarget<Bitmap>) {
+    private fun glideRxCustomTargetUrl(url: String, context: Context, rxCustomTarget: RXCustomTarget<Bitmap>) {
         Glide.with(context)
             .asBitmap()
             .load(ImageLoaderUtils.replaceHttpToHttps(url))
+            .into(rxCustomTarget)
+    }
+
+    private fun glideRxCustomTargetId(id: Int, context: Context, rxCustomTarget: RXCustomTarget<Bitmap>) {
+        Glide.with(context)
+            .asBitmap()
+            .load(id)
             .into(rxCustomTarget)
     }
 

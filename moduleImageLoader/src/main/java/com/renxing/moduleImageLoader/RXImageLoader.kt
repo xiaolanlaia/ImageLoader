@@ -72,12 +72,29 @@ object RXImageLoader : ImageLoaderInterface {
         imageLoaderStrategy.loadCircleImage(url,imageView)
     }
 
+    override fun loadCircleImage(id: Int, imageView: ImageView) {
+        imageLoaderStrategy.loadCircleImage(id,imageView)
+    }
+
     override fun loadRoundedCornersImage(url: String, imageView: ImageView, radius: Float) {
         imageLoaderStrategy.loadRoundedCornersImage(url,imageView,radius)
     }
 
+    override fun loadRoundedCornersImage(id: Int, imageView: ImageView, radius: Float) {
+        imageLoaderStrategy.loadRoundedCornersImage(id,imageView,radius)
+    }
+
     override fun loadRoundedCornersImage(url: String, imageView: ImageView, radius: Float, cornerType: ModuleImageConstant.CornerType) {
         imageLoaderStrategy.loadRoundedCornersImage(url,imageView,radius,cornerType)
+    }
+
+    override fun loadRoundedCornersImage(
+        id: Int,
+        imageView: ImageView,
+        radius: Float,
+        cornerType: ModuleImageConstant.CornerType
+    ) {
+        imageLoaderStrategy.loadRoundedCornersImage(id,imageView,radius,cornerType)
     }
 
     override fun loadRoundedCornersImage(
@@ -115,6 +132,14 @@ object RXImageLoader : ImageLoaderInterface {
 
     override fun loadImageWithRxCustomTarget(url: String, context: Context, rxCustomTarget: RXCustomTarget<Bitmap>) {
         imageLoaderStrategy.loadImageWithRxCustomTarget(url,context,rxCustomTarget)
+    }
+
+    override fun loadImageWithRxCustomTarget(
+        id: Int,
+        context: Context,
+        rxCustomTarget: RXCustomTarget<Bitmap>
+    ) {
+        imageLoaderStrategy.loadImageWithRxCustomTarget(id,context,rxCustomTarget)
     }
 
     override fun load9Png(url: String, view: View) {

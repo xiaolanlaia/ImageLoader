@@ -82,9 +82,14 @@ interface ImageLoaderInterface {
 
     /**
      * 圆形图
-     * @url: String
+     * @id: Int
      */
     fun loadCircleImage(url: String, imageView: ImageView)
+    /**
+     * 圆形图
+     * @url: String
+     */
+    fun loadCircleImage(id: Int, imageView: ImageView)
 
     /**
      * 圆角图
@@ -93,10 +98,21 @@ interface ImageLoaderInterface {
     fun loadRoundedCornersImage(url: String, imageView: ImageView, radius: Float)
 
     /**
+     * 圆角图
+     * @id: Int
+     */
+    fun loadRoundedCornersImage(id: Int, imageView: ImageView, radius: Float)
+
+    /**
      * 指定圆角边的圆角图
      * @url: String
      */
     fun loadRoundedCornersImage(url: String, imageView: ImageView, radius: Float, cornerType: ModuleImageConstant.CornerType)
+    /**
+     * 指定圆角边的圆角图
+     * @id: Int
+     */
+    fun loadRoundedCornersImage(id: Int, imageView: ImageView, radius: Float, cornerType: ModuleImageConstant.CornerType)
     /**
      * 指定圆角边的圆角图
      * @bitmap: Bitmap
@@ -138,6 +154,11 @@ interface ImageLoaderInterface {
      * @url: String
      */
     fun loadImageWithRxCustomTarget(url: String, context: Context, rxCustomTarget: RXCustomTarget<Bitmap>)
+
+    /**
+     * @id: Int
+     */
+    fun loadImageWithRxCustomTarget(id: Int, context: Context, rxCustomTarget: RXCustomTarget<Bitmap>)
 
     /**
      * @url: String
