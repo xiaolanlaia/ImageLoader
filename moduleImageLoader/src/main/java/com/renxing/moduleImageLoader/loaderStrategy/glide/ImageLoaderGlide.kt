@@ -237,7 +237,7 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
         )
     }
 
-    override fun loadBorderRoundImage(
+    override fun loadBorderCornerImage(
         id: Int,
         imageView: ImageView,
         borderWidth: Float,
@@ -250,7 +250,7 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
         )
     }
 
-    override fun loadBorderRoundImage(url: String, imageView: ImageView, borderWidth: Float, borderColor: Int, cornerWidth : Int) {
+    override fun loadBorderCornerImage(url: String, imageView: ImageView, borderWidth: Float, borderColor: Int, cornerWidth : Int) {
 
         glideLoadUrl(
             url, imageView,
@@ -317,6 +317,48 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
         playTimes: Int
     ) {
         glideLoadRoundedCornerGifId(id, imageView, radius, playTimes)
+    }
+
+    override fun loadBorderCornerGif(
+        id: Int,
+        imageView: ImageView,
+        borderWidth: Float,
+        borderColor: Int,
+        cornerWidth: Int
+    ) {
+        glideLoadBorderCornerGifId(id, imageView, borderWidth, borderColor, cornerWidth, GifDrawable.LOOP_FOREVER)
+    }
+
+    override fun loadBorderCornerGif(
+        id: Int,
+        imageView: ImageView,
+        borderWidth: Float,
+        borderColor: Int,
+        cornerWidth: Int,
+        playTimes: Int
+    ) {
+        glideLoadBorderCornerGifId(id, imageView, borderWidth, borderColor, cornerWidth, playTimes)
+    }
+
+    override fun loadBorderCornerGif(
+        url: String,
+        imageView: ImageView,
+        borderWidth: Float,
+        borderColor: Int,
+        cornerWidth: Int
+    ) {
+        glideLoadBorderCornerGifUrl(url, imageView, borderWidth, borderColor, cornerWidth, GifDrawable.LOOP_FOREVER)
+    }
+
+    override fun loadBorderCornerGif(
+        url: String,
+        imageView: ImageView,
+        borderWidth: Float,
+        borderColor: Int,
+        cornerWidth: Int,
+        playTimes: Int
+    ) {
+        glideLoadBorderCornerGifUrl(url, imageView, borderWidth, borderColor, cornerWidth, playTimes)
     }
 
     override fun loadImageWithRXCustomTarget(
@@ -680,6 +722,100 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
             .asGif()
             .apply(RequestOptions().transform(RoundedCorners((ImageLoaderUtils.dp2px(radius) + 0.5f).toInt())))
             .load(id)
+            .listener(object : RequestListener<GifDrawable> {
+
+                override fun onResourceReady(
+                    resource: GifDrawable,
+                    model: Any,
+                    target: Target<GifDrawable>,
+                    dataSource: DataSource,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    resource.setLoopCount(playTimes) //只播放一次
+                    resource.registerAnimationCallback(object :
+                        Animatable2Compat.AnimationCallback() {
+                        override fun onAnimationStart(drawable: Drawable) {
+                            super.onAnimationStart(drawable)
+                            resource.start()
+                        }
+
+                        override fun onAnimationEnd(drawable: Drawable) {
+                            super.onAnimationEnd(drawable)
+                        }
+                    })
+                    return false
+                }
+
+                override fun onLoadFailed(
+                    e: GlideException?,
+                    model: Any?,
+                    target: Target<GifDrawable>?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    return false
+                }
+            }).into(imageView)
+    }
+
+    private fun glideLoadBorderCornerGifId(
+        id: Int,
+        imageView: ImageView,
+        borderWidth: Float,
+        borderColor: Int,
+        cornerWidth: Int,
+        playTimes: Int
+    ) {
+        Glide.with(imageView.context)
+            .asGif()
+            .apply(RequestOptions().transform(BorderRoundTransform(borderWidth,borderColor,cornerWidth)))
+            .load(id)
+            .listener(object : RequestListener<GifDrawable> {
+
+                override fun onResourceReady(
+                    resource: GifDrawable,
+                    model: Any,
+                    target: Target<GifDrawable>,
+                    dataSource: DataSource,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    resource.setLoopCount(playTimes) //只播放一次
+                    resource.registerAnimationCallback(object :
+                        Animatable2Compat.AnimationCallback() {
+                        override fun onAnimationStart(drawable: Drawable) {
+                            super.onAnimationStart(drawable)
+                            resource.start()
+                        }
+
+                        override fun onAnimationEnd(drawable: Drawable) {
+                            super.onAnimationEnd(drawable)
+                        }
+                    })
+                    return false
+                }
+
+                override fun onLoadFailed(
+                    e: GlideException?,
+                    model: Any?,
+                    target: Target<GifDrawable>?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    return false
+                }
+            }).into(imageView)
+    }
+
+    private fun glideLoadBorderCornerGifUrl(
+        url: String,
+        imageView: ImageView,
+        borderWidth: Float,
+        borderColor: Int,
+        cornerWidth: Int,
+        playTimes: Int
+    ) {
+        Glide.with(imageView.context)
+            .asGif()
+            .apply(RequestOptions().transform(BorderRoundTransform(borderWidth,borderColor,cornerWidth)))
+            .load(url)
             .listener(object : RequestListener<GifDrawable> {
 
                 override fun onResourceReady(

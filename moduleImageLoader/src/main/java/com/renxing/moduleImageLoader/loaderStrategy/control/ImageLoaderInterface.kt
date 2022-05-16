@@ -134,13 +134,13 @@ interface ImageLoaderInterface {
      * 带边框圆角图
      * id: Int
      */
-    fun loadBorderRoundImage(id: Int, imageView: ImageView, borderWidth: Float, borderColor: Int, cornerWidth : Int)
+    fun loadBorderCornerImage(id: Int, imageView: ImageView, borderWidth: Float, borderColor: Int, cornerWidth : Int)
 
     /**
      * 带边框圆角图
      * url: String
      */
-    fun loadBorderRoundImage(url: String, imageView: ImageView, borderWidth: Float, borderColor: Int, cornerWidth : Int)
+    fun loadBorderCornerImage(url: String, imageView: ImageView, borderWidth: Float, borderColor: Int, cornerWidth : Int)
 
     /**
      * @url: String
@@ -201,6 +201,30 @@ interface ImageLoaderInterface {
      * @id: Int
      */
     fun loadRoundedCornerGif(id: Int, imageView: ImageView, radius: Float, playTimes : Int)
+
+    /**
+     * 带边框圆角gif
+     * @id: Int
+     */
+    fun loadBorderCornerGif(id: Int, imageView: ImageView, borderWidth: Float, borderColor: Int, cornerWidth : Int)
+
+    /**
+     * 带边框圆角gif
+     * @id: Int
+     */
+    fun loadBorderCornerGif(id: Int, imageView: ImageView, borderWidth: Float, borderColor: Int, cornerWidth : Int, playTimes: Int)
+
+    /**
+     * 带边框圆角gif
+     * @url: String
+     */
+    fun loadBorderCornerGif(url: String, imageView: ImageView, borderWidth: Float, borderColor: Int, cornerWidth : Int)
+
+    /**
+     * 带边框圆角gif
+     * @url: String
+     */
+    fun loadBorderCornerGif(url: String, imageView: ImageView, borderWidth: Float, borderColor: Int, cornerWidth : Int, playTimes: Int)
 
     /**
      * @url: String

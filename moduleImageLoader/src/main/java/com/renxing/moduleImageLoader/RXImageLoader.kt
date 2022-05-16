@@ -114,18 +114,18 @@ object RXImageLoader : ImageLoaderInterface {
         imageLoaderStrategy.loadBorderCircleImage(id,imageView, borderColor, borderWidth)
     }
 
-    override fun loadBorderRoundImage(
+    override fun loadBorderCornerImage(
         id: Int,
         imageView: ImageView,
         borderWidth: Float,
         borderColor: Int,
         cornerWidth: Int
     ) {
-        imageLoaderStrategy.loadBorderRoundImage(id,imageView, borderWidth, borderColor, cornerWidth)
+        imageLoaderStrategy.loadBorderCornerImage(id,imageView, borderWidth, borderColor, cornerWidth)
     }
 
-    override fun loadBorderRoundImage(url: String, imageView: ImageView, borderWidth: Float, borderColor: Int, cornerWidth : Int) {
-        imageLoaderStrategy.loadBorderRoundImage(url,imageView, borderWidth, borderColor, cornerWidth)
+    override fun loadBorderCornerImage(url: String, imageView: ImageView, borderWidth: Float, borderColor: Int, cornerWidth : Int) {
+        imageLoaderStrategy.loadBorderCornerImage(url,imageView, borderWidth, borderColor, cornerWidth)
     }
 
     override fun loadGif(url: String, imageView: ImageView, playTimes : Int) {
@@ -176,6 +176,48 @@ object RXImageLoader : ImageLoaderInterface {
         playTimes: Int
     ) {
         imageLoaderStrategy.loadRoundedCornerGif(id,imageView, radius, playTimes)
+    }
+
+    override fun loadBorderCornerGif(
+        id: Int,
+        imageView: ImageView,
+        borderWidth: Float,
+        borderColor: Int,
+        cornerWidth: Int
+    ) {
+        imageLoaderStrategy.loadBorderCornerGif(id,imageView, borderWidth, borderColor, cornerWidth)
+    }
+
+    override fun loadBorderCornerGif(
+        id: Int,
+        imageView: ImageView,
+        borderWidth: Float,
+        borderColor: Int,
+        cornerWidth: Int,
+        playTimes: Int
+    ) {
+        imageLoaderStrategy.loadBorderCornerGif(id,imageView, borderWidth, borderColor, cornerWidth, playTimes)
+    }
+
+    override fun loadBorderCornerGif(
+        url: String,
+        imageView: ImageView,
+        borderWidth: Float,
+        borderColor: Int,
+        cornerWidth: Int
+    ) {
+        imageLoaderStrategy.loadBorderCornerGif(url,imageView, borderWidth, borderColor, cornerWidth)
+    }
+
+    override fun loadBorderCornerGif(
+        url: String,
+        imageView: ImageView,
+        borderWidth: Float,
+        borderColor: Int,
+        cornerWidth: Int,
+        playTimes: Int
+    ) {
+        imageLoaderStrategy.loadBorderCornerGif(url,imageView, borderWidth, borderColor, cornerWidth, playTimes)
     }
 
     override fun loadGif(url: String, imageView: ImageView) {
