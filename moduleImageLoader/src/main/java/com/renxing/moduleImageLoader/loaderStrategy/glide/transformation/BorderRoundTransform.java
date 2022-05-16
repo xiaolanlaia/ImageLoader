@@ -17,6 +17,7 @@ import java.security.MessageDigest;
 /**
  * @author :  WuJianFeng
  * @date :  2022/5/16 15:27
+ * todo 圆角矩形边界连接处冲突 圆角与边连接处有冲突问题
  */
 public class BorderRoundTransform extends BitmapTransformation {
 
