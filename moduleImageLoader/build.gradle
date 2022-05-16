@@ -2,6 +2,32 @@ plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
+    id 'maven-publish'
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+                groupId = "com.renxing.imageLoader"
+                artifactId = "imageLoader"
+                version = "1.0"
+            }
+        }
+
+//        repositories {
+//            maven {
+//                allowInsecureProtocol true
+//                name = "nexus" //可选
+//                url = MAVEN_RELEASE_URL
+//                credentials {
+//                    username = MAVEN_USERNAME
+//                    password = MAVEN_PASSWORD
+//                }
+//            }
+//        }
+    }
 }
 
 android {
