@@ -235,8 +235,8 @@ object TransformationUtils {
     ): Bitmap {
         val destMinEdge = Math.min(destWidth, destHeight)
         val radius = destMinEdge / 2f
-        val srcWidth = inBitmap.width
-        val srcHeight = inBitmap.height
+        val srcWidth = destWidth
+        val srcHeight = destHeight
         val scaleX = destMinEdge / srcWidth.toFloat()
         val scaleY = destMinEdge / srcHeight.toFloat()
         val maxScale = Math.max(scaleX, scaleY)
