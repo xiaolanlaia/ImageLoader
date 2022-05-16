@@ -122,6 +122,48 @@ object RXImageLoader : ImageLoaderInterface {
         imageLoaderStrategy.loadGif(id,imageView)
     }
 
+    override fun loadCircleGif(url: String, imageView: ImageView) {
+        imageLoaderStrategy.loadCircleGif(url,imageView)
+    }
+
+    override fun loadCircleGif(url: String, imageView: ImageView, playTimes: Int) {
+        imageLoaderStrategy.loadCircleGif(url,imageView, playTimes)
+    }
+
+    override fun loadCircleGif(id: Int, imageView: ImageView) {
+        imageLoaderStrategy.loadCircleGif(id,imageView)
+    }
+
+    override fun loadCircleGif(id: Int, imageView: ImageView, playTimes: Int) {
+        imageLoaderStrategy.loadCircleGif(id,imageView, playTimes)
+    }
+
+    override fun loadRoundedCornerGif(url: String, imageView: ImageView, radius: Float) {
+        imageLoaderStrategy.loadRoundedCornerGif(url,imageView, radius)
+    }
+
+    override fun loadRoundedCornerGif(
+        url: String,
+        imageView: ImageView,
+        radius: Float,
+        playTimes: Int
+    ) {
+        imageLoaderStrategy.loadRoundedCornerGif(url,imageView, radius, playTimes)
+    }
+
+    override fun loadRoundedCornerGif(id: Int, imageView: ImageView, radius: Float) {
+        imageLoaderStrategy.loadRoundedCornerGif(id,imageView, radius)
+    }
+
+    override fun loadRoundedCornerGif(
+        id: Int,
+        imageView: ImageView,
+        radius: Float,
+        playTimes: Int
+    ) {
+        imageLoaderStrategy.loadRoundedCornerGif(id,imageView, radius, playTimes)
+    }
+
     override fun loadGif(url: String, imageView: ImageView) {
         imageLoaderStrategy.loadGif(url,imageView)
     }
@@ -130,16 +172,16 @@ object RXImageLoader : ImageLoaderInterface {
         imageLoaderStrategy.loadGif(id,imageView)
     }
 
-    override fun loadImageWithRxCustomTarget(url: String, context: Context, rxCustomTarget: RXCustomTarget<Bitmap>) {
-        imageLoaderStrategy.loadImageWithRxCustomTarget(url,context,rxCustomTarget)
+    override fun loadImageWithRXCustomTarget(url: String, context: Context, rxCustomTarget: RXCustomTarget<Bitmap>) {
+        imageLoaderStrategy.loadImageWithRXCustomTarget(url,context,rxCustomTarget)
     }
 
-    override fun loadImageWithRxCustomTarget(
+    override fun loadImageWithRXCustomTarget(
         id: Int,
         context: Context,
         rxCustomTarget: RXCustomTarget<Bitmap>
     ) {
-        imageLoaderStrategy.loadImageWithRxCustomTarget(id,context,rxCustomTarget)
+        imageLoaderStrategy.loadImageWithRXCustomTarget(id,context,rxCustomTarget)
     }
 
     override fun load9Png(url: String, view: View) {
