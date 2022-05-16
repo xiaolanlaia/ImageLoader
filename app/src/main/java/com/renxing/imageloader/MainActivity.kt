@@ -1,21 +1,16 @@
 package com.renxing.imageloader
 
-import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.Canvas
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.request.transition.Transition
 import com.example.imageloader.R
 import com.renxing.moduleImageLoader.RXImageLoader
-import com.renxing.moduleImageLoader.imageUtils.DevicesUtils
 import com.renxing.moduleImageLoader.imageUtils.ModuleImageConstant
-import com.renxing.moduleImageLoader.loaderStrategy.glide.ninePic.LoadDian9TuUtil
 import com.renxing.moduleImageLoader.loaderStrategy.glide.target.RXCustomTarget
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -122,7 +117,7 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
 
 
 
-                RXImageLoader.loadImageWithRxCustomTarget(url,test_iv,object : RXCustomTarget<Bitmap>(){
+                RXImageLoader.loadImageWithRxCustomTarget(url,this,object : RXCustomTarget<Bitmap>(){
                     override fun onResourceReady(
                         resource: Bitmap,
                         transition: Transition<in Bitmap>?
@@ -172,9 +167,10 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
 
 //                LoadDian9TuUtil.loadDian9Tu(this,test_iv,url)
 
-                RXImageLoader.load9Png(url,test_tv)
-                RXImageLoader.load9Png(url,test_tv_2)
-                RXImageLoader.load9Png(url,test_tv_3)
+                RXImageLoader.load9Png(R.mipmap.qipao,test_iv)
+                RXImageLoader.load9Png(R.mipmap.qipao,test_tv)
+                RXImageLoader.load9Png(R.mipmap.qipao,test_tv_2)
+                RXImageLoader.load9Png(R.mipmap.qipao,test_tv_3)
 
             }
         }

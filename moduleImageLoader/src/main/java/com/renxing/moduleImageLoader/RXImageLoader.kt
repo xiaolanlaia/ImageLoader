@@ -1,6 +1,8 @@
 package com.renxing.moduleImageLoader
 
+import android.content.Context
 import android.graphics.Bitmap
+import android.view.View
 import android.widget.ImageView
 import com.renxing.moduleImageLoader.imageUtils.ModuleImageConstant
 import com.renxing.moduleImageLoader.loaderStrategy.control.ImageLoaderInterface
@@ -111,15 +113,15 @@ object RXImageLoader : ImageLoaderInterface {
         imageLoaderStrategy.loadGif(id,imageView)
     }
 
-    override fun loadImageWithRxCustomTarget(url: String, imageView: ImageView,rxCustomTarget: RXCustomTarget<Bitmap>) {
-        imageLoaderStrategy.loadImageWithRxCustomTarget(url,imageView,rxCustomTarget)
+    override fun loadImageWithRxCustomTarget(url: String, context: Context, rxCustomTarget: RXCustomTarget<Bitmap>) {
+        imageLoaderStrategy.loadImageWithRxCustomTarget(url,context,rxCustomTarget)
     }
 
-    override fun load9Png(url: String, imageView: ImageView) {
-        imageLoaderStrategy.load9Png(url, imageView)
+    override fun load9Png(url: String, view: View) {
+        imageLoaderStrategy.load9Png(url, view)
     }
 
-    override fun load9Png(id: Int, imageView: ImageView) {
-        imageLoaderStrategy.load9Png(id, imageView)
+    override fun load9Png(id: Int, view: View) {
+        imageLoaderStrategy.load9Png(id, view)
     }
 }

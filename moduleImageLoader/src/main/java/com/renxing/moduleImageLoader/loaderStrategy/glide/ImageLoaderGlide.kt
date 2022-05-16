@@ -31,6 +31,7 @@ import com.renxing.moduleImageLoader.loaderStrategy.glide.transformation.CircleB
 import com.renxing.moduleImageLoader.loaderStrategy.glide.transformation.RoundedCornersTransform
 import java.io.File
 import java.io.FileInputStream
+import java.io.FileNotFoundException
 import java.io.IOException
 
 /**
@@ -39,30 +40,40 @@ import java.io.IOException
 @SuppressLint("CheckResult")
 internal class ImageLoaderGlide : ImageLoaderInterface {
     override fun loadImage(url: String, imageView: ImageView) {
-        glideLoadUrl(url,imageView)
+        glideLoadUrl(url, imageView)
     }
 
     override fun loadImage(id: Int, imageView: ImageView) {
-        glideLoadId(id,imageView)
+        glideLoadId(id, imageView)
     }
 
     override fun loadImage(url: String, imageView: ImageView, defaultIv: Int) {
-        glideLoadUrl(url, imageView,
+        glideLoadUrl(
+            url, imageView,
             RequestOptions()
-                .placeholder(CircleRoundDrawable(imageView.context,defaultIv))
-                .error(CircleRoundDrawable(imageView.context,defaultIv)))
+                .placeholder(CircleRoundDrawable(imageView.context, defaultIv))
+                .error(CircleRoundDrawable(imageView.context, defaultIv))
+        )
 
     }
 
     override fun loadImage(url: String, imageView: ImageView, width: Int, height: Int) {
-        glideLoadUrl(ImageLoaderUtils.appendUrl(url, width, height, false),imageView)
+        glideLoadUrl(ImageLoaderUtils.appendUrl(url, width, height, false), imageView)
     }
 
-    override fun loadImage(url: String, imageView: ImageView, defaultIv: Int, width: Int, height: Int) {
-        glideLoadUrl(url, imageView,
+    override fun loadImage(
+        url: String,
+        imageView: ImageView,
+        defaultIv: Int,
+        width: Int,
+        height: Int
+    ) {
+        glideLoadUrl(
+            url, imageView,
             RequestOptions()
                 .placeholder(defaultIv)
-                .error(defaultIv))
+                .error(defaultIv)
+        )
 
     }
 
@@ -99,21 +110,30 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
     override fun loadImageWithSkipCache(url: String, imageView: ImageView) {
 
 
-        glideLoadUrl(url, imageView,
+        glideLoadUrl(
+            url, imageView,
             RequestOptions()
-            .skipMemoryCache(true)
-            .diskCacheStrategy(DiskCacheStrategy.NONE))
+                .skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+        )
 
     }
 
-    override fun loadImageWithSkipCache(url: String, imageView: ImageView, width: Int, height: Int) {
+    override fun loadImageWithSkipCache(
+        url: String,
+        imageView: ImageView,
+        width: Int,
+        height: Int
+    ) {
 
 
-        glideLoadUrl(ImageLoaderUtils.appendUrl(url,width,height,false),
+        glideLoadUrl(
+            ImageLoaderUtils.appendUrl(url, width, height, false),
             imageView,
             RequestOptions()
                 .skipMemoryCache(true)
-                .diskCacheStrategy(DiskCacheStrategy.NONE))
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+        )
     }
 
     override fun loadCircleImage(url: String, imageView: ImageView) {
@@ -121,18 +141,46 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
     }
 
     override fun loadRoundedCornersImage(url: String, imageView: ImageView, radius: Float) {
-        glideLoadUrl(url, imageView, RequestOptions().transform(RoundedCorners((ImageLoaderUtils.dp2px(radius) + 0.5f).toInt())))
+        glideLoadUrl(
+            url,
+            imageView,
+            RequestOptions().transform(RoundedCorners((ImageLoaderUtils.dp2px(radius) + 0.5f).toInt()))
+        )
     }
 
-    override fun loadRoundedCornersImage(url: String, imageView: ImageView, radius: Float, cornerType: ModuleImageConstant.CornerType) {
+    override fun loadRoundedCornersImage(
+        url: String,
+        imageView: ImageView,
+        radius: Float,
+        cornerType: ModuleImageConstant.CornerType
+    ) {
 
-        glideLoadUrl(url, imageView,
-            RequestOptions().optionalTransform(RoundedCornersTransform(ImageLoaderUtils.dp2px(radius) + 0.5f, cornerType)))
+        glideLoadUrl(
+            url, imageView,
+            RequestOptions().optionalTransform(
+                RoundedCornersTransform(
+                    ImageLoaderUtils.dp2px(radius) + 0.5f,
+                    cornerType
+                )
+            )
+        )
     }
 
-    override fun loadRoundedCornersImage(bitmap: Bitmap, imageView: ImageView, radius: Float, cornerType: ModuleImageConstant.CornerType) {
-        glideLoadBytes(ImageLoaderUtils.bitmap2Bytes(bitmap), imageView,
-            RequestOptions().optionalTransform(RoundedCornersTransform(ImageLoaderUtils.dp2px(radius) + 0.5f, cornerType)))
+    override fun loadRoundedCornersImage(
+        bitmap: Bitmap,
+        imageView: ImageView,
+        radius: Float,
+        cornerType: ModuleImageConstant.CornerType
+    ) {
+        glideLoadBytes(
+            ImageLoaderUtils.bitmap2Bytes(bitmap), imageView,
+            RequestOptions().optionalTransform(
+                RoundedCornersTransform(
+                    ImageLoaderUtils.dp2px(radius) + 0.5f,
+                    cornerType
+                )
+            )
+        )
     }
 
     override fun loadCircleImageWithBorder(
@@ -141,8 +189,10 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
         borderColor: Int,
         borderWidth: Float
     ) {
-        glideLoadUrl(url, imageView,
-            RequestOptions().optionalTransform(CircleBorderTransformation(borderWidth,borderColor)))
+        glideLoadUrl(
+            url, imageView,
+            RequestOptions().optionalTransform(CircleBorderTransformation(borderWidth, borderColor))
+        )
     }
 
     override fun loadCircleImageWithBorder(
@@ -151,11 +201,13 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
         borderColor: Int,
         borderWidth: Float
     ) {
-        glideLoadId(id, imageView,
-            RequestOptions().optionalTransform(CircleBorderTransformation(borderWidth,borderColor)))
+        glideLoadId(
+            id, imageView,
+            RequestOptions().optionalTransform(CircleBorderTransformation(borderWidth, borderColor))
+        )
     }
 
-    override fun loadGif(url: String, imageView: ImageView, playTimes : Int) {
+    override fun loadGif(url: String, imageView: ImageView, playTimes: Int) {
         glideLoadGifUrl(url, imageView, playTimes)
     }
 
@@ -163,37 +215,46 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
         glideLoadGifUrl(url, imageView, GifDrawable.LOOP_FOREVER)
     }
 
-    override fun loadGif(id: Int, imageView: ImageView, playTimes : Int) {
+    override fun loadGif(id: Int, imageView: ImageView, playTimes: Int) {
         glideLoadGifId(id, imageView, playTimes)
     }
+
     override fun loadGif(id: Int, imageView: ImageView) {
         glideLoadGifId(id, imageView, GifDrawable.LOOP_FOREVER)
     }
 
-    override fun loadImageWithRxCustomTarget(url: String, imageView: ImageView, rxCustomTarget: RXCustomTarget<Bitmap>) {
-        glideRxCustomTarget(url,imageView,rxCustomTarget)
+    override fun loadImageWithRxCustomTarget(
+        url: String,
+        context: Context,
+        rxCustomTarget: RXCustomTarget<Bitmap>
+    ) {
+        glideRxCustomTarget(url, context, rxCustomTarget)
 
     }
 
-    override fun load9Png(url: String, imageView: ImageView) {
+    override fun load9Png(url: String, view: View) {
 
-        Glide.with(imageView.context)
+        Glide.with(view.context)
             .asFile()
             .load(url)
             .into(object : CustomTarget<File>() {
                 override fun onResourceReady(resource: File, transition: Transition<in File>?) {
+
                     try {
                         val fileInputStream = FileInputStream(resource)
-                        val bitmap = BitmapFactory.decodeStream(fileInputStream) ?: return
-                        val chunk = bitmap.ninePatchChunk
-                        if (NinePatch.isNinePatchChunk(chunk)) {
-                            val patchy = NinePatchDrawable(imageView.context.resources, bitmap, chunk, NinePatchChunk.deserialize(chunk).mPaddings, null)
-                            glideLoadDrawable(patchy,imageView)
-                        }
+                        ImageLoaderUtils.setNinePathImage(
+                            view.context,
+                            view,
+                            BitmapFactory.decodeStream(fileInputStream)
+                        )
                         fileInputStream.close()
+                    } catch (e: FileNotFoundException) {
+                        e.printStackTrace()
                     } catch (e: IOException) {
                         e.printStackTrace()
                     }
+
+
                 }
 
                 override fun onLoadCleared(placeholder: Drawable?) {}
@@ -201,16 +262,24 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
 
     }
 
-    override fun load9Png(id: Int, imageView: ImageView) {
-        val res = imageView.context.resources
+    override fun load9Png(id: Int, view: View) {
+        val res = view.context.resources
 
         val bitmap = BitmapFactory.decodeResource(res, id) ?: return
 
         val chunk: ByteArray = bitmap.ninePatchChunk
         if (NinePatch.isNinePatchChunk(chunk)) {
-            val patchy = NinePatchDrawable(imageView.context.resources, bitmap, chunk, NinePatchChunk.deserialize(chunk).mPaddings, null)
-            glideLoadDrawable(patchy,imageView)
+            val patchy = NinePatchDrawable(
+                view.context.resources,
+                bitmap,
+                chunk,
+                NinePatchChunk.deserialize(chunk).mPaddings,
+                null
+            )
+            glideLoadDrawable(patchy, view)
         }
+
+
     }
 
 
@@ -226,14 +295,42 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
             .apply(requestOptions).into(imageView)
     }
 
-    private fun glideLoadDrawable(drawable: Drawable, imageView: ImageView) {
-        Glide.with(imageView.context)
+    private fun glideLoadDrawable(drawable: Drawable, view: View) {
+//        Glide.with(imageView.context)
+//            .load(drawable)
+//            .into(imageView)
+
+        Glide.with(view.context)
             .load(drawable)
-            .into(imageView)
+            .into(object : CustomTarget<Drawable>() {
+                override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
+
+//                    try {
+//                        val fileInputStream = FileInputStream(resource)
+//                        ImageLoaderUtils.setNinePathImage(
+//                            view.context,
+//                            view,
+//                            BitmapFactory.decodeStream(fileInputStream)
+//                        )
+//                        fileInputStream.close()
+//                    } catch (e: FileNotFoundException) {
+//                        e.printStackTrace()
+//                    } catch (e: IOException) {
+//                        e.printStackTrace()
+//                    }
+
+                    view.setBackgroundDrawable(resource)
+
+
+                }
+
+                override fun onLoadCleared(placeholder: Drawable?) {}
+
+            })
     }
 
-    private fun glideRxCustomTarget(url: String, imageView: ImageView, rxCustomTarget: RXCustomTarget<Bitmap>){
-        Glide.with(imageView.context)
+    private fun glideRxCustomTarget(url: String, context: Context, rxCustomTarget: RXCustomTarget<Bitmap>) {
+        Glide.with(context)
             .asBitmap()
             .load(ImageLoaderUtils.replaceHttpToHttps(url))
             .into(rxCustomTarget)
@@ -250,18 +347,21 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
             .load(id)
             .into(imageView)
     }
+
     private fun glideLoadUrl(url: String, imageView: ImageView, requestOptions: RequestOptions) {
         Glide.with(imageView.context)
             .load(ImageLoaderUtils.replaceHttpToHttps(url))
             .apply(requestOptions)
             .into(imageView)
     }
+
     private fun glideLoadId(id: Int, imageView: ImageView, requestOptions: RequestOptions) {
         Glide.with(imageView.context)
             .load(id)
             .apply(requestOptions)
             .into(imageView)
     }
+
     private fun glideLoadGifUrl(url: String, imageView: ImageView, playTimes: Int) {
         Glide.with(imageView.context)
             .asGif()

@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Context
 import android.content.res.Resources
 import android.graphics.Bitmap
-import android.graphics.Canvas
 import android.graphics.NinePatch
 import android.graphics.Rect
 import android.graphics.drawable.BitmapDrawable
@@ -12,10 +11,10 @@ import android.graphics.drawable.Drawable
 import android.graphics.drawable.NinePatchDrawable
 import android.text.TextUtils
 import android.util.TypedValue
-import android.widget.ImageView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
+import android.view.View
+import com.renxing.moduleImageLoader.loaderStrategy.glide.ninePic.NinePatchChunk
 import java.io.ByteArrayOutputStream
+
 /**
  *@author  :  WuJianFeng
  */
@@ -108,5 +107,20 @@ internal object ImageLoaderUtils {
         val baos = ByteArrayOutputStream()
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos)
         return baos.toByteArray()
+    }
+
+    fun setNinePathImage(context: Context, imageView: View, bitmap: Bitmap?) {
+        if (bitmap == null) return
+        val chunk = bitmap.ninePatchChunk
+        if (NinePatch.isNinePatchChunk(chunk)) {
+            val patchy = NinePatchDrawable(
+                context.resources,
+                bitmap,
+                chunk,
+                NinePatchChunk.deserialize(chunk).mPaddings,
+                null
+            )
+            imageView.background = patchy
+        }
     }
 }

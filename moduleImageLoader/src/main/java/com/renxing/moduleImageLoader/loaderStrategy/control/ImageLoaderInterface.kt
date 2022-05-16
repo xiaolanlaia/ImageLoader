@@ -1,6 +1,8 @@
 package com.renxing.moduleImageLoader.loaderStrategy.control
 
+import android.content.Context
 import android.graphics.Bitmap
+import android.view.View
 import android.widget.ImageView
 import com.renxing.moduleImageLoader.imageUtils.ModuleImageConstant
 import com.renxing.moduleImageLoader.loaderStrategy.glide.target.RXCustomTarget
@@ -135,17 +137,17 @@ interface ImageLoaderInterface {
     /**
      * @url: String
      */
-    fun loadImageWithRxCustomTarget(url: String, imageView: ImageView, rxCustomTarget: RXCustomTarget<Bitmap>)
+    fun loadImageWithRxCustomTarget(url: String, context: Context, rxCustomTarget: RXCustomTarget<Bitmap>)
 
     /**
      * @url: String
      */
-    fun load9Png(url: String, imageView: ImageView)
+    fun load9Png(url: String, view: View)
 
     /**
      * @id: Int
      */
-    fun load9Png(id: Int, imageView: ImageView)
+    fun load9Png(id: Int, view: View)
 
 
 }
