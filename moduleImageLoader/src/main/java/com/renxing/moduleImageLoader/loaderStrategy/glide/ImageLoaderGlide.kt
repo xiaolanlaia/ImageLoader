@@ -252,21 +252,55 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
         glideLoadGifId(id, imageView, GifDrawable.LOOP_FOREVER)
     }
 
-    override fun loadImageWithRxCustomTarget(
+    override fun loadCircleGif(id: Int, imageView: ImageView) {
+        glideLoadCircleGifId(id, imageView, GifDrawable.LOOP_FOREVER)
+
+    }
+
+    override fun loadCircleGif(id: Int, imageView: ImageView, playTimes: Int) {
+        glideLoadCircleGifId(id, imageView, playTimes)
+    }
+
+    override fun loadCircleGif(url: String, imageView: ImageView) {
+        glideLoadCircleGifUrl(url, imageView, GifDrawable.LOOP_FOREVER)
+    }
+
+    override fun loadCircleGif(url: String, imageView: ImageView, playTimes: Int) {
+        glideLoadCircleGifUrl(url, imageView, playTimes)
+    }
+
+    override fun loadRoundedCornerGif(url: String, imageView: ImageView, radius : Float) {
+        glideLoadRoundedCornerGifUrl(url, imageView, radius, GifDrawable.LOOP_FOREVER)
+    }
+
+
+    override fun loadRoundedCornerGif(url: String, imageView: ImageView, radius : Float, playTimes: Int) {
+        glideLoadRoundedCornerGifUrl(url, imageView, radius,playTimes)
+    }
+
+    override fun loadRoundedCornerGif(id: Int, imageView: ImageView, radius: Float) {
+        glideLoadRoundedCornerGifId(id, imageView, radius, GifDrawable.LOOP_FOREVER)
+    }
+
+    override fun loadRoundedCornerGif(id: Int, imageView: ImageView, radius: Float, playTimes: Int) {
+        glideLoadRoundedCornerGifId(id, imageView, radius, playTimes)
+    }
+
+    override fun loadImageWithRXCustomTarget(
         url: String,
         context: Context,
         rxCustomTarget: RXCustomTarget<Bitmap>
     ) {
-        glideRxCustomTargetUrl(url, context, rxCustomTarget)
+        glideRXCustomTargetUrl(url, context, rxCustomTarget)
 
     }
 
-    override fun loadImageWithRxCustomTarget(
+    override fun loadImageWithRXCustomTarget(
         id: Int,
         context: Context,
         rxCustomTarget: RXCustomTarget<Bitmap>
     ) {
-        glideRxCustomTargetId(id, context, rxCustomTarget)
+        glideRXCustomTargetId(id, context, rxCustomTarget)
     }
 
     override fun load9Png(url: String, view: View) {
@@ -334,32 +368,12 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
     }
 
     private fun glideLoadDrawable(drawable: Drawable, view: View) {
-//        Glide.with(imageView.context)
-//            .load(drawable)
-//            .into(imageView)
 
         Glide.with(view.context)
             .load(drawable)
             .into(object : CustomTarget<Drawable>() {
                 override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
-
-//                    try {
-//                        val fileInputStream = FileInputStream(resource)
-//                        ImageLoaderUtils.setNinePathImage(
-//                            view.context,
-//                            view,
-//                            BitmapFactory.decodeStream(fileInputStream)
-//                        )
-//                        fileInputStream.close()
-//                    } catch (e: FileNotFoundException) {
-//                        e.printStackTrace()
-//                    } catch (e: IOException) {
-//                        e.printStackTrace()
-//                    }
-
-                    view.setBackgroundDrawable(resource)
-
-
+                    view.background = resource
                 }
 
                 override fun onLoadCleared(placeholder: Drawable?) {}
@@ -367,14 +381,14 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
             })
     }
 
-    private fun glideRxCustomTargetUrl(url: String, context: Context, rxCustomTarget: RXCustomTarget<Bitmap>) {
+    private fun glideRXCustomTargetUrl(url: String, context: Context, rxCustomTarget: RXCustomTarget<Bitmap>) {
         Glide.with(context)
             .asBitmap()
             .load(ImageLoaderUtils.replaceHttpToHttps(url))
             .into(rxCustomTarget)
     }
 
-    private fun glideRxCustomTargetId(id: Int, context: Context, rxCustomTarget: RXCustomTarget<Bitmap>) {
+    private fun glideRXCustomTargetId(id: Int, context: Context, rxCustomTarget: RXCustomTarget<Bitmap>) {
         Glide.with(context)
             .asBitmap()
             .load(id)
@@ -449,6 +463,164 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
     private fun glideLoadGifId(id: Int, imageView: ImageView, playTimes: Int) {
         Glide.with(imageView.context)
             .asGif()
+            .load(id)
+            .listener(object : RequestListener<GifDrawable> {
+
+                override fun onResourceReady(
+                    resource: GifDrawable,
+                    model: Any,
+                    target: Target<GifDrawable>,
+                    dataSource: DataSource,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    resource.setLoopCount(playTimes) //只播放一次
+                    resource.registerAnimationCallback(object :
+                        Animatable2Compat.AnimationCallback() {
+                        override fun onAnimationStart(drawable: Drawable) {
+                            super.onAnimationStart(drawable)
+                            resource.start()
+                        }
+
+                        override fun onAnimationEnd(drawable: Drawable) {
+                            super.onAnimationEnd(drawable)
+                        }
+                    })
+                    return false
+                }
+
+                override fun onLoadFailed(
+                    e: GlideException?,
+                    model: Any?,
+                    target: Target<GifDrawable>?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    return false
+                }
+            }).into(imageView)
+    }
+
+    private fun glideLoadCircleGifUrl(url: String, imageView: ImageView, playTimes: Int) {
+        Glide.with(imageView.context)
+            .asGif()
+            .load(ImageLoaderUtils.replaceHttpToHttps(url))
+            .listener(object : RequestListener<GifDrawable> {
+
+                override fun onResourceReady(
+                    resource: GifDrawable,
+                    model: Any,
+                    target: Target<GifDrawable>,
+                    dataSource: DataSource,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    resource.setLoopCount(playTimes) //只播放一次
+                    resource.registerAnimationCallback(object :
+                        Animatable2Compat.AnimationCallback() {
+                        override fun onAnimationStart(drawable: Drawable) {
+                            super.onAnimationStart(drawable)
+                            resource.start()
+                        }
+
+                        override fun onAnimationEnd(drawable: Drawable) {
+                            super.onAnimationEnd(drawable)
+                        }
+                    })
+                    return false
+                }
+
+                override fun onLoadFailed(
+                    e: GlideException?,
+                    model: Any?,
+                    target: Target<GifDrawable>?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    return false
+                }
+            }).into(imageView)
+    }
+
+    private fun glideLoadCircleGifId(id: Int, imageView: ImageView, playTimes: Int) {
+        Glide.with(imageView.context)
+            .asGif()
+            .load(id)
+            .listener(object : RequestListener<GifDrawable> {
+
+                override fun onResourceReady(
+                    resource: GifDrawable,
+                    model: Any,
+                    target: Target<GifDrawable>,
+                    dataSource: DataSource,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    resource.setLoopCount(playTimes) //只播放一次
+                    resource.registerAnimationCallback(object :
+                        Animatable2Compat.AnimationCallback() {
+                        override fun onAnimationStart(drawable: Drawable) {
+                            super.onAnimationStart(drawable)
+                            resource.start()
+                        }
+
+                        override fun onAnimationEnd(drawable: Drawable) {
+                            super.onAnimationEnd(drawable)
+                        }
+                    })
+                    return false
+                }
+
+                override fun onLoadFailed(
+                    e: GlideException?,
+                    model: Any?,
+                    target: Target<GifDrawable>?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    return false
+                }
+            }).into(imageView)
+    }
+
+    private fun glideLoadRoundedCornerGifUrl(url: String, imageView: ImageView, radius : Float, playTimes: Int) {
+        Glide.with(imageView.context)
+            .asGif()
+            .apply(RequestOptions().transform(RoundedCorners((ImageLoaderUtils.dp2px(radius) + 0.5f).toInt())))
+            .load(ImageLoaderUtils.replaceHttpToHttps(url))
+            .listener(object : RequestListener<GifDrawable> {
+
+                override fun onResourceReady(
+                    resource: GifDrawable,
+                    model: Any,
+                    target: Target<GifDrawable>,
+                    dataSource: DataSource,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    resource.setLoopCount(playTimes) //只播放一次
+                    resource.registerAnimationCallback(object :
+                        Animatable2Compat.AnimationCallback() {
+                        override fun onAnimationStart(drawable: Drawable) {
+                            super.onAnimationStart(drawable)
+                            resource.start()
+                        }
+
+                        override fun onAnimationEnd(drawable: Drawable) {
+                            super.onAnimationEnd(drawable)
+                        }
+                    })
+                    return false
+                }
+
+                override fun onLoadFailed(
+                    e: GlideException?,
+                    model: Any?,
+                    target: Target<GifDrawable>?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    return false
+                }
+            }).into(imageView)
+    }
+
+    private fun glideLoadRoundedCornerGifId(id: Int, imageView: ImageView, radius : Float, playTimes: Int) {
+        Glide.with(imageView.context)
+            .asGif()
+            .apply(RequestOptions().transform(RoundedCorners((ImageLoaderUtils.dp2px(radius) + 0.5f).toInt())))
             .load(id)
             .listener(object : RequestListener<GifDrawable> {
 

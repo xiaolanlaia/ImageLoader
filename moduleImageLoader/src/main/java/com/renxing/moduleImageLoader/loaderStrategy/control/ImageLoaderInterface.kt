@@ -153,12 +153,52 @@ interface ImageLoaderInterface {
     /**
      * @url: String
      */
-    fun loadImageWithRxCustomTarget(url: String, context: Context, rxCustomTarget: RXCustomTarget<Bitmap>)
+    fun loadCircleGif(url: String, imageView: ImageView)
+
+    /**
+     * @url: String
+     */
+    fun loadCircleGif(url: String, imageView: ImageView, playTimes : Int)
 
     /**
      * @id: Int
      */
-    fun loadImageWithRxCustomTarget(id: Int, context: Context, rxCustomTarget: RXCustomTarget<Bitmap>)
+    fun loadCircleGif(id: Int, imageView: ImageView)
+
+    /**
+     * @id: Int
+     */
+    fun loadCircleGif(id: Int, imageView: ImageView, playTimes : Int)
+
+    /**
+     * @url: String
+     */
+    fun loadRoundedCornerGif(url: String, imageView: ImageView, radius: Float)
+
+    /**
+     * @url: String
+     */
+    fun loadRoundedCornerGif(url: String, imageView: ImageView, radius: Float, playTimes : Int)
+
+    /**
+     * @id: Int
+     */
+    fun loadRoundedCornerGif(id: Int, imageView: ImageView, radius: Float)
+
+    /**
+     * @id: Int
+     */
+    fun loadRoundedCornerGif(id: Int, imageView: ImageView, radius: Float, playTimes : Int)
+
+    /**
+     * @url: String
+     */
+    fun loadImageWithRXCustomTarget(url: String, context: Context, rxCustomTarget: RXCustomTarget<Bitmap>)
+
+    /**
+     * @id: Int
+     */
+    fun loadImageWithRXCustomTarget(id: Int, context: Context, rxCustomTarget: RXCustomTarget<Bitmap>)
 
     /**
      * @url: String
