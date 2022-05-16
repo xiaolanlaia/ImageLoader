@@ -9,17 +9,12 @@ import android.graphics.drawable.Drawable
 import android.graphics.drawable.NinePatchDrawable
 import android.view.View
 import android.widget.ImageView
-import androidx.vectordrawable.graphics.drawable.Animatable2Compat
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.gif.GifDrawable
-import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.CustomTarget
-import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
 import com.renxing.moduleImageLoader.imageUtils.ImageLoaderUtils
 import com.renxing.moduleImageLoader.imageUtils.ModuleImageConstant
@@ -34,7 +29,6 @@ import java.io.File
 import java.io.FileInputStream
 import java.io.FileNotFoundException
 import java.io.IOException
-import java.lang.IllegalArgumentException
 
 /**
  *@author  :  WuJianFeng
@@ -239,26 +233,30 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
     }
 
     override fun load9Png(urlOrId: Any, view: View) {
-        checkUrlOrId(urlOrId)
-        if (urlOrId is String){
-            glideLoad9Png(urlOrId,view)
+        ImageLoaderUtils.checkUrlOrId(urlOrId)
 
-        }else if (urlOrId is Int){
-            val res = view.context.resources
+        when(urlOrId){
+            is String -> {
+                glideLoad9Png(urlOrId,view)
+            }
 
-            val bitmap = BitmapFactory.decodeResource(res, urlOrId) ?: return
-            if (bitmap.ninePatchChunk == null) return
+            is Int -> {
+                val res = view.context.resources
 
-            val chunk: ByteArray = bitmap.ninePatchChunk
-            if (NinePatch.isNinePatchChunk(chunk)) {
-                val patchy = NinePatchDrawable(
-                    view.context.resources,
-                    bitmap,
-                    chunk,
-                    NinePatchChunk.deserialize(chunk).mPaddings,
-                    null
-                )
-                glideLoadDrawable(patchy, view)
+                val bitmap = BitmapFactory.decodeResource(res, urlOrId) ?: return
+                if (bitmap.ninePatchChunk == null) return
+
+                val chunk: ByteArray = bitmap.ninePatchChunk
+                if (NinePatch.isNinePatchChunk(chunk)) {
+                    val patchy = NinePatchDrawable(
+                        view.context.resources,
+                        bitmap,
+                        chunk,
+                        NinePatchChunk.deserialize(chunk).mPaddings,
+                        null
+                    )
+                    glideLoadDrawable(patchy, view)
+                }
             }
         }
     }
@@ -339,7 +337,7 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
     }
 
     private fun glideLoad(urlOrId: Any, imageView: ImageView) {
-        checkUrlOrId(urlOrId)
+        ImageLoaderUtils.checkUrlOrId(urlOrId)
         Glide.with(imageView.context)
             .load(if (urlOrId is String) ImageLoaderUtils.replaceHttpToHttps(urlOrId) else urlOrId)
             .into(imageView)
@@ -348,7 +346,7 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
 
 
     private fun glideLoad(urlOrId: Any, imageView: ImageView, requestOptions: RequestOptions) {
-        checkUrlOrId(urlOrId)
+        ImageLoaderUtils.checkUrlOrId(urlOrId)
         Glide.with(imageView.context)
             .load(if (urlOrId is String) ImageLoaderUtils.replaceHttpToHttps(urlOrId) else urlOrId)
             .apply(requestOptions)
@@ -357,83 +355,21 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
 
 
     private fun glideLoadGif(urlOrId: Any, imageView: ImageView, playTimes: Int) {
-        checkUrlOrId(urlOrId)
+        ImageLoaderUtils.checkUrlOrId(urlOrId)
         Glide.with(imageView.context)
             .asGif()
             .load(if (urlOrId is String) ImageLoaderUtils.replaceHttpToHttps(urlOrId) else urlOrId)
-            .listener(object : RequestListener<GifDrawable> {
-
-                override fun onResourceReady(
-                    resource: GifDrawable,
-                    model: Any,
-                    target: Target<GifDrawable>,
-                    dataSource: DataSource,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    resource.setLoopCount(playTimes) //只播放一次
-                    resource.registerAnimationCallback(object :
-                        Animatable2Compat.AnimationCallback() {
-                        override fun onAnimationStart(drawable: Drawable) {
-                            super.onAnimationStart(drawable)
-                            resource.start()
-                        }
-
-                        override fun onAnimationEnd(drawable: Drawable) {
-                            super.onAnimationEnd(drawable)
-                        }
-                    })
-                    return false
-                }
-
-                override fun onLoadFailed(
-                    e: GlideException?,
-                    model: Any?,
-                    target: Target<GifDrawable>?,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    return false
-                }
-            }).into(imageView)
+            .listener(ImageLoaderUtils.gifDrawableRequestListener(playTimes))
+            .into(imageView)
     }
 
     private fun glideLoadCircleGif(urlOrId: Any, imageView: ImageView, playTimes: Int) {
-        checkUrlOrId(urlOrId)
+        ImageLoaderUtils.checkUrlOrId(urlOrId)
         Glide.with(imageView.context)
             .asGif()
             .load(if (urlOrId is String) ImageLoaderUtils.replaceHttpToHttps(urlOrId) else urlOrId)
-            .listener(object : RequestListener<GifDrawable> {
-
-                override fun onResourceReady(
-                    resource: GifDrawable,
-                    model: Any,
-                    target: Target<GifDrawable>,
-                    dataSource: DataSource,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    resource.setLoopCount(playTimes) //只播放一次
-                    resource.registerAnimationCallback(object :
-                        Animatable2Compat.AnimationCallback() {
-                        override fun onAnimationStart(drawable: Drawable) {
-                            super.onAnimationStart(drawable)
-                            resource.start()
-                        }
-
-                        override fun onAnimationEnd(drawable: Drawable) {
-                            super.onAnimationEnd(drawable)
-                        }
-                    })
-                    return false
-                }
-
-                override fun onLoadFailed(
-                    e: GlideException?,
-                    model: Any?,
-                    target: Target<GifDrawable>?,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    return false
-                }
-            }).into(imageView)
+            .listener(ImageLoaderUtils.gifDrawableRequestListener(playTimes))
+            .into(imageView)
     }
 
     private fun glideLoadRoundedCornerGif(
@@ -443,44 +379,13 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
         playTimes: Int
     ) {
 
-        checkUrlOrId(urlOrId)
+        ImageLoaderUtils.checkUrlOrId(urlOrId)
         Glide.with(imageView.context)
             .asGif()
             .apply(RequestOptions().transform(RoundedCorners((ImageLoaderUtils.dp2px(radius) + 0.5f).toInt())))
             .load(if (urlOrId is String) ImageLoaderUtils.replaceHttpToHttps(urlOrId) else urlOrId)
-            .listener(object : RequestListener<GifDrawable> {
-
-                override fun onResourceReady(
-                    resource: GifDrawable,
-                    model: Any,
-                    target: Target<GifDrawable>,
-                    dataSource: DataSource,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    resource.setLoopCount(playTimes) //只播放一次
-                    resource.registerAnimationCallback(object :
-                        Animatable2Compat.AnimationCallback() {
-                        override fun onAnimationStart(drawable: Drawable) {
-                            super.onAnimationStart(drawable)
-                            resource.start()
-                        }
-
-                        override fun onAnimationEnd(drawable: Drawable) {
-                            super.onAnimationEnd(drawable)
-                        }
-                    })
-                    return false
-                }
-
-                override fun onLoadFailed(
-                    e: GlideException?,
-                    model: Any?,
-                    target: Target<GifDrawable>?,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    return false
-                }
-            }).into(imageView)
+            .listener(ImageLoaderUtils.gifDrawableRequestListener(playTimes))
+            .into(imageView)
     }
 
 
@@ -492,50 +397,14 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
         cornerWidth: Int,
         playTimes: Int
     ) {
-        checkUrlOrId(urlOrId)
+        ImageLoaderUtils.checkUrlOrId(urlOrId)
         Glide.with(imageView.context)
             .asGif()
             .apply(RequestOptions().transform(BorderRoundTransform(borderWidth,borderColor,cornerWidth)))
             .load(if (urlOrId is String) ImageLoaderUtils.replaceHttpToHttps(urlOrId) else urlOrId)
-            .listener(object : RequestListener<GifDrawable> {
-
-                override fun onResourceReady(
-                    resource: GifDrawable,
-                    model: Any,
-                    target: Target<GifDrawable>,
-                    dataSource: DataSource,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    resource.setLoopCount(playTimes) //只播放一次
-                    resource.registerAnimationCallback(object :
-                        Animatable2Compat.AnimationCallback() {
-                        override fun onAnimationStart(drawable: Drawable) {
-                            super.onAnimationStart(drawable)
-                            resource.start()
-                        }
-
-                        override fun onAnimationEnd(drawable: Drawable) {
-                            super.onAnimationEnd(drawable)
-                        }
-                    })
-                    return false
-                }
-
-                override fun onLoadFailed(
-                    e: GlideException?,
-                    model: Any?,
-                    target: Target<GifDrawable>?,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    return false
-                }
-            }).into(imageView)
+            .listener(ImageLoaderUtils.gifDrawableRequestListener(playTimes))
+            .into(imageView)
     }
 
-    private fun checkUrlOrId(urlOrId: Any) {
-        if (urlOrId !is String && urlOrId !is Int) {
-            throw IllegalArgumentException("urlOrId is not correct argument")
-        }
-    }
 
 }

@@ -12,8 +12,15 @@ import android.graphics.drawable.NinePatchDrawable
 import android.text.TextUtils
 import android.util.TypedValue
 import android.view.View
+import androidx.vectordrawable.graphics.drawable.Animatable2Compat
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.load.resource.gif.GifDrawable
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.renxing.moduleImageLoader.loaderStrategy.glide.ninePic.NinePatchChunk
 import java.io.ByteArrayOutputStream
+import java.lang.IllegalArgumentException
 
 /**
  *@author  :  WuJianFeng
@@ -34,12 +41,13 @@ internal object ImageLoaderUtils {
         return newUrl
     }
 
-    fun checkUrl(url: String): Boolean {
-        if (TextUtils.isEmpty(url)) {
-            return true
+
+    fun checkUrlOrId(urlOrId: Any) {
+        if (urlOrId !is String && urlOrId !is Int) {
+            throw IllegalArgumentException("urlOrId is not correct argument")
         }
-        return url.endsWith("null")
     }
+
     fun activityFinishedOrDestroyed(mContext: Context): Boolean {
         if (mContext is Activity) {
             if (mContext.isFinishing || mContext.isDestroyed) {
@@ -121,6 +129,44 @@ internal object ImageLoaderUtils {
                 null
             )
             imageView.background = patchy
+        }
+    }
+
+
+
+    fun gifDrawableRequestListener(playTimes : Int) : RequestListener<GifDrawable> {
+        return object : RequestListener<GifDrawable> {
+
+            override fun onResourceReady(
+                resource: GifDrawable,
+                model: Any,
+                target: Target<GifDrawable>,
+                dataSource: DataSource,
+                isFirstResource: Boolean
+            ): Boolean {
+                resource.setLoopCount(playTimes)
+                resource.registerAnimationCallback(object :
+                    Animatable2Compat.AnimationCallback() {
+                    override fun onAnimationStart(drawable: Drawable) {
+                        super.onAnimationStart(drawable)
+                        resource.start()
+                    }
+
+                    override fun onAnimationEnd(drawable: Drawable) {
+                        super.onAnimationEnd(drawable)
+                    }
+                })
+                return false
+            }
+
+            override fun onLoadFailed(
+                e: GlideException?,
+                model: Any?,
+                target: Target<GifDrawable>?,
+                isFirstResource: Boolean
+            ): Boolean {
+                return false
+            }
         }
     }
 }
