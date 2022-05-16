@@ -53,6 +53,8 @@ public class CircleRoundDrawable extends Drawable {
         } else {
             this.bitmap = oldBitmap;
         }
+
+        if (this.bitmap == null) return;
         paint = new Paint();
         paint.setAntiAlias(true);//抗锯齿
         paint.setDither(true);//抖动,不同屏幕尺的使用保证图片质量
