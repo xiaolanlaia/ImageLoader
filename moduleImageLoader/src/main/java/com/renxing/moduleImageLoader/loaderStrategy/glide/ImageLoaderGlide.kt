@@ -27,6 +27,7 @@ import com.renxing.moduleImageLoader.loaderStrategy.control.ImageLoaderInterface
 import com.renxing.moduleImageLoader.loaderStrategy.glide.ninePic.NinePatchChunk
 import com.renxing.moduleImageLoader.loaderStrategy.glide.placeholder.CircleRoundDrawable
 import com.renxing.moduleImageLoader.loaderStrategy.glide.target.RXCustomTarget
+import com.renxing.moduleImageLoader.loaderStrategy.glide.transformation.BorderRoundTransform
 import com.renxing.moduleImageLoader.loaderStrategy.glide.transformation.CircleBorderTransformation
 import com.renxing.moduleImageLoader.loaderStrategy.glide.transformation.RoundedCornersTransform
 import java.io.File
@@ -212,7 +213,7 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
         )
     }
 
-    override fun loadCircleImageWithBorder(
+    override fun loadBorderCircleImage(
         url: String,
         imageView: ImageView,
         borderColor: Int,
@@ -224,7 +225,7 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
         )
     }
 
-    override fun loadCircleImageWithBorder(
+    override fun loadBorderCircleImage(
         id: Int,
         imageView: ImageView,
         borderColor: Int,
@@ -234,6 +235,28 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
             id, imageView,
             RequestOptions().optionalTransform(CircleBorderTransformation(borderWidth, borderColor))
         )
+    }
+
+    override fun loadBorderRoundImage(
+        id: Int,
+        imageView: ImageView,
+        borderWidth: Float,
+        borderColor: Int,
+        cornerWidth: Int
+    ) {
+        glideLoadId(
+            id, imageView,
+            RequestOptions().transform(BorderRoundTransform(borderWidth,borderColor,cornerWidth))
+        )
+    }
+
+    override fun loadBorderRoundImage(url: String, imageView: ImageView, borderWidth: Float, borderColor: Int, cornerWidth : Int) {
+
+        glideLoadUrl(
+            url, imageView,
+            RequestOptions().transform(BorderRoundTransform(borderWidth,borderColor,cornerWidth))
+        )
+
     }
 
     override fun loadGif(url: String, imageView: ImageView, playTimes: Int) {
@@ -269,20 +292,30 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
         glideLoadCircleGifUrl(url, imageView, playTimes)
     }
 
-    override fun loadRoundedCornerGif(url: String, imageView: ImageView, radius : Float) {
+    override fun loadRoundedCornerGif(url: String, imageView: ImageView, radius: Float) {
         glideLoadRoundedCornerGifUrl(url, imageView, radius, GifDrawable.LOOP_FOREVER)
     }
 
 
-    override fun loadRoundedCornerGif(url: String, imageView: ImageView, radius : Float, playTimes: Int) {
-        glideLoadRoundedCornerGifUrl(url, imageView, radius,playTimes)
+    override fun loadRoundedCornerGif(
+        url: String,
+        imageView: ImageView,
+        radius: Float,
+        playTimes: Int
+    ) {
+        glideLoadRoundedCornerGifUrl(url, imageView, radius, playTimes)
     }
 
     override fun loadRoundedCornerGif(id: Int, imageView: ImageView, radius: Float) {
         glideLoadRoundedCornerGifId(id, imageView, radius, GifDrawable.LOOP_FOREVER)
     }
 
-    override fun loadRoundedCornerGif(id: Int, imageView: ImageView, radius: Float, playTimes: Int) {
+    override fun loadRoundedCornerGif(
+        id: Int,
+        imageView: ImageView,
+        radius: Float,
+        playTimes: Int
+    ) {
         glideLoadRoundedCornerGifId(id, imageView, radius, playTimes)
     }
 
@@ -359,7 +392,11 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
      * Glide加载图片的最终方法
      */
 
-    private fun glideLoadBytes(bytes: ByteArray, imageView: ImageView, requestOptions: RequestOptions) {
+    private fun glideLoadBytes(
+        bytes: ByteArray,
+        imageView: ImageView,
+        requestOptions: RequestOptions
+    ) {
         Glide
             .with(imageView.context)
             .asBitmap()
@@ -372,7 +409,10 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
         Glide.with(view.context)
             .load(drawable)
             .into(object : CustomTarget<Drawable>() {
-                override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
+                override fun onResourceReady(
+                    resource: Drawable,
+                    transition: Transition<in Drawable>?
+                ) {
                     view.background = resource
                 }
 
@@ -381,14 +421,22 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
             })
     }
 
-    private fun glideRXCustomTargetUrl(url: String, context: Context, rxCustomTarget: RXCustomTarget<Bitmap>) {
+    private fun glideRXCustomTargetUrl(
+        url: String,
+        context: Context,
+        rxCustomTarget: RXCustomTarget<Bitmap>
+    ) {
         Glide.with(context)
             .asBitmap()
             .load(ImageLoaderUtils.replaceHttpToHttps(url))
             .into(rxCustomTarget)
     }
 
-    private fun glideRXCustomTargetId(id: Int, context: Context, rxCustomTarget: RXCustomTarget<Bitmap>) {
+    private fun glideRXCustomTargetId(
+        id: Int,
+        context: Context,
+        rxCustomTarget: RXCustomTarget<Bitmap>
+    ) {
         Glide.with(context)
             .asBitmap()
             .load(id)
@@ -577,7 +625,12 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
             }).into(imageView)
     }
 
-    private fun glideLoadRoundedCornerGifUrl(url: String, imageView: ImageView, radius : Float, playTimes: Int) {
+    private fun glideLoadRoundedCornerGifUrl(
+        url: String,
+        imageView: ImageView,
+        radius: Float,
+        playTimes: Int
+    ) {
         Glide.with(imageView.context)
             .asGif()
             .apply(RequestOptions().transform(RoundedCorners((ImageLoaderUtils.dp2px(radius) + 0.5f).toInt())))
@@ -617,7 +670,12 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
             }).into(imageView)
     }
 
-    private fun glideLoadRoundedCornerGifId(id: Int, imageView: ImageView, radius : Float, playTimes: Int) {
+    private fun glideLoadRoundedCornerGifId(
+        id: Int,
+        imageView: ImageView,
+        radius: Float,
+        playTimes: Int
+    ) {
         Glide.with(imageView.context)
             .asGif()
             .apply(RequestOptions().transform(RoundedCorners((ImageLoaderUtils.dp2px(radius) + 0.5f).toInt())))

@@ -120,15 +120,27 @@ interface ImageLoaderInterface {
     fun loadRoundedCornersImage(bitmap: Bitmap, imageView: ImageView, radius: Float, cornerType: ModuleImageConstant.CornerType)
 
     /**
-     * 带边框图
+     * 带边框圆形图
      * url: String
      */
-    fun loadCircleImageWithBorder(url: String, imageView: ImageView, borderColor : Int, borderWidth : Float)
+    fun loadBorderCircleImage(url: String, imageView: ImageView, borderColor : Int, borderWidth : Float)
     /**
-     * 带边框图
+     * 带边框圆形图
      * id: Int
      */
-    fun loadCircleImageWithBorder(id: Int, imageView: ImageView, borderColor : Int, borderWidth : Float)
+    fun loadBorderCircleImage(id: Int, imageView: ImageView, borderColor : Int, borderWidth : Float)
+
+    /**
+     * 带边框圆角图
+     * id: Int
+     */
+    fun loadBorderRoundImage(id: Int, imageView: ImageView, borderWidth: Float, borderColor: Int, cornerWidth : Int)
+
+    /**
+     * 带边框圆角图
+     * url: String
+     */
+    fun loadBorderRoundImage(url: String, imageView: ImageView, borderWidth: Float, borderColor: Int, cornerWidth : Int)
 
     /**
      * @url: String
