@@ -28,7 +28,7 @@ public class CircleRoundDrawable extends Drawable {
     private int radius;//半径
     private int roundAngle = 10;//默认圆角
     private Bitmap bitmap;//位图
-    private int type=2;//默认为圆形
+    private int type=1;//默认为圆形
 
     public static final int TYPE_Round = 1;
     public static final int Type_Circle = 2;
@@ -72,7 +72,7 @@ public class CircleRoundDrawable extends Drawable {
      * @param roundAngle 百分比
      */
     public CircleRoundDrawable setRoundAngle(float roundAngle) {
-        this.roundAngle = (int) (roundAngle * this.bitmap.getWidth());
+        this.roundAngle = (int) roundAngle;
         return this;
     }
 
