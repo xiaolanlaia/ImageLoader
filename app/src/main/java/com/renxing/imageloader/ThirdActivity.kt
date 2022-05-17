@@ -73,10 +73,10 @@ class ThirdActivity : AppCompatActivity() , View.OnClickListener {
                 RXImageLoader.loadRoundedCornerGif(gifId, test_iv_1, cornerWidth)
             }
             R.id.btn_url_gif_corner_playTimes -> {
-                RXImageLoader.loadRoundedCornerGif(gifUrl, test_iv_1, cornerWidth, playTimes)
+                RXImageLoader.loadRoundedCornerGif(playTimes,gifUrl, test_iv_1, cornerWidth)
             }
             R.id.btn_id_gif_corner_playTimes -> {
-                RXImageLoader.loadRoundedCornerGif(gifId, test_iv_1, cornerWidth, playTimes)
+                RXImageLoader.loadRoundedCornerGif(playTimes,gifId, test_iv_1, cornerWidth)
             }
             R.id.btn_url_gif_corner_border -> {
                 RXImageLoader.loadBorderCornerGif(
@@ -98,22 +98,22 @@ class ThirdActivity : AppCompatActivity() , View.OnClickListener {
             }
             R.id.btn_url_gif_corner_border_playTimes -> {
                 RXImageLoader.loadBorderCornerGif(
+                    playTimes,
                     gifUrl,
                     test_iv_1,
                     borderColor,
                     borderWidth,
                     cornerWidth,
-                    playTimes
                 )
             }
             R.id.btn_id_gif_corner_border_playTimes -> {
                 RXImageLoader.loadBorderCornerGif(
+                    playTimes,
                     gifId,
                     test_iv_1,
                     borderColor,
                     borderWidth,
                     cornerWidth,
-                    playTimes
                 )
             }
             R.id.btn_url_CustomTarget -> {

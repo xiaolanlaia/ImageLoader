@@ -26,7 +26,7 @@ public class CircleRoundDrawable extends Drawable {
     private int mWidth;//图片宽与高的最小值
     private RectF rectF;//矩形
     private int radius;//半径
-    private int roundAngle = 30;//默认圆角
+    private int roundAngle = 10;//默认圆角
     private Bitmap bitmap;//位图
     private int type=2;//默认为圆形
 

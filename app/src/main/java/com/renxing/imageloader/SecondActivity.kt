@@ -120,10 +120,10 @@ class SecondActivity : AppCompatActivity(), View.OnClickListener {
                 RXImageLoader.loadGif(gifId,test_iv_1)
             }
             R.id.btn_url_gif_playTimes              ->{
-                RXImageLoader.loadGif(gifUrl,test_iv_1,playTimes)
+                RXImageLoader.loadGif(playTimes,gifUrl,test_iv_1)
             }
             R.id.btn_id_gif_playTimes               ->{
-                RXImageLoader.loadGif(gifId,test_iv_1,playTimes)
+                RXImageLoader.loadGif(playTimes,gifId,test_iv_1)
             }
             R.id.btn_url_gif_circle                 ->{
                 RXImageLoader.loadCircleGif(gifUrl,test_iv_1)
@@ -132,10 +132,10 @@ class SecondActivity : AppCompatActivity(), View.OnClickListener {
                 RXImageLoader.loadCircleGif(gifId,test_iv_1)
             }
             R.id.btn_url_gif_circle_playTimes       ->{
-                RXImageLoader.loadCircleGif(gifUrl,test_iv_1,playTimes)
+                RXImageLoader.loadCircleGif(playTimes,gifUrl,test_iv_1)
             }
             R.id.btn_id_gif_circle_playTimes        ->{
-                RXImageLoader.loadCircleGif(gifId,test_iv_1,playTimes)
+                RXImageLoader.loadCircleGif(playTimes,gifId,test_iv_1)
             }
 
             R.id.btn_next_page                      ->{

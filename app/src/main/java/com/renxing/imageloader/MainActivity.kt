@@ -112,16 +112,16 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
                 RXImageLoader.loadImage(imgId,test_iv_1)
             }
             R.id.btn_url_placeholder                ->{
-                RXImageLoader.loadImage("url",test_iv_1,R.mipmap.img4)
+                RXImageLoader.loadImage(url,test_iv_1,R.mipmap.img4)
             }
             R.id.btn_id_placeholder                 ->{
-                RXImageLoader.loadImage("imgId",test_iv_1,placeHoldId)
+                RXImageLoader.loadImage(imgId,test_iv_1,placeHoldId)
             }
             R.id.btn_special                        ->{
                 RXImageLoader.loadImage(url,test_iv_1,width,height)
             }
             R.id.btn_special_placeholder            ->{
-                RXImageLoader.loadImage(url2,test_iv_1,placeHoldId,width,height)
+                RXImageLoader.loadImage(url2,test_iv_1,width,height,placeHoldId)
             }
             R.id.btn_url_fitCenter                  ->{
                 RXImageLoader.loadImageWithFitCenter(url,test_iv_1)
