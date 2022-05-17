@@ -7,6 +7,9 @@ import com.example.imageloader.R
  *@date    :  2022/5/17 11:12
  *@author  :  WuJianFeng
  */
+const val nullUrl = ""
+const val nullId = 1
+const val bigPic = "https://voimigo.chongqiwawa6.com/dynamic/202204/16487795145772267.jpg"
 const val url = "https://voimigo.chongqiwawa6.com/20210810chatRoomdefaultbgIcon.png"
 const val url2 = "https://img.zcool.cn/community/0160875c7cda32a801203d226e0076.jpg@1280w_1l_2o_100sh.jpg"
 const val imgId = R.mipmap.charff

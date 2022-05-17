@@ -9,8 +9,7 @@ import com.example.imageloader.R
 import com.renxing.moduleImageLoader.RXImageLoader
 
 class FourthActivity : AppCompatActivity() ,View.OnClickListener{
-    val nullUrl = ""
-    val nullId = 1
+
     lateinit var url_placeholder    : Button
     lateinit var id_special         : Button
     lateinit var test_iv_1          : ImageView
@@ -23,7 +22,6 @@ class FourthActivity : AppCompatActivity() ,View.OnClickListener{
         url_placeholder    .setOnClickListener(this)
         id_special         .setOnClickListener(this)
     }
-    val bigPic = "https://voimigo.chongqiwawa6.com/dynamic/202204/16487795145772267.jpg"
 
     override fun onClick(v: View) {
         when(v.id){
