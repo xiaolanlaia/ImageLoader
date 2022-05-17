@@ -1,27 +1,16 @@
 package com.renxing.imageloader
 
-import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.NinePatch
-import android.graphics.Rect
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
-import android.graphics.drawable.NinePatchDrawable
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.bumptech.glide.request.RequestOptions
 import com.example.imageloader.R
 import com.renxing.moduleImageLoader.RXImageLoader
-import com.renxing.moduleImageLoader.imageUtils.*
 
 class MainActivity : AppCompatActivity(),View.OnClickListener {
 
@@ -121,7 +110,7 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
                 RXImageLoader.loadImage(imgId,test_iv_1)
             }
             R.id.btn_url_placeholder                ->{
-                RXImageLoader.loadImage(url,test_iv_1,R.mipmap.img4)
+                RXImageLoader.loadImage(url,test_iv_1, placeHoldId)
             }
             R.id.btn_id_placeholder                 ->{
                 RXImageLoader.loadImage(imgId,test_iv_1,placeHoldId)
@@ -169,26 +158,15 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
                 RXImageLoader.loadCornersImage(url,test_iv_1,cornerWidth)
             }
             R.id.btn_id_corner                      ->{
-                RXImageLoader.loadCornersImage(imgId,test_iv_1,cornerWidth)
+                RXImageLoader.loadCornersImage(imgId,test_iv_1,cornerWidth, placeHoldId)
             }
 
             R.id.btn_next_page                      ->{
-//                startActivity(Intent(this@MainActivity,SecondActivity::class.java))
+                startActivity(Intent(this@MainActivity,SecondActivity::class.java))
 
-                Log.d("__getReturnStr-1",getReturnStr("kkkkkkk"))
-                Log.d("__getReturnStr-2",getReturnStr("llllll"))
-                Log.d("__getReturnStr-3",getReturnStr(".jpg"))
-                Log.d("__getReturnStr-4",getReturnStr(".jpg111"))
             }
 
         }
 
-    }
-    fun getReturnStr(url : String): String {
-        return if (url.endsWith("jpg")) {
-            "${url}------------"
-        } else {
-            "llllll"
-        }
     }
 }

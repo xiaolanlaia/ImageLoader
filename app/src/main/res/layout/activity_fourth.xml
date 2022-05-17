@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.renxing.imageloader.FourthActivity">
+    <Button
+        android:id="@+id/url_placeholder"
+        android:text="url加载的占位图"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <Button
+        android:id="@+id/id_special"
+        android:text="id加载的占位图"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <ImageView
+        android:id="@+id/test_iv_1"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="@dimen/dp_300"
+        android:layout_height="@dimen/dp_300"/>
+
+</LinearLayout>

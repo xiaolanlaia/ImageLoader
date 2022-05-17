@@ -1,5 +1,6 @@
 package com.renxing.imageloader
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -23,6 +24,7 @@ class ThirdActivity : AppCompatActivity() , View.OnClickListener {
     lateinit var btn_url_png9: Button
     lateinit var btn_id_png9: Button
 
+    lateinit var btn_next_page: Button
     lateinit var test_tv_1: TextView
     lateinit var test_tv_2: TextView
     lateinit var test_tv_3: TextView
@@ -44,6 +46,8 @@ class ThirdActivity : AppCompatActivity() , View.OnClickListener {
         btn_url_png9 = findViewById(R.id.btn_url_png9)
         btn_id_png9 = findViewById(R.id.btn_id_png9)
 
+        btn_next_page = findViewById(R.id.btn_next_page)
+        btn_next_page.setOnClickListener(this)
         test_tv_1 = findViewById(R.id.test_tv_1)
         test_tv_2 = findViewById(R.id.test_tv_2)
         test_tv_3 = findViewById(R.id.test_tv_3)
@@ -128,6 +132,9 @@ class ThirdActivity : AppCompatActivity() , View.OnClickListener {
             }
             R.id.btn_id_png9 -> {
                 RXImageLoader.load9Png(pngId, test_tv_1)
+            }
+            R.id.btn_next_page -> {
+                startActivity(Intent(this@ThirdActivity,FourthActivity::class.java))
             }
         }
     }
