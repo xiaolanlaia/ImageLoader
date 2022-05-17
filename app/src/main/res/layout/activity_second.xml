@@ -11,113 +11,14 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <Button
-                android:id="@+id/btn_url"
-                android:text="url加载图片"
-                android:textSize="@dimen/sp_10"
-                android:layout_width="@dimen/dp_0"
-                android:layout_weight="1"
-                android:textAllCaps="false"
-                android:layout_height="wrap_content"/>
-            <Button
-                android:id="@+id/btn_id"
-                android:text="id加载图片"
-                android:textSize="@dimen/sp_10"
-                android:layout_width="@dimen/dp_0"
-                android:layout_weight="1"
-                android:textAllCaps="false"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <Button
-                android:id="@+id/btn_url_placeholder"
-                android:text="url加载图片，设置占位符图片"
-                android:textSize="@dimen/sp_10"
-                android:layout_width="@dimen/dp_0"
-                android:layout_weight="1"
-                android:textAllCaps="false"
-                android:layout_height="wrap_content"/>
-            <Button
-                android:id="@+id/btn_id_placeholder"
-                android:text="id加载图片，设置占位符图片"
-                android:textSize="@dimen/sp_10"
-                android:layout_width="@dimen/dp_0"
-                android:layout_weight="1"
-                android:textAllCaps="false"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <Button
-                android:id="@+id/btn_special"
-                android:text="url加载指定大小图片"
-                android:textSize="@dimen/sp_10"
-                android:layout_width="@dimen/dp_0"
-                android:layout_weight="1"
-                android:textAllCaps="false"
-                android:layout_height="wrap_content"/>
-            <Button
-                android:id="@+id/btn_special_placeholder"
-                android:text="url加载指定大小图片,有占位图"
-                android:textSize="@dimen/sp_10"
-                android:layout_width="@dimen/dp_0"
-                android:layout_weight="1"
-                android:textAllCaps="false"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <Button
-                android:id="@+id/btn_url_fitCenter"
-                android:text="url加载图片 展示方式：FitCenter"
-                android:textSize="@dimen/sp_10"
-                android:layout_width="@dimen/dp_0"
-                android:layout_weight="1"
-                android:textAllCaps="false"
-                android:layout_height="wrap_content"/>
-            <Button
-                android:id="@+id/btn_id_fitCenter"
-                android:text="id加载图片，展示方式：fitCenter"
-                android:textSize="@dimen/sp_10"
-                android:layout_width="@dimen/dp_0"
-                android:layout_weight="1"
-                android:textAllCaps="false"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <Button
-                android:id="@+id/btn_url_centerCrop"
-                android:text="url加载图片，展示方式：CenterCrop"
-                android:textSize="@dimen/sp_10"
-                android:layout_width="@dimen/dp_0"
-                android:layout_weight="1"
-                android:textAllCaps="false"
-                android:layout_height="wrap_content"/>
-            <Button
-                android:id="@+id/btn_id_centerCrop"
-                android:text="id加载图片，展示方式CenterCrop"
-                android:textSize="@dimen/sp_10"
-                android:layout_width="@dimen/dp_0"
-                android:layout_weight="1"
-                android:textAllCaps="false"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <Button
-                android:id="@+id/btn_url_centerInside"
-                android:text="url加载图片，展示方式：CenterInside"
+                android:id="@+id/btn_url_corner_special"
+                android:text="url加载指定圆角边圆角图"
                 android:textSize="@dimen/sp_10"
                 android:layout_width="@dimen/dp_0"
                 android:layout_weight="1"
@@ -125,30 +26,8 @@
                 android:layout_height="wrap_content"/>
 
             <Button
-                android:id="@+id/btn_id_centerInside"
-                android:text="id加载图片，展示方式：CenterInside"
-                android:textSize="@dimen/sp_10"
-                android:layout_width="@dimen/dp_0"
-                android:layout_weight="1"
-                android:textAllCaps="false"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <Button
-                android:id="@+id/btn_url_skipCache"
-                android:text="url加载图片，不使用缓存"
-                android:textSize="@dimen/sp_10"
-                android:layout_width="@dimen/dp_0"
-                android:layout_weight="1"
-                android:textAllCaps="false"
-                android:layout_height="wrap_content"/>
-
-            <Button
-                android:id="@+id/btn_id_skipCache"
-                android:text="id加载图片，不使用缓存"
+                android:id="@+id/btn_id_corner_special"
+                android:text="id加载指定圆角边圆角图"
                 android:textSize="@dimen/sp_10"
                 android:layout_width="@dimen/dp_0"
                 android:layout_weight="1"
@@ -156,8 +35,8 @@
                 android:layout_height="wrap_content"/>
         </LinearLayout>
         <Button
-            android:id="@+id/btn_url_skipCache_special"
-            android:text="url加载指定大小图片，不使用缓存"
+            android:id="@+id/btn_bitmap_corner"
+            android:text="bitmap圆角图"
             android:textSize="@dimen/sp_10"
             android:layout_width="match_parent"
             android:textAllCaps="false"
@@ -167,16 +46,36 @@
             android:layout_height="wrap_content">
 
             <Button
-                android:id="@+id/btn_url_circle"
-                android:text="url加载圆形图"
+                android:id="@+id/btn_url_border_circle"
+                android:text="url加载边框圆形图"
                 android:textSize="@dimen/sp_10"
                 android:layout_width="@dimen/dp_0"
                 android:layout_weight="1"
                 android:textAllCaps="false"
                 android:layout_height="wrap_content"/>
             <Button
-                android:id="@+id/btn_id_circle"
-                android:text="id加载圆角图"
+                android:id="@+id/btn_id_border_circle"
+                android:text="id加载边框圆形图"
+                android:textSize="@dimen/sp_10"
+                android:layout_width="@dimen/dp_0"
+                android:layout_weight="1"
+                android:textAllCaps="false"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/btn_url_border_corner"
+                android:text="url加载边框圆角图"
+                android:textSize="@dimen/sp_10"
+                android:layout_width="@dimen/dp_0"
+                android:layout_weight="1"
+                android:textAllCaps="false"
+                android:layout_height="wrap_content"/>
+            <Button
+                android:id="@+id/btn_id_border_corner"
+                android:text="id加载边框圆角图"
                 android:textSize="@dimen/sp_10"
                 android:layout_width="@dimen/dp_0"
                 android:layout_weight="1"
@@ -188,17 +87,79 @@
             android:layout_height="wrap_content">
 
             <Button
-                android:id="@+id/btn_url_corner"
-                android:text="url加载圆角图"
+                android:id="@+id/btn_url_gif"
+                android:text="url加载gif"
                 android:textSize="@dimen/sp_10"
                 android:layout_width="@dimen/dp_0"
                 android:layout_weight="1"
                 android:textAllCaps="false"
                 android:layout_height="wrap_content"/>
+            <Button
+                android:id="@+id/btn_id_gif"
+                android:text="id加载gif"
+                android:textSize="@dimen/sp_10"
+                android:layout_width="@dimen/dp_0"
+                android:layout_weight="1"
+                android:textAllCaps="false"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <Button
-                android:id="@+id/btn_id_corner"
-                android:text="id加载圆角图"
+                android:id="@+id/btn_url_gif_playTimes"
+                android:text="url加载gif,设置循环次数"
+                android:textSize="@dimen/sp_10"
+                android:layout_width="@dimen/dp_0"
+                android:layout_weight="1"
+                android:textAllCaps="false"
+                android:layout_height="wrap_content"/>
+            <Button
+                android:id="@+id/btn_id_gif_playTimes"
+                android:text="id加载gif,设置循环次数"
+                android:textSize="@dimen/sp_10"
+                android:layout_width="@dimen/dp_0"
+                android:layout_weight="1"
+                android:textAllCaps="false"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/btn_url_gif_circle"
+                android:text="url加载圆形gif"
+                android:textSize="@dimen/sp_10"
+                android:layout_width="@dimen/dp_0"
+                android:layout_weight="1"
+                android:textAllCaps="false"
+                android:layout_height="wrap_content"/>
+            <Button
+                android:id="@+id/btn_id_gif_circle"
+                android:text="id加载圆形gif"
+                android:textSize="@dimen/sp_10"
+                android:layout_width="@dimen/dp_0"
+                android:layout_weight="1"
+                android:textAllCaps="false"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/btn_url_gif_circle_playTimes"
+                android:text="url加载圆形gif,设置循环次数"
+                android:textSize="@dimen/sp_10"
+                android:layout_width="@dimen/dp_0"
+                android:layout_weight="1"
+                android:textAllCaps="false"
+                android:layout_height="wrap_content"/>
+            <Button
+                android:id="@+id/btn_id_gif_circle_playTimes"
+                android:text="id加载圆形gif,设置循环次数"
                 android:textSize="@dimen/sp_10"
                 android:layout_width="@dimen/dp_0"
                 android:layout_weight="1"
@@ -210,7 +171,6 @@
             android:text="下一页"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
-
 
         <TextView
             android:visibility="gone"
@@ -240,6 +200,7 @@
             android:id="@+id/test_iv_1"
             android:layout_width="@dimen/dp_300"
             android:layout_height="@dimen/dp_300"/>
+
 
     </LinearLayout>
 
