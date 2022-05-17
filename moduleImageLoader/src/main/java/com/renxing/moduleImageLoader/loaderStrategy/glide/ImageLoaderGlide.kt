@@ -804,7 +804,7 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
             .asGif()
             .load(if (urlOrId is String) ImageLoaderUtils.replaceHttpToHttps(urlOrId) else urlOrId)
             .listener(ImageLoaderUtils.gifDrawableRequestListener(playTimes))
-            .into(imageView)
+            .apply(RequestOptions().circleCrop()).into(imageView)
     }
 
     private fun glideLoadCircleGif(urlOrId: Any, imageView: ImageView, playTimes: Int, requestOptions: RequestOptions) {
@@ -813,7 +813,7 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
             .asGif()
             .load(if (urlOrId is String) ImageLoaderUtils.replaceHttpToHttps(urlOrId) else urlOrId)
             .listener(ImageLoaderUtils.gifDrawableRequestListener(playTimes))
-            .apply(requestOptions)
+            .apply(requestOptions.circleCrop())
             .into(imageView)
     }
 
