@@ -18,9 +18,9 @@ interface ImageLoaderInterface {
 
     /**
      * @urlOrId: String类型或Int类型
-     * @defaultIv: Int 默认图
+     * @placeholderImg: Int 默认图
      */
-    fun loadImage(urlOrId: Any, imageView: ImageView, defaultIv: Int)
+    fun loadImage(urlOrId: Any, imageView: ImageView, placeholderImg: Int)
 
     /**
      * @url: String
@@ -31,11 +31,11 @@ interface ImageLoaderInterface {
 
     /**
      * @url: String
-     * @defaultIv: Int 默认图
+     * @placeholderImg: Int 默认图
      * @width: Int 指定宽度
      * @height: Int 指定高度
      */
-    fun loadImage(url: String, imageView: ImageView, defaultIv: Int, width: Int, height: Int)
+    fun loadImage(url: String, imageView: ImageView, placeholderImg: Int, width: Int, height: Int)
 
     /**
      * @urlOrId: String类型或Int类型

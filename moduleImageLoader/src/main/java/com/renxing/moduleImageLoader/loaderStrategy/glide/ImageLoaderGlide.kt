@@ -42,12 +42,12 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
     }
 
 
-    override fun loadImage(urlOrId: Any, imageView: ImageView, defaultIv: Int) {
+    override fun loadImage(urlOrId: Any, imageView: ImageView, placeholderImg: Int) {
         glideLoad(
             urlOrId, imageView,
             RequestOptions()
-                .placeholder(CircleRoundDrawable(imageView.context, defaultIv))
-                .error(CircleRoundDrawable(imageView.context, defaultIv))
+                .placeholder(placeholderImg)
+                .error(placeholderImg)
         )
 
     }
@@ -59,15 +59,15 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
     override fun loadImage(
         url: String,
         imageView: ImageView,
-        defaultIv: Int,
+        placeholderImg: Int,
         width: Int,
         height: Int
     ) {
         glideLoad(
             ImageLoaderUtils.appendUrl(url, width, height, false), imageView,
             RequestOptions()
-                .placeholder(defaultIv)
-                .error(defaultIv)
+                .placeholder(placeholderImg)
+                .error(placeholderImg)
         )
 
     }

@@ -20,16 +20,16 @@ object RXImageLoader : ImageLoaderInterface {
     imageLoaderStrategy.loadImage(urlOrId,imageView)
     }
 
-    override fun loadImage(urlOrId: Any, imageView: ImageView, defaultIv: Int) {
-        imageLoaderStrategy.loadImage(urlOrId,imageView,defaultIv)
+    override fun loadImage(urlOrId: Any, imageView: ImageView, placeholderImg: Int) {
+        imageLoaderStrategy.loadImage(urlOrId,imageView,placeholderImg)
     }
 
     override fun loadImage(url: String, imageView: ImageView, width: Int, height: Int) {
         imageLoaderStrategy.loadImage(url,imageView,width,height)
     }
 
-    override fun loadImage(url: String, imageView: ImageView, defaultIv: Int, width: Int, height: Int) {
-        imageLoaderStrategy.loadImage(url,imageView,defaultIv,width,height)
+    override fun loadImage(url: String, imageView: ImageView, placeholderImg: Int, width: Int, height: Int) {
+        imageLoaderStrategy.loadImage(url,imageView,placeholderImg,width,height)
     }
 
     override fun loadImageWithFitCenter(urlOrId: Any, imageView: ImageView) {
