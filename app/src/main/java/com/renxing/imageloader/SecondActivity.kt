@@ -88,12 +88,12 @@ class SecondActivity : AppCompatActivity(), View.OnClickListener {
         when (v.id) {
 
             R.id.btn_url_corner_special             ->{
-                RXImageLoader.loadRoundedCornersImage(url,test_iv_1,cornerWidth,
+                RXImageLoader.loadCornersImage(url,test_iv_1,cornerWidth,
                     ModuleImageConstant.CornerType.RIGHT)
 
             }
             R.id.btn_id_corner_special              ->{
-                RXImageLoader.loadRoundedCornersImage(imgId,test_iv_1,cornerWidth,
+                RXImageLoader.loadCornersImage(imgId,test_iv_1,cornerWidth,
                     ModuleImageConstant.CornerType.LEFT)
             }
             R.id.btn_bitmap_corner                  ->{

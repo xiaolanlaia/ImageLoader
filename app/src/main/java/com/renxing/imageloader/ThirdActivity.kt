@@ -67,16 +67,16 @@ class ThirdActivity : AppCompatActivity() , View.OnClickListener {
     override fun onClick(v: View) {
         when (v.id) {
             R.id.btn_url_gif_corner -> {
-                RXImageLoader.loadRoundedCornerGif(gifUrl, test_iv_1, cornerWidth)
+                RXImageLoader.loadCornerGif(gifUrl, test_iv_1, cornerWidth)
             }
             R.id.btn_id_gif_corner -> {
-                RXImageLoader.loadRoundedCornerGif(gifId, test_iv_1, cornerWidth)
+                RXImageLoader.loadCornerGif(gifId, test_iv_1, cornerWidth)
             }
             R.id.btn_url_gif_corner_playTimes -> {
-                RXImageLoader.loadRoundedCornerGif(playTimes,gifUrl, test_iv_1, cornerWidth)
+                RXImageLoader.loadCornerGif(playTimes,gifUrl, test_iv_1, cornerWidth)
             }
             R.id.btn_id_gif_corner_playTimes -> {
-                RXImageLoader.loadRoundedCornerGif(playTimes,gifId, test_iv_1, cornerWidth)
+                RXImageLoader.loadCornerGif(playTimes,gifId, test_iv_1, cornerWidth)
             }
             R.id.btn_url_gif_corner_border -> {
                 RXImageLoader.loadBorderCornerGif(

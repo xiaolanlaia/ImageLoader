@@ -183,7 +183,7 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
                 .error(CircleRoundDrawable(imageView.context,placeholderImg)))
     }
 
-    override fun loadRoundedCornersImage(urlOrId: Any, imageView: ImageView, cornerWidth: Float) {
+    override fun loadCornersImage(urlOrId: Any, imageView: ImageView, cornerWidth: Float) {
         glideLoad(
             urlOrId,
             imageView,
@@ -191,7 +191,7 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
         )
     }
 
-    override fun loadRoundedCornersImage(
+    override fun loadCornersImage(
         urlOrId: Any,
         imageView: ImageView,
         cornerWidth: Float,
@@ -207,7 +207,7 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
 
     }
 
-    override fun loadRoundedCornersImage(
+    override fun loadCornersImage(
         urlOrId: Any,
         imageView: ImageView,
         cornerWidth: Float,
@@ -225,7 +225,7 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
         )
     }
 
-    override fun loadRoundedCornersImage(
+    override fun loadCornersImage(
         urlOrId: Any,
         imageView: ImageView,
         cornerWidth: Float,
@@ -242,7 +242,7 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
         )
     }
 
-    override fun loadRoundedCornersImage(
+    override fun loadCornersImage(
         bitmap: Bitmap,
         imageView: ImageView,
         cornerWidth: Float,
@@ -259,7 +259,7 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
         )
     }
 
-    override fun loadRoundedCornersImage(
+    override fun loadCornersImage(
         bitmap: Bitmap,
         imageView: ImageView,
         cornerWidth: Float,
@@ -382,11 +382,11 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
                 .error(CircleRoundDrawable(imageView.context,placeholderImg)))
     }
 
-    override fun loadRoundedCornerGif(urlOrId: Any, imageView: ImageView, cornerWidth: Float) {
+    override fun loadCornerGif(urlOrId: Any, imageView: ImageView, cornerWidth: Float) {
         glideLoadRoundedCornerGif(urlOrId, imageView, cornerWidth, GifDrawable.LOOP_FOREVER)
     }
 
-    override fun loadRoundedCornerGif(
+    override fun loadCornerGif(
         urlOrId: Any,
         imageView: ImageView,
         cornerWidth: Float,
@@ -398,7 +398,7 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
                 .error(CircleRoundDrawable(imageView.context,placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle((ImageLoaderUtils.dp2px(cornerWidth) + 0.5f))))
     }
 
-    override fun loadRoundedCornerGif(
+    override fun loadCornerGif(
         playTimes: Int,
         urlOrId: Any,
         imageView: ImageView,
@@ -407,7 +407,7 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
         glideLoadRoundedCornerGif(urlOrId, imageView, cornerWidth, playTimes)
     }
 
-    override fun loadRoundedCornerGif(
+    override fun loadCornerGif(
         playTimes: Int,
         urlOrId: Any,
         imageView: ImageView,

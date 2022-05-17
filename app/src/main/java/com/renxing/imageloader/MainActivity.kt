@@ -1,7 +1,6 @@
 package com.renxing.imageloader
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.view.View
@@ -12,7 +11,6 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.example.imageloader.R
 import com.renxing.moduleImageLoader.RXImageLoader
-import com.renxing.moduleImageLoader.imageUtils.ModuleImageConstant
 
 class MainActivity : AppCompatActivity(),View.OnClickListener {
 
@@ -69,7 +67,7 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
         btn_url_corner                     = findViewById(R.id.btn_url_corner                     )
         btn_id_corner                      = findViewById(R.id.btn_id_corner                      )
 
-        btn_next_page                    = findViewById(R.id.btn_next_page                        )
+        btn_next_page                    = findViewById(R.id.btn_next_page                    )
         test_tv_1                        = findViewById(R.id.test_tv_1                        )
         test_tv_2                        = findViewById(R.id.test_tv_2                        )
         test_tv_3                        = findViewById(R.id.test_tv_3                        )
@@ -157,10 +155,10 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
                 RXImageLoader.loadCircleImage(imgId,test_iv_1)
             }
             R.id.btn_url_corner                     ->{
-                RXImageLoader.loadRoundedCornersImage(url,test_iv_1,cornerWidth)
+                RXImageLoader.loadCornersImage(url,test_iv_1,cornerWidth)
             }
             R.id.btn_id_corner                      ->{
-                RXImageLoader.loadRoundedCornersImage(imgId,test_iv_1,cornerWidth)
+                RXImageLoader.loadCornersImage(imgId,test_iv_1,cornerWidth)
             }
 
             R.id.btn_next_page                      ->{
