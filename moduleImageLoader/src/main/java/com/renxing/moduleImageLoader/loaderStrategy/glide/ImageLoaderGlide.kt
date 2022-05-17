@@ -184,70 +184,121 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
     }
 
     override fun loadCornersImage(urlOrId: Any, imageView: ImageView, cornerRadius: Float) {
-        glideLoad(
-            urlOrId,
-            imageView,
-            RequestOptions().transform(RoundedCorners((ImageLoaderUtils.dp2px(cornerRadius) + 0.5f).toInt()))
-        )
+
+        ImageLoaderUtils.checkAndAppendCornerUrl(urlOrId,cornerRadius).apply {
+            when(this){
+                is String ->{
+                    glideLoad(this, imageView)
+                }
+                else -> {
+                    glideLoad(urlOrId, imageView,
+                        RequestOptions().transform(RoundedCorners((ImageLoaderUtils.dp2px(cornerRadius) + 0.5f).toInt()))
+                    )
+                }
+            }
+        }
     }
 
-    override fun loadCornersImage(
-        urlOrId: Any,
-        imageView: ImageView,
-        cornerRadius: Float,
-        placeholderImg: Int
-    ) {
-        glideLoad(
-            urlOrId,
-            imageView,
-            RequestOptions()
-                .transform(RoundedCorners((ImageLoaderUtils.dp2px(cornerRadius) + 0.5f).toInt()))
-                .placeholder(CircleRoundDrawable(imageView.context,placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle((ImageLoaderUtils.dp2px(cornerRadius) + 0.5f)))
-                .error(CircleRoundDrawable(imageView.context,placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle((ImageLoaderUtils.dp2px(cornerRadius) + 0.5f))))
+    override fun loadCornersImage(urlOrId: Any, imageView: ImageView, cornerRadius: Float, placeholderImg: Int) {
 
+        ImageLoaderUtils.checkAndAppendCornerUrl(urlOrId,cornerRadius).apply {
+            when(this){
+                is String ->{
+                    glideLoad(this, imageView,
+                        RequestOptions()
+                            .placeholder(CircleRoundDrawable(imageView.context,placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle((ImageLoaderUtils.dp2px(cornerRadius) + 0.5f)))
+                            .error(CircleRoundDrawable(imageView.context,placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle((ImageLoaderUtils.dp2px(cornerRadius) + 0.5f))))
+
+                }
+                else -> {
+                    glideLoad(urlOrId, imageView,
+                        RequestOptions()
+                            .transform(RoundedCorners((ImageLoaderUtils.dp2px(cornerRadius) + 0.5f).toInt()))
+                            .placeholder(CircleRoundDrawable(imageView.context,placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle((ImageLoaderUtils.dp2px(cornerRadius) + 0.5f)))
+                            .error(CircleRoundDrawable(imageView.context,placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle((ImageLoaderUtils.dp2px(cornerRadius) + 0.5f))))
+                }
+            }
+        }
     }
 
-    override fun loadCornersImage(
-        urlOrId: Any,
-        imageView: ImageView,
-        cornerRadius: Float,
-        cornerType: ModuleImageConstant.CornerType
-    ) {
+    override fun loadCornersImage(urlOrId: Any, imageView: ImageView, cornerRadius: Float, cornerType: ModuleImageConstant.CornerType) {
 
-        glideLoad(
-            urlOrId, imageView,
-            RequestOptions().optionalTransform(
-                RoundedCornersTransform(
-                    ImageLoaderUtils.dp2px(cornerRadius) + 0.5f,
-                    cornerType
+        when(cornerType){
+            ModuleImageConstant.CornerType.ALL -> {
+                ImageLoaderUtils.checkAndAppendCornerUrl(urlOrId,cornerRadius).apply {
+                    when(this){
+                        is String ->{
+                            glideLoad(urlOrId, imageView,
+                                RequestOptions().optionalTransform(
+                                    RoundedCornersTransform(
+                                        ImageLoaderUtils.dp2px(cornerRadius) + 0.5f,
+                                        cornerType
+                                    )
+                                )
+                            )
+                        }
+                        else -> {
+                            glideLoad(urlOrId, imageView,
+                                RequestOptions().optionalTransform(
+                                    RoundedCornersTransform(ImageLoaderUtils.dp2px(cornerRadius) + 0.5f, cornerType)
+                                )
+                            )
+                        }
+                    }
+                }
+            }
+
+            else ->{
+                glideLoad(urlOrId, imageView,
+                    RequestOptions().optionalTransform(
+                        RoundedCornersTransform(ImageLoaderUtils.dp2px(cornerRadius) + 0.5f, cornerType)
+                    )
                 )
-            )
-        )
+            }
+        }
+
     }
 
-    override fun loadCornersImage(
-        urlOrId: Any,
-        imageView: ImageView,
-        cornerRadius: Float,
-        cornerType: ModuleImageConstant.CornerType,
-        placeholderImg: Int
-    ) {
+    override fun loadCornersImage(urlOrId: Any, imageView: ImageView, cornerRadius: Float, cornerType: ModuleImageConstant.CornerType, placeholderImg: Int) {
 
-        glideLoad(
-            urlOrId, imageView,
-            RequestOptions()
-                .optionalTransform(RoundedCornersTransform(ImageLoaderUtils.dp2px(cornerRadius) + 0.5f, cornerType))
-                .placeholder(CircleRoundDrawable(imageView.context,placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle((ImageLoaderUtils.dp2px(cornerRadius) + 0.5f)))
-                .error(CircleRoundDrawable(imageView.context,placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle((ImageLoaderUtils.dp2px(cornerRadius) + 0.5f)))
-        )
+        when(cornerType){
+            ModuleImageConstant.CornerType.ALL -> {
+                ImageLoaderUtils.checkAndAppendCornerUrl(urlOrId,cornerRadius).apply {
+                    when(this){
+                        is String ->{
+                            glideLoad(
+                                this, imageView,
+                                RequestOptions()
+                                    .placeholder(CircleRoundDrawable(imageView.context,placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle((ImageLoaderUtils.dp2px(cornerRadius) + 0.5f)))
+                                    .error(CircleRoundDrawable(imageView.context,placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle((ImageLoaderUtils.dp2px(cornerRadius) + 0.5f)))
+                            )
+                        }
+                        else -> {
+                            glideLoad(
+                                urlOrId, imageView,
+                                RequestOptions()
+                                    .optionalTransform(RoundedCornersTransform(ImageLoaderUtils.dp2px(cornerRadius) + 0.5f, cornerType))
+                                    .placeholder(CircleRoundDrawable(imageView.context,placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle((ImageLoaderUtils.dp2px(cornerRadius) + 0.5f)))
+                                    .error(CircleRoundDrawable(imageView.context,placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle((ImageLoaderUtils.dp2px(cornerRadius) + 0.5f)))
+                            )
+                        }
+                    }
+                }
+            }
+
+            else ->{
+                glideLoad(
+                    urlOrId, imageView,
+                    RequestOptions()
+                        .optionalTransform(RoundedCornersTransform(ImageLoaderUtils.dp2px(cornerRadius) + 0.5f, cornerType))
+                        .placeholder(CircleRoundDrawable(imageView.context,placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle((ImageLoaderUtils.dp2px(cornerRadius) + 0.5f)))
+                        .error(CircleRoundDrawable(imageView.context,placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle((ImageLoaderUtils.dp2px(cornerRadius) + 0.5f)))
+                )
+            }
+        }
     }
 
-    override fun loadCornersImage(
-        bitmap: Bitmap,
-        imageView: ImageView,
-        cornerRadius: Float,
-        cornerType: ModuleImageConstant.CornerType
-    ) {
+    override fun loadCornersImage(bitmap: Bitmap, imageView: ImageView, cornerRadius: Float, cornerType: ModuleImageConstant.CornerType) {
         glideLoadBytes(
             ImageLoaderUtils.bitmap2Bytes(bitmap), imageView,
             RequestOptions().optionalTransform(
@@ -257,15 +308,10 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
                 )
             )
         )
+
     }
 
-    override fun loadCornersImage(
-        bitmap: Bitmap,
-        imageView: ImageView,
-        cornerRadius: Float,
-        cornerType: ModuleImageConstant.CornerType,
-        placeholderImg: Int
-    ) {
+    override fun loadCornersImage(bitmap: Bitmap, imageView: ImageView, cornerRadius: Float, cornerType: ModuleImageConstant.CornerType, placeholderImg: Int) {
         glideLoadBytes(
             ImageLoaderUtils.bitmap2Bytes(bitmap), imageView,
             RequestOptions()
@@ -275,12 +321,7 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
         )
     }
 
-    override fun loadBorderCircleImage(
-        urlOrId: Any,
-        imageView: ImageView,
-        borderColor: Int,
-        borderWidth: Float
-    ) {
+    override fun loadBorderCircleImage(urlOrId: Any, imageView: ImageView, borderColor: Int, borderWidth: Float) {
         glideLoad(
             urlOrId, imageView,
             RequestOptions().optionalTransform(CircleBorderTransformation(borderWidth, borderColor))
@@ -862,6 +903,4 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
             .apply(requestOptions)
             .into(imageView)
     }
-
-
 }

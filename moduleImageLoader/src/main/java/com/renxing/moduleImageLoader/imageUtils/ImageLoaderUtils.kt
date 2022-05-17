@@ -41,6 +41,21 @@ internal object ImageLoaderUtils {
         return newUrl
     }
 
+    /**
+     * 只处理png和jpg格式图片
+     */
+    fun checkAndAppendCornerUrl(url: Any, cornerRadius: Float) : Any{
+
+        if (url !is String) return false
+
+        if (!url.endsWith(PNG_LOWERCASE) && !url.endsWith(PNG_UPPERCASE) && !url.endsWith(JPG_LOWERCASE) && !url.endsWith(JPG_UPPERCASE)){
+            //不是规定的格式
+            return false
+        }
+
+        return url+ CORNER_SUFFIX + cornerRadius
+    }
+
 
     fun checkUrlOrId(urlOrId: Any) {
         if (urlOrId !is String && urlOrId !is Int) {
@@ -58,7 +73,7 @@ internal object ImageLoaderUtils {
         return false
     }
     fun appendUrl(url: String): String {
-        var newUrl = ""
+        var newUrl: String
         url.run{
             if (startsWith(HTTPS) &&
                 (endsWith(PNG_LOWERCASE) ||
@@ -78,7 +93,7 @@ internal object ImageLoaderUtils {
     }
 
     fun replaceHttpToHttps(url: String) : String{
-        var newUrl = ""
+        var newUrl: String
         url.run{
             //将http替换为https
             if (startsWith(HTTP) && !startsWith(HTTPS)){
@@ -98,13 +113,11 @@ internal object ImageLoaderUtils {
 
     fun getNinePatchDrawable(bitmap: Bitmap, context: Context): Drawable {
         val chunk = bitmap.ninePatchChunk
-        var ninePatchDrawable: NinePatchDrawable? = null
-        ninePatchDrawable = if (NinePatch.isNinePatchChunk(chunk)) {
+        return if (NinePatch.isNinePatchChunk(chunk)) {
             NinePatchDrawable(context.resources, bitmap, chunk, Rect(), null)
         } else {
-            return BitmapDrawable(context.resources, bitmap)
+            BitmapDrawable(context.resources, bitmap)
         }
-        return ninePatchDrawable
     }
 
 

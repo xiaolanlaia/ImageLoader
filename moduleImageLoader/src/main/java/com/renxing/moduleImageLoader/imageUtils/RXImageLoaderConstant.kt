@@ -15,6 +15,7 @@ const val URL_APPEND_STR = "?imageslim"
 const val URL_APPEND_WIDTH = "?imageView2/1/w/"
 const val URL_APPEND_HEIGHT = "/h/"
 const val interlaceStr = "/interlace/1/q/75"
+const val CORNER_SUFFIX = "?roundPic/radius/" //?roundPic/radius/50
 
 /**
  *@author  :  WuJianFeng
