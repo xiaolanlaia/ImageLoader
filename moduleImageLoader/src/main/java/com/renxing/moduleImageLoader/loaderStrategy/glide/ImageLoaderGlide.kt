@@ -64,7 +64,7 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
         height: Int
     ) {
         glideLoad(
-            url, imageView,
+            ImageLoaderUtils.appendUrl(url, width, height, false), imageView,
             RequestOptions()
                 .placeholder(defaultIv)
                 .error(defaultIv)
