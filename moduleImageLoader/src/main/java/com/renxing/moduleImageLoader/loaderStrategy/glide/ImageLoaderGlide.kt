@@ -36,7 +36,7 @@ import java.io.IOException
 @SuppressLint("CheckResult")
 internal class ImageLoaderGlide : ImageLoaderInterface {
 
-    //占位RequestOptions没作用
+    //nullOptions：占位RequestOptions没作用
     private val nullOptions = RequestOptions()
     private val fitCenterOptions = RequestOptions().fitCenter()
     private val centerScopeOptions = RequestOptions().centerCrop()
@@ -168,23 +168,17 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
                 ImageLoaderUtils.checkAndAppendCornerUrl(urlOrId, cornerRadius).apply {
                     when (this) {
                         is String -> {
-                            glideLoad(urlOrId, imageView,
-                                RequestOptions().optionalTransform(RoundedCornersTransform(ImageLoaderUtils.dp2px(cornerRadius) + 0.5f, cornerType))
-                            )
+                            glideLoad(this, imageView,nullOptions)
                         }
                         else -> {
-                            glideLoad(urlOrId, imageView,
-                                RequestOptions().optionalTransform(RoundedCornersTransform(ImageLoaderUtils.dp2px(cornerRadius) + 0.5f, cornerType))
-                            )
+                            loadCornersImageConbine1(urlOrId, imageView, cornerRadius, cornerType)
                         }
                     }
                 }
             }
 
             else -> {
-                glideLoad(urlOrId, imageView,
-                    RequestOptions().optionalTransform(RoundedCornersTransform(ImageLoaderUtils.dp2px(cornerRadius) + 0.5f, cornerType))
-                )
+                loadCornersImageConbine1(urlOrId, imageView, cornerRadius, cornerType)
             }
         }
 
@@ -203,24 +197,14 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
                             )
                         }
                         else -> {
-                            glideLoad(urlOrId, imageView,
-                                RequestOptions()
-                                    .optionalTransform(RoundedCornersTransform(ImageLoaderUtils.dp2px(cornerRadius) + 0.5f, cornerType))
-                                    .placeholder(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle(cornerRadius))
-                                    .error(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle(cornerRadius))
-                            )
+                            loadCornersImageConbine2(urlOrId, imageView, cornerRadius, cornerType, placeholderImg)
                         }
                     }
                 }
             }
 
             else -> {
-                glideLoad(urlOrId, imageView,
-                    RequestOptions()
-                        .optionalTransform(RoundedCornersTransform(ImageLoaderUtils.dp2px(cornerRadius) + 0.5f, cornerType))
-                        .placeholder(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle(cornerRadius))
-                        .error(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle(cornerRadius))
-                )
+                loadCornersImageConbine2(urlOrId, imageView, cornerRadius, cornerType, placeholderImg)
             }
         }
     }
@@ -489,5 +473,19 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
             .listener(ImageLoaderUtils.gifDrawableRequestListener(playTimes))
             .apply(requestOptions)
             .into(imageView)
+    }
+
+    private fun loadCornersImageConbine1(urlOrId: Any, imageView: ImageView, cornerRadius: Float, cornerType: ModuleImageConstant.CornerType) {
+        glideLoad(urlOrId, imageView,
+            RequestOptions().optionalTransform(RoundedCornersTransform(ImageLoaderUtils.dp2px(cornerRadius) + 0.5f, cornerType))
+        )
+    }
+    private fun loadCornersImageConbine2(urlOrId: Any, imageView: ImageView, cornerRadius: Float, cornerType: ModuleImageConstant.CornerType, placeholderImg: Int) {
+        glideLoad(urlOrId, imageView,
+            RequestOptions()
+                .optionalTransform(RoundedCornersTransform(ImageLoaderUtils.dp2px(cornerRadius) + 0.5f, cornerType))
+                .placeholder(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle(cornerRadius))
+                .error(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle(cornerRadius))
+        )
     }
 }
