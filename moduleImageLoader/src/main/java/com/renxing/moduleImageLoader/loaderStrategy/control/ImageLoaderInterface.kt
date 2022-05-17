@@ -99,38 +99,38 @@ interface ImageLoaderInterface {
     /**
      * 圆角图
      * @urlOrId: String类型或Int类型
-     * @cornerWidth: Float 圆角半径
+     * @cornerRadius: Float 圆角半径
      */
-    fun loadCornersImage(urlOrId: Any, imageView: ImageView, cornerWidth : Float)
+    fun loadCornersImage(urlOrId: Any, imageView: ImageView, cornerRadius : Float)
 
     /**
      * 圆角图
      * @urlOrId: String类型或Int类型
-     * @cornerWidth: Float 圆角半径
+     * @cornerRadius: Float 圆角半径
      */
-    fun loadCornersImage(urlOrId: Any, imageView: ImageView, cornerWidth : Float, placeholderImg: Int)
+    fun loadCornersImage(urlOrId: Any, imageView: ImageView, cornerRadius : Float, placeholderImg: Int)
 
     /**
      * 指定圆角边的圆角图
      * @urlOrId: String类型或Int类型
      */
-    fun loadCornersImage(urlOrId: Any, imageView: ImageView, cornerWidth: Float, cornerType: ModuleImageConstant.CornerType)
+    fun loadCornersImage(urlOrId: Any, imageView: ImageView, cornerRadius: Float, cornerType: ModuleImageConstant.CornerType)
 
     /**
      * 指定圆角边的圆角图
      * @urlOrId: String类型或Int类型
      */
-    fun loadCornersImage(urlOrId: Any, imageView: ImageView, cornerWidth: Float, cornerType: ModuleImageConstant.CornerType, placeholderImg: Int)
+    fun loadCornersImage(urlOrId: Any, imageView: ImageView, cornerRadius: Float, cornerType: ModuleImageConstant.CornerType, placeholderImg: Int)
     /**
      * 指定圆角边的圆角图
      * @bitmap: Bitmap
      */
-    fun loadCornersImage(bitmap: Bitmap, imageView: ImageView, cornerWidth: Float, cornerType: ModuleImageConstant.CornerType)
+    fun loadCornersImage(bitmap: Bitmap, imageView: ImageView, cornerRadius: Float, cornerType: ModuleImageConstant.CornerType)
     /**
      * 指定圆角边的圆角图
      * @bitmap: Bitmap
      */
-    fun loadCornersImage(bitmap: Bitmap, imageView: ImageView, cornerWidth: Float, cornerType: ModuleImageConstant.CornerType, placeholderImg: Int)
+    fun loadCornersImage(bitmap: Bitmap, imageView: ImageView, cornerRadius: Float, cornerType: ModuleImageConstant.CornerType, placeholderImg: Int)
 
     /**
      * 带边框圆形图
@@ -148,13 +148,13 @@ interface ImageLoaderInterface {
      * 带边框圆角图
      * urlOrId: String类型或Int类型
      */
-    fun loadBorderCornerImage(urlOrId: Any, imageView: ImageView, borderColor: Int, borderWidth: Float, cornerWidth : Float)
+    fun loadBorderCornerImage(urlOrId: Any, imageView: ImageView, borderColor: Int, borderWidth: Float, cornerRadius : Float)
 
     /**
      * 带边框圆角图
      * urlOrId: String类型或Int类型
      */
-    fun loadBorderCornerImage(urlOrId: Any, imageView: ImageView, borderColor: Int, borderWidth: Float, cornerWidth : Float, placeholderImg: Int)
+    fun loadBorderCornerImage(urlOrId: Any, imageView: ImageView, borderColor: Int, borderWidth: Float, cornerRadius : Float, placeholderImg: Int)
 
     /**
      * @urlOrId: String类型或Int类型
@@ -203,50 +203,50 @@ interface ImageLoaderInterface {
     /**
      * @urlOrId: String类型或Int类型
      */
-    fun loadCornerGif(urlOrId: Any, imageView: ImageView, cornerWidth: Float)
+    fun loadCornerGif(urlOrId: Any, imageView: ImageView, cornerRadius: Float)
 
     /**
      * @urlOrId: String类型或Int类型
      */
-    fun loadCornerGif(urlOrId: Any, imageView: ImageView, cornerWidth: Float, placeholderImg: Int)
-
-    /**
-     * @urlOrId: String类型或Int类型
-     * @playTimes : Int 循环次数
-     */
-    fun loadCornerGif(playTimes : Int, urlOrId: Any, imageView: ImageView, cornerWidth: Float)
+    fun loadCornerGif(urlOrId: Any, imageView: ImageView, cornerRadius: Float, placeholderImg: Int)
 
     /**
      * @urlOrId: String类型或Int类型
      * @playTimes : Int 循环次数
      */
-    fun loadCornerGif(playTimes : Int, urlOrId: Any, imageView: ImageView, cornerWidth: Float, placeholderImg: Int)
+    fun loadCornerGif(playTimes : Int, urlOrId: Any, imageView: ImageView, cornerRadius: Float)
 
     /**
-     * 带边框圆角gif
-     * @urlOrId: String类型或Int类型
-     */
-    fun loadBorderCornerGif(urlOrId: Any, imageView: ImageView, borderColor: Int, borderWidth: Float, cornerWidth : Float)
-
-    /**
-     * 带边框圆角gif
-     * @urlOrId: String类型或Int类型
-     */
-    fun loadBorderCornerGif(urlOrId: Any, imageView: ImageView, borderColor: Int, borderWidth: Float, cornerWidth : Float, placeholderImg: Int)
-
-    /**
-     * 带边框圆角gif
      * @urlOrId: String类型或Int类型
      * @playTimes : Int 循环次数
      */
-    fun loadBorderCornerGif(playTimes : Int, urlOrId: Any, imageView: ImageView, borderColor: Int, borderWidth: Float, cornerWidth : Float)
+    fun loadCornerGif(playTimes : Int, urlOrId: Any, imageView: ImageView, cornerRadius: Float, placeholderImg: Int)
+
+    /**
+     * 带边框圆角gif
+     * @urlOrId: String类型或Int类型
+     */
+    fun loadBorderCornerGif(urlOrId: Any, imageView: ImageView, borderColor: Int, borderWidth: Float, cornerRadius : Float)
+
+    /**
+     * 带边框圆角gif
+     * @urlOrId: String类型或Int类型
+     */
+    fun loadBorderCornerGif(urlOrId: Any, imageView: ImageView, borderColor: Int, borderWidth: Float, cornerRadius : Float, placeholderImg: Int)
 
     /**
      * 带边框圆角gif
      * @urlOrId: String类型或Int类型
      * @playTimes : Int 循环次数
      */
-    fun loadBorderCornerGif(playTimes : Int, urlOrId: Any, imageView: ImageView, borderColor: Int, borderWidth: Float, cornerWidth : Float, placeholderImg: Int)
+    fun loadBorderCornerGif(playTimes : Int, urlOrId: Any, imageView: ImageView, borderColor: Int, borderWidth: Float, cornerRadius : Float)
+
+    /**
+     * 带边框圆角gif
+     * @urlOrId: String类型或Int类型
+     * @playTimes : Int 循环次数
+     */
+    fun loadBorderCornerGif(playTimes : Int, urlOrId: Any, imageView: ImageView, borderColor: Int, borderWidth: Float, cornerRadius : Float, placeholderImg: Int)
 
     /**
      * @urlOrId: String类型或Int类型
