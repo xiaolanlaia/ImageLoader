@@ -28,7 +28,7 @@ public class BorderRoundTransform extends BitmapTransformation {
     private float mRadius;
 
 
-    public BorderRoundTransform(float borderWidth, int borderColor, int cornerWidth) {
+    public BorderRoundTransform(float borderWidth, int borderColor, float cornerWidth) {
         this.borderWidth = borderWidth;
         this.borderColor = borderColor;
         mRadius = Resources.getSystem().getDisplayMetrics().density * cornerWidth;

@@ -56,21 +56,21 @@ object RXImageLoader : ImageLoaderInterface {
         imageLoaderStrategy.loadCircleImage(urlOrId,imageView)
     }
 
-    override fun loadRoundedCornersImage(urlOrId: Any, imageView: ImageView, radius: Float) {
-        imageLoaderStrategy.loadRoundedCornersImage(urlOrId,imageView,radius)
+    override fun loadRoundedCornersImage(urlOrId: Any, imageView: ImageView, cornerWidth: Float) {
+        imageLoaderStrategy.loadRoundedCornersImage(urlOrId,imageView,cornerWidth)
     }
 
-    override fun loadRoundedCornersImage(urlOrId: Any, imageView: ImageView, radius: Float, cornerType: ModuleImageConstant.CornerType) {
-        imageLoaderStrategy.loadRoundedCornersImage(urlOrId,imageView,radius,cornerType)
+    override fun loadRoundedCornersImage(urlOrId: Any, imageView: ImageView, cornerWidth: Float, cornerType: ModuleImageConstant.CornerType) {
+        imageLoaderStrategy.loadRoundedCornersImage(urlOrId,imageView,cornerWidth,cornerType)
     }
 
     override fun loadRoundedCornersImage(
         bitmap: Bitmap,
         imageView: ImageView,
-        radius: Float,
+        cornerWidth: Float,
         cornerType: ModuleImageConstant.CornerType
     ) {
-        imageLoaderStrategy.loadRoundedCornersImage(bitmap,imageView,radius,cornerType)
+        imageLoaderStrategy.loadRoundedCornersImage(bitmap,imageView,cornerWidth,cornerType)
     }
 
     override fun loadBorderCircleImage(urlOrId: Any, imageView: ImageView, borderColor : Int, borderWidth : Float) {
@@ -80,11 +80,11 @@ object RXImageLoader : ImageLoaderInterface {
     override fun loadBorderCornerImage(
         urlOrId: Any,
         imageView: ImageView,
-        borderWidth: Float,
         borderColor: Int,
-        cornerWidth: Int
+        borderWidth: Float,
+        cornerWidth: Float
     ) {
-        imageLoaderStrategy.loadBorderCornerImage(urlOrId,imageView, borderWidth, borderColor, cornerWidth)
+        imageLoaderStrategy.loadBorderCornerImage(urlOrId,imageView, borderColor, borderWidth, cornerWidth)
     }
 
 
@@ -101,38 +101,38 @@ object RXImageLoader : ImageLoaderInterface {
         imageLoaderStrategy.loadCircleGif(urlOrId,imageView, playTimes)
     }
 
-    override fun loadRoundedCornerGif(urlOrId: Any, imageView: ImageView, radius: Float) {
-        imageLoaderStrategy.loadRoundedCornerGif(urlOrId,imageView, radius)
+    override fun loadRoundedCornerGif(urlOrId: Any, imageView: ImageView, cornerWidth: Float) {
+        imageLoaderStrategy.loadRoundedCornerGif(urlOrId,imageView, cornerWidth)
     }
 
     override fun loadRoundedCornerGif(
         urlOrId: Any,
         imageView: ImageView,
-        radius: Float,
+        cornerWidth: Float,
         playTimes: Int
     ) {
-        imageLoaderStrategy.loadRoundedCornerGif(urlOrId,imageView, radius, playTimes)
+        imageLoaderStrategy.loadRoundedCornerGif(urlOrId,imageView, cornerWidth, playTimes)
     }
 
     override fun loadBorderCornerGif(
         urlOrId: Any,
         imageView: ImageView,
-        borderWidth: Float,
         borderColor: Int,
-        cornerWidth: Int
+        borderWidth: Float,
+        cornerWidth: Float
     ) {
-        imageLoaderStrategy.loadBorderCornerGif(urlOrId,imageView, borderWidth, borderColor, cornerWidth)
+        imageLoaderStrategy.loadBorderCornerGif(urlOrId,imageView, borderColor, borderWidth, cornerWidth)
     }
 
     override fun loadBorderCornerGif(
         urlOrId: Any,
         imageView: ImageView,
-        borderWidth: Float,
         borderColor: Int,
-        cornerWidth: Int,
+        borderWidth: Float,
+        cornerWidth: Float,
         playTimes: Int
     ) {
-        imageLoaderStrategy.loadBorderCornerGif(urlOrId,imageView, borderWidth, borderColor, cornerWidth, playTimes)
+        imageLoaderStrategy.loadBorderCornerGif(urlOrId,imageView, borderColor, borderWidth, cornerWidth, playTimes)
     }
 
     override fun loadGif(urlOrId: Any, imageView: ImageView) {
