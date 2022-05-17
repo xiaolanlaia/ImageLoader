@@ -71,12 +71,14 @@ public class CircleRoundDrawable extends Drawable {
      * 设置圆角
      * @param roundAngle 百分比
      */
-    public void setRoundAngle(float roundAngle) {
+    public CircleRoundDrawable setRoundAngle(float roundAngle) {
         this.roundAngle = (int) (roundAngle * this.bitmap.getWidth());
+        return this;
     }
 
-    public void setType(int type) {
+    public CircleRoundDrawable setType(int type) {
         this.type = type;
+        return this;
     }
 
     /**

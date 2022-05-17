@@ -179,8 +179,8 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
         glideLoad(urlOrId, imageView,
             RequestOptions()
                 .circleCrop()
-                .placeholder(placeholderImg)
-                .error(placeholderImg))
+                .placeholder(CircleRoundDrawable(imageView.context,placeholderImg))
+                .error(CircleRoundDrawable(imageView.context,placeholderImg)))
     }
 
     override fun loadRoundedCornersImage(urlOrId: Any, imageView: ImageView, cornerWidth: Float) {
@@ -202,8 +202,8 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
             imageView,
             RequestOptions()
                 .transform(RoundedCorners((ImageLoaderUtils.dp2px(cornerWidth) + 0.5f).toInt()))
-                .placeholder(placeholderImg)
-                .error(placeholderImg))
+                .placeholder(CircleRoundDrawable(imageView.context,placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle((ImageLoaderUtils.dp2px(cornerWidth) + 0.5f)))
+                .error(CircleRoundDrawable(imageView.context,placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle((ImageLoaderUtils.dp2px(cornerWidth) + 0.5f))))
 
     }
 
@@ -237,8 +237,8 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
             urlOrId, imageView,
             RequestOptions()
                 .optionalTransform(RoundedCornersTransform(ImageLoaderUtils.dp2px(cornerWidth) + 0.5f, cornerType))
-                .placeholder(placeholderImg)
-                .error(placeholderImg)
+                .placeholder(CircleRoundDrawable(imageView.context,placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle((ImageLoaderUtils.dp2px(cornerWidth) + 0.5f)))
+                .error(CircleRoundDrawable(imageView.context,placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle((ImageLoaderUtils.dp2px(cornerWidth) + 0.5f)))
         )
     }
 
@@ -270,8 +270,8 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
             ImageLoaderUtils.bitmap2Bytes(bitmap), imageView,
             RequestOptions()
                 .optionalTransform(RoundedCornersTransform(ImageLoaderUtils.dp2px(cornerWidth) + 0.5f, cornerType))
-                .placeholder(placeholderImg)
-                .error(placeholderImg)
+                .placeholder(CircleRoundDrawable(imageView.context,placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle((ImageLoaderUtils.dp2px(cornerWidth) + 0.5f)))
+                .error(CircleRoundDrawable(imageView.context,placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle((ImageLoaderUtils.dp2px(cornerWidth) + 0.5f)))
         )
     }
 
@@ -297,8 +297,8 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
         glideLoad(urlOrId, imageView,
             RequestOptions()
                 .optionalTransform(CircleBorderTransformation(borderWidth, borderColor))
-                .placeholder(placeholderImg)
-                .error(placeholderImg)
+                .placeholder(CircleRoundDrawable(imageView.context,placeholderImg))
+                .error(CircleRoundDrawable(imageView.context,placeholderImg))
         )
     }
 
@@ -326,8 +326,8 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
         glideLoad(urlOrId, imageView,
             RequestOptions()
                 .transform(BorderRoundTransform(borderWidth, borderColor, cornerWidth))
-                .placeholder(placeholderImg)
-                .error(placeholderImg)
+                .placeholder(CircleRoundDrawable(imageView.context,placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle((ImageLoaderUtils.dp2px(cornerWidth) + 0.5f)))
+                .error(CircleRoundDrawable(imageView.context,placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle((ImageLoaderUtils.dp2px(cornerWidth) + 0.5f)))
         )
     }
 
@@ -362,8 +362,8 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
     override fun loadCircleGif(urlOrId: Any, imageView: ImageView, placeholderImg: Int) {
         glideLoadCircleGif(urlOrId, imageView, GifDrawable.LOOP_FOREVER,
             RequestOptions()
-                .placeholder(placeholderImg)
-                .error(placeholderImg))
+                .placeholder(CircleRoundDrawable(imageView.context,placeholderImg))
+                .error(CircleRoundDrawable(imageView.context,placeholderImg)))
     }
 
     override fun loadCircleGif(playTimes: Int, urlOrId: Any, imageView: ImageView) {
@@ -378,8 +378,8 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
     ) {
         glideLoadCircleGif(urlOrId, imageView, playTimes,
             RequestOptions()
-                .placeholder(placeholderImg)
-                .error(placeholderImg))
+                .placeholder(CircleRoundDrawable(imageView.context,placeholderImg))
+                .error(CircleRoundDrawable(imageView.context,placeholderImg)))
     }
 
     override fun loadRoundedCornerGif(urlOrId: Any, imageView: ImageView, cornerWidth: Float) {
@@ -394,8 +394,8 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
     ) {
         glideLoadRoundedCornerGif(urlOrId, imageView, cornerWidth, GifDrawable.LOOP_FOREVER,
             RequestOptions()
-                .placeholder(placeholderImg)
-                .error(placeholderImg))
+                .placeholder(CircleRoundDrawable(imageView.context,placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle((ImageLoaderUtils.dp2px(cornerWidth) + 0.5f)))
+                .error(CircleRoundDrawable(imageView.context,placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle((ImageLoaderUtils.dp2px(cornerWidth) + 0.5f))))
     }
 
     override fun loadRoundedCornerGif(
@@ -416,8 +416,8 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
     ) {
         glideLoadRoundedCornerGif(urlOrId, imageView, cornerWidth, playTimes,
             RequestOptions()
-                .placeholder(placeholderImg)
-                .error(placeholderImg))
+                .placeholder(CircleRoundDrawable(imageView.context,placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle((ImageLoaderUtils.dp2px(cornerWidth) + 0.5f)))
+                .error(CircleRoundDrawable(imageView.context,placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle((ImageLoaderUtils.dp2px(cornerWidth) + 0.5f))))
     }
 
 
@@ -454,8 +454,8 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
             cornerWidth,
             GifDrawable.LOOP_FOREVER,
             RequestOptions()
-                .placeholder(placeholderImg)
-                .error(placeholderImg)
+                .placeholder(CircleRoundDrawable(imageView.context,placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle((ImageLoaderUtils.dp2px(cornerWidth) + 0.5f)))
+                .error(CircleRoundDrawable(imageView.context,placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle((ImageLoaderUtils.dp2px(cornerWidth) + 0.5f)))
         )
     }
 
@@ -494,8 +494,8 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
             cornerWidth,
             playTimes,
             RequestOptions()
-                .placeholder(placeholderImg)
-                .error(placeholderImg)
+                .placeholder(CircleRoundDrawable(imageView.context,placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle((ImageLoaderUtils.dp2px(cornerWidth) + 0.5f)))
+                .error(CircleRoundDrawable(imageView.context,placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle((ImageLoaderUtils.dp2px(cornerWidth) + 0.5f)))
         )
     }
 
