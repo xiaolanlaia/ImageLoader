@@ -1,4 +1,4 @@
-package com.renxing.imageloader
+package com.renxing.imageloader.activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import com.example.imageloader.R
+import com.renxing.imageloader.*
 import com.renxing.moduleImageLoader.RXImageLoader
 import com.renxing.moduleImageLoader.imageUtils.ModuleImageConstant
 
@@ -88,12 +89,14 @@ class SecondActivity : AppCompatActivity(), View.OnClickListener {
         when (v.id) {
 
             R.id.btn_url_corner_special             ->{
-                RXImageLoader.loadCornersImage(url,test_iv_1,cornerWidth,
+                RXImageLoader.loadCornersImage(
+                    url,test_iv_1, cornerWidth,
                     ModuleImageConstant.CornerType.RIGHT)
 
             }
             R.id.btn_id_corner_special              ->{
-                RXImageLoader.loadCornersImage(imgId,test_iv_1,cornerWidth,
+                RXImageLoader.loadCornersImage(
+                    imgId,test_iv_1, cornerWidth,
                     ModuleImageConstant.CornerType.LEFT)
             }
             R.id.btn_bitmap_corner                  ->{
@@ -102,16 +105,26 @@ class SecondActivity : AppCompatActivity(), View.OnClickListener {
 
             }
             R.id.btn_url_border_circle              ->{
-                RXImageLoader.loadBorderCircleImage(url,test_iv_1,borderColor,borderWidth)
+                RXImageLoader.loadBorderCircleImage(url,test_iv_1, borderColor, borderWidth)
             }
             R.id.btn_id_border_circle               ->{
-                RXImageLoader.loadBorderCircleImage(imgId,test_iv_1,borderColor,borderWidth)
+                RXImageLoader.loadBorderCircleImage(imgId,test_iv_1, borderColor, borderWidth)
             }
             R.id.btn_url_border_corner              ->{
-                RXImageLoader.loadBorderCornerImage(url,test_iv_1,borderColor,borderWidth,cornerWidth)
+                RXImageLoader.loadBorderCornerImage(
+                    url,test_iv_1,
+                    borderColor,
+                    borderWidth,
+                    cornerWidth
+                )
             }
             R.id.btn_id_border_corner               ->{
-                RXImageLoader.loadBorderCornerImage(imgId,test_iv_1,borderColor,borderWidth,cornerWidth)
+                RXImageLoader.loadBorderCornerImage(
+                    imgId,test_iv_1,
+                    borderColor,
+                    borderWidth,
+                    cornerWidth
+                )
             }
             R.id.btn_url_gif                        ->{
                 RXImageLoader.loadGif(gifUrl,test_iv_1)
@@ -120,10 +133,10 @@ class SecondActivity : AppCompatActivity(), View.OnClickListener {
                 RXImageLoader.loadGif(gifId,test_iv_1)
             }
             R.id.btn_url_gif_playTimes              ->{
-                RXImageLoader.loadGif(playTimes,gifUrl,test_iv_1)
+                RXImageLoader.loadGif(playTimes, gifUrl,test_iv_1)
             }
             R.id.btn_id_gif_playTimes               ->{
-                RXImageLoader.loadGif(playTimes,gifId,test_iv_1)
+                RXImageLoader.loadGif(playTimes, gifId,test_iv_1)
             }
             R.id.btn_url_gif_circle                 ->{
                 RXImageLoader.loadCircleGif(gifUrl,test_iv_1)
@@ -132,14 +145,14 @@ class SecondActivity : AppCompatActivity(), View.OnClickListener {
                 RXImageLoader.loadCircleGif(gifId,test_iv_1)
             }
             R.id.btn_url_gif_circle_playTimes       ->{
-                RXImageLoader.loadCircleGif(playTimes,gifUrl,test_iv_1)
+                RXImageLoader.loadCircleGif(playTimes, gifUrl,test_iv_1)
             }
             R.id.btn_id_gif_circle_playTimes        ->{
-                RXImageLoader.loadCircleGif(playTimes,gifId,test_iv_1)
+                RXImageLoader.loadCircleGif(playTimes, gifId,test_iv_1)
             }
 
             R.id.btn_next_page                      ->{
-                startActivity(Intent(this@SecondActivity,ThirdActivity::class.java))
+                startActivity(Intent(this@SecondActivity, ThirdActivity::class.java))
             }
         }
     }

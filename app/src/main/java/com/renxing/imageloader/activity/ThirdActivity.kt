@@ -1,4 +1,4 @@
-package com.renxing.imageloader
+package com.renxing.imageloader.activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import com.example.imageloader.R
+import com.renxing.imageloader.*
 import com.renxing.moduleImageLoader.RXImageLoader
 
 class ThirdActivity : AppCompatActivity() , View.OnClickListener {
@@ -77,10 +78,10 @@ class ThirdActivity : AppCompatActivity() , View.OnClickListener {
                 RXImageLoader.loadCornerGif(gifId, test_iv_1, cornerWidth)
             }
             R.id.btn_url_gif_corner_playTimes -> {
-                RXImageLoader.loadCornerGif(playTimes,gifUrl, test_iv_1, cornerWidth)
+                RXImageLoader.loadCornerGif(playTimes, gifUrl, test_iv_1, cornerWidth)
             }
             R.id.btn_id_gif_corner_playTimes -> {
-                RXImageLoader.loadCornerGif(playTimes,gifId, test_iv_1, cornerWidth)
+                RXImageLoader.loadCornerGif(playTimes, gifId, test_iv_1, cornerWidth)
             }
             R.id.btn_url_gif_corner_border -> {
                 RXImageLoader.loadBorderCornerGif(
@@ -134,7 +135,7 @@ class ThirdActivity : AppCompatActivity() , View.OnClickListener {
                 RXImageLoader.load9Png(pngId, test_tv_1)
             }
             R.id.btn_next_page -> {
-                startActivity(Intent(this@ThirdActivity,FourthActivity::class.java))
+                startActivity(Intent(this@ThirdActivity, FourthActivity::class.java))
             }
         }
     }

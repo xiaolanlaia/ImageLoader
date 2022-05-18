@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.renxing.imageloader.FourthActivity">
+    tools:context="com.renxing.imageloader.activity.FourthActivity">
     <Button
         android:id="@+id/url_placeholder"
         android:text="url加载的占位图"

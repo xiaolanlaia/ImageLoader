@@ -1,4 +1,4 @@
-package com.renxing.imageloader
+package com.renxing.imageloader.activity
 
 import android.content.Intent
 import android.os.Build
@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.example.imageloader.R
+import com.renxing.imageloader.*
 import com.renxing.moduleImageLoader.RXImageLoader
 
 class MainActivity : AppCompatActivity(),View.OnClickListener {
@@ -113,13 +114,13 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
                 RXImageLoader.loadImage(url,test_iv_1, placeHoldId)
             }
             R.id.btn_id_placeholder                 ->{
-                RXImageLoader.loadImage(imgId,test_iv_1,placeHoldId)
+                RXImageLoader.loadImage(imgId,test_iv_1, placeHoldId)
             }
             R.id.btn_special                        ->{
-                RXImageLoader.loadImage(url,test_iv_1,width,height)
+                RXImageLoader.loadImage(url,test_iv_1, width, height)
             }
             R.id.btn_special_placeholder            ->{
-                RXImageLoader.loadImage(url2,test_iv_1,width,height,placeHoldId)
+                RXImageLoader.loadImage(url2,test_iv_1, width, height, placeHoldId)
             }
             R.id.btn_url_fitCenter                  ->{
                 RXImageLoader.loadImageWithFitCenter(url,test_iv_1)
@@ -146,7 +147,7 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
                 RXImageLoader.loadImageWithSkipCache(imgId,test_iv_1)
             }
             R.id.btn_url_skipCache_special          ->{
-                RXImageLoader.loadImageWithSkipCache(url,test_iv_1,width,height)
+                RXImageLoader.loadImageWithSkipCache(url,test_iv_1, width, height)
             }
             R.id.btn_url_circle                     ->{
                 RXImageLoader.loadCircleImage(url,test_iv_1)
@@ -155,14 +156,14 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
                 RXImageLoader.loadCircleImage(imgId,test_iv_1)
             }
             R.id.btn_url_corner                     ->{
-                RXImageLoader.loadCornersImage(url,test_iv_1,cornerWidth)
+                RXImageLoader.loadCornersImage(url,test_iv_1, cornerWidth)
             }
             R.id.btn_id_corner                      ->{
-                RXImageLoader.loadCornersImage(imgId,test_iv_1,cornerWidth, placeHoldId)
+                RXImageLoader.loadCornersImage(imgId,test_iv_1, cornerWidth, placeHoldId)
             }
 
             R.id.btn_next_page                      ->{
-                startActivity(Intent(this@MainActivity,SecondActivity::class.java))
+                startActivity(Intent(this@MainActivity, SecondActivity::class.java))
 
             }
 

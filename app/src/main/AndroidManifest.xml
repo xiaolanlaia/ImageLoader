@@ -19,18 +19,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ImageLoader">
         <activity
-            android:name="com.renxing.imageloader.FourthActivity"
+            android:name="com.renxing.imageloader.activity.FourthActivity"
             android:exported="true" >
 
         </activity>
         <activity
-            android:name="com.renxing.imageloader.ThirdActivity"
+            android:name="com.renxing.imageloader.activity.ThirdActivity"
             android:exported="false" />
         <activity
-            android:name="com.renxing.imageloader.SecondActivity"
+            android:name="com.renxing.imageloader.activity.SecondActivity"
             android:exported="false" />
         <activity
-            android:name="com.renxing.imageloader.MainActivity"
+            android:name="com.renxing.imageloader.activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
