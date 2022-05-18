@@ -164,7 +164,7 @@ object ImageLoaderUtils {
 
 
 
-    fun gifDrawableRequestListener(playTimes : Int,onAnimationStatus: OnAnimationStatus) : RequestListener<GifDrawable> {
+    fun gifDrawableRequestListener(playTimes : Int,onAnimationStatus: OnAnimationStatus?) : RequestListener<GifDrawable> {
         return object : RequestListener<GifDrawable> {
 
             override fun onResourceReady(
@@ -180,48 +180,12 @@ object ImageLoaderUtils {
                     override fun onAnimationStart(drawable: Drawable) {
                         super.onAnimationStart(drawable)
                         resource.start()
-                        onAnimationStatus.onAnimationStart()
+                        onAnimationStatus?.onAnimationStart()
                     }
 
                     override fun onAnimationEnd(drawable: Drawable) {
                         super.onAnimationEnd(drawable)
-                        onAnimationStatus.onAnimationEnd()
-                    }
-                })
-                return false
-            }
-
-            override fun onLoadFailed(
-                e: GlideException?,
-                model: Any?,
-                target: Target<GifDrawable>?,
-                isFirstResource: Boolean
-            ): Boolean {
-                return false
-            }
-        }
-    }
-
-    fun gifDrawableRequestListener(playTimes : Int) : RequestListener<GifDrawable> {
-        return object : RequestListener<GifDrawable> {
-
-            override fun onResourceReady(
-                resource: GifDrawable,
-                model: Any,
-                target: Target<GifDrawable>,
-                dataSource: DataSource,
-                isFirstResource: Boolean
-            ): Boolean {
-                resource.setLoopCount(playTimes)
-                resource.registerAnimationCallback(object :
-                    Animatable2Compat.AnimationCallback() {
-                    override fun onAnimationStart(drawable: Drawable) {
-                        super.onAnimationStart(drawable)
-                        resource.start()
-                    }
-
-                    override fun onAnimationEnd(drawable: Drawable) {
-                        super.onAnimationEnd(drawable)
+                        onAnimationStatus?.onAnimationEnd()
                     }
                 })
                 return false
