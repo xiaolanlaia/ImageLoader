@@ -12,14 +12,12 @@ import android.view.View
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.engine.cache.ExternalCacheDiskCacheFactory
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.load.resource.gif.GifDrawable
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
-import com.renxing.moduleImageLoader.imageUtils.FileUtils
 import com.renxing.moduleImageLoader.imageUtils.ImageLoaderUtils
 import com.renxing.moduleImageLoader.imageUtils.RXImageLoaderConstant
 import com.renxing.moduleImageLoader.loaderStrategy.control.ImageLoaderInterface
@@ -244,89 +242,110 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
     }
 
     override fun loadCornersImage(urlOrId: Any, imageView: ImageView, cornerRadius: Float) {
-        ImageLoaderUtils.checkAndAppendCornerUrl(urlOrId, cornerRadius).apply {
-            when (this) {
-                is String -> {
-                    glideLoad(this, imageView,nullOptions)
-                }
-                else -> {
-                    glideLoad(urlOrId, imageView,
-                        RequestOptions().transform(RoundedCorners((ImageLoaderUtils.dp2px(cornerRadius) + 0.5f).toInt()))
-                    )
-                }
-            }
-        }
+        //注释七牛方案
+//        ImageLoaderUtils.checkAndAppendCornerUrl(urlOrId, cornerRadius).apply {
+//            when (this) {
+//                is String -> {
+//                    glideLoad(this, imageView,nullOptions)
+//                }
+//                else -> {
+//                    glideLoad(urlOrId, imageView,
+//                        RequestOptions().transform(RoundedCorners((ImageLoaderUtils.dp2px(cornerRadius) + 0.5f).toInt()))
+//                    )
+//                }
+//            }
+//        }
+
+        glideLoad(urlOrId, imageView,
+            RequestOptions().transform(RoundedCorners((ImageLoaderUtils.dp2px(cornerRadius) + 0.5f).toInt()))
+        )
     }
 
     override fun loadCornersImage(urlOrId: Any, imageView: ImageView, cornerRadius: Float, placeholderImg: Int) {
-        ImageLoaderUtils.checkAndAppendCornerUrl(urlOrId, cornerRadius).apply {
-            when (this) {
-                is String -> {
-                    glideLoad(this, imageView,
-                        RequestOptions()
-                            .placeholder(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle(cornerRadius))
-                            .error(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle(cornerRadius))
-                    )
-
-                }
-                else -> {
-                    glideLoad(urlOrId, imageView,
-                        RequestOptions()
-                            .transform(RoundedCorners((ImageLoaderUtils.dp2px(cornerRadius) + 0.5f).toInt()))
-                            .placeholder(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle(cornerRadius))
-                            .error(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle(cornerRadius)
-                            )
-                    )
-                }
-            }
-        }
+        //注释七牛方案
+//        ImageLoaderUtils.checkAndAppendCornerUrl(urlOrId, cornerRadius).apply {
+//            when (this) {
+//                is String -> {
+//                    glideLoad(this, imageView,
+//                        RequestOptions()
+//                            .placeholder(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle(cornerRadius))
+//                            .error(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle(cornerRadius))
+//                    )
+//
+//                }
+//                else -> {
+//                    glideLoad(urlOrId, imageView,
+//                        RequestOptions()
+//                            .transform(RoundedCorners((ImageLoaderUtils.dp2px(cornerRadius) + 0.5f).toInt()))
+//                            .placeholder(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle(cornerRadius))
+//                            .error(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle(cornerRadius)
+//                            )
+//                    )
+//                }
+//            }
+//        }
+        glideLoad(urlOrId, imageView,
+            RequestOptions()
+                .transform(RoundedCorners((ImageLoaderUtils.dp2px(cornerRadius) + 0.5f).toInt()))
+                .placeholder(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle(cornerRadius))
+                .error(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle(cornerRadius)
+                )
+        )
     }
 
     override fun loadCornersImage(urlOrId: Any, imageView: ImageView, cornerRadius: Float, cornerType: RXImageLoaderConstant.CornerType) {
-        when (cornerType) {
-            RXImageLoaderConstant.CornerType.ALL -> {
-                ImageLoaderUtils.checkAndAppendCornerUrl(urlOrId, cornerRadius).apply {
-                    when (this) {
-                        is String -> {
-                            glideLoad(this, imageView,nullOptions)
-                        }
-                        else -> {
-                            loadCornersImageConbine1(urlOrId, imageView, cornerRadius, cornerType)
-                        }
-                    }
-                }
-            }
+        //注释七牛方案
+//        when (cornerType) {
+//            RXImageLoaderConstant.CornerType.ALL -> {
+//                ImageLoaderUtils.checkAndAppendCornerUrl(urlOrId, cornerRadius).apply {
+//                    when (this) {
+//                        is String -> {
+//                            glideLoad(this, imageView,nullOptions)
+//                        }
+//                        else -> {
+//                            loadCornersImageConbine1(urlOrId, imageView, cornerRadius, cornerType)
+//                        }
+//                    }
+//                }
+//            }
+//
+//            else -> {
+//                loadCornersImageConbine1(urlOrId, imageView, cornerRadius, cornerType)
+//            }
+//        }
 
-            else -> {
-                loadCornersImageConbine1(urlOrId, imageView, cornerRadius, cornerType)
-            }
-        }
+        loadCornersImageConbine1(urlOrId, imageView, cornerRadius, cornerType)
+
 
     }
 
     override fun loadCornersImage(urlOrId: Any, imageView: ImageView, cornerRadius: Float, cornerType: RXImageLoaderConstant.CornerType, placeholderImg: Int) {
-        when (cornerType) {
-            RXImageLoaderConstant.CornerType.ALL -> {
-                ImageLoaderUtils.checkAndAppendCornerUrl(urlOrId, cornerRadius).apply {
-                    when (this) {
-                        is String -> {
-                            glideLoad(this, imageView,
-                                RequestOptions()
-                                    .placeholder(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle(cornerRadius))
-                                    .error(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle(cornerRadius))
-                            )
-                        }
-                        else -> {
-                            loadCornersImageConbine2(urlOrId, imageView, cornerRadius, cornerType, placeholderImg)
-                        }
-                    }
-                }
-            }
+        //注释七牛方案
+//        when (cornerType) {
+//            RXImageLoaderConstant.CornerType.ALL -> {
+//                ImageLoaderUtils.checkAndAppendCornerUrl(urlOrId, cornerRadius).apply {
+//                    when (this) {
+//                        is String -> {
+//                            glideLoad(this, imageView,
+//                                RequestOptions()
+//                                    .placeholder(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle(cornerRadius))
+//                                    .error(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle(cornerRadius))
+//                            )
+//                        }
+//                        else -> {
+//                            loadCornersImageConbine2(urlOrId, imageView, cornerRadius, cornerType, placeholderImg)
+//                        }
+//                    }
+//                }
+//            }
+//
+//            else -> {
+//                loadCornersImageConbine2(urlOrId, imageView, cornerRadius, cornerType, placeholderImg)
+//            }
+//        }
 
-            else -> {
-                loadCornersImageConbine2(urlOrId, imageView, cornerRadius, cornerType, placeholderImg)
-            }
-        }
+        loadCornersImageConbine2(urlOrId, imageView, cornerRadius, cornerType, placeholderImg)
+
     }
 
     override fun loadCornersImage(bitmap: Bitmap, imageView: ImageView, cornerRadius: Float, cornerType: RXImageLoaderConstant.CornerType) {
