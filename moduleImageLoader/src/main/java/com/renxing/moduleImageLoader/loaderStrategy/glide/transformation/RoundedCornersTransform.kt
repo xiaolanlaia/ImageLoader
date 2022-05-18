@@ -4,14 +4,14 @@ import android.graphics.*
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool
 import com.renxing.moduleImageLoader.BuildConfig
-import com.renxing.moduleImageLoader.imageUtils.ModuleImageConstant
+import com.renxing.moduleImageLoader.imageUtils.RXImageLoaderConstant
 import java.security.MessageDigest
 
 /**
  * desc : 将图片转化为给类的特殊圆角图片
  */
 class RoundedCornersTransform
-    (private val mRadius: Float, private val mCornerType: ModuleImageConstant.CornerType) : BitmapTransformation() {
+    (private val mRadius: Float, private val mCornerType: RXImageLoaderConstant.CornerType) : BitmapTransformation() {
 
     companion object {
         private const val VERSION = 1
@@ -46,61 +46,61 @@ class RoundedCornersTransform
     private fun drawRoundRect(canvas: Canvas, paint: Paint, path: Path, width: Int, height: Int) {
         val rids: FloatArray
         when (mCornerType) {
-            ModuleImageConstant.CornerType.ALL -> {
+            RXImageLoaderConstant.CornerType.ALL -> {
                 rids = floatArrayOf(mRadius, mRadius, mRadius, mRadius, mRadius, mRadius, mRadius, mRadius)
                 drawPath(rids, canvas, paint, path, width, height)
             }
-            ModuleImageConstant.CornerType.TOP_LEFT -> {
+            RXImageLoaderConstant.CornerType.TOP_LEFT -> {
                 rids = floatArrayOf(mRadius, mRadius, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f)
                 drawPath(rids, canvas, paint, path, width, height)
             }
-            ModuleImageConstant.CornerType.TOP_RIGHT -> {
+            RXImageLoaderConstant.CornerType.TOP_RIGHT -> {
                 rids = floatArrayOf(0.0f, 0.0f, mRadius, mRadius, 0.0f, 0.0f, 0.0f, 0.0f)
                 drawPath(rids, canvas, paint, path, width, height)
             }
-            ModuleImageConstant.CornerType.BOTTOM_RIGHT -> {
+            RXImageLoaderConstant.CornerType.BOTTOM_RIGHT -> {
                 rids = floatArrayOf(0.0f, 0.0f, 0.0f, 0.0f, mRadius, mRadius, 0.0f, 0.0f)
                 drawPath(rids, canvas, paint, path, width, height)
             }
-            ModuleImageConstant.CornerType.BOTTOM_LEFT -> {
+            RXImageLoaderConstant.CornerType.BOTTOM_LEFT -> {
                 rids = floatArrayOf(0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, mRadius, mRadius)
                 drawPath(rids, canvas, paint, path, width, height)
             }
-            ModuleImageConstant.CornerType.TOP -> {
+            RXImageLoaderConstant.CornerType.TOP -> {
                 rids = floatArrayOf(mRadius, mRadius, mRadius, mRadius, 0.0f, 0.0f, 0.0f, 0.0f)
                 drawPath(rids, canvas, paint, path, width, height)
             }
-            ModuleImageConstant.CornerType.BOTTOM -> {
+            RXImageLoaderConstant.CornerType.BOTTOM -> {
                 rids = floatArrayOf(0.0f, 0.0f, 0.0f, 0.0f, mRadius, mRadius, mRadius, mRadius)
                 drawPath(rids, canvas, paint, path, width, height)
             }
-            ModuleImageConstant.CornerType.LEFT -> {
+            RXImageLoaderConstant.CornerType.LEFT -> {
                 rids = floatArrayOf(mRadius, mRadius, 0.0f, 0.0f, 0.0f, 0.0f, mRadius, mRadius)
                 drawPath(rids, canvas, paint, path, width, height)
             }
-            ModuleImageConstant.CornerType.RIGHT -> {
+            RXImageLoaderConstant.CornerType.RIGHT -> {
                 rids = floatArrayOf(0.0f, 0.0f, mRadius, mRadius, mRadius, mRadius, 0.0f, 0.0f)
                 drawPath(rids, canvas, paint, path, width, height)
             }
-            ModuleImageConstant.CornerType.TOP_LEFT_BOTTOM_RIGHT -> {
+            RXImageLoaderConstant.CornerType.TOP_LEFT_BOTTOM_RIGHT -> {
                 rids = floatArrayOf(mRadius, mRadius, 0.0f, 0.0f, mRadius, mRadius, 0.0f, 0.0f)
                 drawPath(rids, canvas, paint, path, width, height)
             }
-            ModuleImageConstant.CornerType.TOP_RIGHT_BOTTOM_LEFT -> {
+            RXImageLoaderConstant.CornerType.TOP_RIGHT_BOTTOM_LEFT -> {
                 rids = floatArrayOf(0.0f, 0.0f, mRadius, mRadius, 0.0f, 0.0f, mRadius, mRadius)
                 drawPath(rids, canvas, paint, path, width, height)
             }
-            ModuleImageConstant.CornerType.TOP_LEFT_TOP_RIGHT_BOTTOM_RIGHT -> {
+            RXImageLoaderConstant.CornerType.TOP_LEFT_TOP_RIGHT_BOTTOM_RIGHT -> {
                 rids =
                     floatArrayOf(mRadius, mRadius, mRadius, mRadius, mRadius, mRadius, 0.0f, 0.0f)
                 drawPath(rids, canvas, paint, path, width, height)
             }
-            ModuleImageConstant.CornerType.TOP_RIGHT_BOTTOM_RIGHT_BOTTOM_LEFT -> {
+            RXImageLoaderConstant.CornerType.TOP_RIGHT_BOTTOM_RIGHT_BOTTOM_LEFT -> {
                 rids =
                     floatArrayOf(0.0f, 0.0f, mRadius, mRadius, mRadius, mRadius, mRadius, mRadius)
                 drawPath(rids, canvas, paint, path, width, height)
             }
-            ModuleImageConstant.CornerType.DEFAULT -> {
+            RXImageLoaderConstant.CornerType.DEFAULT -> {
                 rids = floatArrayOf(0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f)
                 drawPath(rids, canvas, paint, path, width, height)
             }

@@ -1,14 +1,10 @@
 package com.renxing.moduleImageLoader.imageUtils
 
 import android.app.Activity
-import android.content.Context
-import android.content.res.Configuration
 import android.content.res.Resources
-import android.graphics.Bitmap
 import android.os.Build
 import android.util.DisplayMetrics
 import android.util.TypedValue
-import android.view.Surface
 import android.view.View
 import java.lang.Exception
 
@@ -26,7 +22,7 @@ internal object DisplayUtils {
      * 将px值转换为dip或dp值，保证尺寸大小不变
      */
     fun px2dip(pxValue: Float): Int {
-        val scale = ModuleImageConstant.moduleImageApplication!!.resources.displayMetrics.density
+        val scale = RXImageLoaderConstant.moduleImageApplication!!.resources.displayMetrics.density
         return (pxValue / scale + 0.5f).toInt()
     }
 
@@ -39,7 +35,7 @@ internal object DisplayUtils {
     }
 
     fun dp2px(dp: Float): Int {
-        val scale = ModuleImageConstant.moduleImageApplication!!.resources.displayMetrics.density
+        val scale = RXImageLoaderConstant.moduleImageApplication!!.resources.displayMetrics.density
         return (dp * scale + 0.5f).toInt()
     }
 
@@ -47,7 +43,7 @@ internal object DisplayUtils {
      * 将dip或dp值转换为px值，保证尺寸大小不变
      */
     fun dp2Px(dp: Int): Int {
-        val r = ModuleImageConstant.moduleImageApplication!!.resources
+        val r = RXImageLoaderConstant.moduleImageApplication!!.resources
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp.toFloat(), r.displayMetrics).toInt()
     }
 
@@ -55,7 +51,7 @@ internal object DisplayUtils {
      * 将dimen中的值转换为px值，保证尺寸大小不变
      */
     fun dimenToPx(rDimen: Int): Int {
-        val r = ModuleImageConstant.moduleImageApplication!!.resources
+        val r = RXImageLoaderConstant.moduleImageApplication!!.resources
         return r.getDimensionPixelSize(rDimen)
     }
 
@@ -87,7 +83,7 @@ internal object DisplayUtils {
     val displayPxArray: IntArray
         get() {
             val displays = IntArray(2)
-            val dm: DisplayMetrics = ModuleImageConstant.moduleImageApplication!!.resources.displayMetrics
+            val dm: DisplayMetrics = RXImageLoaderConstant.moduleImageApplication!!.resources.displayMetrics
             displays[0] = dm.widthPixels
             displays[1] = dm.heightPixels
             return displays
@@ -98,7 +94,7 @@ internal object DisplayUtils {
      */
     val displayPxHeight: Int
         get() {
-            val dm: DisplayMetrics = ModuleImageConstant.moduleImageApplication!!.resources.displayMetrics
+            val dm: DisplayMetrics = RXImageLoaderConstant.moduleImageApplication!!.resources.displayMetrics
             return dm.heightPixels
         }
 
@@ -107,7 +103,7 @@ internal object DisplayUtils {
      */
     val displayPxWidth: Int
         get() {
-            val dm: DisplayMetrics = ModuleImageConstant.moduleImageApplication!!.resources.displayMetrics
+            val dm: DisplayMetrics = RXImageLoaderConstant.moduleImageApplication!!.resources.displayMetrics
             return dm.widthPixels
         }
 
@@ -137,7 +133,7 @@ internal object DisplayUtils {
      * @return
      */
     fun dip2px(dipValue: Float): Int {
-        val scale = ModuleImageConstant.moduleImageApplication!!.resources.displayMetrics.density
+        val scale = RXImageLoaderConstant.moduleImageApplication!!.resources.displayMetrics.density
         return (dipValue * scale + 0.5f).toInt()
     }
 
@@ -149,7 +145,7 @@ internal object DisplayUtils {
      * @return
      */
     fun px2sp(pxValue: Float): Int {
-        val fontScale = ModuleImageConstant.moduleImageApplication!!.resources.displayMetrics.scaledDensity
+        val fontScale = RXImageLoaderConstant.moduleImageApplication!!.resources.displayMetrics.scaledDensity
         return (pxValue / fontScale + 0.5f).toInt()
     }
 
@@ -161,7 +157,7 @@ internal object DisplayUtils {
      * @return
      */
     fun sp2px(spValue: Float): Int {
-        val fontScale = ModuleImageConstant.moduleImageApplication!!.resources.displayMetrics.scaledDensity
+        val fontScale = RXImageLoaderConstant.moduleImageApplication!!.resources.displayMetrics.scaledDensity
         return (spValue * fontScale + 0.5f).toInt()
     }
 
@@ -179,7 +175,7 @@ internal object DisplayUtils {
     val screen: IntArray
         get() {
             val screen = IntArray(2)
-            val dm: DisplayMetrics = ModuleImageConstant.moduleImageApplication!!.resources.displayMetrics
+            val dm: DisplayMetrics = RXImageLoaderConstant.moduleImageApplication!!.resources.displayMetrics
             screen[0] = dm.widthPixels
             screen[1] = dm.heightPixels
             return screen
@@ -192,7 +188,7 @@ internal object DisplayUtils {
      */
     val screenDpi: Int
         get() {
-            val dm: DisplayMetrics = ModuleImageConstant.moduleImageApplication!!.resources.displayMetrics
+            val dm: DisplayMetrics = RXImageLoaderConstant.moduleImageApplication!!.resources.displayMetrics
             return dm.densityDpi
         }
 

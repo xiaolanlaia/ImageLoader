@@ -4,7 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.view.View
 import android.widget.ImageView
-import com.renxing.moduleImageLoader.imageUtils.ModuleImageConstant
+import com.renxing.moduleImageLoader.imageUtils.RXImageLoaderConstant
 import com.renxing.moduleImageLoader.loaderStrategy.glide.target.RXCustomTarget
 
 /**
@@ -53,6 +53,39 @@ interface ImageLoaderInterface {
      * @urlOrId: String类型或Int类型
      */
     fun loadImageWithCenterCrop(urlOrId: Any, imageView: ImageView, placeholderImg: Int)
+    /**
+     * @urlOrId: String类型或Int类型
+     */
+    fun loadImageWithCenterCrop(urlOrId: Any, imageView: ImageView, diskCacheStrategy : RXImageLoaderConstant.DiskCacheStrategyEnum)
+    /**
+     * @urlOrId: String类型或Int类型
+     */
+    fun loadImageWithCenterCrop(urlOrId: Any, imageView: ImageView, placeholderImg: Int,
+                                diskCacheStrategy : RXImageLoaderConstant.DiskCacheStrategyEnum,
+                                transition : Boolean)
+    /**
+     * @urlOrId: String类型或Int类型
+     */
+    fun loadImageWithCenterCrop(urlOrId: Any, imageView: ImageView, placeholderImg: Int,
+                                diskCacheStrategy : RXImageLoaderConstant.DiskCacheStrategyEnum)
+    /**
+     * @urlOrId: String类型或Int类型
+     */
+    fun loadImageWithCenterCrop(urlOrId: Any, imageView: ImageView, placeholderImg: Int, transition : Boolean)
+    /**
+     * @urlOrId: String类型或Int类型
+     */
+    fun loadImageWithCenterCrop(
+        urlOrId: Any,
+        imageView: ImageView,
+        placeholderImg: Int,
+        diskCacheStrategy : RXImageLoaderConstant.DiskCacheStrategyEnum,
+        transition : Boolean,
+        thumbnail : Boolean,
+        thumbnailWidth : Int,
+        thumbnailHeight : Int
+    )
+
 
     /**
      * @urlOrId: String类型或Int类型
@@ -63,6 +96,20 @@ interface ImageLoaderInterface {
      * @urlOrId: String类型或Int类型
      */
     fun loadImageWithCenterInside(urlOrId: Any, imageView: ImageView, placeholderImg: Int)
+
+    /**
+     * @urlOrId: String类型或Int类型
+     */
+    fun loadImageWithCenterInside(urlOrId: Any, imageView: ImageView, placeholderImg: Int,diskCacheStrategy: RXImageLoaderConstant.DiskCacheStrategyEnum,transition : Boolean)
+
+    /**
+     * @urlOrId: String类型或Int类型
+     */
+    fun loadImageWithCenterInside(urlOrId: Any, imageView: ImageView, placeholderImg: Int,diskCacheStrategy : RXImageLoaderConstant.DiskCacheStrategyEnum)
+    /**
+     * @urlOrId: String类型或Int类型
+     */
+    fun loadImageWithCenterInside(urlOrId: Any, imageView: ImageView, placeholderImg: Int,transition : Boolean)
 
     /**
      * @urlOrId: String类型或Int类型
@@ -94,7 +141,19 @@ interface ImageLoaderInterface {
      * 圆形图
      * @urlOrId: String类型或Int类型
      */
+    fun loadCircleImage(urlOrId: Any, imageView: ImageView,diskCacheStrategy: RXImageLoaderConstant.DiskCacheStrategyEnum)
+
+    /**
+     * 圆形图
+     * @urlOrId: String类型或Int类型
+     */
     fun loadCircleImage(urlOrId: Any, imageView: ImageView, placeholderImg: Int)
+
+    /**
+     * 圆形图
+     * @urlOrId: String类型或Int类型
+     */
+    fun loadCircleImage(urlOrId: Any, imageView: ImageView, placeholderImg: Int,diskCacheStrategy: RXImageLoaderConstant.DiskCacheStrategyEnum)
 
     /**
      * 圆角图
@@ -114,23 +173,29 @@ interface ImageLoaderInterface {
      * 指定圆角边的圆角图
      * @urlOrId: String类型或Int类型
      */
-    fun loadCornersImage(urlOrId: Any, imageView: ImageView, cornerRadius: Float, cornerType: ModuleImageConstant.CornerType)
+    fun loadCornersImage(urlOrId: Any, imageView: ImageView, cornerRadius: Float, cornerType: RXImageLoaderConstant.CornerType)
 
     /**
      * 指定圆角边的圆角图
      * @urlOrId: String类型或Int类型
      */
-    fun loadCornersImage(urlOrId: Any, imageView: ImageView, cornerRadius: Float, cornerType: ModuleImageConstant.CornerType, placeholderImg: Int)
+    fun loadCornersImage(urlOrId: Any, imageView: ImageView, cornerRadius: Float, cornerType: RXImageLoaderConstant.CornerType, placeholderImg: Int)
     /**
      * 指定圆角边的圆角图
      * @bitmap: Bitmap
      */
-    fun loadCornersImage(bitmap: Bitmap, imageView: ImageView, cornerRadius: Float, cornerType: ModuleImageConstant.CornerType)
+    fun loadCornersImage(bitmap: Bitmap, imageView: ImageView, cornerRadius: Float, cornerType: RXImageLoaderConstant.CornerType)
     /**
      * 指定圆角边的圆角图
      * @bitmap: Bitmap
      */
-    fun loadCornersImage(bitmap: Bitmap, imageView: ImageView, cornerRadius: Float, cornerType: ModuleImageConstant.CornerType, placeholderImg: Int)
+    fun loadCornersImage(bitmap: Bitmap, imageView: ImageView, cornerRadius: Float, cornerType: RXImageLoaderConstant.CornerType, placeholderImg: Int)
+    /**
+     * 指定圆角边的圆角图
+     * @bitmap: Bitmap
+     */
+    fun loadCornersImageWithCenterCrop(urlOrId: Any, imageView: ImageView, placeholderImg: Int,cornerRadius : Float,diskCacheStrategy: RXImageLoaderConstant.DiskCacheStrategyEnum,
+                                       transition : Boolean,thumbnail : Boolean,thumbnailWidth : Int, thumbnailHeight : Int)
 
     /**
      * 带边框圆形图
@@ -164,6 +229,11 @@ interface ImageLoaderInterface {
     /**
      * @urlOrId: String类型或Int类型
      */
+    fun loadGif(urlOrId: Any, imageView: ImageView,diskCacheStrategy: RXImageLoaderConstant.DiskCacheStrategyEnum)
+
+    /**
+     * @urlOrId: String类型或Int类型
+     */
     fun loadGif(urlOrId: Any, imageView: ImageView, placeholderImg: Int)
 
     /**
@@ -171,6 +241,12 @@ interface ImageLoaderInterface {
      * @playTimes : Int 播放次数
      */
     fun loadGif(playTimes : Int, urlOrId: Any, imageView: ImageView)
+
+    /**
+     * @urlOrId: String类型或Int类型
+     * @playTimes : Int 播放次数
+     */
+    fun loadGif(playTimes : Int, urlOrId: Any, imageView: ImageView,diskCacheStrategy: RXImageLoaderConstant.DiskCacheStrategyEnum,onAnimationStatus : OnAnimationStatus)
 
     /**
      * @urlOrId: String类型或Int类型
@@ -261,12 +337,21 @@ interface ImageLoaderInterface {
     /**
      * @urlOrId: String类型或Int类型
      */
+    fun loadImageWithRXCustomTarget(urlOrId: Any, context: Context, rxCustomTarget: RXCustomTarget<Bitmap>,diskCacheStrategy: RXImageLoaderConstant.DiskCacheStrategyEnum)
+
+    /**
+     * @urlOrId: String类型或Int类型
+     */
     fun load9Png(urlOrId: Any, view: View)
 
     /**
      * @urlOrId: String类型或Int类型
      */
     fun load9Png(urlOrId: Any, view: View, placeholderImg: Int)
+
+    fun clearImageDiskCache(context: Context)
+
+    fun clearImageMemoryCache(context: Context)
 
 
 }

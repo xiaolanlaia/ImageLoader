@@ -9,7 +9,7 @@ import android.graphics.Rect
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.NinePatchDrawable
-import android.text.TextUtils
+import android.net.Uri
 import android.util.TypedValue
 import android.view.View
 import androidx.vectordrawable.graphics.drawable.Animatable2Compat
@@ -18,17 +18,17 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.gif.GifDrawable
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
+import com.renxing.moduleImageLoader.loaderStrategy.control.OnAnimationStatus
 import com.renxing.moduleImageLoader.loaderStrategy.glide.ninePic.NinePatchChunk
 import java.io.ByteArrayOutputStream
-import java.lang.IllegalArgumentException
 
 /**
  *@author  :  WuJianFeng
  */
-internal object ImageLoaderUtils {
+object ImageLoaderUtils {
 
     fun appendUrl(url: String, width: Int, height: Int, needToPx: Boolean): String {
-        var newUrl = ""
+        var newUrl: String
         url.run{
             if (!this.contains(URL_APPEND_WIDTH)) {
                 newUrl = if (needToPx) {
@@ -36,8 +36,25 @@ internal object ImageLoaderUtils {
                 } else {
                     this + URL_APPEND_WIDTH + width + URL_APPEND_HEIGHT + height + interlaceStr
                 }
+            }else{
+                newUrl = url
             }
         }
+        return newUrl
+    }
+
+    fun appendSlim(url: String) : String{
+        var newUrl:String
+        if (url.startsWith("http") && (url.endsWith("png") || url.endsWith("PNG")
+                    || url.endsWith("JPEG") || url.endsWith("jpeg")
+                    || url.endsWith("JPG") || url.endsWith("jpg")) && !url.contains("?")
+        ) {
+
+            newUrl = url + "?imageslim"
+        }else{
+            newUrl = url
+        }
+
         return newUrl
     }
 
@@ -58,7 +75,7 @@ internal object ImageLoaderUtils {
 
 
     fun checkUrlOrId(urlOrId: Any) {
-        if (urlOrId !is String && urlOrId !is Int) {
+        if (urlOrId !is String && urlOrId !is Int && urlOrId !is Uri) {
             throw IllegalArgumentException("urlOrId is not correct argument")
         }
     }
@@ -146,6 +163,44 @@ internal object ImageLoaderUtils {
     }
 
 
+
+    fun gifDrawableRequestListener(playTimes : Int,onAnimationStatus: OnAnimationStatus) : RequestListener<GifDrawable> {
+        return object : RequestListener<GifDrawable> {
+
+            override fun onResourceReady(
+                resource: GifDrawable,
+                model: Any,
+                target: Target<GifDrawable>,
+                dataSource: DataSource,
+                isFirstResource: Boolean
+            ): Boolean {
+                resource.setLoopCount(playTimes)
+                resource.registerAnimationCallback(object :
+                    Animatable2Compat.AnimationCallback() {
+                    override fun onAnimationStart(drawable: Drawable) {
+                        super.onAnimationStart(drawable)
+                        resource.start()
+                        onAnimationStatus.onAnimationStart()
+                    }
+
+                    override fun onAnimationEnd(drawable: Drawable) {
+                        super.onAnimationEnd(drawable)
+                        onAnimationStatus.onAnimationEnd()
+                    }
+                })
+                return false
+            }
+
+            override fun onLoadFailed(
+                e: GlideException?,
+                model: Any?,
+                target: Target<GifDrawable>?,
+                isFirstResource: Boolean
+            ): Boolean {
+                return false
+            }
+        }
+    }
 
     fun gifDrawableRequestListener(playTimes : Int) : RequestListener<GifDrawable> {
         return object : RequestListener<GifDrawable> {

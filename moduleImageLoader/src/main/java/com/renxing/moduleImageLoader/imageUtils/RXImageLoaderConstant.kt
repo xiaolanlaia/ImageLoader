@@ -1,6 +1,7 @@
 package com.renxing.moduleImageLoader.imageUtils
 
 import android.app.Application
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 
 const val HTTP = "http"
 const val HTTPS = "https"
@@ -21,12 +22,10 @@ const val CORNER_SUFFIX = "?roundPic/radius/" //?roundPic/radius/50
  *@author  :  WuJianFeng
  * 对外提供
  */
-class ModuleImageConstant {
+object RXImageLoaderConstant {
 
-    companion object{
-        var moduleImageApplication: Application? = null
+    var moduleImageApplication: Application? = null
 
-    }
 
     enum class CornerType {
         ALL,
@@ -43,6 +42,12 @@ class ModuleImageConstant {
         LEFT,
         RIGHT,
         DEFAULT
+    }
+
+    enum class DiskCacheStrategyEnum{
+        NONE,
+        ALL,
+        AUTOMATIC
     }
 
 
