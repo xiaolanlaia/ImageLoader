@@ -43,20 +43,6 @@ object ImageLoaderUtils {
         return newUrl
     }
 
-    fun appendSlim(url: String) : String{
-        var newUrl:String
-        if (url.startsWith("http") && (url.endsWith("png") || url.endsWith("PNG")
-                    || url.endsWith("JPEG") || url.endsWith("jpeg")
-                    || url.endsWith("JPG") || url.endsWith("jpg")) && !url.contains("?")
-        ) {
-
-            newUrl = url + "?imageslim"
-        }else{
-            newUrl = url
-        }
-
-        return newUrl
-    }
 
     /**
      * 只处理png和jpg格式图片
@@ -89,7 +75,7 @@ object ImageLoaderUtils {
 
         return false
     }
-    fun appendUrl(url: String): String {
+    fun appendSlim(url: String): String {
         var newUrl: String
         url.run{
             if (startsWith(HTTPS) &&
