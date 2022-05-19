@@ -350,8 +350,14 @@ interface ImageLoaderInterface {
      */
     fun load9Png(urlOrId: Any, view: View, placeholderImg: Int)
 
+    /**
+     * 清理磁盘缓存
+     */
     fun clearImageDiskCache(context: Context)
 
+    /**
+     * 清理内存缓存
+     */
     fun clearImageMemoryCache(context: Context)
 
 
