@@ -156,6 +156,7 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
                 RXImageLoader.loadCircleImage(imgId,test_iv_1)
             }
             R.id.btn_url_corner                     ->{
+
                 RXImageLoader.loadCornersImage(url,test_iv_1, cornerWidth)
             }
             R.id.btn_id_corner                      ->{

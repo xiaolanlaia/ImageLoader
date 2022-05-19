@@ -10,7 +10,7 @@ import android.widget.TextView
 import com.example.imageloader.R
 import com.renxing.imageloader.*
 import com.renxing.moduleImageLoader.RXImageLoader
-import com.renxing.moduleImageLoader.imageUtils.ModuleImageConstant
+import com.renxing.moduleImageLoader.imageUtils.enumUtils.CornerTypeEnum
 
 class SecondActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -91,17 +91,17 @@ class SecondActivity : AppCompatActivity(), View.OnClickListener {
             R.id.btn_url_corner_special             ->{
                 RXImageLoader.loadCornersImage(
                     url,test_iv_1, cornerWidth,
-                    ModuleImageConstant.CornerType.RIGHT)
+                    CornerTypeEnum.RIGHT)
 
             }
             R.id.btn_id_corner_special              ->{
                 RXImageLoader.loadCornersImage(
                     imgId,test_iv_1, cornerWidth,
-                    ModuleImageConstant.CornerType.LEFT)
+                    CornerTypeEnum.LEFT)
             }
             R.id.btn_bitmap_corner                  ->{
                 //todo bitmap是怎么做的
-//                RXImageLoader.loadRoundedCornersImage(imgId,test_iv_1,radius,ModuleImageConstant.CornerType.LEFT)
+//                RXImageLoader.loadRoundedCornersImage(imgId,test_iv_1,radius,CornerTypeEnum.LEFT)
 
             }
             R.id.btn_url_border_circle              ->{
