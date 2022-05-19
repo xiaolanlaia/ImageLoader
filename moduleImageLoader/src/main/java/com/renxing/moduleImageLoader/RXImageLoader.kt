@@ -4,7 +4,8 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.view.View
 import android.widget.ImageView
-import com.renxing.moduleImageLoader.imageUtils.RXImageLoaderConstant
+import com.renxing.moduleImageLoader.imageUtils.enumUtils.CornerTypeEnum
+import com.renxing.moduleImageLoader.imageUtils.enumUtils.DiskCacheStrategyEnum
 import com.renxing.moduleImageLoader.loaderStrategy.control.ImageLoaderInterface
 import com.renxing.moduleImageLoader.loaderStrategy.control.LoaderStrategyFactory
 import com.renxing.moduleImageLoader.loaderStrategy.control.OnAnimationStatus
@@ -49,7 +50,7 @@ object RXImageLoader : ImageLoaderInterface {
         imageLoaderStrategy.loadImageWithCenterCrop(urlOrId,imageView, placeholderImg)
     }
 
-    override fun loadImageWithCenterCrop(urlOrId: Any, imageView: ImageView,diskCacheStrategy: RXImageLoaderConstant.DiskCacheStrategyEnum) {
+    override fun loadImageWithCenterCrop(urlOrId: Any, imageView: ImageView,diskCacheStrategy: DiskCacheStrategyEnum) {
         imageLoaderStrategy.loadImageWithCenterCrop(urlOrId,imageView,diskCacheStrategy)
     }
 
@@ -64,7 +65,7 @@ object RXImageLoader : ImageLoaderInterface {
     }
 
     override fun loadImageWithCenterCrop(urlOrId: Any, imageView: ImageView, placeholderImg: Int,
-                                         diskCacheStrategy : RXImageLoaderConstant.DiskCacheStrategyEnum,
+                                         diskCacheStrategy : DiskCacheStrategyEnum,
                                          transition : Boolean) {
         imageLoaderStrategy.loadImageWithCenterCrop(urlOrId,imageView, placeholderImg,diskCacheStrategy,transition)
     }
@@ -73,7 +74,7 @@ object RXImageLoader : ImageLoaderInterface {
         urlOrId: Any,
         imageView: ImageView,
         placeholderImg: Int,
-        diskCacheStrategy: RXImageLoaderConstant.DiskCacheStrategyEnum
+        diskCacheStrategy: DiskCacheStrategyEnum
     ) {
         imageLoaderStrategy.loadImageWithCenterCrop(urlOrId,imageView, placeholderImg,diskCacheStrategy)
     }
@@ -82,7 +83,7 @@ object RXImageLoader : ImageLoaderInterface {
         urlOrId: Any,
         imageView: ImageView,
         placeholderImg: Int,
-        diskCacheStrategy: RXImageLoaderConstant.DiskCacheStrategyEnum,
+        diskCacheStrategy: DiskCacheStrategyEnum,
         thumbnail: Boolean,
         transition: Boolean,
         thumbnailWidth : Int,
@@ -107,7 +108,7 @@ object RXImageLoader : ImageLoaderInterface {
         urlOrId: Any,
         imageView: ImageView,
         placeholderImg: Int,
-        diskCacheStrategy: RXImageLoaderConstant.DiskCacheStrategyEnum,
+        diskCacheStrategy: DiskCacheStrategyEnum,
         transition: Boolean
     ) {
         imageLoaderStrategy.loadImageWithCenterInside(urlOrId,imageView, placeholderImg,diskCacheStrategy,transition)
@@ -117,7 +118,7 @@ object RXImageLoader : ImageLoaderInterface {
         urlOrId: Any,
         imageView: ImageView,
         placeholderImg: Int,
-        diskCacheStrategy: RXImageLoaderConstant.DiskCacheStrategyEnum
+        diskCacheStrategy: DiskCacheStrategyEnum
     ) {
         imageLoaderStrategy.loadImageWithCenterInside(urlOrId,imageView, placeholderImg,diskCacheStrategy)
     }
@@ -160,7 +161,7 @@ object RXImageLoader : ImageLoaderInterface {
     override fun loadCircleImage(
         urlOrId: Any,
         imageView: ImageView,
-        diskCacheStrategy: RXImageLoaderConstant.DiskCacheStrategyEnum
+        diskCacheStrategy: DiskCacheStrategyEnum
     ) {
         imageLoaderStrategy.loadCircleImage(urlOrId,imageView,diskCacheStrategy)
     }
@@ -173,7 +174,7 @@ object RXImageLoader : ImageLoaderInterface {
         urlOrId: Any,
         imageView: ImageView,
         placeholderImg: Int,
-        diskCacheStrategy: RXImageLoaderConstant.DiskCacheStrategyEnum
+        diskCacheStrategy: DiskCacheStrategyEnum
     ) {
         imageLoaderStrategy.loadCircleImage(urlOrId,imageView, placeholderImg,diskCacheStrategy)
     }
@@ -191,37 +192,37 @@ object RXImageLoader : ImageLoaderInterface {
         imageLoaderStrategy.loadCornersImage(urlOrId,imageView,cornerRadius,placeholderImg)
     }
 
-    override fun loadCornersImage(urlOrId: Any, imageView: ImageView, cornerRadius: Float, cornerType: RXImageLoaderConstant.CornerType) {
-        imageLoaderStrategy.loadCornersImage(urlOrId,imageView,cornerRadius,cornerType)
+    override fun loadCornersImage(urlOrId: Any, imageView: ImageView, cornerRadius: Float, cornerTypeEnum: CornerTypeEnum) {
+        imageLoaderStrategy.loadCornersImage(urlOrId,imageView,cornerRadius,cornerTypeEnum)
     }
 
     override fun loadCornersImage(
         urlOrId: Any,
         imageView: ImageView,
         cornerRadius: Float,
-        cornerType: RXImageLoaderConstant.CornerType,
+        cornerTypeEnum: CornerTypeEnum,
         placeholderImg: Int
     ) {
-        imageLoaderStrategy.loadCornersImage(urlOrId,imageView,cornerRadius,cornerType,placeholderImg)
+        imageLoaderStrategy.loadCornersImage(urlOrId,imageView,cornerRadius,cornerTypeEnum,placeholderImg)
     }
 
     override fun loadCornersImage(
         bitmap: Bitmap,
         imageView: ImageView,
         cornerRadius: Float,
-        cornerType: RXImageLoaderConstant.CornerType
+        cornerTypeEnum: CornerTypeEnum
     ) {
-        imageLoaderStrategy.loadCornersImage(bitmap,imageView,cornerRadius,cornerType)
+        imageLoaderStrategy.loadCornersImage(bitmap,imageView,cornerRadius,cornerTypeEnum)
     }
 
     override fun loadCornersImage(
         bitmap: Bitmap,
         imageView: ImageView,
         cornerRadius: Float,
-        cornerType: RXImageLoaderConstant.CornerType,
+        cornerTypeEnum: CornerTypeEnum,
         placeholderImg: Int
     ) {
-        imageLoaderStrategy.loadCornersImage(bitmap,imageView,cornerRadius,cornerType,placeholderImg)
+        imageLoaderStrategy.loadCornersImage(bitmap,imageView,cornerRadius,cornerTypeEnum,placeholderImg)
     }
 
     override fun loadCornersImageWithCenterCrop(
@@ -229,7 +230,7 @@ object RXImageLoader : ImageLoaderInterface {
         imageView: ImageView,
         placeholderImg: Int,
         cornerRadius: Float,
-        diskCacheStrategy: RXImageLoaderConstant.DiskCacheStrategyEnum,
+        diskCacheStrategy: DiskCacheStrategyEnum,
         transition: Boolean,
         thumbnail: Boolean,
         thumbnailWidth: Int,
@@ -281,7 +282,7 @@ object RXImageLoader : ImageLoaderInterface {
     override fun loadGif(
         urlOrId: Any,
         imageView: ImageView,
-        diskCacheStrategy: RXImageLoaderConstant.DiskCacheStrategyEnum
+        diskCacheStrategy: DiskCacheStrategyEnum
     ) {
         imageLoaderStrategy.loadGif(urlOrId,imageView,diskCacheStrategy)
     }
@@ -298,7 +299,7 @@ object RXImageLoader : ImageLoaderInterface {
         playTimes: Int,
         urlOrId: Any,
         imageView: ImageView,
-        diskCacheStrategy: RXImageLoaderConstant.DiskCacheStrategyEnum,
+        diskCacheStrategy: DiskCacheStrategyEnum,
         onAnimationStatus: OnAnimationStatus
     ) {
         imageLoaderStrategy.loadGif(playTimes,urlOrId,imageView,diskCacheStrategy,onAnimationStatus)
@@ -421,7 +422,7 @@ object RXImageLoader : ImageLoaderInterface {
         urlOrId: Any,
         context: Context,
         rxCustomTarget: RXCustomTarget<Bitmap>,
-        diskCacheStrategy: RXImageLoaderConstant.DiskCacheStrategyEnum
+        diskCacheStrategy: DiskCacheStrategyEnum
     ) {
         imageLoaderStrategy.loadImageWithRXCustomTarget(urlOrId,context,rxCustomTarget,diskCacheStrategy)
     }

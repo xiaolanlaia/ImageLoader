@@ -4,14 +4,14 @@ import android.graphics.*
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool
 import com.renxing.moduleImageLoader.BuildConfig
-import com.renxing.moduleImageLoader.imageUtils.RXImageLoaderConstant
+import com.renxing.moduleImageLoader.imageUtils.enumUtils.CornerTypeEnum
 import java.security.MessageDigest
 
 /**
  * desc : 将图片转化为给类的特殊圆角图片
  */
 class RoundedCornersTransform
-    (private val mRadius: Float, private val mCornerType: RXImageLoaderConstant.CornerType) : BitmapTransformation() {
+    (private val mRadius: Float, private val mCornerTypeEnum: CornerTypeEnum) : BitmapTransformation() {
 
     companion object {
         private const val VERSION = 1
@@ -45,62 +45,62 @@ class RoundedCornersTransform
 
     private fun drawRoundRect(canvas: Canvas, paint: Paint, path: Path, width: Int, height: Int) {
         val rids: FloatArray
-        when (mCornerType) {
-            RXImageLoaderConstant.CornerType.ALL -> {
+        when (mCornerTypeEnum) {
+            CornerTypeEnum.ALL -> {
                 rids = floatArrayOf(mRadius, mRadius, mRadius, mRadius, mRadius, mRadius, mRadius, mRadius)
                 drawPath(rids, canvas, paint, path, width, height)
             }
-            RXImageLoaderConstant.CornerType.TOP_LEFT -> {
+            CornerTypeEnum.TOP_LEFT -> {
                 rids = floatArrayOf(mRadius, mRadius, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f)
                 drawPath(rids, canvas, paint, path, width, height)
             }
-            RXImageLoaderConstant.CornerType.TOP_RIGHT -> {
+            CornerTypeEnum.TOP_RIGHT -> {
                 rids = floatArrayOf(0.0f, 0.0f, mRadius, mRadius, 0.0f, 0.0f, 0.0f, 0.0f)
                 drawPath(rids, canvas, paint, path, width, height)
             }
-            RXImageLoaderConstant.CornerType.BOTTOM_RIGHT -> {
+            CornerTypeEnum.BOTTOM_RIGHT -> {
                 rids = floatArrayOf(0.0f, 0.0f, 0.0f, 0.0f, mRadius, mRadius, 0.0f, 0.0f)
                 drawPath(rids, canvas, paint, path, width, height)
             }
-            RXImageLoaderConstant.CornerType.BOTTOM_LEFT -> {
+            CornerTypeEnum.BOTTOM_LEFT -> {
                 rids = floatArrayOf(0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, mRadius, mRadius)
                 drawPath(rids, canvas, paint, path, width, height)
             }
-            RXImageLoaderConstant.CornerType.TOP -> {
+            CornerTypeEnum.TOP -> {
                 rids = floatArrayOf(mRadius, mRadius, mRadius, mRadius, 0.0f, 0.0f, 0.0f, 0.0f)
                 drawPath(rids, canvas, paint, path, width, height)
             }
-            RXImageLoaderConstant.CornerType.BOTTOM -> {
+            CornerTypeEnum.BOTTOM -> {
                 rids = floatArrayOf(0.0f, 0.0f, 0.0f, 0.0f, mRadius, mRadius, mRadius, mRadius)
                 drawPath(rids, canvas, paint, path, width, height)
             }
-            RXImageLoaderConstant.CornerType.LEFT -> {
+            CornerTypeEnum.LEFT -> {
                 rids = floatArrayOf(mRadius, mRadius, 0.0f, 0.0f, 0.0f, 0.0f, mRadius, mRadius)
                 drawPath(rids, canvas, paint, path, width, height)
             }
-            RXImageLoaderConstant.CornerType.RIGHT -> {
+            CornerTypeEnum.RIGHT -> {
                 rids = floatArrayOf(0.0f, 0.0f, mRadius, mRadius, mRadius, mRadius, 0.0f, 0.0f)
                 drawPath(rids, canvas, paint, path, width, height)
             }
-            RXImageLoaderConstant.CornerType.TOP_LEFT_BOTTOM_RIGHT -> {
+            CornerTypeEnum.TOP_LEFT_BOTTOM_RIGHT -> {
                 rids = floatArrayOf(mRadius, mRadius, 0.0f, 0.0f, mRadius, mRadius, 0.0f, 0.0f)
                 drawPath(rids, canvas, paint, path, width, height)
             }
-            RXImageLoaderConstant.CornerType.TOP_RIGHT_BOTTOM_LEFT -> {
+            CornerTypeEnum.TOP_RIGHT_BOTTOM_LEFT -> {
                 rids = floatArrayOf(0.0f, 0.0f, mRadius, mRadius, 0.0f, 0.0f, mRadius, mRadius)
                 drawPath(rids, canvas, paint, path, width, height)
             }
-            RXImageLoaderConstant.CornerType.TOP_LEFT_TOP_RIGHT_BOTTOM_RIGHT -> {
+            CornerTypeEnum.TOP_LEFT_TOP_RIGHT_BOTTOM_RIGHT -> {
                 rids =
                     floatArrayOf(mRadius, mRadius, mRadius, mRadius, mRadius, mRadius, 0.0f, 0.0f)
                 drawPath(rids, canvas, paint, path, width, height)
             }
-            RXImageLoaderConstant.CornerType.TOP_RIGHT_BOTTOM_RIGHT_BOTTOM_LEFT -> {
+            CornerTypeEnum.TOP_RIGHT_BOTTOM_RIGHT_BOTTOM_LEFT -> {
                 rids =
                     floatArrayOf(0.0f, 0.0f, mRadius, mRadius, mRadius, mRadius, mRadius, mRadius)
                 drawPath(rids, canvas, paint, path, width, height)
             }
-            RXImageLoaderConstant.CornerType.DEFAULT -> {
+            CornerTypeEnum.DEFAULT -> {
                 rids = floatArrayOf(0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f)
                 drawPath(rids, canvas, paint, path, width, height)
             }

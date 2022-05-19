@@ -19,7 +19,8 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.renxing.moduleImageLoader.imageUtils.ImageLoaderUtils
-import com.renxing.moduleImageLoader.imageUtils.RXImageLoaderConstant
+import com.renxing.moduleImageLoader.imageUtils.enumUtils.CornerTypeEnum
+import com.renxing.moduleImageLoader.imageUtils.enumUtils.DiskCacheStrategyEnum
 import com.renxing.moduleImageLoader.loaderStrategy.control.ImageLoaderInterface
 import com.renxing.moduleImageLoader.loaderStrategy.control.OnAnimationStatus
 import com.renxing.moduleImageLoader.loaderStrategy.glide.ninePic.NinePatchChunk
@@ -82,18 +83,18 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
     }
 
     override fun loadImageWithCenterCrop(urlOrId: Any,imageView: ImageView,
-        diskCacheStrategy: RXImageLoaderConstant.DiskCacheStrategyEnum) {
+        diskCacheStrategy: DiskCacheStrategyEnum) {
         glideLoad(urlOrId, imageView, getDiskCacheStrategy(diskCacheStrategy).centerCrop(),false,false,0,0)
     }
 
     override fun loadImageWithCenterCrop(urlOrId: Any,imageView: ImageView,placeholderImg: Int,
-        diskCacheStrategy: RXImageLoaderConstant.DiskCacheStrategyEnum,transition: Boolean) {
+        diskCacheStrategy: DiskCacheStrategyEnum,transition: Boolean) {
 
         glideLoad(urlOrId, imageView, getDiskCacheStrategy(diskCacheStrategy).centerCrop().placeholder(placeholderImg).error(placeholderImg),transition,false,0,0)
 
     }
 
-    override fun loadImageWithCenterCrop(urlOrId: Any,imageView: ImageView,placeholderImg: Int,diskCacheStrategy: RXImageLoaderConstant.DiskCacheStrategyEnum) {
+    override fun loadImageWithCenterCrop(urlOrId: Any,imageView: ImageView,placeholderImg: Int,diskCacheStrategy: DiskCacheStrategyEnum) {
         glideLoad(urlOrId, imageView, getDiskCacheStrategy(diskCacheStrategy).centerCrop().placeholder(placeholderImg).error(placeholderImg),false,false,0,0)
 
     }
@@ -102,7 +103,7 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
         glideLoad(urlOrId, imageView, RequestOptions().centerCrop().placeholder(placeholderImg).error(placeholderImg),transition,false,0,0)
     }
 
-    override fun loadImageWithCenterCrop(urlOrId: Any,imageView: ImageView,placeholderImg: Int,diskCacheStrategy: RXImageLoaderConstant.DiskCacheStrategyEnum,
+    override fun loadImageWithCenterCrop(urlOrId: Any,imageView: ImageView,placeholderImg: Int,diskCacheStrategy: DiskCacheStrategyEnum,
         transition: Boolean,thumbnail: Boolean,thumbnailWidth: Int,thumbnailHeight: Int) {
         glideLoad(urlOrId, imageView,
             getDiskCacheStrategy(diskCacheStrategy).centerCrop().placeholder(placeholderImg).error(placeholderImg),transition,thumbnail,
@@ -122,12 +123,12 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
     }
 
     override fun loadImageWithCenterInside(urlOrId: Any,imageView: ImageView,placeholderImg: Int,
-        diskCacheStrategy: RXImageLoaderConstant.DiskCacheStrategyEnum,transition: Boolean) {
+        diskCacheStrategy: DiskCacheStrategyEnum,transition: Boolean) {
         glideLoad(urlOrId, imageView,
             getDiskCacheStrategy(diskCacheStrategy).centerInside().placeholder(placeholderImg).error(placeholderImg),transition,false,0,0)
     }
 
-    override fun loadImageWithCenterInside(urlOrId: Any,imageView: ImageView,placeholderImg: Int,diskCacheStrategy: RXImageLoaderConstant.DiskCacheStrategyEnum) {
+    override fun loadImageWithCenterInside(urlOrId: Any,imageView: ImageView,placeholderImg: Int,diskCacheStrategy: DiskCacheStrategyEnum) {
         glideLoad(urlOrId, imageView,
             getDiskCacheStrategy(diskCacheStrategy).centerInside().placeholder(placeholderImg).error(placeholderImg).diskCacheStrategy(DiskCacheStrategy.ALL),false,false,0,0)
     }
@@ -169,7 +170,7 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
     }
 
     override fun loadCircleImage(urlOrId: Any,imageView: ImageView,
-        diskCacheStrategy: RXImageLoaderConstant.DiskCacheStrategyEnum) {
+        diskCacheStrategy: DiskCacheStrategyEnum) {
         glideLoad(urlOrId, imageView, getDiskCacheStrategy(diskCacheStrategy),false,false,0,0)
     }
 
@@ -181,7 +182,7 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
             ,false,0,0)
     }
 
-    override fun loadCircleImage(urlOrId: Any,imageView: ImageView,placeholderImg: Int,diskCacheStrategy: RXImageLoaderConstant.DiskCacheStrategyEnum) {
+    override fun loadCircleImage(urlOrId: Any,imageView: ImageView,placeholderImg: Int,diskCacheStrategy: DiskCacheStrategyEnum) {
         glideLoad(urlOrId, imageView,
             getDiskCacheStrategy(diskCacheStrategy).circleCrop()
                 .placeholder(CircleRoundDrawable(imageView.context, placeholderImg))
@@ -241,7 +242,7 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
             ,false,0,0)
     }
 
-    override fun loadCornersImage(urlOrId: Any, imageView: ImageView, cornerRadius: Float, cornerType: RXImageLoaderConstant.CornerType) {
+    override fun loadCornersImage(urlOrId: Any, imageView: ImageView, cornerRadius: Float, cornerTypeEnum: CornerTypeEnum) {
         //注释七牛方案
 //        when (cornerType) {
 //            RXImageLoaderConstant.CornerType.ALL -> {
@@ -262,12 +263,12 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
 //            }
 //        }
 
-        loadCornersImageCombine(urlOrId, imageView, cornerRadius, cornerType,-1)
+        loadCornersImageCombine(urlOrId, imageView, cornerRadius, cornerTypeEnum,-1)
 
 
     }
 
-    override fun loadCornersImage(urlOrId: Any, imageView: ImageView, cornerRadius: Float, cornerType: RXImageLoaderConstant.CornerType, placeholderImg: Int) {
+    override fun loadCornersImage(urlOrId: Any, imageView: ImageView, cornerRadius: Float, cornerTypeEnum: CornerTypeEnum, placeholderImg: Int) {
         //注释七牛方案
 //        when (cornerType) {
 //            RXImageLoaderConstant.CornerType.ALL -> {
@@ -292,36 +293,36 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
 //            }
 //        }
 
-        loadCornersImageCombine(urlOrId, imageView, cornerRadius, cornerType, placeholderImg)
+        loadCornersImageCombine(urlOrId, imageView, cornerRadius, cornerTypeEnum, placeholderImg)
 
     }
 
-    override fun loadCornersImage(bitmap: Bitmap, imageView: ImageView, cornerRadius: Float, cornerType: RXImageLoaderConstant.CornerType) {
+    override fun loadCornersImage(bitmap: Bitmap, imageView: ImageView, cornerRadius: Float, cornerTypeEnum: CornerTypeEnum) {
         glideLoadBytes(ImageLoaderUtils.bitmap2Bytes(bitmap), imageView,
             RequestOptions().optionalTransform(
-                RoundedCornersTransform(ImageLoaderUtils.dp2px(cornerRadius) + 0.5f, cornerType)
+                RoundedCornersTransform(ImageLoaderUtils.dp2px(cornerRadius) + 0.5f, cornerTypeEnum)
             )
         )
 
     }
 
-    override fun loadCornersImage(bitmap: Bitmap, imageView: ImageView, cornerRadius: Float, cornerType: RXImageLoaderConstant.CornerType, placeholderImg: Int) {
+    override fun loadCornersImage(bitmap: Bitmap, imageView: ImageView, cornerRadius: Float, cornerTypeEnum: CornerTypeEnum, placeholderImg: Int) {
         glideLoadBytes(
             ImageLoaderUtils.bitmap2Bytes(bitmap), imageView,
             RequestOptions()
-                .optionalTransform(RoundedCornersTransform(ImageLoaderUtils.dp2px(cornerRadius) + 0.5f, cornerType))
+                .optionalTransform(RoundedCornersTransform(ImageLoaderUtils.dp2px(cornerRadius) + 0.5f, cornerTypeEnum))
                 .placeholder(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle(cornerRadius))
                 .error(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle(cornerRadius))
         )
     }
 
     override fun loadCornersImageWithCenterCrop(urlOrId: Any,imageView: ImageView,placeholderImg: Int,
-        cornerRadius: Float,diskCacheStrategy: RXImageLoaderConstant.DiskCacheStrategyEnum,
+        cornerRadius: Float,diskCacheStrategy: DiskCacheStrategyEnum,
         transition: Boolean,thumbnail: Boolean,thumbnailWidth: Int,thumbnailHeight: Int) {
 
         glideLoad(urlOrId, imageView,
             getDiskCacheStrategy(diskCacheStrategy)
-                .optionalTransform(RoundedCornersTransform(ImageLoaderUtils.dp2px(cornerRadius) + 0.5f,RXImageLoaderConstant.CornerType.ALL))
+                .optionalTransform(RoundedCornersTransform(ImageLoaderUtils.dp2px(cornerRadius) + 0.5f,CornerTypeEnum.ALL))
                 .placeholder(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle(cornerRadius))
                 .error(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle(cornerRadius)),transition,
             thumbnail,thumbnailWidth,thumbnailHeight
@@ -364,7 +365,7 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
     }
 
     override fun loadGif(playTimes: Int,urlOrId: Any, imageView: ImageView,
-        diskCacheStrategy: RXImageLoaderConstant.DiskCacheStrategyEnum,onAnimationStatus: OnAnimationStatus) {
+        diskCacheStrategy: DiskCacheStrategyEnum,onAnimationStatus: OnAnimationStatus) {
         glideLoadGif(urlOrId, imageView, playTimes, getDiskCacheStrategy(diskCacheStrategy),onAnimationStatus)
     }
 
@@ -392,7 +393,7 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
     override fun loadGif(
         urlOrId: Any,
         imageView: ImageView,
-        diskCacheStrategy: RXImageLoaderConstant.DiskCacheStrategyEnum
+        diskCacheStrategy: DiskCacheStrategyEnum
     ) {
         glideLoadGif(urlOrId, imageView, GifDrawable.LOOP_FOREVER, getDiskCacheStrategy(diskCacheStrategy),null)
     }
@@ -497,7 +498,7 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
         urlOrId: Any,
         context: Context,
         rxCustomTarget: RXCustomTarget<Bitmap>,
-        diskCacheStrategy: RXImageLoaderConstant.DiskCacheStrategyEnum
+        diskCacheStrategy: DiskCacheStrategyEnum
     ) {
         glideRXCustomTarget(urlOrId, context, rxCustomTarget, getDiskCacheStrategy(diskCacheStrategy))
     }
@@ -627,7 +628,7 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
             .apply(requestOptions)
             .into(imageView)
     }
-    private fun loadCornersImageCombine(urlOrId: Any, imageView: ImageView, cornerRadius: Float, cornerType: RXImageLoaderConstant.CornerType, placeholderImg: Int) {
+    private fun loadCornersImageCombine(urlOrId: Any, imageView: ImageView, cornerRadius: Float, cornerTypeEnum: CornerTypeEnum, placeholderImg: Int) {
 
         val requestOptions = RequestOptions()
 
@@ -637,19 +638,19 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
                 .error(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle(cornerRadius))
         }
         glideLoad(urlOrId, imageView,
-            requestOptions.optionalTransform(RoundedCornersTransform(ImageLoaderUtils.dp2px(cornerRadius) + 0.5f, cornerType)),
+            requestOptions.optionalTransform(RoundedCornersTransform(ImageLoaderUtils.dp2px(cornerRadius) + 0.5f, cornerTypeEnum)),
             false,false,0,0)
     }
-    private fun getDiskCacheStrategy(diskCacheStrategy: RXImageLoaderConstant.DiskCacheStrategyEnum) : RequestOptions{
+    private fun getDiskCacheStrategy(diskCacheStrategy: DiskCacheStrategyEnum) : RequestOptions{
         val requestOptions = RequestOptions()
         when (diskCacheStrategy) {
-            RXImageLoaderConstant.DiskCacheStrategyEnum.NONE -> {
+            DiskCacheStrategyEnum.NONE -> {
                 requestOptions.diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(true)
             }
-            RXImageLoaderConstant.DiskCacheStrategyEnum.ALL -> {
+            DiskCacheStrategyEnum.ALL -> {
                 requestOptions.diskCacheStrategy(DiskCacheStrategy.ALL)
             }
-            RXImageLoaderConstant.DiskCacheStrategyEnum.AUTOMATIC -> {
+            DiskCacheStrategyEnum.AUTOMATIC -> {
                 requestOptions.diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
             }
         }

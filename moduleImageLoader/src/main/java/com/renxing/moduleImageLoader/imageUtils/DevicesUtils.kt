@@ -34,9 +34,9 @@ object DevicesUtils {
             totalblock = stat.blockCountLong
             availbleblocks = stat.availableBlocksLong
         } else {
-            blocksize = stat.blockSize.toLong()
-            totalblock = stat.blockCount.toLong()
-            availbleblocks = stat.availableBlocks.toLong()
+            blocksize = stat.blockSizeLong
+            totalblock = stat.blockCountLong
+            availbleblocks = stat.availableBlocksLong
         }
         Log.d("__formatSize", Formatter.formatFileSize(context, availbleblocks * blocksize))
 
