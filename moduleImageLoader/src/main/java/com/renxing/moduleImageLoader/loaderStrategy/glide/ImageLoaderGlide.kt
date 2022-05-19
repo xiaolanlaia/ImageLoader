@@ -83,14 +83,27 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
     }
 
     override fun loadImageWithCenterCrop(urlOrId: Any,imageView: ImageView,
-        diskCacheStrategy: DiskCacheStrategyEnum) {
+        diskCacheStrategy: DiskCacheStrategyEnum
+    ) {
         glideLoad(urlOrId, imageView, getDiskCacheStrategy(diskCacheStrategy).centerCrop(),false,false,0,0)
     }
 
-    override fun loadImageWithCenterCrop(urlOrId: Any,imageView: ImageView,placeholderImg: Int,
-        diskCacheStrategy: DiskCacheStrategyEnum,transition: Boolean) {
+    override fun loadImageWithCenterCrop(urlOrId: Any, imageView: ImageView, placeholderImg: Int,
+                                         diskCacheStrategy: DiskCacheStrategyEnum, transition: Boolean) {
 
         glideLoad(urlOrId, imageView, getDiskCacheStrategy(diskCacheStrategy).centerCrop().placeholder(placeholderImg).error(placeholderImg),transition,false,0,0)
+
+    }
+
+    override fun loadImageWithCenterCrop(
+        urlOrId: Any,
+        view: View,
+        thumbnail: Boolean,
+        thumbnailWidth: Int,
+        thumbnailHeight: Int
+    ) {
+        glideLoad(urlOrId, view, RequestOptions().centerCrop(),false,true,thumbnailWidth,thumbnailHeight)
+
 
     }
 
@@ -103,8 +116,8 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
         glideLoad(urlOrId, imageView, RequestOptions().centerCrop().placeholder(placeholderImg).error(placeholderImg),transition,false,0,0)
     }
 
-    override fun loadImageWithCenterCrop(urlOrId: Any,imageView: ImageView,placeholderImg: Int,diskCacheStrategy: DiskCacheStrategyEnum,
-        transition: Boolean,thumbnail: Boolean,thumbnailWidth: Int,thumbnailHeight: Int) {
+    override fun loadImageWithCenterCrop(urlOrId: Any, imageView: ImageView, placeholderImg: Int, diskCacheStrategy: DiskCacheStrategyEnum,
+                                         transition: Boolean, thumbnail: Boolean, thumbnailWidth: Int, thumbnailHeight: Int) {
         glideLoad(urlOrId, imageView,
             getDiskCacheStrategy(diskCacheStrategy).centerCrop().placeholder(placeholderImg).error(placeholderImg),transition,thumbnail,
             thumbnailWidth, thumbnailHeight
@@ -122,8 +135,8 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
             RequestOptions().centerInside().placeholder(placeholderImg).error(placeholderImg),false,false,0,0)
     }
 
-    override fun loadImageWithCenterInside(urlOrId: Any,imageView: ImageView,placeholderImg: Int,
-        diskCacheStrategy: DiskCacheStrategyEnum,transition: Boolean) {
+    override fun loadImageWithCenterInside(urlOrId: Any, imageView: ImageView, placeholderImg: Int,
+                                           diskCacheStrategy: DiskCacheStrategyEnum, transition: Boolean) {
         glideLoad(urlOrId, imageView,
             getDiskCacheStrategy(diskCacheStrategy).centerInside().placeholder(placeholderImg).error(placeholderImg),transition,false,0,0)
     }
@@ -170,7 +183,8 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
     }
 
     override fun loadCircleImage(urlOrId: Any,imageView: ImageView,
-        diskCacheStrategy: DiskCacheStrategyEnum) {
+        diskCacheStrategy: DiskCacheStrategyEnum
+    ) {
         glideLoad(urlOrId, imageView, getDiskCacheStrategy(diskCacheStrategy),false,false,0,0)
     }
 
@@ -316,13 +330,14 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
         )
     }
 
-    override fun loadCornersImageWithCenterCrop(urlOrId: Any,imageView: ImageView,placeholderImg: Int,
-        cornerRadius: Float,diskCacheStrategy: DiskCacheStrategyEnum,
-        transition: Boolean,thumbnail: Boolean,thumbnailWidth: Int,thumbnailHeight: Int) {
+    override fun loadCornersImageWithCenterCrop(urlOrId: Any, imageView: ImageView, placeholderImg: Int,
+                                                cornerRadius: Float, diskCacheStrategy: DiskCacheStrategyEnum,
+                                                transition: Boolean, thumbnail: Boolean, thumbnailWidth: Int, thumbnailHeight: Int) {
 
         glideLoad(urlOrId, imageView,
             getDiskCacheStrategy(diskCacheStrategy)
-                .optionalTransform(RoundedCornersTransform(ImageLoaderUtils.dp2px(cornerRadius) + 0.5f,CornerTypeEnum.ALL))
+                .optionalTransform(RoundedCornersTransform(ImageLoaderUtils.dp2px(cornerRadius) + 0.5f,
+                    CornerTypeEnum.ALL))
                 .placeholder(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle(cornerRadius))
                 .error(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle(cornerRadius)),transition,
             thumbnail,thumbnailWidth,thumbnailHeight
@@ -364,8 +379,8 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
         glideLoadGif(urlOrId, imageView, playTimes, nullOptions,null)
     }
 
-    override fun loadGif(playTimes: Int,urlOrId: Any, imageView: ImageView,
-        diskCacheStrategy: DiskCacheStrategyEnum,onAnimationStatus: OnAnimationStatus) {
+    override fun loadGif(playTimes: Int, urlOrId: Any, imageView: ImageView,
+                         diskCacheStrategy: DiskCacheStrategyEnum, onAnimationStatus: OnAnimationStatus) {
         glideLoadGif(urlOrId, imageView, playTimes, getDiskCacheStrategy(diskCacheStrategy),onAnimationStatus)
     }
 
@@ -598,7 +613,7 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
         Glide.with(context).asBitmap().load(if (urlOrId is String) ImageLoaderUtils.replaceHttpToHttps(urlOrId) else urlOrId).apply(requestOptions).into(rxCustomTarget)
     }
 
-    private fun glideLoad(urlOrId: Any, imageView: ImageView, requestOptions: RequestOptions,transition:Boolean,thumbnail:Boolean,
+    private fun glideLoad(urlOrId: Any, imageView: ImageView, requestOptions: RequestOptions,transition: Boolean,thumbnail:Boolean,
                           thumbnailWidth: Int,
                           thumbnailHeight: Int) {
         ImageLoaderUtils.checkUrlOrId(urlOrId)
@@ -618,6 +633,34 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
             glide.transition(DrawableTransitionOptions.withCrossFade())
         }
         glide.into(imageView)
+    }
+
+    private fun glideLoad(urlOrId: Any, view: View, requestOptions: RequestOptions,transition: Boolean,thumbnail:Boolean,
+                          thumbnailWidth: Int,
+                          thumbnailHeight: Int) {
+        ImageLoaderUtils.checkUrlOrId(urlOrId)
+
+        val glide =
+            Glide
+                .with(view.context)
+                .asDrawable()
+                .load(if (urlOrId is String) ImageLoaderUtils.replaceHttpToHttps(urlOrId) else urlOrId)
+                .apply(requestOptions)
+
+        if (thumbnail){
+            glide.thumbnail(Glide.with(view.context)
+                .load(urlOrId)
+                .override(thumbnailWidth, thumbnailHeight))
+        }
+        if (transition){
+            glide.transition(DrawableTransitionOptions.withCrossFade())
+        }
+        glide.into(object : CustomTarget<Drawable>() {
+            override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
+                view.background = resource
+            }
+            override fun onLoadCleared(placeholder: Drawable?) {}
+        })
     }
 
     private fun glideLoadGif(urlOrId: Any, imageView: ImageView, playTimes: Int, requestOptions: RequestOptions,onAnimationStatus: OnAnimationStatus?) {

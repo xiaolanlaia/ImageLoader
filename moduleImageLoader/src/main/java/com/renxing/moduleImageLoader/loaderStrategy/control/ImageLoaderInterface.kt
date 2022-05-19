@@ -67,8 +67,13 @@ interface ImageLoaderInterface {
     /**
      * @urlOrId: String类型或Int类型
      */
+    fun loadImageWithCenterCrop(urlOrId: Any, view: View, thumbnail : Boolean, thumbnailWidth : Int, thumbnailHeight : Int)
+    /**
+     * @urlOrId: String类型或Int类型
+     */
     fun loadImageWithCenterCrop(urlOrId: Any, imageView: ImageView, placeholderImg: Int,
-                                diskCacheStrategy : DiskCacheStrategyEnum)
+                                diskCacheStrategy : DiskCacheStrategyEnum
+    )
     /**
      * @urlOrId: String类型或Int类型
      */
@@ -101,7 +106,7 @@ interface ImageLoaderInterface {
     /**
      * @urlOrId: String类型或Int类型
      */
-    fun loadImageWithCenterInside(urlOrId: Any, imageView: ImageView, placeholderImg: Int,diskCacheStrategy: DiskCacheStrategyEnum,transition : Boolean)
+    fun loadImageWithCenterInside(urlOrId: Any, imageView: ImageView, placeholderImg: Int, diskCacheStrategy: DiskCacheStrategyEnum, transition : Boolean)
 
     /**
      * @urlOrId: String类型或Int类型
@@ -195,8 +200,8 @@ interface ImageLoaderInterface {
      * 指定圆角边的圆角图
      * @bitmap: Bitmap
      */
-    fun loadCornersImageWithCenterCrop(urlOrId: Any, imageView: ImageView, placeholderImg: Int,cornerRadius : Float,diskCacheStrategy: DiskCacheStrategyEnum,
-                                       transition : Boolean,thumbnail : Boolean,thumbnailWidth : Int, thumbnailHeight : Int)
+    fun loadCornersImageWithCenterCrop(urlOrId: Any, imageView: ImageView, placeholderImg: Int, cornerRadius : Float, diskCacheStrategy: DiskCacheStrategyEnum,
+                                       transition : Boolean, thumbnail : Boolean, thumbnailWidth : Int, thumbnailHeight : Int)
 
     /**
      * 带边框圆形图
@@ -247,7 +252,7 @@ interface ImageLoaderInterface {
      * @urlOrId: String类型或Int类型
      * @playTimes : Int 播放次数
      */
-    fun loadGif(playTimes : Int, urlOrId: Any, imageView: ImageView,diskCacheStrategy: DiskCacheStrategyEnum,onAnimationStatus : OnAnimationStatus)
+    fun loadGif(playTimes : Int, urlOrId: Any, imageView: ImageView, diskCacheStrategy: DiskCacheStrategyEnum, onAnimationStatus : OnAnimationStatus)
 
     /**
      * @urlOrId: String类型或Int类型

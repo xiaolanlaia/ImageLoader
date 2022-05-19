@@ -72,6 +72,16 @@ object RXImageLoader : ImageLoaderInterface {
 
     override fun loadImageWithCenterCrop(
         urlOrId: Any,
+        view: View,
+        thumbnail: Boolean,
+        thumbnailWidth: Int,
+        thumbnailHeight: Int
+    ) {
+        imageLoaderStrategy.loadImageWithCenterCrop(urlOrId,view, thumbnail,thumbnailWidth,thumbnailHeight)
+    }
+
+    override fun loadImageWithCenterCrop(
+        urlOrId: Any,
         imageView: ImageView,
         placeholderImg: Int,
         diskCacheStrategy: DiskCacheStrategyEnum
