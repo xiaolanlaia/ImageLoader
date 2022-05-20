@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.imageloader.R
 import com.renxing.imageloader.*
 import com.renxing.moduleImageLoader.RXImageLoader
+import com.renxing.moduleImageLoader.loaderStrategy.glide.NewImpl
 
 class MainActivity : AppCompatActivity(),View.OnClickListener {
 
@@ -42,6 +43,8 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
     lateinit var test_tv_2                        :TextView
     lateinit var test_tv_3                        :TextView
     lateinit var test_iv_1                        :ImageView
+    lateinit var test_iv_2                        :ImageView
+    lateinit var test_iv_3                        :ImageView
 
 
 
@@ -73,6 +76,8 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
         test_tv_2                        = findViewById(R.id.test_tv_2                        )
         test_tv_3                        = findViewById(R.id.test_tv_3                        )
         test_iv_1                        = findViewById(R.id.test_iv_1                        )
+        test_iv_2                        = findViewById(R.id.test_iv_2                        )
+        test_iv_3                        = findViewById(R.id.test_iv_3                        )
         btn_next_page                       .setOnClickListener(this)
 
 
@@ -105,7 +110,10 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
 
         when (v.id) {
             R.id.btn_url                            ->{
-                RXImageLoader.loadImage(url,test_iv_1)
+//                RXImageLoader.loadImage(url,test_iv_1)
+                NewImpl().builder(this, url).centerCrop().into(test_iv_1)
+                NewImpl().builder(this, url).fitCenter().into(test_iv_2)
+                NewImpl().builder(this, url).centerInside().into(test_iv_3)
             }
             R.id.btn_id                             ->{
                 RXImageLoader.loadImage(imgId,test_iv_1)

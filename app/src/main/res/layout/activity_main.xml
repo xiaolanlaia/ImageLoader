@@ -239,6 +239,14 @@
             android:id="@+id/test_iv_1"
             android:layout_width="@dimen/dp_300"
             android:layout_height="@dimen/dp_300"/>
+        <ImageView
+            android:id="@+id/test_iv_2"
+            android:layout_width="@dimen/dp_300"
+            android:layout_height="@dimen/dp_300"/>
+        <ImageView
+            android:id="@+id/test_iv_3"
+            android:layout_width="@dimen/dp_300"
+            android:layout_height="@dimen/dp_300"/>
 
     </LinearLayout>
 
