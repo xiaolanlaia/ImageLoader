@@ -29,6 +29,7 @@ class NewImpl : NewInterface {
 
     override fun builder(context:Context,urlOrIdOrUri : Any): NewInterface {
         //todo 检查urlOrIdOrUri正确性
+        ImageLoaderUtils.checkUrlOrId(urlOrIdOrUri)
         requestBuilder = Glide.with(context).load(urlOrIdOrUri)
         requestOptions = RequestOptions()
         return this
@@ -120,11 +121,6 @@ class NewImpl : NewInterface {
 
     override fun into(imageView: ImageView): NewInterface {
         requestBuilder.apply(requestOptions).into(imageView)
-        return this
-    }
-
-    override fun into(rxCustomTarget: RXCustomTarget<Bitmap>): NewInterface {
-        //todo 待做
         return this
     }
 }

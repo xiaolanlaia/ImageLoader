@@ -10,6 +10,7 @@ import com.renxing.moduleImageLoader.loaderStrategy.glide.target.RXCustomTarget
 /**
  *@date    :  2022/5/20 14:44
  *@author  :  WuJianFeng
+ * 展示在ImageView的接口
  */
 interface NewInterface {
     fun builder(context: Context, urlOrIdOrUri : Any) : NewInterface
@@ -27,6 +28,4 @@ interface NewInterface {
     fun cornersCrop(cornerRadius : Float) : NewInterface
     fun cornersCrop(cornerRadius : Float, cornerTypeEnum : CornerTypeEnum) : NewInterface
     fun into(imageView: ImageView) : NewInterface
-    fun into(rxCustomTarget: RXCustomTarget<Bitmap>) : NewInterface
-
 }
