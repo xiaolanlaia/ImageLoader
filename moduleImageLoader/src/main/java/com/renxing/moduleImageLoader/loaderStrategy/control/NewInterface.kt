@@ -1,11 +1,9 @@
 package com.renxing.moduleImageLoader.loaderStrategy.control
 
 import android.content.Context
-import android.graphics.Bitmap
 import android.widget.ImageView
 import com.renxing.moduleImageLoader.imageUtils.enumUtils.CornerTypeEnum
 import com.renxing.moduleImageLoader.imageUtils.enumUtils.DiskCacheStrategyEnum
-import com.renxing.moduleImageLoader.loaderStrategy.glide.target.RXCustomTarget
 
 /**
  *@date    :  2022/5/20 14:44
@@ -14,6 +12,7 @@ import com.renxing.moduleImageLoader.loaderStrategy.glide.target.RXCustomTarget
  */
 interface NewInterface {
     fun builder(context: Context, urlOrIdOrUri : Any) : NewInterface
+    fun builder(context:Context,byteArray: ByteArray) : NewInterface
     fun builder(context: Context, url : String, width: Int, height: Int) : NewInterface
     fun fitCenter() : NewInterface
     fun centerCrop() : NewInterface

@@ -5,6 +5,7 @@ package com.renxing.moduleImageLoader.imageUtils.enumUtils
  *@author  :  WuJianFeng
  */
 enum class DiskCacheStrategyEnum{
+    RESOURCE,
     NONE,
     ALL,
     AUTOMATIC

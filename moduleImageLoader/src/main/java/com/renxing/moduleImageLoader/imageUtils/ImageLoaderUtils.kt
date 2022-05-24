@@ -30,14 +30,14 @@ object ImageLoaderUtils {
     fun appendUrl(url: String, width: Int, height: Int, needToPx: Boolean): String {
         var newUrl: String
         url.run{
-            if (!this.contains(URL_APPEND_WIDTH)) {
-                newUrl = if (needToPx) {
+            newUrl = if (!this.contains(URL_APPEND_WIDTH)) {
+                if (needToPx) {
                     this + URL_APPEND_WIDTH + DisplayUtils.dp2px(width.toFloat()) + URL_APPEND_HEIGHT + DisplayUtils.dp2px(height.toFloat()) + interlaceStr
                 } else {
                     this + URL_APPEND_WIDTH + width + URL_APPEND_HEIGHT + height + interlaceStr
                 }
             }else{
-                newUrl = url
+                url
             }
         }
         return newUrl
@@ -60,9 +60,9 @@ object ImageLoaderUtils {
     }
 
 
-    fun checkUrlOrId(urlOrId: Any) {
-        if (urlOrId !is String && urlOrId !is Int && urlOrId !is Uri) {
-            throw IllegalArgumentException("urlOrId is not correct argument")
+    fun checkUrlOrId(urlOrIdOrUri: Any) {
+        if (urlOrIdOrUri !is String && urlOrIdOrUri !is Int && urlOrIdOrUri !is Uri) {
+            throw IllegalArgumentException("urlOrIdOrUri is not correct argument")
         }
     }
 

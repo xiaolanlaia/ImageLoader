@@ -1,7 +1,6 @@
 package com.renxing.moduleImageLoader.imageUtils
 
 import android.app.Application
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 
 const val HTTP = "http"
 const val HTTPS = "https"

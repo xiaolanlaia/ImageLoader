@@ -11,12 +11,16 @@ import android.os.Looper
 import android.view.View
 import android.widget.ImageView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.load.resource.gif.GifDrawable
+import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
 import com.renxing.moduleImageLoader.imageUtils.ImageLoaderUtils
 import com.renxing.moduleImageLoader.imageUtils.enumUtils.CornerTypeEnum
@@ -48,77 +52,136 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
     private val skipMemoryOptions = RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(true)
     private val circleOptions = RequestOptions().circleCrop()
 
-    override fun loadImage(urlOrId: Any, imageView: ImageView) {
-        glideLoad(urlOrId, imageView, nullOptions,false,false,0,0)
+    override fun loadImage(urlOrIdOrUri: Any, imageView: ImageView) {
+        glideLoad(urlOrIdOrUri, imageView, nullOptions,
+            transition = false,
+            thumbnail = false,
+            thumbnailWidth = 0,
+            thumbnailHeight = 0
+        )
     }
 
-    override fun loadImage(urlOrId: Any, imageView: ImageView, placeholderImg: Int) {
-        glideLoad(urlOrId, imageView, RequestOptions().placeholder(placeholderImg).error(placeholderImg),false,false,0,0)
+    override fun loadImage(urlOrIdOrUri: Any, imageView: ImageView, placeholderImg: Int) {
+        glideLoad(urlOrIdOrUri, imageView, RequestOptions().placeholder(placeholderImg).error(placeholderImg),
+            transition = false,
+            thumbnail = false,
+            thumbnailWidth = 0,
+            thumbnailHeight = 0
+        )
     }
 
     override fun loadImage(url: String, imageView: ImageView, width: Int, height: Int) {
-        glideLoad(ImageLoaderUtils.appendUrl(url, width, height, false), imageView,nullOptions,false,false,0,0)
+        glideLoad(ImageLoaderUtils.appendUrl(url, width, height, false), imageView,nullOptions,
+            transition = false,
+            thumbnail = false,
+            thumbnailWidth = 0,
+            thumbnailHeight = 0
+        )
+    }
+
+    override fun loadImage(urlOrIdOrUri: Any, imageView: ImageView, progressView: View,placeholderImg: Int,errorHolder : Int) {
+        glideLoad(urlOrIdOrUri,imageView,progressView,placeholderImg,errorHolder)
     }
 
     override fun loadImage(url: String, imageView: ImageView, width: Int, height: Int, placeholderImg: Int) {
         glideLoad(ImageLoaderUtils.appendUrl(url, width, height, false), imageView,
-            RequestOptions().placeholder(placeholderImg).error(placeholderImg),false,false,0,0)
+            RequestOptions().placeholder(placeholderImg).error(placeholderImg),
+            transition = false,
+            thumbnail = false,
+            thumbnailWidth = 0,
+            thumbnailHeight = 0
+        )
     }
 
-    override fun loadImageWithFitCenter(urlOrId: Any, imageView: ImageView) {
-        glideLoad(urlOrId, imageView, fitCenterOptions,false,false,0,0)
+    override fun loadImageWithFitCenter(urlOrIdOrUri: Any, imageView: ImageView) {
+        glideLoad(urlOrIdOrUri, imageView, fitCenterOptions,
+            transition = false,
+            thumbnail = false,
+            thumbnailWidth = 0,
+            thumbnailHeight = 0
+        )
 
     }
 
-    override fun loadImageWithFitCenter(urlOrId: Any, imageView: ImageView, placeholderImg: Int) {
-        glideLoad(urlOrId, imageView, RequestOptions().fitCenter().placeholder(placeholderImg).error(placeholderImg),false,false,0,0)
+    override fun loadImageWithFitCenter(urlOrIdOrUri: Any, imageView: ImageView, placeholderImg: Int) {
+        glideLoad(urlOrIdOrUri, imageView, RequestOptions().fitCenter().placeholder(placeholderImg).error(placeholderImg),
+            transition = false,
+            thumbnail = false,
+            thumbnailWidth = 0,
+            thumbnailHeight = 0
+        )
     }
 
-    override fun loadImageWithCenterCrop(urlOrId: Any, imageView: ImageView) {
-        glideLoad(urlOrId, imageView, centerScopeOptions,false,false,0,0)
+    override fun loadImageWithCenterCrop(urlOrIdOrUri: Any, imageView: ImageView) {
+        glideLoad(urlOrIdOrUri, imageView, centerScopeOptions,
+            transition = false,
+            thumbnail = false,
+            thumbnailWidth = 0,
+            thumbnailHeight = 0
+        )
     }
 
-    override fun loadImageWithCenterCrop(urlOrId: Any, imageView: ImageView, placeholderImg: Int) {
-        glideLoad(urlOrId, imageView, RequestOptions().centerCrop().placeholder(placeholderImg).error(placeholderImg),false,false,0,0)
+    override fun loadImageWithCenterCrop(urlOrIdOrUri: Any, imageView: ImageView, placeholderImg: Int) {
+        glideLoad(urlOrIdOrUri, imageView, RequestOptions().centerCrop().placeholder(placeholderImg).error(placeholderImg),
+            transition = false,
+            thumbnail = false,
+            thumbnailWidth = 0,
+            thumbnailHeight = 0
+        )
     }
 
-    override fun loadImageWithCenterCrop(urlOrId: Any,imageView: ImageView,
+    override fun loadImageWithCenterCrop(urlOrIdOrUri: Any,imageView: ImageView,
         diskCacheStrategy: DiskCacheStrategyEnum
     ) {
-        glideLoad(urlOrId, imageView, getDiskCacheStrategy(diskCacheStrategy).centerCrop(),false,false,0,0)
+        glideLoad(urlOrIdOrUri, imageView, getDiskCacheStrategy(diskCacheStrategy).centerCrop(),
+            transition = false,
+            thumbnail = false,
+            thumbnailWidth = 0,
+            thumbnailHeight = 0
+        )
     }
 
-    override fun loadImageWithCenterCrop(urlOrId: Any, imageView: ImageView, placeholderImg: Int,
+    override fun loadImageWithCenterCrop(urlOrIdOrUri: Any, imageView: ImageView, placeholderImg: Int,
                                          diskCacheStrategy: DiskCacheStrategyEnum, transition: Boolean) {
 
-        glideLoad(urlOrId, imageView, getDiskCacheStrategy(diskCacheStrategy).centerCrop().placeholder(placeholderImg).error(placeholderImg),transition,false,0,0)
+        glideLoad(urlOrIdOrUri, imageView, getDiskCacheStrategy(diskCacheStrategy).centerCrop().placeholder(placeholderImg).error(placeholderImg),transition,false,0,0)
 
     }
 
     override fun loadImageWithCenterCrop(
-        urlOrId: Any,
+        urlOrIdOrUri: Any,
         view: View,
         thumbnail: Boolean,
         thumbnailWidth: Int,
         thumbnailHeight: Int
     ) {
-        glideLoad(urlOrId, view, RequestOptions().centerCrop(),false,true,thumbnailWidth,thumbnailHeight)
+        glideLoad(urlOrIdOrUri, view, RequestOptions().centerCrop(),
+            transition = false,
+            thumbnail = true,
+            thumbnailWidth = thumbnailWidth,
+            thumbnailHeight = thumbnailHeight
+        )
 
 
     }
 
-    override fun loadImageWithCenterCrop(urlOrId: Any,imageView: ImageView,placeholderImg: Int,diskCacheStrategy: DiskCacheStrategyEnum) {
-        glideLoad(urlOrId, imageView, getDiskCacheStrategy(diskCacheStrategy).centerCrop().placeholder(placeholderImg).error(placeholderImg),false,false,0,0)
+    override fun loadImageWithCenterCrop(urlOrIdOrUri: Any,imageView: ImageView,placeholderImg: Int,diskCacheStrategy: DiskCacheStrategyEnum) {
+        glideLoad(urlOrIdOrUri, imageView, getDiskCacheStrategy(diskCacheStrategy).centerCrop().placeholder(placeholderImg).error(placeholderImg),
+            transition = false,
+            thumbnail = false,
+            thumbnailWidth = 0,
+            thumbnailHeight = 0
+        )
 
     }
 
-    override fun loadImageWithCenterCrop(urlOrId: Any,imageView: ImageView,placeholderImg: Int,transition: Boolean) {
-        glideLoad(urlOrId, imageView, RequestOptions().centerCrop().placeholder(placeholderImg).error(placeholderImg),transition,false,0,0)
+    override fun loadImageWithCenterCrop(urlOrIdOrUri: Any,imageView: ImageView,placeholderImg: Int,transition: Boolean) {
+        glideLoad(urlOrIdOrUri, imageView, RequestOptions().centerCrop().placeholder(placeholderImg).error(placeholderImg),transition,false,0,0)
     }
 
-    override fun loadImageWithCenterCrop(urlOrId: Any, imageView: ImageView, placeholderImg: Int, diskCacheStrategy: DiskCacheStrategyEnum,
+    override fun loadImageWithCenterCrop(urlOrIdOrUri: Any, imageView: ImageView, placeholderImg: Int, diskCacheStrategy: DiskCacheStrategyEnum,
                                          transition: Boolean, thumbnail: Boolean, thumbnailWidth: Int, thumbnailHeight: Int) {
-        glideLoad(urlOrId, imageView,
+        glideLoad(urlOrIdOrUri, imageView,
             getDiskCacheStrategy(diskCacheStrategy).centerCrop().placeholder(placeholderImg).error(placeholderImg),transition,thumbnail,
             thumbnailWidth, thumbnailHeight
 
@@ -126,107 +189,150 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
 
     }
 
-    override fun loadImageWithCenterInside(urlOrId: Any, imageView: ImageView) {
-        glideLoad(urlOrId, imageView, centerInsideOptions,false,false,0,0)
+    override fun loadImageWithCenterInside(urlOrIdOrUri: Any, imageView: ImageView) {
+        glideLoad(urlOrIdOrUri, imageView, centerInsideOptions,
+            transition = false,
+            thumbnail = false,
+            thumbnailWidth = 0,
+            thumbnailHeight = 0
+        )
     }
 
-    override fun loadImageWithCenterInside(urlOrId: Any, imageView: ImageView, placeholderImg: Int) {
-        glideLoad(urlOrId, imageView,
-            RequestOptions().centerInside().placeholder(placeholderImg).error(placeholderImg),false,false,0,0)
+    override fun loadImageWithCenterInside(urlOrIdOrUri: Any, imageView: ImageView, placeholderImg: Int) {
+        glideLoad(urlOrIdOrUri, imageView,
+            RequestOptions().centerInside().placeholder(placeholderImg).error(placeholderImg),
+            transition = false,
+            thumbnail = false,
+            thumbnailWidth = 0,
+            thumbnailHeight = 0
+        )
     }
 
-    override fun loadImageWithCenterInside(urlOrId: Any, imageView: ImageView, placeholderImg: Int,
+    override fun loadImageWithCenterInside(urlOrIdOrUri: Any, imageView: ImageView, placeholderImg: Int,
                                            diskCacheStrategy: DiskCacheStrategyEnum, transition: Boolean) {
-        glideLoad(urlOrId, imageView,
+        glideLoad(urlOrIdOrUri, imageView,
             getDiskCacheStrategy(diskCacheStrategy).centerInside().placeholder(placeholderImg).error(placeholderImg),transition,false,0,0)
     }
 
-    override fun loadImageWithCenterInside(urlOrId: Any,imageView: ImageView,placeholderImg: Int,diskCacheStrategy: DiskCacheStrategyEnum) {
-        glideLoad(urlOrId, imageView,
-            getDiskCacheStrategy(diskCacheStrategy).centerInside().placeholder(placeholderImg).error(placeholderImg).diskCacheStrategy(DiskCacheStrategy.ALL),false,false,0,0)
+    override fun loadImageWithCenterInside(urlOrIdOrUri: Any,imageView: ImageView,placeholderImg: Int,diskCacheStrategy: DiskCacheStrategyEnum) {
+        glideLoad(urlOrIdOrUri, imageView,
+            getDiskCacheStrategy(diskCacheStrategy).centerInside().placeholder(placeholderImg).error(placeholderImg).diskCacheStrategy(DiskCacheStrategy.ALL),
+            transition = false,
+            thumbnail = false,
+            thumbnailWidth = 0,
+            thumbnailHeight = 0
+        )
     }
 
-    override fun loadImageWithCenterInside(urlOrId: Any,imageView: ImageView,placeholderImg: Int,transition: Boolean) {
+    override fun loadImageWithCenterInside(urlOrIdOrUri: Any,imageView: ImageView,placeholderImg: Int,transition: Boolean) {
 
-        glideLoad(urlOrId, imageView,
+        glideLoad(urlOrIdOrUri, imageView,
             RequestOptions().centerInside().placeholder(placeholderImg).error(placeholderImg).diskCacheStrategy(DiskCacheStrategy.ALL),transition,false,0,0)
 
     }
 
 
-    override fun loadImageWithSkipCache(urlOrId: Any, imageView: ImageView) {
-        glideLoad(urlOrId, imageView, skipMemoryOptions,false,false,0,0)
+    override fun loadImageWithSkipCache(urlOrIdOrUri: Any, imageView: ImageView) {
+        glideLoad(urlOrIdOrUri, imageView, skipMemoryOptions,
+            transition = false,
+            thumbnail = false,
+            thumbnailWidth = 0,
+            thumbnailHeight = 0
+        )
     }
 
-    override fun loadImageWithSkipCache(urlOrId: Any, imageView: ImageView, placeholderImg: Int) {
-        glideLoad(urlOrId, imageView,
+    override fun loadImageWithSkipCache(urlOrIdOrUri: Any, imageView: ImageView, placeholderImg: Int) {
+        glideLoad(urlOrIdOrUri, imageView,
             RequestOptions()
                 .skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE)
-                .placeholder(placeholderImg).error(placeholderImg),false
-            ,false,0,0)
+                .placeholder(placeholderImg).error(placeholderImg), transition = false
+            , thumbnail = false, thumbnailWidth = 0, thumbnailHeight = 0
+        )
     }
 
     override fun loadImageWithSkipCache(url: String, imageView: ImageView, width: Int, height: Int) {
-        glideLoad(ImageLoaderUtils.appendUrl(url, width, height, false), imageView, skipMemoryOptions,false,false,0,0)
+        glideLoad(ImageLoaderUtils.appendUrl(url, width, height, false), imageView, skipMemoryOptions,
+            transition = false,
+            thumbnail = false,
+            thumbnailWidth = 0,
+            thumbnailHeight = 0
+        )
     }
 
     override fun loadImageWithSkipCache(url: String, imageView: ImageView, width: Int, height: Int, placeholderImg: Int) {
         glideLoad(ImageLoaderUtils.appendUrl(url, width, height, false), imageView,
             RequestOptions()
                 .skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE)
-                .placeholder(placeholderImg).error(placeholderImg),false
-            ,false,0,0)
+                .placeholder(placeholderImg).error(placeholderImg), transition = false
+            , thumbnail = false, thumbnailWidth = 0, thumbnailHeight = 0
+        )
     }
 
-    override fun loadCircleImage(urlOrId: Any, imageView: ImageView) {
-        glideLoad(urlOrId, imageView, circleOptions,false,false,0,0)
+    override fun loadCircleImage(urlOrIdOrUri: Any, imageView: ImageView) {
+        glideLoad(urlOrIdOrUri, imageView, circleOptions,
+            transition = false,
+            thumbnail = false,
+            thumbnailWidth = 0,
+            thumbnailHeight = 0
+        )
     }
 
-    override fun loadCircleImage(urlOrId: Any,imageView: ImageView,
+    override fun loadCircleImage(urlOrIdOrUri: Any,imageView: ImageView,
         diskCacheStrategy: DiskCacheStrategyEnum
     ) {
-        glideLoad(urlOrId, imageView, getDiskCacheStrategy(diskCacheStrategy),false,false,0,0)
+        glideLoad(urlOrIdOrUri, imageView, getDiskCacheStrategy(diskCacheStrategy),
+            transition = false,
+            thumbnail = false,
+            thumbnailWidth = 0,
+            thumbnailHeight = 0
+        )
     }
 
-    override fun loadCircleImage(urlOrId: Any, imageView: ImageView, placeholderImg: Int) {
-        glideLoad(urlOrId, imageView,
+    override fun loadCircleImage(urlOrIdOrUri: Any, imageView: ImageView, placeholderImg: Int) {
+        glideLoad(urlOrIdOrUri, imageView,
             RequestOptions().circleCrop()
                 .placeholder(CircleRoundDrawable(imageView.context, placeholderImg))
-                .error(CircleRoundDrawable(imageView.context, placeholderImg)),false
-            ,false,0,0)
+                .error(CircleRoundDrawable(imageView.context, placeholderImg)), transition = false
+            , thumbnail = false, thumbnailWidth = 0, thumbnailHeight = 0
+        )
     }
 
-    override fun loadCircleImage(urlOrId: Any,imageView: ImageView,placeholderImg: Int,diskCacheStrategy: DiskCacheStrategyEnum) {
-        glideLoad(urlOrId, imageView,
+    override fun loadCircleImage(urlOrIdOrUri: Any,imageView: ImageView,placeholderImg: Int,diskCacheStrategy: DiskCacheStrategyEnum) {
+        glideLoad(urlOrIdOrUri, imageView,
             getDiskCacheStrategy(diskCacheStrategy).circleCrop()
                 .placeholder(CircleRoundDrawable(imageView.context, placeholderImg))
-                .error(CircleRoundDrawable(imageView.context, placeholderImg)),false
-            ,false,0,0)
+                .error(CircleRoundDrawable(imageView.context, placeholderImg)), transition = false
+            , thumbnail = false, thumbnailWidth = 0, thumbnailHeight = 0
+        )
     }
 
-    override fun loadCornersImage(urlOrId: Any, imageView: ImageView, cornerRadius: Float) {
+    override fun loadCornersImage(urlOrIdOrUri: Any, imageView: ImageView, cornerRadius: Float) {
         //注释七牛方案
-//        ImageLoaderUtils.checkAndAppendCornerUrl(urlOrId, cornerRadius).apply {
+//        ImageLoaderUtils.checkAndAppendCornerUrl(urlOrIdOrUri, cornerRadius).apply {
 //            when (this) {
 //                is String -> {
 //                    glideLoad(this, imageView,nullOptions)
 //                }
 //                else -> {
-//                    glideLoad(urlOrId, imageView,
+//                    glideLoad(urlOrIdOrUri, imageView,
 //                        RequestOptions().transform(RoundedCorners((ImageLoaderUtils.dp2px(cornerRadius) + 0.5f).toInt()))
 //                    )
 //                }
 //            }
 //        }
 
-        glideLoad(urlOrId, imageView,
+        glideLoad(urlOrIdOrUri, imageView,
             RequestOptions().transform(RoundedCorners((ImageLoaderUtils.dp2px(cornerRadius) + 0.5f).toInt())),false
-            ,false,0,0)
+            ,
+            thumbnail = false,
+            thumbnailWidth = 0,
+            thumbnailHeight = 0
+        )
     }
 
-    override fun loadCornersImage(urlOrId: Any, imageView: ImageView, cornerRadius: Float, placeholderImg: Int) {
+    override fun loadCornersImage(urlOrIdOrUri: Any, imageView: ImageView, cornerRadius: Float, placeholderImg: Int) {
         //注释七牛方案
-//        ImageLoaderUtils.checkAndAppendCornerUrl(urlOrId, cornerRadius).apply {
+//        ImageLoaderUtils.checkAndAppendCornerUrl(urlOrIdOrUri, cornerRadius).apply {
 //            when (this) {
 //                is String -> {
 //                    glideLoad(this, imageView,
@@ -237,7 +343,7 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
 //
 //                }
 //                else -> {
-//                    glideLoad(urlOrId, imageView,
+//                    glideLoad(urlOrIdOrUri, imageView,
 //                        RequestOptions()
 //                            .transform(RoundedCorners((ImageLoaderUtils.dp2px(cornerRadius) + 0.5f).toInt()))
 //                            .placeholder(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle(cornerRadius))
@@ -247,46 +353,47 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
 //                }
 //            }
 //        }
-        glideLoad(urlOrId, imageView,
+        glideLoad(urlOrIdOrUri, imageView,
             RequestOptions()
                 .transform(RoundedCorners((ImageLoaderUtils.dp2px(cornerRadius) + 0.5f).toInt()))
-                .placeholder(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle(cornerRadius))
-                .error(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle(cornerRadius)
-                ),false
-            ,false,0,0)
+                .placeholder(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_ROUND).setRoundAngle(cornerRadius))
+                .error(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_ROUND).setRoundAngle(cornerRadius)
+                ), transition = false
+            , thumbnail = false, thumbnailWidth = 0, thumbnailHeight = 0
+        )
     }
 
-    override fun loadCornersImage(urlOrId: Any, imageView: ImageView, cornerRadius: Float, cornerTypeEnum: CornerTypeEnum) {
+    override fun loadCornersImage(urlOrIdOrUri: Any, imageView: ImageView, cornerRadius: Float, cornerTypeEnum: CornerTypeEnum) {
         //注释七牛方案
 //        when (cornerType) {
 //            RXImageLoaderConstant.CornerType.ALL -> {
-//                ImageLoaderUtils.checkAndAppendCornerUrl(urlOrId, cornerRadius).apply {
+//                ImageLoaderUtils.checkAndAppendCornerUrl(urlOrIdOrUri, cornerRadius).apply {
 //                    when (this) {
 //                        is String -> {
 //                            glideLoad(this, imageView,nullOptions)
 //                        }
 //                        else -> {
-//                            loadCornersImageConbine1(urlOrId, imageView, cornerRadius, cornerType)
+//                            loadCornersImageConbine1(urlOrIdOrUri, imageView, cornerRadius, cornerType)
 //                        }
 //                    }
 //                }
 //            }
 //
 //            else -> {
-//                loadCornersImageConbine1(urlOrId, imageView, cornerRadius, cornerType)
+//                loadCornersImageConbine1(urlOrIdOrUri, imageView, cornerRadius, cornerType)
 //            }
 //        }
 
-        loadCornersImageCombine(urlOrId, imageView, cornerRadius, cornerTypeEnum,-1)
+        loadCornersImageCombine(urlOrIdOrUri, imageView, cornerRadius, cornerTypeEnum,-1)
 
 
     }
 
-    override fun loadCornersImage(urlOrId: Any, imageView: ImageView, cornerRadius: Float, cornerTypeEnum: CornerTypeEnum, placeholderImg: Int) {
+    override fun loadCornersImage(urlOrIdOrUri: Any, imageView: ImageView, cornerRadius: Float, cornerTypeEnum: CornerTypeEnum, placeholderImg: Int) {
         //注释七牛方案
 //        when (cornerType) {
 //            RXImageLoaderConstant.CornerType.ALL -> {
-//                ImageLoaderUtils.checkAndAppendCornerUrl(urlOrId, cornerRadius).apply {
+//                ImageLoaderUtils.checkAndAppendCornerUrl(urlOrIdOrUri, cornerRadius).apply {
 //                    when (this) {
 //                        is String -> {
 //                            glideLoad(this, imageView,
@@ -296,18 +403,18 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
 //                            )
 //                        }
 //                        else -> {
-//                            loadCornersImageConbine2(urlOrId, imageView, cornerRadius, cornerType, placeholderImg)
+//                            loadCornersImageConbine2(urlOrIdOrUri, imageView, cornerRadius, cornerType, placeholderImg)
 //                        }
 //                    }
 //                }
 //            }
 //
 //            else -> {
-//                loadCornersImageConbine2(urlOrId, imageView, cornerRadius, cornerType, placeholderImg)
+//                loadCornersImageConbine2(urlOrIdOrUri, imageView, cornerRadius, cornerType, placeholderImg)
 //            }
 //        }
 
-        loadCornersImageCombine(urlOrId, imageView, cornerRadius, cornerTypeEnum, placeholderImg)
+        loadCornersImageCombine(urlOrIdOrUri, imageView, cornerRadius, cornerTypeEnum, placeholderImg)
 
     }
 
@@ -325,75 +432,89 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
             ImageLoaderUtils.bitmap2Bytes(bitmap), imageView,
             RequestOptions()
                 .optionalTransform(RoundedCornersTransform(ImageLoaderUtils.dp2px(cornerRadius) + 0.5f, cornerTypeEnum))
-                .placeholder(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle(cornerRadius))
-                .error(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle(cornerRadius))
+                .placeholder(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_ROUND).setRoundAngle(cornerRadius))
+                .error(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_ROUND).setRoundAngle(cornerRadius))
         )
     }
 
-    override fun loadCornersImageWithCenterCrop(urlOrId: Any, imageView: ImageView, placeholderImg: Int,
+    override fun loadCornersImageWithCenterCrop(urlOrIdOrUri: Any, imageView: ImageView, placeholderImg: Int,
                                                 cornerRadius: Float, diskCacheStrategy: DiskCacheStrategyEnum,
                                                 transition: Boolean, thumbnail: Boolean, thumbnailWidth: Int, thumbnailHeight: Int) {
 
-        glideLoad(urlOrId, imageView,
+        glideLoad(urlOrIdOrUri, imageView,
             getDiskCacheStrategy(diskCacheStrategy)
                 .optionalTransform(RoundedCornersTransform(ImageLoaderUtils.dp2px(cornerRadius) + 0.5f,
                     CornerTypeEnum.ALL))
-                .placeholder(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle(cornerRadius))
-                .error(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle(cornerRadius)),transition,
+                .placeholder(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_ROUND).setRoundAngle(cornerRadius))
+                .error(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_ROUND).setRoundAngle(cornerRadius)),transition,
             thumbnail,thumbnailWidth,thumbnailHeight
         )
 
     }
 
-    override fun loadBorderCircleImage(urlOrId: Any, imageView: ImageView, borderColor: Int, borderWidth: Float) {
-        glideLoad(urlOrId, imageView,
-            RequestOptions().optionalTransform(CircleBorderTransformation(borderWidth, borderColor)),false
-            ,false,0,0)
+    override fun loadBorderCircleImage(urlOrIdOrUri: Any, imageView: ImageView, borderColor: Int, borderWidth: Float) {
+        glideLoad(urlOrIdOrUri, imageView,
+            RequestOptions().optionalTransform(CircleBorderTransformation(borderWidth, borderColor)),
+            transition = false,
+            thumbnail = false,
+            thumbnailWidth = 0,
+            thumbnailHeight = 0
+        )
     }
 
-    override fun loadBorderCircleImage(urlOrId: Any, imageView: ImageView, borderColor: Int, borderWidth: Float, placeholderImg: Int) {
-        glideLoad(urlOrId, imageView,
+    override fun loadBorderCircleImage(urlOrIdOrUri: Any, imageView: ImageView, borderColor: Int, borderWidth: Float, placeholderImg: Int) {
+        glideLoad(urlOrIdOrUri, imageView,
             RequestOptions()
                 .optionalTransform(CircleBorderTransformation(borderWidth, borderColor))
                 .placeholder(CircleRoundDrawable(imageView.context, placeholderImg))
-                .error(CircleRoundDrawable(imageView.context, placeholderImg)),false
-            ,false,0,0)
+                .error(CircleRoundDrawable(imageView.context, placeholderImg)), transition = false
+            , thumbnail = false, thumbnailWidth = 0, thumbnailHeight = 0
+        )
     }
 
-    override fun loadBorderCornerImage(urlOrId: Any, imageView: ImageView, borderColor: Int, borderWidth: Float, cornerRadius: Float) {
-        glideLoad(urlOrId, imageView,
-            RequestOptions().transform(BorderRoundTransform(borderWidth, borderColor, cornerRadius)),false
-            ,false,0,0)
+    override fun loadBorderCornerImage(urlOrIdOrUri: Any, imageView: ImageView, borderColor: Int, borderWidth: Float, cornerRadius: Float) {
+        glideLoad(urlOrIdOrUri, imageView,
+            RequestOptions().transform(BorderRoundTransform(borderWidth, borderColor, cornerRadius)),
+            transition = false
+            ,
+            thumbnail = false,
+            thumbnailWidth = 0,
+            thumbnailHeight = 0
+        )
     }
 
-    override fun loadBorderCornerImage(urlOrId: Any, imageView: ImageView, borderColor: Int, borderWidth: Float, cornerRadius: Float, placeholderImg: Int) {
-        glideLoad(urlOrId, imageView,
+    override fun loadBorderCornerImage(urlOrIdOrUri: Any, imageView: ImageView, borderColor: Int, borderWidth: Float, cornerRadius: Float, placeholderImg: Int) {
+        glideLoad(urlOrIdOrUri, imageView,
             RequestOptions()
                 .transform(BorderRoundTransform(borderWidth, borderColor, cornerRadius))
-                .placeholder(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle(cornerRadius))
-                .error(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle(cornerRadius)),false
-            ,false,0,0)
+                .placeholder(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_ROUND).setRoundAngle(cornerRadius))
+                .error(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_ROUND).setRoundAngle(cornerRadius)),false
+            ,
+            thumbnail = false,
+            thumbnailWidth = 0,
+            thumbnailHeight = 0
+        )
     }
 
-    override fun loadGif(playTimes: Int, urlOrId: Any, imageView: ImageView) {
-        glideLoadGif(urlOrId, imageView, playTimes, nullOptions,null)
+    override fun loadGif(playTimes: Int, urlOrIdOrUri: Any, imageView: ImageView) {
+        glideLoadGif(urlOrIdOrUri, imageView, playTimes, nullOptions,null)
     }
 
-    override fun loadGif(playTimes: Int, urlOrId: Any, imageView: ImageView,
+    override fun loadGif(playTimes: Int, urlOrIdOrUri: Any, imageView: ImageView,
                          diskCacheStrategy: DiskCacheStrategyEnum, onAnimationStatus: OnAnimationStatus) {
-        glideLoadGif(urlOrId, imageView, playTimes, getDiskCacheStrategy(diskCacheStrategy),onAnimationStatus)
+        glideLoadGif(urlOrIdOrUri, imageView, playTimes, getDiskCacheStrategy(diskCacheStrategy),onAnimationStatus)
     }
 
-    override fun loadGif(playTimes: Int, urlOrId: Any, imageView: ImageView, placeholderImg: Int) {
-        glideLoadGif(urlOrId, imageView, playTimes,
+    override fun loadGif(playTimes: Int, urlOrIdOrUri: Any, imageView: ImageView, placeholderImg: Int) {
+        glideLoadGif(urlOrIdOrUri, imageView, playTimes,
             RequestOptions()
                 .placeholder(placeholderImg)
                 .error(placeholderImg),null
         )
     }
 
-    override fun loadGif(urlOrId: Any, imageView: ImageView, placeholderImg: Int) {
-        glideLoadGif(urlOrId, imageView, GifDrawable.LOOP_FOREVER,
+    override fun loadGif(urlOrIdOrUri: Any, imageView: ImageView, placeholderImg: Int) {
+        glideLoadGif(urlOrIdOrUri, imageView, GifDrawable.LOOP_FOREVER,
             RequestOptions()
                 .placeholder(placeholderImg)
                 .error(placeholderImg),null
@@ -401,25 +522,25 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
 
     }
 
-    override fun loadGif(urlOrId: Any, imageView: ImageView) {
-        glideLoadGif(urlOrId, imageView, GifDrawable.LOOP_FOREVER, nullOptions,null)
+    override fun loadGif(urlOrIdOrUri: Any, imageView: ImageView) {
+        glideLoadGif(urlOrIdOrUri, imageView, GifDrawable.LOOP_FOREVER, nullOptions,null)
     }
 
     override fun loadGif(
-        urlOrId: Any,
+        urlOrIdOrUri: Any,
         imageView: ImageView,
         diskCacheStrategy: DiskCacheStrategyEnum
     ) {
-        glideLoadGif(urlOrId, imageView, GifDrawable.LOOP_FOREVER, getDiskCacheStrategy(diskCacheStrategy),null)
+        glideLoadGif(urlOrIdOrUri, imageView, GifDrawable.LOOP_FOREVER, getDiskCacheStrategy(diskCacheStrategy),null)
     }
 
-    override fun loadCircleGif(urlOrId: Any, imageView: ImageView) {
-        glideLoadGif(urlOrId, imageView, GifDrawable.LOOP_FOREVER, circleOptions,null)
+    override fun loadCircleGif(urlOrIdOrUri: Any, imageView: ImageView) {
+        glideLoadGif(urlOrIdOrUri, imageView, GifDrawable.LOOP_FOREVER, circleOptions,null)
 
     }
 
-    override fun loadCircleGif(urlOrId: Any, imageView: ImageView, placeholderImg: Int) {
-        glideLoadGif(urlOrId, imageView, GifDrawable.LOOP_FOREVER,
+    override fun loadCircleGif(urlOrIdOrUri: Any, imageView: ImageView, placeholderImg: Int) {
+        glideLoadGif(urlOrIdOrUri, imageView, GifDrawable.LOOP_FOREVER,
             RequestOptions()
                 .circleCrop()
                 .placeholder(CircleRoundDrawable(imageView.context, placeholderImg))
@@ -427,12 +548,12 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
             ,null)
     }
 
-    override fun loadCircleGif(playTimes: Int, urlOrId: Any, imageView: ImageView) {
-        glideLoadGif(urlOrId, imageView, playTimes, circleOptions,null)
+    override fun loadCircleGif(playTimes: Int, urlOrIdOrUri: Any, imageView: ImageView) {
+        glideLoadGif(urlOrIdOrUri, imageView, playTimes, circleOptions,null)
     }
 
-    override fun loadCircleGif(playTimes: Int, urlOrId: Any, imageView: ImageView, placeholderImg: Int) {
-        glideLoadGif(urlOrId, imageView, playTimes,
+    override fun loadCircleGif(playTimes: Int, urlOrIdOrUri: Any, imageView: ImageView, placeholderImg: Int) {
+        glideLoadGif(urlOrIdOrUri, imageView, playTimes,
             RequestOptions()
                 .circleCrop()
                 .placeholder(CircleRoundDrawable(imageView.context, placeholderImg))
@@ -440,90 +561,100 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
             ,null)
     }
 
-    override fun loadCornerGif(urlOrId: Any, imageView: ImageView, cornerRadius: Float) {
-        glideLoadGif(urlOrId, imageView, GifDrawable.LOOP_FOREVER,
+    override fun loadCornerGif(urlOrIdOrUri: Any, imageView: ImageView, cornerRadius: Float) {
+        glideLoadGif(urlOrIdOrUri, imageView, GifDrawable.LOOP_FOREVER,
             RequestOptions().transform(RoundedCorners((ImageLoaderUtils.dp2px(cornerRadius) + 0.5f).toInt()))
             ,null)
     }
 
-    override fun loadCornerGif(urlOrId: Any, imageView: ImageView, cornerRadius: Float, placeholderImg: Int) {
-        glideLoadGif(urlOrId, imageView, GifDrawable.LOOP_FOREVER,
+    override fun loadCornerGif(urlOrIdOrUri: Any, imageView: ImageView, cornerRadius: Float, placeholderImg: Int) {
+        glideLoadGif(urlOrIdOrUri, imageView, GifDrawable.LOOP_FOREVER,
             RequestOptions()
                 .transform(RoundedCorners((ImageLoaderUtils.dp2px(cornerRadius) + 0.5f).toInt()))
-                .placeholder(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle(cornerRadius))
-                .error(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle(cornerRadius))
+                .placeholder(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_ROUND).setRoundAngle(cornerRadius))
+                .error(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_ROUND).setRoundAngle(cornerRadius))
             ,null)
     }
 
-    override fun loadCornerGif(playTimes: Int, urlOrId: Any, imageView: ImageView, cornerRadius: Float) {
-        glideLoadGif(urlOrId, imageView, playTimes,
+    override fun loadCornerGif(playTimes: Int, urlOrIdOrUri: Any, imageView: ImageView, cornerRadius: Float) {
+        glideLoadGif(urlOrIdOrUri, imageView, playTimes,
             RequestOptions().transform(RoundedCorners((ImageLoaderUtils.dp2px(cornerRadius) + 0.5f).toInt()))
             ,null)
     }
 
-    override fun loadCornerGif(playTimes: Int, urlOrId: Any, imageView: ImageView, cornerRadius: Float, placeholderImg: Int) {
-        glideLoadGif(urlOrId, imageView, playTimes,
+    override fun loadCornerGif(playTimes: Int, urlOrIdOrUri: Any, imageView: ImageView, cornerRadius: Float, placeholderImg: Int) {
+        glideLoadGif(urlOrIdOrUri, imageView, playTimes,
             RequestOptions()
                 .transform(RoundedCorners((ImageLoaderUtils.dp2px(cornerRadius) + 0.5f).toInt()))
-                .placeholder(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle(cornerRadius))
-                .error(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle(cornerRadius))
+                .placeholder(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_ROUND).setRoundAngle(cornerRadius))
+                .error(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_ROUND).setRoundAngle(cornerRadius))
             ,null)
     }
 
-    override fun loadBorderCornerGif(urlOrId: Any, imageView: ImageView, borderColor: Int, borderWidth: Float, cornerRadius: Float) {
-        glideLoadGif(urlOrId, imageView, GifDrawable.LOOP_FOREVER,
+    override fun loadBorderCornerGif(urlOrIdOrUri: Any, imageView: ImageView, borderColor: Int, borderWidth: Float, cornerRadius: Float) {
+        glideLoadGif(urlOrIdOrUri, imageView, GifDrawable.LOOP_FOREVER,
             RequestOptions().transform(BorderRoundTransform(borderWidth, borderColor, cornerRadius))
             ,null)
     }
 
-    override fun loadBorderCornerGif(urlOrId: Any, imageView: ImageView, borderColor: Int, borderWidth: Float, cornerRadius: Float, placeholderImg: Int) {
-        glideLoadGif(urlOrId, imageView, GifDrawable.LOOP_FOREVER,
+    override fun loadBorderCornerGif(urlOrIdOrUri: Any, imageView: ImageView, borderColor: Int, borderWidth: Float, cornerRadius: Float, placeholderImg: Int) {
+        glideLoadGif(urlOrIdOrUri, imageView, GifDrawable.LOOP_FOREVER,
             RequestOptions()
                 .transform(BorderRoundTransform(borderWidth, borderColor, cornerRadius))
-                .placeholder(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle(cornerRadius))
-                .error(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle(cornerRadius))
+                .placeholder(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_ROUND).setRoundAngle(cornerRadius))
+                .error(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_ROUND).setRoundAngle(cornerRadius))
             ,null)
     }
 
-    override fun loadBorderCornerGif(playTimes: Int, urlOrId: Any, imageView: ImageView, borderColor: Int, borderWidth: Float, cornerRadius: Float) {
-        glideLoadGif(urlOrId, imageView, playTimes,
+    override fun loadBorderCornerGif(playTimes: Int, urlOrIdOrUri: Any, imageView: ImageView, borderColor: Int, borderWidth: Float, cornerRadius: Float) {
+        glideLoadGif(urlOrIdOrUri, imageView, playTimes,
             RequestOptions().transform(BorderRoundTransform(borderWidth, borderColor, cornerRadius))
             ,null)
     }
 
-    override fun loadBorderCornerGif(playTimes: Int, urlOrId: Any, imageView: ImageView, borderColor: Int, borderWidth: Float, cornerRadius: Float, placeholderImg: Int) {
-        glideLoadGif(urlOrId, imageView, playTimes,
+    override fun loadBorderCornerGif(playTimes: Int, urlOrIdOrUri: Any, imageView: ImageView, borderColor: Int, borderWidth: Float, cornerRadius: Float, placeholderImg: Int) {
+        glideLoadGif(urlOrIdOrUri, imageView, playTimes,
             RequestOptions()
                 .transform(BorderRoundTransform(borderWidth, borderColor, cornerRadius))
-                .placeholder(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle(cornerRadius))
-                .error(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle(cornerRadius))
+                .placeholder(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_ROUND).setRoundAngle(cornerRadius))
+                .error(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_ROUND).setRoundAngle(cornerRadius))
             ,null)
     }
 
 
-    override fun loadImageWithRXCustomTarget(urlOrId: Any, context: Context, rxCustomTarget: RXCustomTarget<Bitmap>) {
-        glideRXCustomTarget(urlOrId, context, rxCustomTarget, nullOptions)
-    }
-
-    override fun loadImageWithRXCustomTarget(urlOrId: Any, context: Context, rxCustomTarget: RXCustomTarget<Bitmap>, placeholderImg: Int) {
-        glideRXCustomTarget(urlOrId, context, rxCustomTarget, RequestOptions().placeholder(placeholderImg).error(placeholderImg))
+    override fun loadImageWithRXCustomTarget(urlOrIdOrUri: Any, context: Context, rxCustomTarget: RXCustomTarget<Bitmap>) {
+        glideRXCustomTarget(urlOrIdOrUri, context, rxCustomTarget, nullOptions)
     }
 
     override fun loadImageWithRXCustomTarget(
-        urlOrId: Any,
+        urlOrIdOrUri: Any,
+        context: Context,
+        thumbnailWidth: Int,
+        thumbnailHeight: Int,
+        rxCustomTarget: RXCustomTarget<Bitmap>
+    ) {
+        glideRXCustomTarget(urlOrIdOrUri, context, thumbnailWidth, thumbnailHeight, rxCustomTarget)
+    }
+
+    override fun loadImageWithRXCustomTarget(urlOrIdOrUri: Any, context: Context, rxCustomTarget: RXCustomTarget<Bitmap>, placeholderImg: Int) {
+        glideRXCustomTarget(urlOrIdOrUri, context, rxCustomTarget, RequestOptions().placeholder(placeholderImg).error(placeholderImg))
+    }
+
+    override fun loadImageWithRXCustomTarget(
+        urlOrIdOrUri: Any,
         context: Context,
         rxCustomTarget: RXCustomTarget<Bitmap>,
         diskCacheStrategy: DiskCacheStrategyEnum
     ) {
-        glideRXCustomTarget(urlOrId, context, rxCustomTarget, getDiskCacheStrategy(diskCacheStrategy))
+        glideRXCustomTarget(urlOrIdOrUri, context, rxCustomTarget, getDiskCacheStrategy(diskCacheStrategy))
     }
 
-    override fun load9Png(urlOrId: Any, view: View) {
-        load9PngCombine(urlOrId, view, -1)
+    override fun load9Png(urlOrIdOrUri: Any, view: View) {
+        load9PngCombine(urlOrIdOrUri, view, -1)
     }
 
-    override fun load9Png(urlOrId: Any, view: View, placeholderImg: Int) {
-        load9PngCombine(urlOrId, view, placeholderImg)
+    override fun load9Png(urlOrIdOrUri: Any, view: View, placeholderImg: Int) {
+        load9PngCombine(urlOrIdOrUri, view, placeholderImg)
     }
 
 
@@ -549,6 +680,18 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
         }
     }
 
+    override fun clear(context: Context, imageView: ImageView) {
+        glideClear(context, imageView)
+    }
+
+    override fun pauseRequests(context: Context) {
+        glidePauseRequests(context)
+    }
+
+    override fun resumeRequests(context: Context) {
+        glideResumeRequests(context)
+    }
+
 
     /**
      * Glide加载图片的最终方法
@@ -559,15 +702,15 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
     }
 
 
-    private fun load9PngCombine(urlOrId: Any,view: View,placeholderImg: Int) {
-        ImageLoaderUtils.checkUrlOrId(urlOrId)
-        when (urlOrId) {
+    private fun load9PngCombine(urlOrIdOrUri: Any,view: View,placeholderImg: Int) {
+        ImageLoaderUtils.checkUrlOrId(urlOrIdOrUri)
+        when (urlOrIdOrUri) {
             is String -> {
-                glideLoad9Png(urlOrId,view,RequestOptions().placeholder(placeholderImg).error(placeholderImg))
+                glideLoad9Png(urlOrIdOrUri,view,RequestOptions().placeholder(placeholderImg).error(placeholderImg))
             }
 
             is Int -> {
-                val bitmap = BitmapFactory.decodeResource(view.context.resources, urlOrId) ?: return
+                val bitmap = BitmapFactory.decodeResource(view.context.resources, urlOrIdOrUri) ?: return
                 if (bitmap.ninePatchChunk == null) return
                 val chunk: ByteArray = bitmap.ninePatchChunk
                 if (NinePatch.isNinePatchChunk(chunk)) {
@@ -608,25 +751,70 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
             })
     }
 
-    private fun glideRXCustomTarget(urlOrId: Any, context: Context, rxCustomTarget: RXCustomTarget<Bitmap>, requestOptions: RequestOptions) {
-        ImageLoaderUtils.checkUrlOrId(urlOrId)
-        Glide.with(context).asBitmap().load(if (urlOrId is String) ImageLoaderUtils.replaceHttpToHttps(urlOrId) else urlOrId).apply(requestOptions).into(rxCustomTarget)
+    private fun glideRXCustomTarget(urlOrIdOrUri: Any, context: Context, rxCustomTarget: RXCustomTarget<Bitmap>, requestOptions: RequestOptions) {
+        ImageLoaderUtils.checkUrlOrId(urlOrIdOrUri)
+        Glide.with(context).asBitmap().load(if (urlOrIdOrUri is String) ImageLoaderUtils.replaceHttpToHttps(urlOrIdOrUri) else urlOrIdOrUri).apply(requestOptions).into(rxCustomTarget)
     }
 
-    private fun glideLoad(urlOrId: Any, imageView: ImageView, requestOptions: RequestOptions,transition: Boolean,thumbnail:Boolean,
+    private fun glideRXCustomTarget(urlOrIdOrUri: Any,context: Context,thumbnailWidth: Int,thumbnailHeight: Int,rxCustomTarget: RXCustomTarget<Bitmap>) {
+        ImageLoaderUtils.checkUrlOrId(urlOrIdOrUri)
+        Glide.with(context).asBitmap()
+            .load(if (urlOrIdOrUri is String) ImageLoaderUtils.replaceHttpToHttps(urlOrIdOrUri) else urlOrIdOrUri)
+            .thumbnail(Glide.with(context).asBitmap()
+                .load(urlOrIdOrUri)
+                .override(thumbnailWidth, thumbnailHeight))
+            .into(rxCustomTarget)
+    }
+
+    private fun glideLoad(urlOrIdOrUri: Any, imageView: ImageView, progressView: View,placeholderImg: Int,errorHolder : Int) {
+        ImageLoaderUtils.checkUrlOrId(urlOrIdOrUri)
+
+        Glide.with(imageView.context)
+            .asBitmap()
+            .load(urlOrIdOrUri)
+            .apply(
+                RequestOptions().fitCenter().error(errorHolder)
+                    .placeholder(placeholderImg)
+            )
+            .listener(object : RequestListener<Bitmap?> {
+                override fun onLoadFailed(
+                    e: GlideException?,
+                    model: Any,
+                    target: Target<Bitmap?>,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    progressView.visibility = View.GONE
+                    return false
+                }
+
+                override fun onResourceReady(
+                    resource: Bitmap?,
+                    model: Any,
+                    target: Target<Bitmap?>,
+                    dataSource: DataSource,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    progressView.visibility = View.GONE
+                    return false
+                }
+            })
+            .into(imageView)
+    }
+
+    private fun glideLoad(urlOrIdOrUri: Any, imageView: ImageView, requestOptions: RequestOptions,transition: Boolean,thumbnail:Boolean,
                           thumbnailWidth: Int,
                           thumbnailHeight: Int) {
-        ImageLoaderUtils.checkUrlOrId(urlOrId)
+        ImageLoaderUtils.checkUrlOrId(urlOrIdOrUri)
 
         val glide =
             Glide
                 .with(imageView.context)
-                .load(if (urlOrId is String) ImageLoaderUtils.replaceHttpToHttps(urlOrId) else urlOrId)
+                .load(if (urlOrIdOrUri is String) ImageLoaderUtils.replaceHttpToHttps(urlOrIdOrUri) else urlOrIdOrUri)
                 .apply(requestOptions)
 
         if (thumbnail){
             glide.thumbnail(Glide.with(imageView.context)
-                .load(urlOrId)
+                .load(urlOrIdOrUri)
                 .override(thumbnailWidth, thumbnailHeight))
         }
         if (transition){
@@ -635,21 +823,21 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
         glide.into(imageView)
     }
 
-    private fun glideLoad(urlOrId: Any, view: View, requestOptions: RequestOptions,transition: Boolean,thumbnail:Boolean,
+    private fun glideLoad(urlOrIdOrUri: Any, view: View, requestOptions: RequestOptions,transition: Boolean,thumbnail:Boolean,
                           thumbnailWidth: Int,
                           thumbnailHeight: Int) {
-        ImageLoaderUtils.checkUrlOrId(urlOrId)
+        ImageLoaderUtils.checkUrlOrId(urlOrIdOrUri)
 
         val glide =
             Glide
                 .with(view.context)
                 .asDrawable()
-                .load(if (urlOrId is String) ImageLoaderUtils.replaceHttpToHttps(urlOrId) else urlOrId)
+                .load(if (urlOrIdOrUri is String) ImageLoaderUtils.replaceHttpToHttps(urlOrIdOrUri) else urlOrIdOrUri)
                 .apply(requestOptions)
 
         if (thumbnail){
             glide.thumbnail(Glide.with(view.context)
-                .load(urlOrId)
+                .load(urlOrIdOrUri)
                 .override(thumbnailWidth, thumbnailHeight))
         }
         if (transition){
@@ -663,30 +851,34 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
         })
     }
 
-    private fun glideLoadGif(urlOrId: Any, imageView: ImageView, playTimes: Int, requestOptions: RequestOptions,onAnimationStatus: OnAnimationStatus?) {
-        ImageLoaderUtils.checkUrlOrId(urlOrId)
+    private fun glideLoadGif(urlOrIdOrUri: Any, imageView: ImageView, playTimes: Int, requestOptions: RequestOptions,onAnimationStatus: OnAnimationStatus?) {
+        ImageLoaderUtils.checkUrlOrId(urlOrIdOrUri)
         Glide.with(imageView.context).asGif()
-            .load(if (urlOrId is String) ImageLoaderUtils.replaceHttpToHttps(urlOrId) else urlOrId)
+            .load(if (urlOrIdOrUri is String) ImageLoaderUtils.replaceHttpToHttps(urlOrIdOrUri) else urlOrIdOrUri)
             .listener(ImageLoaderUtils.gifDrawableRequestListener(playTimes,onAnimationStatus))
             .apply(requestOptions)
             .into(imageView)
     }
-    private fun loadCornersImageCombine(urlOrId: Any, imageView: ImageView, cornerRadius: Float, cornerTypeEnum: CornerTypeEnum, placeholderImg: Int) {
+    private fun loadCornersImageCombine(urlOrIdOrUri: Any, imageView: ImageView, cornerRadius: Float, cornerTypeEnum: CornerTypeEnum, placeholderImg: Int) {
 
         val requestOptions = RequestOptions()
 
         if (placeholderImg != -1){
             requestOptions
-                .placeholder(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle(cornerRadius))
-                .error(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_Round).setRoundAngle(cornerRadius))
+                .placeholder(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_ROUND).setRoundAngle(cornerRadius))
+                .error(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_ROUND).setRoundAngle(cornerRadius))
         }
-        glideLoad(urlOrId, imageView,
+        glideLoad(urlOrIdOrUri, imageView,
             requestOptions.optionalTransform(RoundedCornersTransform(ImageLoaderUtils.dp2px(cornerRadius) + 0.5f, cornerTypeEnum)),
-            false,false,0,0)
+            transition = false, thumbnail = false, thumbnailWidth = 0, thumbnailHeight = 0
+        )
     }
     private fun getDiskCacheStrategy(diskCacheStrategy: DiskCacheStrategyEnum) : RequestOptions{
         val requestOptions = RequestOptions()
         when (diskCacheStrategy) {
+            DiskCacheStrategyEnum.RESOURCE -> {
+                requestOptions.diskCacheStrategy(DiskCacheStrategy.RESOURCE).skipMemoryCache(true)
+            }
             DiskCacheStrategyEnum.NONE -> {
                 requestOptions.diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(true)
             }
@@ -698,5 +890,17 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
             }
         }
         return requestOptions
+    }
+
+    private fun glideClear(context: Context, imageView: ImageView) {
+        Glide.with(context).clear(imageView)
+    }
+
+    private fun glideResumeRequests(context: Context) {
+        Glide.with(context).resumeRequests()
+    }
+
+    private fun glidePauseRequests(context: Context) {
+        Glide.with(context).pauseRequests()
     }
 }

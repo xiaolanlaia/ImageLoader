@@ -110,10 +110,7 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
 
         when (v.id) {
             R.id.btn_url                            ->{
-//                RXImageLoader.loadImage(url,test_iv_1)
-                NewImpl().builder(this, url).centerCrop().into(test_iv_1)
-                NewImpl().builder(this, url).fitCenter().into(test_iv_2)
-                NewImpl().builder(this, url).centerInside().into(test_iv_3)
+//                RXImageLoader.pauseRequests(test_iv_1.context)
             }
             R.id.btn_id                             ->{
                 RXImageLoader.loadImage(imgId,test_iv_1)

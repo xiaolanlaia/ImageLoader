@@ -21,17 +21,38 @@ import androidx.annotation.Nullable;
  * @date :  2022/5/13 15:43
  */
 public class CircleRoundDrawable extends Drawable {
+    /**
+     * 画笔
+     */
 
-    private Paint paint;//画笔
-    private int mWidth;//图片宽与高的最小值
-    private RectF rectF;//矩形
-    private int radius;//半径
-    private int roundAngle = 10;//默认圆角
-    private Bitmap bitmap;//位图
-    private int type=1;//默认为圆形
+    private Paint paint;
+    /**
+     * 图片宽与高的最小值
+     */
+    private int mWidth;
+    /**
+     * 矩形
+     */
+    private RectF rectF;
+    /**
+     * 半径
+     */
+    private int radius;
+    /**
+     * 默认圆角
+     */
+    private int roundAngle = 10;
+    /**
+     * 位图
+     */
+    private final Bitmap bitmap;
+    /**
+     * 默认为圆形
+     */
+    private int type=1;
 
-    public static final int TYPE_Round = 1;
-    public static final int Type_Circle = 2;
+    public static final int TYPE_ROUND = 1;
+    public static final int TYPE_CIRCLE = 2;
 
 
     public CircleRoundDrawable(Context context, int resID) {
@@ -54,7 +75,9 @@ public class CircleRoundDrawable extends Drawable {
             this.bitmap = oldBitmap;
         }
 
-        if (this.bitmap == null) return;
+        if (this.bitmap == null) {
+            return;
+        }
         paint = new Paint();
         paint.setAntiAlias(true);//抗锯齿
         paint.setDither(true);//抖动,不同屏幕尺的使用保证图片质量
@@ -103,7 +126,7 @@ public class CircleRoundDrawable extends Drawable {
      */
     @Override
     public void draw(@NonNull Canvas canvas) {
-        if (type ==Type_Circle) {
+        if (type == TYPE_CIRCLE) {
             canvas.drawCircle(mWidth / 2, mWidth / 2, radius, paint);
         } else{
             canvas.drawRoundRect(rectF, roundAngle, roundAngle, paint);
@@ -120,7 +143,7 @@ public class CircleRoundDrawable extends Drawable {
 
     @Override
     public int getIntrinsicHeight() {
-        if (type == Type_Circle) {
+        if (type == TYPE_CIRCLE) {
             return mWidth;
         }
         return bitmap.getHeight();
@@ -128,7 +151,7 @@ public class CircleRoundDrawable extends Drawable {
 
     @Override
     public int getIntrinsicWidth() {
-        if (type == Type_Circle) {
+        if (type == TYPE_CIRCLE) {
             return mWidth;
         }
         return bitmap.getWidth();

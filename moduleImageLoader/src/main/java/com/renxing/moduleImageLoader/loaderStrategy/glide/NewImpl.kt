@@ -14,7 +14,6 @@ import com.renxing.moduleImageLoader.imageUtils.ImageLoaderUtils
 import com.renxing.moduleImageLoader.imageUtils.enumUtils.CornerTypeEnum
 import com.renxing.moduleImageLoader.imageUtils.enumUtils.DiskCacheStrategyEnum
 import com.renxing.moduleImageLoader.loaderStrategy.control.NewInterface
-import com.renxing.moduleImageLoader.loaderStrategy.glide.target.RXCustomTarget
 import com.renxing.moduleImageLoader.loaderStrategy.glide.transformation.RoundedCornersTransform
 
 /**
@@ -24,13 +23,20 @@ import com.renxing.moduleImageLoader.loaderStrategy.glide.transformation.Rounded
 @SuppressLint("CheckResult")
 class NewImpl : NewInterface {
 
-    private lateinit var requestBuilder: RequestBuilder<Drawable>
-    lateinit var requestOptions : RequestOptions
+    private lateinit var drawableBuilder: RequestBuilder<Drawable>
+    private lateinit var bitmapBuilder: RequestBuilder<Bitmap>
+    private lateinit var requestOptions : RequestOptions
 
     override fun builder(context:Context,urlOrIdOrUri : Any): NewInterface {
-        //todo 检查urlOrIdOrUri正确性
         ImageLoaderUtils.checkUrlOrId(urlOrIdOrUri)
-        requestBuilder = Glide.with(context).load(urlOrIdOrUri)
+        drawableBuilder = Glide.with(context).load(urlOrIdOrUri)
+        requestOptions = RequestOptions()
+        return this
+    }
+
+    override fun builder(context:Context,byteArray: ByteArray): NewInterface {
+
+        bitmapBuilder = Glide.with(context).asBitmap().load(byteArray)
         requestOptions = RequestOptions()
         return this
     }
@@ -39,52 +45,55 @@ class NewImpl : NewInterface {
         //todo
         // 检查urlOrIdOrUri正确性
         // 拼接Url
-        requestBuilder = Glide.with(context).load(ImageLoaderUtils.appendUrl(url, width, height, false))
+        drawableBuilder = Glide.with(context).load(ImageLoaderUtils.appendUrl(url, width, height, false))
         return this
     }
 
     override fun fitCenter(): NewInterface {
-        requestBuilder.fitCenter()
+        drawableBuilder.fitCenter()
         return this
     }
 
     override fun centerCrop(): NewInterface {
-        requestBuilder.centerCrop()
+        drawableBuilder.centerCrop()
         return this
     }
 
     override fun centerInside(): NewInterface {
-        requestBuilder.centerInside()
+        drawableBuilder.centerInside()
         return this
     }
 
     override fun placeholderAndErrImg(placeholder : Int): NewInterface {
-        requestBuilder.placeholder(placeholder)
+        drawableBuilder.placeholder(placeholder)
         return this
     }
 
     override fun placeholderAndErrImg(placeholder : Int, error : Int): NewInterface {
-        requestBuilder.placeholder(placeholder).error(error)
+        drawableBuilder.placeholder(placeholder).error(error)
         return this
     }
 
     override fun error(id : Int): NewInterface {
-        requestBuilder.error(id)
+        drawableBuilder.error(id)
         return this
     }
 
     override fun diskCacheStrategy(diskCacheStrategyEnum: DiskCacheStrategyEnum): NewInterface {
         when(diskCacheStrategyEnum){
+            DiskCacheStrategyEnum.RESOURCE -> {
+                requestOptions.diskCacheStrategy(DiskCacheStrategy.RESOURCE).skipMemoryCache(true)
+            }
             DiskCacheStrategyEnum.NONE -> {
-                requestBuilder.diskCacheStrategy(DiskCacheStrategy.NONE)
+                drawableBuilder.diskCacheStrategy(DiskCacheStrategy.NONE)
 
             }
             DiskCacheStrategyEnum.ALL -> {
-                requestBuilder.diskCacheStrategy(DiskCacheStrategy.ALL)
+                drawableBuilder.diskCacheStrategy(DiskCacheStrategy.ALL)
 
             }
             DiskCacheStrategyEnum.AUTOMATIC -> {
-                requestBuilder.diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                drawableBuilder.diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
 
             }
         }
@@ -93,19 +102,19 @@ class NewImpl : NewInterface {
 
     override fun transition(transition: Boolean): NewInterface {
         //todo 可优化：传入具体的变换参数
-        requestBuilder.transition(DrawableTransitionOptions.withCrossFade())
+        drawableBuilder.transition(DrawableTransitionOptions.withCrossFade())
         return this
     }
 
     override fun thumbnail(context: Context, urlOrIdOrUri : Int, thumbnailWidth: Int, thumbnailHeight: Int): NewInterface {
-        requestBuilder.thumbnail(Glide.with(context)
+        drawableBuilder.thumbnail(Glide.with(context)
             .load(urlOrIdOrUri)
             .override(thumbnailWidth, thumbnailHeight))
         return this
     }
 
     override fun circleCrop(): NewInterface {
-        requestBuilder.circleCrop()
+        drawableBuilder.circleCrop()
         return this
     }
 
@@ -120,7 +129,7 @@ class NewImpl : NewInterface {
     }
 
     override fun into(imageView: ImageView): NewInterface {
-        requestBuilder.apply(requestOptions).into(imageView)
+        drawableBuilder.apply(requestOptions).into(imageView)
         return this
     }
 }

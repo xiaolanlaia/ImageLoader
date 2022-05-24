@@ -1,16 +1,17 @@
 package com.renxing.imageloader.activity
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import com.example.imageloader.R
 import com.renxing.imageloader.*
 import com.renxing.moduleImageLoader.RXImageLoader
 import com.renxing.moduleImageLoader.imageUtils.enumUtils.CornerTypeEnum
+import com.renxing.moduleImageLoader.imageUtils.enumUtils.DiskCacheStrategyEnum
 
 class SecondActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -128,6 +129,7 @@ class SecondActivity : AppCompatActivity(), View.OnClickListener {
             }
             R.id.btn_url_gif                        ->{
                 RXImageLoader.loadGif(gifUrl,test_iv_1)
+
             }
             R.id.btn_id_gif                         ->{
                 RXImageLoader.loadGif(gifId,test_iv_1)

@@ -10,31 +10,31 @@ import java.nio.ByteOrder;
  */
 public class NinePatchChunk {
 
-
-    public static final int NO_COLOR = 0x00000001;
-    public static final int TRANSPARENT_COLOR = 0x00000000;
-
     public final Rect mPaddings = new Rect();
 
-    public int mDivX[];
-    public int mDivY[];
-    public int mColor[];
+    public int[] mDivX;
+    public int[] mDivY;
+    public int[] mColor;
 
     private static void readIntArray(final int[] data, final ByteBuffer buffer) {
-        for (int i = 0, n = data.length; i < n; ++i)
+        for (int i = 0, n = data.length; i < n; ++i) {
             data[i] = buffer.getInt();
+        }
     }
 
     private static void checkDivCount(final int length) {
-        if (length == 0 || (length & 0x01) != 0)
+        if (length == 0 || (length & 0x01) != 0) {
             throw new RuntimeException("invalid nine-patch: " + length);
+        }
     }
 
     public static NinePatchChunk deserialize(final byte[] data) {
         final ByteBuffer byteBuffer =
                 ByteBuffer.wrap(data).order(ByteOrder.nativeOrder());
 
-        if (byteBuffer.get() == 0) return null; // is not serialized
+        if (byteBuffer.get() == 0) {
+            return null;
+        }
 
         final NinePatchChunk chunk = new NinePatchChunk();
         chunk.mDivX = new int[byteBuffer.get()];

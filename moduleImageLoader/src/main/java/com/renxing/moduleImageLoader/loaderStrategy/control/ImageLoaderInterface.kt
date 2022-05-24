@@ -13,15 +13,15 @@ import com.renxing.moduleImageLoader.loaderStrategy.glide.target.RXCustomTarget
  */
 interface ImageLoaderInterface {
     /**
-     * @urlOrId: String类型或Int类型
+     * @urlOrIdOrUri: String类型或Int类型
      */
-    fun loadImage(urlOrId: Any, imageView: ImageView)
+    fun loadImage(urlOrIdOrUri: Any, imageView: ImageView)
 
     /**
-     * @urlOrId: String类型或Int类型
+     * @urlOrIdOrUri: String类型或Int类型
      * @placeholderImg: Int 默认图
      */
-    fun loadImage(urlOrId: Any, imageView: ImageView, placeholderImg: Int)
+    fun loadImage(urlOrIdOrUri: Any, imageView: ImageView, placeholderImg: Int)
 
     /**
      * @url: String
@@ -32,6 +32,13 @@ interface ImageLoaderInterface {
 
     /**
      * @url: String
+     * @width: Int 指定宽度
+     * @height: Int 指定高度
+     */
+    fun loadImage(urlOrIdOrUri: Any, imageView: ImageView, progressView : View,placeholderImg: Int,errorHolder : Int)
+
+    /**
+     * @url: String
      * @placeholderImg: Int 默认图
      * @width: Int 指定宽度
      * @height: Int 指定高度
@@ -39,50 +46,50 @@ interface ImageLoaderInterface {
     fun loadImage(url: String, imageView: ImageView, width: Int, height: Int, placeholderImg: Int)
 
     /**
-     * @urlOrId: String类型或Int类型
+     * @urlOrIdOrUri: String类型或Int类型
      */
-    fun loadImageWithFitCenter(urlOrId: Any, imageView: ImageView)
+    fun loadImageWithFitCenter(urlOrIdOrUri: Any, imageView: ImageView)
     /**
-     * @urlOrId: String类型或Int类型
+     * @urlOrIdOrUri: String类型或Int类型
      */
-    fun loadImageWithFitCenter(urlOrId: Any, imageView: ImageView, placeholderImg: Int)
+    fun loadImageWithFitCenter(urlOrIdOrUri: Any, imageView: ImageView, placeholderImg: Int)
     /**
-     * @urlOrId: String类型或Int类型
+     * @urlOrIdOrUri: String类型或Int类型
      */
-    fun loadImageWithCenterCrop(urlOrId: Any, imageView: ImageView)
+    fun loadImageWithCenterCrop(urlOrIdOrUri: Any, imageView: ImageView)
     /**
-     * @urlOrId: String类型或Int类型
+     * @urlOrIdOrUri: String类型或Int类型
      */
-    fun loadImageWithCenterCrop(urlOrId: Any, imageView: ImageView, placeholderImg: Int)
+    fun loadImageWithCenterCrop(urlOrIdOrUri: Any, imageView: ImageView, placeholderImg: Int)
     /**
-     * @urlOrId: String类型或Int类型
+     * @urlOrIdOrUri: String类型或Int类型
      */
-    fun loadImageWithCenterCrop(urlOrId: Any, imageView: ImageView, diskCacheStrategy : DiskCacheStrategyEnum)
+    fun loadImageWithCenterCrop(urlOrIdOrUri: Any, imageView: ImageView, diskCacheStrategy : DiskCacheStrategyEnum)
     /**
-     * @urlOrId: String类型或Int类型
+     * @urlOrIdOrUri: String类型或Int类型
      */
-    fun loadImageWithCenterCrop(urlOrId: Any, imageView: ImageView, placeholderImg: Int,
+    fun loadImageWithCenterCrop(urlOrIdOrUri: Any, imageView: ImageView, placeholderImg: Int,
                                 diskCacheStrategy : DiskCacheStrategyEnum,
                                 transition : Boolean)
     /**
-     * @urlOrId: String类型或Int类型
+     * @urlOrIdOrUri: String类型或Int类型
      */
-    fun loadImageWithCenterCrop(urlOrId: Any, view: View, thumbnail : Boolean, thumbnailWidth : Int, thumbnailHeight : Int)
+    fun loadImageWithCenterCrop(urlOrIdOrUri: Any, view: View, thumbnail : Boolean, thumbnailWidth : Int, thumbnailHeight : Int)
     /**
-     * @urlOrId: String类型或Int类型
+     * @urlOrIdOrUri: String类型或Int类型
      */
-    fun loadImageWithCenterCrop(urlOrId: Any, imageView: ImageView, placeholderImg: Int,
+    fun loadImageWithCenterCrop(urlOrIdOrUri: Any, imageView: ImageView, placeholderImg: Int,
                                 diskCacheStrategy : DiskCacheStrategyEnum
     )
     /**
-     * @urlOrId: String类型或Int类型
+     * @urlOrIdOrUri: String类型或Int类型
      */
-    fun loadImageWithCenterCrop(urlOrId: Any, imageView: ImageView, placeholderImg: Int, transition : Boolean)
+    fun loadImageWithCenterCrop(urlOrIdOrUri: Any, imageView: ImageView, placeholderImg: Int, transition : Boolean)
     /**
-     * @urlOrId: String类型或Int类型
+     * @urlOrIdOrUri: String类型或Int类型
      */
     fun loadImageWithCenterCrop(
-        urlOrId: Any,
+        urlOrIdOrUri: Any,
         imageView: ImageView,
         placeholderImg: Int,
         diskCacheStrategy : DiskCacheStrategyEnum,
@@ -94,38 +101,38 @@ interface ImageLoaderInterface {
 
 
     /**
-     * @urlOrId: String类型或Int类型
+     * @urlOrIdOrUri: String类型或Int类型
      */
-    fun loadImageWithCenterInside(urlOrId: Any, imageView: ImageView)
+    fun loadImageWithCenterInside(urlOrIdOrUri: Any, imageView: ImageView)
 
     /**
-     * @urlOrId: String类型或Int类型
+     * @urlOrIdOrUri: String类型或Int类型
      */
-    fun loadImageWithCenterInside(urlOrId: Any, imageView: ImageView, placeholderImg: Int)
+    fun loadImageWithCenterInside(urlOrIdOrUri: Any, imageView: ImageView, placeholderImg: Int)
 
     /**
-     * @urlOrId: String类型或Int类型
+     * @urlOrIdOrUri: String类型或Int类型
      */
-    fun loadImageWithCenterInside(urlOrId: Any, imageView: ImageView, placeholderImg: Int, diskCacheStrategy: DiskCacheStrategyEnum, transition : Boolean)
+    fun loadImageWithCenterInside(urlOrIdOrUri: Any, imageView: ImageView, placeholderImg: Int, diskCacheStrategy: DiskCacheStrategyEnum, transition : Boolean)
 
     /**
-     * @urlOrId: String类型或Int类型
+     * @urlOrIdOrUri: String类型或Int类型
      */
-    fun loadImageWithCenterInside(urlOrId: Any, imageView: ImageView, placeholderImg: Int,diskCacheStrategy : DiskCacheStrategyEnum)
+    fun loadImageWithCenterInside(urlOrIdOrUri: Any, imageView: ImageView, placeholderImg: Int,diskCacheStrategy : DiskCacheStrategyEnum)
     /**
-     * @urlOrId: String类型或Int类型
+     * @urlOrIdOrUri: String类型或Int类型
      */
-    fun loadImageWithCenterInside(urlOrId: Any, imageView: ImageView, placeholderImg: Int,transition : Boolean)
+    fun loadImageWithCenterInside(urlOrIdOrUri: Any, imageView: ImageView, placeholderImg: Int,transition : Boolean)
 
     /**
-     * @urlOrId: String类型或Int类型
+     * @urlOrIdOrUri: String类型或Int类型
      */
-    fun loadImageWithSkipCache(urlOrId: Any, imageView: ImageView)
+    fun loadImageWithSkipCache(urlOrIdOrUri: Any, imageView: ImageView)
 
     /**
-     * @urlOrId: String类型或Int类型
+     * @urlOrIdOrUri: String类型或Int类型
      */
-    fun loadImageWithSkipCache(urlOrId: Any, imageView: ImageView, placeholderImg: Int)
+    fun loadImageWithSkipCache(urlOrIdOrUri: Any, imageView: ImageView, placeholderImg: Int)
 
     /**
      * @url: String
@@ -139,53 +146,53 @@ interface ImageLoaderInterface {
 
     /**
      * 圆形图
-     * @urlOrId: String类型或Int类型
+     * @urlOrIdOrUri: String类型或Int类型
      */
-    fun loadCircleImage(urlOrId: Any, imageView: ImageView)
+    fun loadCircleImage(urlOrIdOrUri: Any, imageView: ImageView)
 
     /**
      * 圆形图
-     * @urlOrId: String类型或Int类型
+     * @urlOrIdOrUri: String类型或Int类型
      */
-    fun loadCircleImage(urlOrId: Any, imageView: ImageView,diskCacheStrategy: DiskCacheStrategyEnum)
+    fun loadCircleImage(urlOrIdOrUri: Any, imageView: ImageView,diskCacheStrategy: DiskCacheStrategyEnum)
 
     /**
      * 圆形图
-     * @urlOrId: String类型或Int类型
+     * @urlOrIdOrUri: String类型或Int类型
      */
-    fun loadCircleImage(urlOrId: Any, imageView: ImageView, placeholderImg: Int)
+    fun loadCircleImage(urlOrIdOrUri: Any, imageView: ImageView, placeholderImg: Int)
 
     /**
      * 圆形图
-     * @urlOrId: String类型或Int类型
+     * @urlOrIdOrUri: String类型或Int类型
      */
-    fun loadCircleImage(urlOrId: Any, imageView: ImageView, placeholderImg: Int,diskCacheStrategy: DiskCacheStrategyEnum)
+    fun loadCircleImage(urlOrIdOrUri: Any, imageView: ImageView, placeholderImg: Int,diskCacheStrategy: DiskCacheStrategyEnum)
 
     /**
      * 圆角图
-     * @urlOrId: String类型或Int类型
+     * @urlOrIdOrUri: String类型或Int类型
      * @cornerRadius: Float 圆角半径
      */
-    fun loadCornersImage(urlOrId: Any, imageView: ImageView, cornerRadius : Float)
+    fun loadCornersImage(urlOrIdOrUri: Any, imageView: ImageView, cornerRadius : Float)
 
     /**
      * 圆角图
-     * @urlOrId: String类型或Int类型
+     * @urlOrIdOrUri: String类型或Int类型
      * @cornerRadius: Float 圆角半径
      */
-    fun loadCornersImage(urlOrId: Any, imageView: ImageView, cornerRadius : Float, placeholderImg: Int)
+    fun loadCornersImage(urlOrIdOrUri: Any, imageView: ImageView, cornerRadius : Float, placeholderImg: Int)
 
     /**
      * 指定圆角边的圆角图
-     * @urlOrId: String类型或Int类型
+     * @urlOrIdOrUri: String类型或Int类型
      */
-    fun loadCornersImage(urlOrId: Any, imageView: ImageView, cornerRadius: Float, cornerTypeEnum: CornerTypeEnum)
+    fun loadCornersImage(urlOrIdOrUri: Any, imageView: ImageView, cornerRadius: Float, cornerTypeEnum: CornerTypeEnum)
 
     /**
      * 指定圆角边的圆角图
-     * @urlOrId: String类型或Int类型
+     * @urlOrIdOrUri: String类型或Int类型
      */
-    fun loadCornersImage(urlOrId: Any, imageView: ImageView, cornerRadius: Float, cornerTypeEnum: CornerTypeEnum, placeholderImg: Int)
+    fun loadCornersImage(urlOrIdOrUri: Any, imageView: ImageView, cornerRadius: Float, cornerTypeEnum: CornerTypeEnum, placeholderImg: Int)
     /**
      * 指定圆角边的圆角图
      * @bitmap: Bitmap
@@ -200,160 +207,164 @@ interface ImageLoaderInterface {
      * 指定圆角边的圆角图
      * @bitmap: Bitmap
      */
-    fun loadCornersImageWithCenterCrop(urlOrId: Any, imageView: ImageView, placeholderImg: Int, cornerRadius : Float, diskCacheStrategy: DiskCacheStrategyEnum,
+    fun loadCornersImageWithCenterCrop(urlOrIdOrUri: Any, imageView: ImageView, placeholderImg: Int, cornerRadius : Float, diskCacheStrategy: DiskCacheStrategyEnum,
                                        transition : Boolean, thumbnail : Boolean, thumbnailWidth : Int, thumbnailHeight : Int)
 
     /**
      * 带边框圆形图
-     * urlOrId: String类型或Int类型
+     * urlOrIdOrUri: String类型或Int类型
      */
-    fun loadBorderCircleImage(urlOrId: Any, imageView: ImageView, borderColor : Int, borderWidth : Float)
+    fun loadBorderCircleImage(urlOrIdOrUri: Any, imageView: ImageView, borderColor : Int, borderWidth : Float)
 
     /**
      * 带边框圆形图
-     * urlOrId: String类型或Int类型
+     * urlOrIdOrUri: String类型或Int类型
      */
-    fun loadBorderCircleImage(urlOrId: Any, imageView: ImageView, borderColor : Int, borderWidth : Float, placeholderImg: Int)
+    fun loadBorderCircleImage(urlOrIdOrUri: Any, imageView: ImageView, borderColor : Int, borderWidth : Float, placeholderImg: Int)
 
     /**
      * 带边框圆角图
-     * urlOrId: String类型或Int类型
+     * urlOrIdOrUri: String类型或Int类型
      */
-    fun loadBorderCornerImage(urlOrId: Any, imageView: ImageView, borderColor: Int, borderWidth: Float, cornerRadius : Float)
+    fun loadBorderCornerImage(urlOrIdOrUri: Any, imageView: ImageView, borderColor: Int, borderWidth: Float, cornerRadius : Float)
 
     /**
      * 带边框圆角图
-     * urlOrId: String类型或Int类型
+     * urlOrIdOrUri: String类型或Int类型
      */
-    fun loadBorderCornerImage(urlOrId: Any, imageView: ImageView, borderColor: Int, borderWidth: Float, cornerRadius : Float, placeholderImg: Int)
+    fun loadBorderCornerImage(urlOrIdOrUri: Any, imageView: ImageView, borderColor: Int, borderWidth: Float, cornerRadius : Float, placeholderImg: Int)
 
     /**
-     * @urlOrId: String类型或Int类型
+     * @urlOrIdOrUri: String类型或Int类型
      */
-    fun loadGif(urlOrId: Any, imageView: ImageView)
+    fun loadGif(urlOrIdOrUri: Any, imageView: ImageView)
 
     /**
-     * @urlOrId: String类型或Int类型
+     * @urlOrIdOrUri: String类型或Int类型
      */
-    fun loadGif(urlOrId: Any, imageView: ImageView,diskCacheStrategy: DiskCacheStrategyEnum)
+    fun loadGif(urlOrIdOrUri: Any, imageView: ImageView,diskCacheStrategy: DiskCacheStrategyEnum)
 
     /**
-     * @urlOrId: String类型或Int类型
+     * @urlOrIdOrUri: String类型或Int类型
      */
-    fun loadGif(urlOrId: Any, imageView: ImageView, placeholderImg: Int)
+    fun loadGif(urlOrIdOrUri: Any, imageView: ImageView, placeholderImg: Int)
 
     /**
-     * @urlOrId: String类型或Int类型
+     * @urlOrIdOrUri: String类型或Int类型
      * @playTimes : Int 播放次数
      */
-    fun loadGif(playTimes : Int, urlOrId: Any, imageView: ImageView)
+    fun loadGif(playTimes : Int, urlOrIdOrUri: Any, imageView: ImageView)
 
     /**
-     * @urlOrId: String类型或Int类型
+     * @urlOrIdOrUri: String类型或Int类型
      * @playTimes : Int 播放次数
      */
-    fun loadGif(playTimes : Int, urlOrId: Any, imageView: ImageView, diskCacheStrategy: DiskCacheStrategyEnum, onAnimationStatus : OnAnimationStatus)
+    fun loadGif(playTimes : Int, urlOrIdOrUri: Any, imageView: ImageView, diskCacheStrategy: DiskCacheStrategyEnum, onAnimationStatus : OnAnimationStatus)
 
     /**
-     * @urlOrId: String类型或Int类型
+     * @urlOrIdOrUri: String类型或Int类型
      * @playTimes : Int 播放次数
      */
-    fun loadGif(playTimes : Int, urlOrId: Any, imageView: ImageView, placeholderImg: Int)
+    fun loadGif(playTimes : Int, urlOrIdOrUri: Any, imageView: ImageView, placeholderImg: Int)
 
     /**
-     * @urlOrId: String类型或Int类型
+     * @urlOrIdOrUri: String类型或Int类型
      */
-    fun loadCircleGif(urlOrId: Any, imageView: ImageView)
+    fun loadCircleGif(urlOrIdOrUri: Any, imageView: ImageView)
 
     /**
-     * @urlOrId: String类型或Int类型
+     * @urlOrIdOrUri: String类型或Int类型
      */
-    fun loadCircleGif(urlOrId: Any, imageView: ImageView, placeholderImg: Int)
+    fun loadCircleGif(urlOrIdOrUri: Any, imageView: ImageView, placeholderImg: Int)
 
     /**
      * @uurlOrId: String类型或Int类型
      * @playTimes : Int 循环次数
      */
-    fun loadCircleGif(playTimes : Int, urlOrId: Any, imageView: ImageView)
+    fun loadCircleGif(playTimes : Int, urlOrIdOrUri: Any, imageView: ImageView)
 
     /**
      * @uurlOrId: String类型或Int类型
      * @playTimes : Int 循环次数
      */
-    fun loadCircleGif(playTimes : Int, urlOrId: Any, imageView: ImageView, placeholderImg: Int)
+    fun loadCircleGif(playTimes : Int, urlOrIdOrUri: Any, imageView: ImageView, placeholderImg: Int)
 
     /**
-     * @urlOrId: String类型或Int类型
+     * @urlOrIdOrUri: String类型或Int类型
      */
-    fun loadCornerGif(urlOrId: Any, imageView: ImageView, cornerRadius: Float)
+    fun loadCornerGif(urlOrIdOrUri: Any, imageView: ImageView, cornerRadius: Float)
 
     /**
-     * @urlOrId: String类型或Int类型
+     * @urlOrIdOrUri: String类型或Int类型
      */
-    fun loadCornerGif(urlOrId: Any, imageView: ImageView, cornerRadius: Float, placeholderImg: Int)
+    fun loadCornerGif(urlOrIdOrUri: Any, imageView: ImageView, cornerRadius: Float, placeholderImg: Int)
 
     /**
-     * @urlOrId: String类型或Int类型
+     * @urlOrIdOrUri: String类型或Int类型
      * @playTimes : Int 循环次数
      */
-    fun loadCornerGif(playTimes : Int, urlOrId: Any, imageView: ImageView, cornerRadius: Float)
+    fun loadCornerGif(playTimes : Int, urlOrIdOrUri: Any, imageView: ImageView, cornerRadius: Float)
 
     /**
-     * @urlOrId: String类型或Int类型
+     * @urlOrIdOrUri: String类型或Int类型
      * @playTimes : Int 循环次数
      */
-    fun loadCornerGif(playTimes : Int, urlOrId: Any, imageView: ImageView, cornerRadius: Float, placeholderImg: Int)
+    fun loadCornerGif(playTimes : Int, urlOrIdOrUri: Any, imageView: ImageView, cornerRadius: Float, placeholderImg: Int)
 
     /**
      * 带边框圆角gif
-     * @urlOrId: String类型或Int类型
+     * @urlOrIdOrUri: String类型或Int类型
      */
-    fun loadBorderCornerGif(urlOrId: Any, imageView: ImageView, borderColor: Int, borderWidth: Float, cornerRadius : Float)
+    fun loadBorderCornerGif(urlOrIdOrUri: Any, imageView: ImageView, borderColor: Int, borderWidth: Float, cornerRadius : Float)
 
     /**
      * 带边框圆角gif
-     * @urlOrId: String类型或Int类型
+     * @urlOrIdOrUri: String类型或Int类型
      */
-    fun loadBorderCornerGif(urlOrId: Any, imageView: ImageView, borderColor: Int, borderWidth: Float, cornerRadius : Float, placeholderImg: Int)
+    fun loadBorderCornerGif(urlOrIdOrUri: Any, imageView: ImageView, borderColor: Int, borderWidth: Float, cornerRadius : Float, placeholderImg: Int)
 
     /**
      * 带边框圆角gif
-     * @urlOrId: String类型或Int类型
+     * @urlOrIdOrUri: String类型或Int类型
      * @playTimes : Int 循环次数
      */
-    fun loadBorderCornerGif(playTimes : Int, urlOrId: Any, imageView: ImageView, borderColor: Int, borderWidth: Float, cornerRadius : Float)
+    fun loadBorderCornerGif(playTimes : Int, urlOrIdOrUri: Any, imageView: ImageView, borderColor: Int, borderWidth: Float, cornerRadius : Float)
 
     /**
      * 带边框圆角gif
-     * @urlOrId: String类型或Int类型
+     * @urlOrIdOrUri: String类型或Int类型
      * @playTimes : Int 循环次数
      */
-    fun loadBorderCornerGif(playTimes : Int, urlOrId: Any, imageView: ImageView, borderColor: Int, borderWidth: Float, cornerRadius : Float, placeholderImg: Int)
+    fun loadBorderCornerGif(playTimes : Int, urlOrIdOrUri: Any, imageView: ImageView, borderColor: Int, borderWidth: Float, cornerRadius : Float, placeholderImg: Int)
 
     /**
-     * @urlOrId: String类型或Int类型
+     * @urlOrIdOrUri: String类型或Int类型
      */
-    fun loadImageWithRXCustomTarget(urlOrId: Any, context: Context, rxCustomTarget: RXCustomTarget<Bitmap>)
+    fun loadImageWithRXCustomTarget(urlOrIdOrUri: Any, context: Context, rxCustomTarget: RXCustomTarget<Bitmap>)
+    /**
+     * @urlOrIdOrUri: String类型或Int类型
+     */
+    fun loadImageWithRXCustomTarget(urlOrIdOrUri: Any, context: Context, thumbnailWidth : Int, thumbnailHeight : Int, rxCustomTarget: RXCustomTarget<Bitmap>)
 
     /**
-     * @urlOrId: String类型或Int类型
+     * @urlOrIdOrUri: String类型或Int类型
      */
-    fun loadImageWithRXCustomTarget(urlOrId: Any, context: Context, rxCustomTarget: RXCustomTarget<Bitmap>, placeholderImg: Int)
+    fun loadImageWithRXCustomTarget(urlOrIdOrUri: Any, context: Context, rxCustomTarget: RXCustomTarget<Bitmap>, placeholderImg: Int)
 
     /**
-     * @urlOrId: String类型或Int类型
+     * @urlOrIdOrUri: String类型或Int类型
      */
-    fun loadImageWithRXCustomTarget(urlOrId: Any, context: Context, rxCustomTarget: RXCustomTarget<Bitmap>,diskCacheStrategy: DiskCacheStrategyEnum)
+    fun loadImageWithRXCustomTarget(urlOrIdOrUri: Any, context: Context, rxCustomTarget: RXCustomTarget<Bitmap>,diskCacheStrategy: DiskCacheStrategyEnum)
 
     /**
-     * @urlOrId: String类型或Int类型
+     * @urlOrIdOrUri: String类型或Int类型
      */
-    fun load9Png(urlOrId: Any, view: View)
+    fun load9Png(urlOrIdOrUri: Any, view: View)
 
     /**
-     * @urlOrId: String类型或Int类型
+     * @urlOrIdOrUri: String类型或Int类型
      */
-    fun load9Png(urlOrId: Any, view: View, placeholderImg: Int)
+    fun load9Png(urlOrIdOrUri: Any, view: View, placeholderImg: Int)
 
     /**
      * 清理磁盘缓存
@@ -364,6 +375,19 @@ interface ImageLoaderInterface {
      * 清理内存缓存
      */
     fun clearImageMemoryCache(context: Context)
+
+    /**
+     * 清除控件加载
+     */
+    fun clear(context: Context, imageView: ImageView)
+    /**
+     * 停止请求
+     */
+    fun pauseRequests(context: Context)
+    /**
+     * 继续请求
+     */
+    fun resumeRequests(context: Context)
 
 
 }
