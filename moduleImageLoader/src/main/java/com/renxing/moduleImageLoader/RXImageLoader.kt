@@ -12,6 +12,7 @@ import com.renxing.moduleImageLoader.loaderStrategy.control.ImageLoaderInterface
 import com.renxing.moduleImageLoader.loaderStrategy.control.LoaderStrategyFactory
 import com.renxing.moduleImageLoader.loaderStrategy.control.OnAnimationStatus
 import com.renxing.moduleImageLoader.loaderStrategy.control.RXRequestListener
+import com.renxing.moduleImageLoader.loaderStrategy.glide.easyglide.config.ImgConfigImpl
 import com.renxing.moduleImageLoader.loaderStrategy.glide.target.RXCustomTarget
 
 /**
@@ -21,341 +22,22 @@ object RXImageLoader : ImageLoaderInterface {
     private var imageLoaderStrategy = LoaderStrategyFactory.instance.getLoaderStrategy()
 
 
-    override fun loadImage(urlOrIdOrUri: Any, imageView: ImageView) {
-    imageLoaderStrategy.loadImage(urlOrIdOrUri,imageView)
+
+
+    override fun loadImage(context: Context, imgConfigImpl: ImgConfigImpl) {
+        imageLoaderStrategy.loadImage(context,imgConfigImpl)
     }
 
-    override fun loadImage(
-        urlOrIdOrUri: Any,
-        imageView: ImageView,
-        rxRequestListener: RXRequestListener<Drawable>
-    ) {
-        imageLoaderStrategy.loadImage(urlOrIdOrUri,imageView,rxRequestListener)
-    }
 
-    override fun loadImage(urlOrIdOrUri: Any, imageView: ImageView, placeholderImg: Int) {
-        imageLoaderStrategy.loadImage(urlOrIdOrUri,imageView,placeholderImg)
-    }
-
-    override fun loadImage(url: String, imageView: ImageView, width: Int, height: Int) {
-        imageLoaderStrategy.loadImage(url,imageView,width,height)
-    }
 
     override fun loadImage(
         urlOrIdOrUri: Any,
         imageView: ImageView,
         progressView: View,
-        placeholderImg: Int,
+        placeholderId: Int,
         errorHolder: Int
     ) {
-        imageLoaderStrategy.loadImage(urlOrIdOrUri,imageView,progressView,placeholderImg,errorHolder)
-    }
-
-    override fun loadImage(url: String, imageView: ImageView, width: Int, height: Int, placeholderImg: Int) {
-        imageLoaderStrategy.loadImage(url,imageView,width,height, placeholderImg)
-    }
-
-    override fun loadImageWithFitCenter(urlOrIdOrUri: Any, imageView: ImageView) {
-        imageLoaderStrategy.loadImageWithFitCenter(urlOrIdOrUri,imageView)
-    }
-
-    override fun loadImageWithFitCenter(urlOrIdOrUri: Any, imageView: ImageView, placeholderImg: Int) {
-        imageLoaderStrategy.loadImageWithFitCenter(urlOrIdOrUri,imageView, placeholderImg)
-    }
-
-    override fun loadImageWithFitCenter(
-        urlOrIdOrUri: Any,
-        imageView: ImageView,
-        placeholderImg: Int,
-        diskCacheStrategyEnum: DiskCacheStrategyEnum,
-        priorityEnum: PriorityEnum
-    ) {
-        imageLoaderStrategy.loadImageWithFitCenter(urlOrIdOrUri,imageView, placeholderImg,diskCacheStrategyEnum,priorityEnum)
-    }
-
-    override fun loadImageWithCenterCrop(urlOrIdOrUri: Any, imageView: ImageView) {
-        imageLoaderStrategy.loadImageWithCenterCrop(urlOrIdOrUri,imageView)
-    }
-
-    override fun loadImageWithCenterCrop(urlOrIdOrUri: Any, imageView: ImageView, placeholderImg: Int) {
-        imageLoaderStrategy.loadImageWithCenterCrop(urlOrIdOrUri,imageView, placeholderImg)
-    }
-
-    override fun loadImageWithCenterCrop(urlOrIdOrUri: Any, imageView: ImageView,diskCacheStrategy: DiskCacheStrategyEnum) {
-        imageLoaderStrategy.loadImageWithCenterCrop(urlOrIdOrUri,imageView,diskCacheStrategy)
-    }
-
-    override fun loadImageWithCenterCrop(
-        urlOrIdOrUri: Any,
-        imageView: ImageView,
-        placeholderImg: Int,
-        transition: Boolean
-    ) {
-        imageLoaderStrategy.loadImageWithCenterCrop(urlOrIdOrUri,imageView,placeholderImg,transition)
-
-    }
-
-    override fun loadImageWithCenterCrop(urlOrIdOrUri: Any, imageView: ImageView, placeholderImg: Int,
-                                         diskCacheStrategy : DiskCacheStrategyEnum,
-                                         transition : Boolean) {
-        imageLoaderStrategy.loadImageWithCenterCrop(urlOrIdOrUri,imageView, placeholderImg,diskCacheStrategy,transition)
-    }
-
-    override fun loadImageWithCenterCrop(
-        urlOrIdOrUri: Any,
-        view: View,
-        thumbnail: Boolean,
-        thumbnailWidth: Int,
-        thumbnailHeight: Int
-    ) {
-        imageLoaderStrategy.loadImageWithCenterCrop(urlOrIdOrUri,view, thumbnail,thumbnailWidth,thumbnailHeight)
-    }
-
-    override fun loadImageWithCenterCrop(
-        urlOrIdOrUri: Any,
-        imageView: ImageView,
-        placeholderImg: Int,
-        diskCacheStrategy: DiskCacheStrategyEnum
-    ) {
-        imageLoaderStrategy.loadImageWithCenterCrop(urlOrIdOrUri,imageView, placeholderImg,diskCacheStrategy)
-    }
-
-    override fun loadImageWithCenterCrop(
-        urlOrIdOrUri: Any,
-        imageView: ImageView,
-        placeholderImg: Int,
-        diskCacheStrategy: DiskCacheStrategyEnum,
-        thumbnail: Boolean,
-        transition: Boolean,
-        thumbnailWidth : Int,
-        thumbnailHeight : Int
-    ) {
-        imageLoaderStrategy.loadImageWithCenterCrop(urlOrIdOrUri,imageView, placeholderImg,diskCacheStrategy,thumbnail,transition,thumbnailWidth,thumbnailHeight)
-    }
-
-    override fun loadImageWithCenterInside(urlOrIdOrUri: Any, imageView: ImageView) {
-        imageLoaderStrategy.loadImageWithCenterInside(urlOrIdOrUri,imageView)
-    }
-
-    override fun loadImageWithCenterInside(
-        urlOrIdOrUri: Any,
-        imageView: ImageView,
-        placeholderImg: Int
-    ) {
-        imageLoaderStrategy.loadImageWithCenterInside(urlOrIdOrUri,imageView, placeholderImg)
-    }
-
-    override fun loadImageWithCenterInside(
-        urlOrIdOrUri: Any,
-        imageView: ImageView,
-        placeholderImg: Int,
-        diskCacheStrategy: DiskCacheStrategyEnum,
-        transition: Boolean
-    ) {
-        imageLoaderStrategy.loadImageWithCenterInside(urlOrIdOrUri,imageView, placeholderImg,diskCacheStrategy,transition)
-    }
-
-    override fun loadImageWithCenterInside(
-        urlOrIdOrUri: Any,
-        imageView: ImageView,
-        placeholderImg: Int,
-        diskCacheStrategy: DiskCacheStrategyEnum
-    ) {
-        imageLoaderStrategy.loadImageWithCenterInside(urlOrIdOrUri,imageView, placeholderImg,diskCacheStrategy)
-    }
-
-    override fun loadImageWithCenterInside(
-        urlOrIdOrUri: Any,
-        imageView: ImageView,
-        placeholderImg: Int,
-        transition: Boolean
-    ) {
-        imageLoaderStrategy.loadImageWithCenterInside(urlOrIdOrUri,imageView, placeholderImg,transition)
-    }
-
-    override fun loadImageWithSkipCache(urlOrIdOrUri: Any, imageView: ImageView) {
-        imageLoaderStrategy.loadImageWithSkipCache(urlOrIdOrUri,imageView)
-    }
-
-    override fun loadImageWithSkipCache(urlOrIdOrUri: Any, imageView: ImageView, placeholderImg: Int) {
-        imageLoaderStrategy.loadImageWithSkipCache(urlOrIdOrUri,imageView, placeholderImg)
-    }
-
-    override fun loadImageWithSkipCache(url: String, imageView: ImageView, width: Int, height: Int) {
-        imageLoaderStrategy.loadImageWithSkipCache(url,imageView,width,height)
-    }
-
-    override fun loadImageWithSkipCache(
-        url: String,
-        imageView: ImageView,
-        width: Int,
-        height: Int,
-        placeholderImg: Int
-    ) {
-        imageLoaderStrategy.loadImageWithSkipCache(url,imageView,width,height,placeholderImg)
-    }
-
-    override fun loadCircleImage(urlOrIdOrUri: Any, imageView: ImageView) {
-        imageLoaderStrategy.loadCircleImage(urlOrIdOrUri,imageView)
-    }
-
-    override fun loadCircleImage(
-        urlOrIdOrUri: Any,
-        imageView: ImageView,
-        diskCacheStrategy: DiskCacheStrategyEnum
-    ) {
-        imageLoaderStrategy.loadCircleImage(urlOrIdOrUri,imageView,diskCacheStrategy)
-    }
-
-    override fun loadCircleImage(urlOrIdOrUri: Any, imageView: ImageView, placeholderImg: Int) {
-        imageLoaderStrategy.loadCircleImage(urlOrIdOrUri,imageView, placeholderImg)
-    }
-
-    override fun loadCircleImage(
-        urlOrIdOrUri: Any,
-        imageView: ImageView,
-        placeholderImg: Int,
-        diskCacheStrategy: DiskCacheStrategyEnum
-    ) {
-        imageLoaderStrategy.loadCircleImage(urlOrIdOrUri,imageView, placeholderImg,diskCacheStrategy)
-    }
-
-    override fun loadCornersImage(urlOrIdOrUri: Any, imageView: ImageView, cornerRadius: Float) {
-        imageLoaderStrategy.loadCornersImage(urlOrIdOrUri,imageView,cornerRadius)
-    }
-
-    override fun loadCornersImage(
-        url: String,
-        imageView: ImageView,
-        cornerRadius: Float,
-        placeholderImg: Int
-    ) {
-        imageLoaderStrategy.loadCornersImage(url,imageView,cornerRadius,placeholderImg)
-    }
-
-    override fun loadCornersImage(
-        url: String,
-        imageView: ImageView,
-        cornerRadius: Float,
-        placeholderImg: Int,
-        transition: Boolean
-    ) {
-        imageLoaderStrategy.loadCornersImage(url,imageView,cornerRadius,placeholderImg,transition)
-    }
-
-    override fun loadCornersImage(
-        urlOrIdOrUri: Any,
-        imageView: ImageView,
-        cornerRadius: Float,
-        placeholderImg: Int,
-        diskCacheStrategy: DiskCacheStrategyEnum
-    ) {
-        imageLoaderStrategy.loadCornersImage(urlOrIdOrUri,imageView,cornerRadius,placeholderImg,diskCacheStrategy)
-    }
-
-    override fun loadCornersImage(urlOrIdOrUri: Any, imageView: ImageView, cornerRadius: Float, cornerTypeEnum: CornerTypeEnum) {
-        imageLoaderStrategy.loadCornersImage(urlOrIdOrUri,imageView,cornerRadius,cornerTypeEnum)
-    }
-
-    override fun loadCornersImage(
-        urlOrIdOrUri: Any,
-        imageView: ImageView,
-        cornerRadius: Float,
-        cornerTypeEnum: CornerTypeEnum,
-        placeholderImg: Int
-    ) {
-        imageLoaderStrategy.loadCornersImage(urlOrIdOrUri,imageView,cornerRadius,cornerTypeEnum,placeholderImg)
-    }
-
-    override fun loadCornersImage(
-        bitmap: Bitmap,
-        imageView: ImageView,
-        cornerRadius: Float,
-        cornerTypeEnum: CornerTypeEnum
-    ) {
-        imageLoaderStrategy.loadCornersImage(bitmap,imageView,cornerRadius,cornerTypeEnum)
-    }
-
-    override fun loadCornersImage(
-        bitmap: Bitmap,
-        imageView: ImageView,
-        cornerRadius: Float,
-        cornerTypeEnum: CornerTypeEnum,
-        placeholderImg: Int
-    ) {
-        imageLoaderStrategy.loadCornersImage(bitmap,imageView,cornerRadius,cornerTypeEnum,placeholderImg)
-    }
-
-    override fun loadCornersImageCenterCrop(
-        url: String,
-        imageView: ImageView,
-        cornerRadius: Float,
-        placeholderImg: Int,
-        transition: Boolean
-    ) {
-        imageLoaderStrategy.loadCornersImageCenterCrop(url,imageView,cornerRadius,placeholderImg,transition)
-    }
-
-    override fun loadCornersImageWithCenterCrop(
-        urlOrIdOrUri: Any,
-        imageView: ImageView,
-        placeholderImg: Int,
-        cornerRadius: Float,
-        diskCacheStrategy: DiskCacheStrategyEnum,
-        transition: Boolean,
-        thumbnail: Boolean,
-        thumbnailWidth: Int,
-        thumbnailHeight: Int
-    ) {
-        imageLoaderStrategy.loadCornersImageWithCenterCrop(urlOrIdOrUri,imageView,placeholderImg,cornerRadius,diskCacheStrategy,
-            transition,thumbnail,thumbnailWidth,thumbnailHeight)
-    }
-
-    override fun loadBorderCircleImage(urlOrIdOrUri: Any, imageView: ImageView, borderColor : Int, borderWidth : Float) {
-        imageLoaderStrategy.loadBorderCircleImage(urlOrIdOrUri,imageView, borderColor, borderWidth)
-    }
-
-    override fun loadBorderCircleImage(
-        url: String,
-        imageView: ImageView,
-        imageWidth : Int,
-        imageHeight : Int,
-        borderColor: Int,
-        borderWidth: Float,
-        placeholderImg: Int
-    ) {
-        imageLoaderStrategy.loadBorderCircleImage(url,imageView,imageWidth, imageHeight, borderColor, borderWidth,placeholderImg)
-    }
-
-    override fun loadBorderCircleImage(
-        url: String,
-        imageView: ImageView,
-        borderColor: Int,
-        borderWidth: Float,
-        placeholderImg: Int
-    ) {
-        imageLoaderStrategy.loadBorderCircleImage(url,imageView, borderColor, borderWidth,placeholderImg)
-    }
-
-    override fun loadBorderCornerImage(
-        urlOrIdOrUri: Any,
-        imageView: ImageView,
-        borderColor: Int,
-        borderWidth: Float,
-        cornerRadius: Float
-    ) {
-        imageLoaderStrategy.loadBorderCornerImage(urlOrIdOrUri,imageView, borderColor, borderWidth, cornerRadius)
-    }
-
-    override fun loadBorderCornerImage(
-        urlOrIdOrUri: Any,
-        imageView: ImageView,
-        borderColor: Int,
-        borderWidth: Float,
-        cornerRadius: Float,
-        placeholderImg: Int
-    ) {
-        imageLoaderStrategy.loadBorderCornerImage(urlOrIdOrUri,imageView, borderColor, borderWidth, cornerRadius,placeholderImg)
+        imageLoaderStrategy.loadImage(urlOrIdOrUri,imageView,progressView,placeholderId,errorHolder)
     }
 
     override fun loadGif(urlOrIdOrUri: Any, imageView: ImageView) {
@@ -370,8 +52,8 @@ object RXImageLoader : ImageLoaderInterface {
         imageLoaderStrategy.loadGif(urlOrIdOrUri,imageView,diskCacheStrategy)
     }
 
-    override fun loadGif(urlOrIdOrUri: Any, imageView: ImageView, placeholderImg: Int) {
-        imageLoaderStrategy.loadGif(urlOrIdOrUri,imageView,placeholderImg)
+    override fun loadGif(urlOrIdOrUri: Any, imageView: ImageView, placeholderId: Int) {
+        imageLoaderStrategy.loadGif(urlOrIdOrUri,imageView,placeholderId)
     }
 
     override fun loadGif(playTimes : Int, urlOrIdOrUri: Any, imageView: ImageView, ) {
@@ -388,16 +70,16 @@ object RXImageLoader : ImageLoaderInterface {
         imageLoaderStrategy.loadGif(playTimes,urlOrIdOrUri,imageView,diskCacheStrategy,onAnimationStatus)
     }
 
-    override fun loadGif(playTimes: Int, urlOrIdOrUri: Any, imageView: ImageView, placeholderImg: Int) {
-        imageLoaderStrategy.loadGif(playTimes, urlOrIdOrUri,imageView,placeholderImg)
+    override fun loadGif(playTimes: Int, urlOrIdOrUri: Any, imageView: ImageView, placeholderId: Int) {
+        imageLoaderStrategy.loadGif(playTimes, urlOrIdOrUri,imageView,placeholderId)
     }
 
     override fun loadCircleGif(urlOrIdOrUri: Any, imageView: ImageView) {
         imageLoaderStrategy.loadCircleGif(urlOrIdOrUri,imageView)
     }
 
-    override fun loadCircleGif(urlOrIdOrUri: Any, imageView: ImageView, placeholderImg: Int) {
-        imageLoaderStrategy.loadCircleGif(urlOrIdOrUri,imageView, placeholderImg)
+    override fun loadCircleGif(urlOrIdOrUri: Any, imageView: ImageView, placeholderId: Int) {
+        imageLoaderStrategy.loadCircleGif(urlOrIdOrUri,imageView, placeholderId)
     }
     override fun loadCircleGif(playTimes: Int,urlOrIdOrUri: Any, imageView: ImageView) {
         imageLoaderStrategy.loadCircleGif(playTimes,urlOrIdOrUri,imageView)
@@ -407,9 +89,9 @@ object RXImageLoader : ImageLoaderInterface {
         playTimes: Int,
         urlOrIdOrUri: Any,
         imageView: ImageView,
-        placeholderImg: Int
+        placeholderId: Int
     ) {
-        imageLoaderStrategy.loadCircleGif(playTimes,urlOrIdOrUri,imageView, placeholderImg)
+        imageLoaderStrategy.loadCircleGif(playTimes,urlOrIdOrUri,imageView, placeholderId)
     }
 
     override fun loadCornerGif(urlOrIdOrUri: Any, imageView: ImageView, cornerRadius: Float) {
@@ -421,9 +103,9 @@ object RXImageLoader : ImageLoaderInterface {
         urlOrIdOrUri: Any,
         imageView: ImageView,
         cornerRadius: Float,
-        placeholderImg: Int
+        placeholderId: Int
     ) {
-        imageLoaderStrategy.loadCornerGif(urlOrIdOrUri,imageView, cornerRadius,placeholderImg)
+        imageLoaderStrategy.loadCornerGif(urlOrIdOrUri,imageView, cornerRadius,placeholderId)
     }
     override fun loadCornerGif(
         playTimes: Int,
@@ -439,9 +121,9 @@ object RXImageLoader : ImageLoaderInterface {
         urlOrIdOrUri: Any,
         imageView: ImageView,
         cornerRadius: Float,
-        placeholderImg: Int
+        placeholderId: Int
     ) {
-        imageLoaderStrategy.loadCornerGif(playTimes,urlOrIdOrUri,imageView, cornerRadius, placeholderImg)
+        imageLoaderStrategy.loadCornerGif(playTimes,urlOrIdOrUri,imageView, cornerRadius, placeholderId)
     }
 
     override fun loadBorderCornerGif(
@@ -460,9 +142,9 @@ object RXImageLoader : ImageLoaderInterface {
         borderColor: Int,
         borderWidth: Float,
         cornerRadius: Float,
-        placeholderImg: Int
+        placeholderId: Int
     ) {
-        imageLoaderStrategy.loadBorderCornerGif(urlOrIdOrUri,imageView, borderColor, borderWidth, cornerRadius,placeholderImg)
+        imageLoaderStrategy.loadBorderCornerGif(urlOrIdOrUri,imageView, borderColor, borderWidth, cornerRadius,placeholderId)
     }
 
     override fun loadBorderCornerGif(
@@ -483,9 +165,9 @@ object RXImageLoader : ImageLoaderInterface {
         borderColor: Int,
         borderWidth: Float,
         cornerRadius: Float,
-        placeholderImg: Int
+        placeholderId: Int
     ) {
-        imageLoaderStrategy.loadBorderCornerGif(playTimes,urlOrIdOrUri,imageView, borderColor, borderWidth, cornerRadius, placeholderImg)
+        imageLoaderStrategy.loadBorderCornerGif(playTimes,urlOrIdOrUri,imageView, borderColor, borderWidth, cornerRadius, placeholderId)
     }
 
     override fun loadImageWithRXCustomTarget(urlOrIdOrUri: Any, context: Context, rxCustomTarget: RXCustomTarget<Bitmap>) {
@@ -506,9 +188,9 @@ object RXImageLoader : ImageLoaderInterface {
         urlOrIdOrUri: Any,
         context: Context,
         rxCustomTarget: RXCustomTarget<Bitmap>,
-        placeholderImg: Int
+        placeholderId: Int
     ) {
-        imageLoaderStrategy.loadImageWithRXCustomTarget(urlOrIdOrUri,context,rxCustomTarget,placeholderImg)
+        imageLoaderStrategy.loadImageWithRXCustomTarget(urlOrIdOrUri,context,rxCustomTarget,placeholderId)
     }
 
     override fun loadImageWithRXCustomTarget(
@@ -524,8 +206,8 @@ object RXImageLoader : ImageLoaderInterface {
         imageLoaderStrategy.load9Png(urlOrIdOrUri, view)
     }
 
-    override fun load9Png(urlOrIdOrUri: Any, view: View, placeholderImg: Int) {
-        imageLoaderStrategy.load9Png(urlOrIdOrUri, view,placeholderImg)
+    override fun load9Png(urlOrIdOrUri: Any, view: View, placeholderId: Int) {
+        imageLoaderStrategy.load9Png(urlOrIdOrUri, view,placeholderId)
     }
 
     override fun clearImageDiskCache(context: Context) {

@@ -90,15 +90,11 @@ class SecondActivity : AppCompatActivity(), View.OnClickListener {
         when (v.id) {
 
             R.id.btn_url_corner_special             ->{
-                RXImageLoader.loadCornersImage(
-                    url,test_iv_1, cornerWidth,
-                    CornerTypeEnum.RIGHT)
+
 
             }
             R.id.btn_id_corner_special              ->{
-                RXImageLoader.loadCornersImage(
-                    imgId,test_iv_1, cornerWidth,
-                    CornerTypeEnum.LEFT)
+
             }
             R.id.btn_bitmap_corner                  ->{
                 //todo bitmap是怎么做的
@@ -106,26 +102,14 @@ class SecondActivity : AppCompatActivity(), View.OnClickListener {
 
             }
             R.id.btn_url_border_circle              ->{
-                RXImageLoader.loadBorderCircleImage(url,test_iv_1, borderColor, borderWidth)
             }
             R.id.btn_id_border_circle               ->{
-                RXImageLoader.loadBorderCircleImage(imgId,test_iv_1, borderColor, borderWidth)
             }
             R.id.btn_url_border_corner              ->{
-                RXImageLoader.loadBorderCornerImage(
-                    url,test_iv_1,
-                    borderColor,
-                    borderWidth,
-                    cornerWidth
-                )
+
             }
             R.id.btn_id_border_corner               ->{
-                RXImageLoader.loadBorderCornerImage(
-                    imgId,test_iv_1,
-                    borderColor,
-                    borderWidth,
-                    cornerWidth
-                )
+
             }
             R.id.btn_url_gif                        ->{
                 RXImageLoader.loadGif(gifUrl,test_iv_1)

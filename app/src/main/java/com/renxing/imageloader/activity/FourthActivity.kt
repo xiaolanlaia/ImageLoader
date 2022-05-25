@@ -10,6 +10,8 @@ import com.renxing.imageloader.bigPic
 import com.renxing.imageloader.placeHoldId
 import com.renxing.imageloader.placeHoldId2
 import com.renxing.moduleImageLoader.RXImageLoader
+import com.renxing.moduleImageLoader.loaderStrategy.glide.easyglide.config.ImgConfigImpl
+import com.renxing.moduleImageLoader.loaderStrategy.glide.easyglide.transformation.RoundedCornersTransformation
 
 class FourthActivity : AppCompatActivity() ,View.OnClickListener{
 
@@ -29,13 +31,29 @@ class FourthActivity : AppCompatActivity() ,View.OnClickListener{
     override fun onClick(v: View) {
         when(v.id){
             R.id.url_placeholder    -> {
-//                RXImageLoader.loadCircleImage(nullUrl,test_iv_1,placeHoldId)
-                RXImageLoader.loadCornersImage(bigPic,test_iv_1,100f, placeHoldId)
-//                RXImageLoader.loadImageWithSkipCache(nullUrl,test_iv_1,360,360,placeHoldId)
+
+                RXImageLoader.loadImage(this,
+                    ImgConfigImpl
+                        .builder()
+                        .url(bigPic)
+                        .transformation(RoundedCornersTransformation(100, 0))
+                        .isCrossFade(false)
+                        .errorPic(placeHoldId)
+                        .placeholder(placeHoldId)
+                        .imageView(test_iv_1)
+                        .build())
             }
             R.id.id_special         -> {
-//                RXImageLoader.loadCircleImage(nullId,test_iv_1, placeHoldId2)
-                RXImageLoader.loadCornersImage(bigPic,test_iv_1,100f, placeHoldId2)
+                RXImageLoader.loadImage(this,
+                    ImgConfigImpl
+                        .builder()
+                        .url(bigPic)
+                        .transformation(RoundedCornersTransformation(100, 0))
+                        .isCrossFade(false)
+                        .errorPic(placeHoldId2)
+                        .placeholder(placeHoldId2)
+                        .imageView(test_iv_1)
+                        .build())
 
 
             }

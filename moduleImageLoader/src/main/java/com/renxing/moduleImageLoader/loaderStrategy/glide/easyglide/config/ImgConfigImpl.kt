@@ -4,7 +4,7 @@ import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation
-import com.bumptech.glide.request.RequestListener
+import com.renxing.moduleImageLoader.loaderStrategy.control.RXRequestListener
 import com.renxing.moduleImageLoader.loaderStrategy.glide.easyglide.progress.OnProgressListener
 
 /**
@@ -12,7 +12,11 @@ import com.renxing.moduleImageLoader.loaderStrategy.glide.easyglide.progress.OnP
  * @author : BaoZhou
  * @date : 2020/5/9 2:49 PM
  */
-class GlideConfigImpl private constructor(builder: Builder) : ImageConfig() {
+const val CACHE_STRATEGY_ALL = 0
+const val CACHE_STRATEGY_NONE = 1
+const val CACHE_STRATEGY_SOURCE = 2
+const val CACHE_STRATEGY_RESULT = 3
+class ImgConfigImpl private constructor(builder: Builder) : ImageConfig() {
     /**
      * 0 对应DiskCacheStrategy.all
      * 1 对应DiskCacheStrategy.NONE
@@ -26,17 +30,19 @@ class GlideConfigImpl private constructor(builder: Builder) : ImageConfig() {
     val isClearMemory: Boolean
     val isClearDiskCache: Boolean
     val placeHolderDrawable: Drawable?
+    //图片宽度
     val resizeX: Int
+    //图片高度
+    val resizeY: Int
     val isCropCenter: Boolean
     val isCropCircle: Boolean
     val isFitCenter: Boolean
     val formatType: DecodeFormat?
-    val resizeY: Int
     val imageRadius: Int
     val blurValue: Int
     val isCrossFade: Boolean
     var onProgressListener: OnProgressListener?
-    var requestListener: RequestListener<Drawable?>?
+    var requestListener: RXRequestListener<Drawable?>?
 
 
     val isBlurImage: Boolean
@@ -69,7 +75,7 @@ class GlideConfigImpl private constructor(builder: Builder) : ImageConfig() {
         var isFitCenter = false
         var resizeY = 0
         var onProgressListener: OnProgressListener? = null
-        var requestListener: RequestListener<Drawable?>? = null
+        var requestListener: RXRequestListener<Drawable?>? = null
         fun url(url: String?): Builder {
             this.url = url
             return this
@@ -176,13 +182,13 @@ class GlideConfigImpl private constructor(builder: Builder) : ImageConfig() {
             return this
         }
 
-        fun requestListener(requestListener: RequestListener<Drawable?>?): Builder {
+        fun requestListener(requestListener: RXRequestListener<Drawable?>?): Builder {
             this.requestListener = requestListener
             return this
         }
 
-        fun build(): GlideConfigImpl {
-            return GlideConfigImpl(this)
+        fun build(): ImgConfigImpl {
+            return ImgConfigImpl(this)
         }
     }
 

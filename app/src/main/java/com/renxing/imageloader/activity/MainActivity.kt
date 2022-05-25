@@ -12,6 +12,10 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.imageloader.R
 import com.renxing.imageloader.*
 import com.renxing.moduleImageLoader.RXImageLoader
+import com.renxing.moduleImageLoader.imageUtils.ImageLoaderUtils
+import com.renxing.moduleImageLoader.loaderStrategy.glide.easyglide.config.CACHE_STRATEGY_NONE
+import com.renxing.moduleImageLoader.loaderStrategy.glide.easyglide.config.ImgConfigImpl
+import com.renxing.moduleImageLoader.loaderStrategy.glide.easyglide.transformation.RoundedCornersTransformation
 
 class MainActivity : AppCompatActivity(),View.OnClickListener {
 
@@ -132,56 +136,60 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
 
             }
             R.id.btn_id                             ->{
-                RXImageLoader.loadImage(imgId,test_iv_1)
             }
             R.id.btn_url_placeholder                ->{
-                RXImageLoader.loadImage(url,test_iv_1, placeHoldId)
             }
             R.id.btn_id_placeholder                 ->{
-                RXImageLoader.loadImage(imgId,test_iv_1, placeHoldId)
             }
             R.id.btn_special                        ->{
-                RXImageLoader.loadImage(url,test_iv_1, width, height)
+                RXImageLoader.loadImage(this,
+                    ImgConfigImpl
+                        .builder()
+                        .url(ImageLoaderUtils.appendUrl(url, width, height, false))
+                        .imageView(test_iv_1)
+                        .build())
             }
             R.id.btn_special_placeholder            ->{
-                RXImageLoader.loadImage(url2,test_iv_1, width, height, placeHoldId)
+                RXImageLoader.loadImage(this,
+                    ImgConfigImpl
+                        .builder()
+                        .url(ImageLoaderUtils.appendUrl(url, width, height, false))
+                        .placeholder(placeHoldId)
+                        .errorPic(placeHoldId)
+                        .imageView(test_iv_1)
+                        .build())
             }
             R.id.btn_url_fitCenter                  ->{
-                RXImageLoader.loadImageWithFitCenter(url,test_iv_1)
             }
             R.id.btn_id_fitCenter                   ->{
-                RXImageLoader.loadImageWithFitCenter(imgId,test_iv_1)
             }
             R.id.btn_url_centerCrop                 ->{
-                RXImageLoader.loadImageWithCenterCrop(url,test_iv_1)
             }
             R.id.btn_id_centerCrop                  ->{
-                RXImageLoader.loadImageWithCenterCrop(imgId,test_iv_1)
             }
             R.id.btn_url_centerInside               ->{
-                RXImageLoader.loadImageWithCenterInside(url,test_iv_1)
             }
             R.id.btn_id_centerInside                ->{
-                RXImageLoader.loadImageWithCenterInside(imgId,test_iv_1)
             }
             R.id.btn_url_skipCache                  ->{
-                RXImageLoader.loadImageWithSkipCache(url,test_iv_1)
             }
             R.id.btn_id_skipCache                   ->{
-                RXImageLoader.loadImageWithSkipCache(imgId,test_iv_1)
             }
             R.id.btn_url_skipCache_special          ->{
-                RXImageLoader.loadImageWithSkipCache(url,test_iv_1, width, height)
+                RXImageLoader.loadImage(this,
+                    ImgConfigImpl
+                        .builder()
+                        .url(ImageLoaderUtils.appendUrl(url, width, height, false))
+                        .cacheStrategy(CACHE_STRATEGY_NONE)
+                        .imageView(test_iv_1)
+                        .build())
             }
             R.id.btn_url_circle                     ->{
-                RXImageLoader.loadCircleImage(url,test_iv_1)
             }
             R.id.btn_id_circle                      ->{
-                RXImageLoader.loadCircleImage(imgId,test_iv_1)
             }
             R.id.btn_url_corner                     ->{
 
-                RXImageLoader.loadCornersImage(url,test_iv_1, cornerWidth)
             }
             R.id.btn_id_corner                      ->{
             }
