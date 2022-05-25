@@ -2,13 +2,16 @@ package com.renxing.moduleImageLoader
 
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.ImageView
 import com.renxing.moduleImageLoader.imageUtils.enumUtils.CornerTypeEnum
 import com.renxing.moduleImageLoader.imageUtils.enumUtils.DiskCacheStrategyEnum
+import com.renxing.moduleImageLoader.imageUtils.enumUtils.PriorityEnum
 import com.renxing.moduleImageLoader.loaderStrategy.control.ImageLoaderInterface
 import com.renxing.moduleImageLoader.loaderStrategy.control.LoaderStrategyFactory
 import com.renxing.moduleImageLoader.loaderStrategy.control.OnAnimationStatus
+import com.renxing.moduleImageLoader.loaderStrategy.control.RXRequestListener
 import com.renxing.moduleImageLoader.loaderStrategy.glide.target.RXCustomTarget
 
 /**
@@ -20,6 +23,14 @@ object RXImageLoader : ImageLoaderInterface {
 
     override fun loadImage(urlOrIdOrUri: Any, imageView: ImageView) {
     imageLoaderStrategy.loadImage(urlOrIdOrUri,imageView)
+    }
+
+    override fun loadImage(
+        urlOrIdOrUri: Any,
+        imageView: ImageView,
+        rxRequestListener: RXRequestListener<Drawable>
+    ) {
+        imageLoaderStrategy.loadImage(urlOrIdOrUri,imageView,rxRequestListener)
     }
 
     override fun loadImage(urlOrIdOrUri: Any, imageView: ImageView, placeholderImg: Int) {
@@ -50,6 +61,16 @@ object RXImageLoader : ImageLoaderInterface {
 
     override fun loadImageWithFitCenter(urlOrIdOrUri: Any, imageView: ImageView, placeholderImg: Int) {
         imageLoaderStrategy.loadImageWithFitCenter(urlOrIdOrUri,imageView, placeholderImg)
+    }
+
+    override fun loadImageWithFitCenter(
+        urlOrIdOrUri: Any,
+        imageView: ImageView,
+        placeholderImg: Int,
+        diskCacheStrategyEnum: DiskCacheStrategyEnum,
+        priorityEnum: PriorityEnum
+    ) {
+        imageLoaderStrategy.loadImageWithFitCenter(urlOrIdOrUri,imageView, placeholderImg,diskCacheStrategyEnum,priorityEnum)
     }
 
     override fun loadImageWithCenterCrop(urlOrIdOrUri: Any, imageView: ImageView) {
@@ -204,12 +225,32 @@ object RXImageLoader : ImageLoaderInterface {
     }
 
     override fun loadCornersImage(
-        urlOrIdOrUri: Any,
+        url: String,
         imageView: ImageView,
         cornerRadius: Float,
         placeholderImg: Int
     ) {
-        imageLoaderStrategy.loadCornersImage(urlOrIdOrUri,imageView,cornerRadius,placeholderImg)
+        imageLoaderStrategy.loadCornersImage(url,imageView,cornerRadius,placeholderImg)
+    }
+
+    override fun loadCornersImage(
+        url: String,
+        imageView: ImageView,
+        cornerRadius: Float,
+        placeholderImg: Int,
+        transition: Boolean
+    ) {
+        imageLoaderStrategy.loadCornersImage(url,imageView,cornerRadius,placeholderImg,transition)
+    }
+
+    override fun loadCornersImage(
+        urlOrIdOrUri: Any,
+        imageView: ImageView,
+        cornerRadius: Float,
+        placeholderImg: Int,
+        diskCacheStrategy: DiskCacheStrategyEnum
+    ) {
+        imageLoaderStrategy.loadCornersImage(urlOrIdOrUri,imageView,cornerRadius,placeholderImg,diskCacheStrategy)
     }
 
     override fun loadCornersImage(urlOrIdOrUri: Any, imageView: ImageView, cornerRadius: Float, cornerTypeEnum: CornerTypeEnum) {
@@ -245,6 +286,16 @@ object RXImageLoader : ImageLoaderInterface {
         imageLoaderStrategy.loadCornersImage(bitmap,imageView,cornerRadius,cornerTypeEnum,placeholderImg)
     }
 
+    override fun loadCornersImageCenterCrop(
+        url: String,
+        imageView: ImageView,
+        cornerRadius: Float,
+        placeholderImg: Int,
+        transition: Boolean
+    ) {
+        imageLoaderStrategy.loadCornersImageCenterCrop(url,imageView,cornerRadius,placeholderImg,transition)
+    }
+
     override fun loadCornersImageWithCenterCrop(
         urlOrIdOrUri: Any,
         imageView: ImageView,
@@ -265,13 +316,25 @@ object RXImageLoader : ImageLoaderInterface {
     }
 
     override fun loadBorderCircleImage(
-        urlOrIdOrUri: Any,
+        url: String,
+        imageView: ImageView,
+        imageWidth : Int,
+        imageHeight : Int,
+        borderColor: Int,
+        borderWidth: Float,
+        placeholderImg: Int
+    ) {
+        imageLoaderStrategy.loadBorderCircleImage(url,imageView,imageWidth, imageHeight, borderColor, borderWidth,placeholderImg)
+    }
+
+    override fun loadBorderCircleImage(
+        url: String,
         imageView: ImageView,
         borderColor: Int,
         borderWidth: Float,
         placeholderImg: Int
     ) {
-        imageLoaderStrategy.loadBorderCircleImage(urlOrIdOrUri,imageView, borderColor, borderWidth,placeholderImg)
+        imageLoaderStrategy.loadBorderCircleImage(url,imageView, borderColor, borderWidth,placeholderImg)
     }
 
     override fun loadBorderCornerImage(
@@ -483,5 +546,13 @@ object RXImageLoader : ImageLoaderInterface {
 
     override fun resumeRequests(context: Context) {
         imageLoaderStrategy.resumeRequests(context)
+    }
+
+    override fun clearMemory(context: Context) {
+        imageLoaderStrategy.clearMemory(context)
+    }
+
+    override fun trimMemory(context: Context, level: Int) {
+        imageLoaderStrategy.trimMemory(context, level)
     }
 }

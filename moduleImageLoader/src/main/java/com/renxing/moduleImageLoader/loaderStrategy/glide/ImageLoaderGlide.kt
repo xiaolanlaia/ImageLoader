@@ -11,9 +11,12 @@ import android.os.Looper
 import android.view.View
 import android.widget.ImageView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.Priority
 import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.load.resource.gif.GifDrawable
@@ -21,18 +24,23 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.target.Target
+import com.bumptech.glide.request.transition.DrawableCrossFadeFactory
 import com.bumptech.glide.request.transition.Transition
 import com.renxing.moduleImageLoader.imageUtils.ImageLoaderUtils
-import com.renxing.moduleImageLoader.imageUtils.enumUtils.CornerTypeEnum
-import com.renxing.moduleImageLoader.imageUtils.enumUtils.DiskCacheStrategyEnum
+import com.renxing.moduleImageLoader.imageUtils.enumUtils.*
 import com.renxing.moduleImageLoader.loaderStrategy.control.ImageLoaderInterface
 import com.renxing.moduleImageLoader.loaderStrategy.control.OnAnimationStatus
+import com.renxing.moduleImageLoader.loaderStrategy.control.RXRequestListener
 import com.renxing.moduleImageLoader.loaderStrategy.glide.ninePic.NinePatchChunk
 import com.renxing.moduleImageLoader.loaderStrategy.glide.placeholder.CircleRoundDrawable
 import com.renxing.moduleImageLoader.loaderStrategy.glide.target.RXCustomTarget
 import com.renxing.moduleImageLoader.loaderStrategy.glide.transformation.BorderRoundTransform
 import com.renxing.moduleImageLoader.loaderStrategy.glide.transformation.CircleBorderTransformation
-import com.renxing.moduleImageLoader.loaderStrategy.glide.transformation.RoundedCornersTransform
+import com.renxing.moduleImageLoader.loaderStrategy.glide.easyglide.config.GlideConfigImpl
+import com.renxing.moduleImageLoader.loaderStrategy.glide.easyglide.progress.GlideImageViewTarget
+import com.renxing.moduleImageLoader.loaderStrategy.glide.easyglide.transformation.BlurTransformation
+import com.renxing.moduleImageLoader.loaderStrategy.glide.easyglide.transformation.CircleWithBorderTransformation
+import com.renxing.moduleImageLoader.loaderStrategy.glide.easyglide.transformation.RoundedCornersTransformation
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileNotFoundException
@@ -42,7 +50,7 @@ import java.io.IOException
  *@author  :  WuJianFeng
  */
 @SuppressLint("CheckResult")
-internal class ImageLoaderGlide : ImageLoaderInterface {
+class ImageLoaderGlide : ImageLoaderInterface {
 
     //nullOptions：占位RequestOptions没作用
     private val nullOptions = RequestOptions()
@@ -59,6 +67,14 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
             thumbnailWidth = 0,
             thumbnailHeight = 0
         )
+    }
+
+    override fun loadImage(
+        urlOrIdOrUri: Any,
+        imageView: ImageView,
+        rxRequestListener: RXRequestListener<Drawable>
+    ) {
+        glideLoad(urlOrIdOrUri, imageView, rxRequestListener)
     }
 
     override fun loadImage(urlOrIdOrUri: Any, imageView: ImageView, placeholderImg: Int) {
@@ -110,6 +126,21 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
             thumbnailWidth = 0,
             thumbnailHeight = 0
         )
+    }
+
+    override fun loadImageWithFitCenter(
+        urlOrIdOrUri: Any,
+        imageView: ImageView,
+        placeholderImg: Int,
+        diskCacheStrategyEnum: DiskCacheStrategyEnum,
+        priorityEnum: PriorityEnum
+    ) {
+        glideLoad(urlOrIdOrUri,imageView,
+            getDiskCacheStrategy(diskCacheStrategyEnum).fitCenter().placeholder(placeholderImg).error(placeholderImg).priority(getPriority(priorityEnum)),
+            transition = false,
+            thumbnail = false,
+            thumbnailWidth = 0,
+            thumbnailHeight = 0)
     }
 
     override fun loadImageWithCenterCrop(urlOrIdOrUri: Any, imageView: ImageView) {
@@ -330,7 +361,7 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
         )
     }
 
-    override fun loadCornersImage(urlOrIdOrUri: Any, imageView: ImageView, cornerRadius: Float, placeholderImg: Int) {
+    override fun loadCornersImage(url: String, imageView: ImageView, cornerRadius: Float, placeholderImg: Int) {
         //注释七牛方案
 //        ImageLoaderUtils.checkAndAppendCornerUrl(urlOrIdOrUri, cornerRadius).apply {
 //            when (this) {
@@ -353,15 +384,81 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
 //                }
 //            }
 //        }
+
+
+//        glideLoad(urlOrIdOrUri, imageView,
+//            RequestOptions()
+//                .transform(RoundedCorners((ImageLoaderUtils.dp2px(cornerRadius) + 0.5f).toInt()))
+//                .placeholder(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_ROUND).setRoundAngle(cornerRadius))
+//                .error(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_ROUND).setRoundAngle(cornerRadius)
+//                ), transition = false
+//            , thumbnail = false, thumbnailWidth = 0, thumbnailHeight = 0
+//        )
+        loadImage(imageView.context,
+            GlideConfigImpl
+                .builder()
+                .url(url)
+                .transformation(RoundedCornersTransformation(cornerRadius.toInt(), 0))
+                .isCrossFade(false)
+                .errorPic(placeholderImg)
+                .placeholder(placeholderImg)
+                .imageView(imageView)
+                .build())
+    }
+
+    override fun loadCornersImage(
+        url: String,
+        imageView: ImageView,
+        cornerRadius: Float,
+        placeholderImg: Int,
+        transition: Boolean
+    ) {
+        loadImage(imageView.context,
+            GlideConfigImpl
+                .builder()
+                .url(url)
+                .transformation(RoundedCornersTransformation(cornerRadius.toInt(), 0))
+                .isCrossFade(false)
+                .errorPic(placeholderImg)
+                .placeholder(placeholderImg)
+                .imageView(imageView)
+                .build())
+    }
+
+    override fun loadCornersImageCenterCrop(
+        url: String,
+        imageView: ImageView,
+        cornerRadius: Float,
+        placeholderImg: Int,
+        transition: Boolean
+    ) {
+        loadImage(imageView.context,
+            GlideConfigImpl
+                .builder()
+                .url(url)
+                .transformation(CenterCrop(), RoundedCornersTransformation(cornerRadius.toInt(), 0))
+                .isCrossFade(false)
+                .errorPic(placeholderImg)
+                .placeholder(placeholderImg)
+                .imageView(imageView)
+                .build())
+    }
+
+    override fun loadCornersImage(
+        urlOrIdOrUri: Any,
+        imageView: ImageView,
+        cornerRadius: Float,
+        placeholderImg: Int,
+        diskCacheStrategy: DiskCacheStrategyEnum
+    ) {
         glideLoad(urlOrIdOrUri, imageView,
-            RequestOptions()
+            getDiskCacheStrategy(diskCacheStrategy)
                 .transform(RoundedCorners((ImageLoaderUtils.dp2px(cornerRadius) + 0.5f).toInt()))
                 .placeholder(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_ROUND).setRoundAngle(cornerRadius))
                 .error(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_ROUND).setRoundAngle(cornerRadius)
                 ), transition = false
             , thumbnail = false, thumbnailWidth = 0, thumbnailHeight = 0
-        )
-    }
+        )    }
 
     override fun loadCornersImage(urlOrIdOrUri: Any, imageView: ImageView, cornerRadius: Float, cornerTypeEnum: CornerTypeEnum) {
         //注释七牛方案
@@ -421,7 +518,7 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
     override fun loadCornersImage(bitmap: Bitmap, imageView: ImageView, cornerRadius: Float, cornerTypeEnum: CornerTypeEnum) {
         glideLoadBytes(ImageLoaderUtils.bitmap2Bytes(bitmap), imageView,
             RequestOptions().optionalTransform(
-                RoundedCornersTransform(ImageLoaderUtils.dp2px(cornerRadius) + 0.5f, cornerTypeEnum)
+                RoundedCorners((ImageLoaderUtils.dp2px(cornerRadius) + 0.5f).toInt())
             )
         )
 
@@ -431,7 +528,7 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
         glideLoadBytes(
             ImageLoaderUtils.bitmap2Bytes(bitmap), imageView,
             RequestOptions()
-                .optionalTransform(RoundedCornersTransform(ImageLoaderUtils.dp2px(cornerRadius) + 0.5f, cornerTypeEnum))
+                .optionalTransform(RoundedCorners((ImageLoaderUtils.dp2px(cornerRadius) + 0.5f).toInt()))
                 .placeholder(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_ROUND).setRoundAngle(cornerRadius))
                 .error(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_ROUND).setRoundAngle(cornerRadius))
         )
@@ -443,8 +540,7 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
 
         glideLoad(urlOrIdOrUri, imageView,
             getDiskCacheStrategy(diskCacheStrategy)
-                .optionalTransform(RoundedCornersTransform(ImageLoaderUtils.dp2px(cornerRadius) + 0.5f,
-                    CornerTypeEnum.ALL))
+                .optionalTransform(RoundedCorners((ImageLoaderUtils.dp2px(cornerRadius) + 0.5f).toInt()))
                 .placeholder(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_ROUND).setRoundAngle(cornerRadius))
                 .error(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_ROUND).setRoundAngle(cornerRadius)),transition,
             thumbnail,thumbnailWidth,thumbnailHeight
@@ -462,13 +558,56 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
         )
     }
 
-    override fun loadBorderCircleImage(urlOrIdOrUri: Any, imageView: ImageView, borderColor: Int, borderWidth: Float, placeholderImg: Int) {
-        glideLoad(urlOrIdOrUri, imageView,
-            RequestOptions()
-                .optionalTransform(CircleBorderTransformation(borderWidth, borderColor))
-                .placeholder(CircleRoundDrawable(imageView.context, placeholderImg))
-                .error(CircleRoundDrawable(imageView.context, placeholderImg)), transition = false
-            , thumbnail = false, thumbnailWidth = 0, thumbnailHeight = 0
+    override fun loadBorderCircleImage(
+        url: String,
+        imageView: ImageView,
+        imageWidth : Int,
+        imageHeight : Int,
+        borderColor: Int,
+        borderWidth: Float,
+        placeholderImg: Int
+    ) {
+
+        loadImage(
+            imageView.context,
+            GlideConfigImpl
+                .builder()
+                .url(url)
+                .transformation(CircleWithBorderTransformation(borderWidth.toInt(), borderColor))
+                .isCrossFade(false)
+                .errorPic(placeholderImg)
+                .placeholder(placeholderImg)
+                .imageView(imageView)
+                .build()
+        )
+//        glideLoad(urlOrIdOrUri, imageView,
+//            RequestOptions()
+//                .fitCenter()
+//                .optionalTransform(CircleBorderTransformation(borderWidth, borderColor))
+//                .placeholder(CircleRoundDrawable(imageView.context, placeholderImg))
+//                .error(CircleRoundDrawable(imageView.context, placeholderImg)), transition = false
+//            , thumbnail = false, thumbnailWidth = 0, thumbnailHeight = 0
+//        )
+    }
+
+    override fun loadBorderCircleImage(
+        url: String,
+        imageView: ImageView,
+        borderColor: Int,
+        borderWidth: Float,
+        placeholderImg: Int
+    ) {
+        loadImage(
+            imageView.context,
+            GlideConfigImpl
+                .builder()
+                .url(url)
+                .transformation(CircleWithBorderTransformation(borderWidth.toInt(), borderColor))
+                .isCrossFade(false)
+                .errorPic(placeholderImg)
+                .placeholder(placeholderImg)
+                .imageView(imageView)
+                .build()
         )
     }
 
@@ -692,13 +831,22 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
         glideResumeRequests(context)
     }
 
+    override fun clearMemory(context: Context) {
+        glideClearMemory(context)
+    }
+
+    override fun trimMemory(context: Context, level : Int) {
+        glideTrimMemory(context,level)
+    }
+
+
 
     /**
      * Glide加载图片的最终方法
      * 所有的方法url都要将http换成https
      */
     private fun glideLoadBytes(bytes: ByteArray, imageView: ImageView, requestOptions: RequestOptions) {
-        Glide.with(imageView.context).asBitmap().load(bytes).apply(requestOptions).into(imageView)
+        Glide.with(imageView.context).asBitmap().dontAnimate().load(bytes).apply(requestOptions).into(imageView)
     }
 
 
@@ -723,7 +871,7 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
         }
     }
     private fun glideLoad9Png(url: String, view: View, requestOptions: RequestOptions) {
-        Glide.with(view.context).asFile().load(ImageLoaderUtils.replaceHttpToHttps(url)).apply(requestOptions)
+        Glide.with(view.context).asFile().dontAnimate().load(ImageLoaderUtils.replaceHttpToHttps(url)).apply(requestOptions)
             .into(object : CustomTarget<File>() {
                 override fun onResourceReady(resource: File, transition: Transition<in File>?) {
                     try {
@@ -742,7 +890,7 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
     }
 
     private fun glideLoadDrawable(drawable: Drawable, view: View, requestOptions: RequestOptions) {
-        Glide.with(view.context).load(drawable).apply(requestOptions)
+        Glide.with(view.context).load(drawable).dontAnimate().apply(requestOptions)
             .into(object : CustomTarget<Drawable>() {
                 override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
                     view.background = resource
@@ -753,14 +901,14 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
 
     private fun glideRXCustomTarget(urlOrIdOrUri: Any, context: Context, rxCustomTarget: RXCustomTarget<Bitmap>, requestOptions: RequestOptions) {
         ImageLoaderUtils.checkUrlOrId(urlOrIdOrUri)
-        Glide.with(context).asBitmap().load(if (urlOrIdOrUri is String) ImageLoaderUtils.replaceHttpToHttps(urlOrIdOrUri) else urlOrIdOrUri).apply(requestOptions).into(rxCustomTarget)
+        Glide.with(context).asBitmap().dontAnimate().load(if (urlOrIdOrUri is String) ImageLoaderUtils.replaceHttpToHttps(urlOrIdOrUri) else urlOrIdOrUri).apply(requestOptions).into(rxCustomTarget)
     }
 
     private fun glideRXCustomTarget(urlOrIdOrUri: Any,context: Context,thumbnailWidth: Int,thumbnailHeight: Int,rxCustomTarget: RXCustomTarget<Bitmap>) {
         ImageLoaderUtils.checkUrlOrId(urlOrIdOrUri)
-        Glide.with(context).asBitmap()
+        Glide.with(context).asBitmap().dontAnimate()
             .load(if (urlOrIdOrUri is String) ImageLoaderUtils.replaceHttpToHttps(urlOrIdOrUri) else urlOrIdOrUri)
-            .thumbnail(Glide.with(context).asBitmap()
+            .thumbnail(Glide.with(context).asBitmap().dontAnimate()
                 .load(urlOrIdOrUri)
                 .override(thumbnailWidth, thumbnailHeight))
             .into(rxCustomTarget)
@@ -770,7 +918,7 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
         ImageLoaderUtils.checkUrlOrId(urlOrIdOrUri)
 
         Glide.with(imageView.context)
-            .asBitmap()
+            .asBitmap().dontAnimate()
             .load(urlOrIdOrUri)
             .apply(
                 RequestOptions().fitCenter().error(errorHolder)
@@ -806,21 +954,32 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
                           thumbnailHeight: Int) {
         ImageLoaderUtils.checkUrlOrId(urlOrIdOrUri)
 
+
         val glide =
             Glide
                 .with(imageView.context)
                 .load(if (urlOrIdOrUri is String) ImageLoaderUtils.replaceHttpToHttps(urlOrIdOrUri) else urlOrIdOrUri)
                 .apply(requestOptions)
+                .dontAnimate()
+
 
         if (thumbnail){
             glide.thumbnail(Glide.with(imageView.context)
-                .load(urlOrIdOrUri)
+                .load(urlOrIdOrUri).dontAnimate()
                 .override(thumbnailWidth, thumbnailHeight))
         }
         if (transition){
             glide.transition(DrawableTransitionOptions.withCrossFade())
         }
         glide.into(imageView)
+    }
+    private fun glideLoad(urlOrIdOrUri: Any, imageView: ImageView, rxRequestListener: RXRequestListener<Drawable>) {
+        ImageLoaderUtils.checkUrlOrId(urlOrIdOrUri)
+
+        Glide.with(imageView.context)
+            .load(urlOrIdOrUri)
+            .listener(rxRequestListener)
+            .into(imageView)
     }
 
     private fun glideLoad(urlOrIdOrUri: Any, view: View, requestOptions: RequestOptions,transition: Boolean,thumbnail:Boolean,
@@ -837,7 +996,7 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
 
         if (thumbnail){
             glide.thumbnail(Glide.with(view.context)
-                .load(urlOrIdOrUri)
+                .load(urlOrIdOrUri).dontAnimate()
                 .override(thumbnailWidth, thumbnailHeight))
         }
         if (transition){
@@ -869,7 +1028,7 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
                 .error(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_ROUND).setRoundAngle(cornerRadius))
         }
         glideLoad(urlOrIdOrUri, imageView,
-            requestOptions.optionalTransform(RoundedCornersTransform(ImageLoaderUtils.dp2px(cornerRadius) + 0.5f, cornerTypeEnum)),
+            requestOptions.optionalTransform(RoundedCorners((ImageLoaderUtils.dp2px(cornerRadius) + 0.5f).toInt())),
             transition = false, thumbnail = false, thumbnailWidth = 0, thumbnailHeight = 0
         )
     }
@@ -892,6 +1051,34 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
         return requestOptions
     }
 
+    private fun getPriority(priorityEnum: PriorityEnum) : Priority{
+
+        when(priorityEnum){
+
+            PriorityEnum.IMMEDIATE -> {
+                return Priority.IMMEDIATE
+            }
+            PriorityEnum.HIGH -> {
+                return Priority.HIGH
+            }
+            PriorityEnum.NORMAL -> {
+                return Priority.NORMAL
+            }
+            PriorityEnum.LOW -> {
+                return Priority.LOW
+            }
+
+        }
+    }
+
+    private fun getDecodeFormat(decodeFormatEnum: DecodeFormatEnum) : DecodeFormat{
+        when(decodeFormatEnum) {
+            DecodeFormatEnum.PREFER_ARGB_8888 -> {
+                return DecodeFormat.PREFER_ARGB_8888
+            }
+        }
+    }
+
     private fun glideClear(context: Context, imageView: ImageView) {
         Glide.with(context).clear(imageView)
     }
@@ -902,5 +1089,86 @@ internal class ImageLoaderGlide : ImageLoaderInterface {
 
     private fun glidePauseRequests(context: Context) {
         Glide.with(context).pauseRequests()
+    }
+
+    private fun glideClearMemory(context: Context) {
+        Glide.get(context).clearMemory()
+    }
+
+    private fun glideTrimMemory(context: Context, level : Int) {
+        Glide.get(context).trimMemory(level)
+    }
+
+    fun loadImage(context: Context, config: GlideConfigImpl) {
+        val glideRequest = if (config.drawableId != 0) {
+            Glide.with(context).load(config.drawableId)
+        } else {
+            Glide.with(context).load(config.url)
+        }
+        glideRequest.apply {
+            when (config.cacheStrategy) {
+                0 -> diskCacheStrategy(DiskCacheStrategy.ALL)
+                1 -> diskCacheStrategy(DiskCacheStrategy.NONE)
+                2 -> diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                3 -> diskCacheStrategy(DiskCacheStrategy.DATA)
+                4 -> diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                else -> diskCacheStrategy(DiskCacheStrategy.ALL)
+            }
+            if (config.isCrossFade) {
+                val factory = DrawableCrossFadeFactory.Builder().setCrossFadeEnabled(true).build()
+                transition(DrawableTransitionOptions.withCrossFade(factory))
+            }
+            if (config.isCrossFade) {
+                val factory = DrawableCrossFadeFactory.Builder().setCrossFadeEnabled(true).build()
+                transition(DrawableTransitionOptions.withCrossFade(factory))
+            }
+            if (config.isImageRadius()) {
+                transform(RoundedCorners(config.imageRadius))
+            }
+            if (config.isBlurImage) {
+                transform(BlurTransformation(context, config.blurValue))
+            }
+            //glide用它来改变图形的形状
+            if (config.transformation != null) {
+                transform(*config.transformation)
+            }
+            if (config.placeHolderDrawable != null) {
+                placeholder(config.placeHolderDrawable)
+            }
+            //设置占位符
+            if (config.placeholder != 0) {
+                placeholder(config.placeholder)
+            }
+            //设置错误的图片
+            if (config.errorPic != 0) {
+                error(config.errorPic)
+            }
+            //设置请求 url 为空图片
+            if (config.fallback != 0) {
+                fallback(config.fallback)
+            }
+            if (config.resizeX != 0 && config.resizeY != 0) {
+                override(config.resizeX, config.resizeY)
+            }
+            if (config.isCropCenter) {
+                centerCrop()
+            }
+            if (config.isCropCircle) {
+                circleCrop()
+            }
+            if (config.formatType != null) {
+                format(config.formatType)
+            }
+            if (config.isFitCenter) {
+                fitCenter()
+            }
+            if (config.requestListener != null) {
+                addListener(config.requestListener)
+            }
+            into(GlideImageViewTarget(config.imageView, config.url))
+        }
+
+
+
     }
 }

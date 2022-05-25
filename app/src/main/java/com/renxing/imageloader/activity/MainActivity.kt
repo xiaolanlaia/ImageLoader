@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.imageloader.R
 import com.renxing.imageloader.*
 import com.renxing.moduleImageLoader.RXImageLoader
-import com.renxing.moduleImageLoader.loaderStrategy.glide.NewImpl
 
 class MainActivity : AppCompatActivity(),View.OnClickListener {
 
@@ -103,6 +102,9 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
 
 
 
+
+
+//        RXImageLoader.loadBorderCircleImage(errUrl,test_iv_1,29,29,resources.getColor(R.color.color_FFCFF3),1f,R.mipmap.default_photo)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -110,7 +112,24 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
 
         when (v.id) {
             R.id.btn_url                            ->{
+//                RXImageLoader.loadBorderCircleImage(url,test_iv_1,resources.getColor(R.color.color_FFCFF3,null),1f,R.mipmap.default_photo)
 //                RXImageLoader.pauseRequests(test_iv_1.context)
+
+                //                    ImageLoadUtil.loadIv(mActivity, charmList.get(0), ivCharmOne);
+
+
+                val errUrl = "https://voimigo.chongqiwawa6.com/album/202205/16529906286987503.jpg"
+                val errGifUrl = "https://voimigo.chongqiwawa6.com/svga20210526kne9q64x1618212139664.gif"
+//        RXImageLoader.loadBorderCircleImage(
+//            errUrl,
+//            test_iv_1,
+//            resources.getColor(R.color.color_FFCFF3),
+//            1f,
+//            R.mipmap.default_photo
+//        )
+
+                RXImageLoader.loadGif(errGifUrl,test_iv_1)
+
             }
             R.id.btn_id                             ->{
                 RXImageLoader.loadImage(imgId,test_iv_1)
@@ -165,7 +184,6 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
                 RXImageLoader.loadCornersImage(url,test_iv_1, cornerWidth)
             }
             R.id.btn_id_corner                      ->{
-                RXImageLoader.loadCornersImage(imgId,test_iv_1, cornerWidth, placeHoldId)
             }
 
             R.id.btn_next_page                      ->{

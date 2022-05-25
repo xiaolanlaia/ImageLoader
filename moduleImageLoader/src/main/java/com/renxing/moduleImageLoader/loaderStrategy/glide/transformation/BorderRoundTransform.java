@@ -39,6 +39,8 @@ public class BorderRoundTransform extends BitmapTransformation {
         mBorderPaint.setStrokeWidth(borderWidth);
         mBorderPaint.setDither(true);
 
+
+
     }
 
     private Bitmap circleCrop(BitmapPool bitmapPool, Bitmap source) {
