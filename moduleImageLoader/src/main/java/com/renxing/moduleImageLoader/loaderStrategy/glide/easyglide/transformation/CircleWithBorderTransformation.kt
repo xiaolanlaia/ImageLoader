@@ -13,7 +13,7 @@ import java.security.MessageDigest
  * @author : BaoZhou
  * @date : 2019/3/22 21:49
  */
-class CircleWithBorderTransformation(borderWidth: Int, @ColorInt borderColor: Int) :
+class CircleWithBorderTransformation(borderWidth: Float, @ColorInt borderColor: Int) :
     BitmapTransformation() {
     private val mBorderPaint: Paint = Paint()
     private val mBorderWidth: Float = Resources.getSystem().displayMetrics.density * borderWidth

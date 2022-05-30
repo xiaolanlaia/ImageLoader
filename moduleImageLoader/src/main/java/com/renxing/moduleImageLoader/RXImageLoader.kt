@@ -2,6 +2,7 @@ package com.renxing.moduleImageLoader
 
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.ImageView
@@ -220,6 +221,32 @@ object RXImageLoader : ImageLoaderInterface {
         imageLoaderStrategy.loadCircleImage(urlOrIdOrUri,imageView, placeholderImg,diskCacheStrategy)
     }
 
+    override fun loadCircleImageCenterCrop(
+        url: String,
+        imageView: ImageView,
+        placeholderImg: Int,
+        diskCacheStrategy: DiskCacheStrategyEnum
+    ) {
+        imageLoaderStrategy.loadCircleImageCenterCrop(url,imageView, placeholderImg,diskCacheStrategy)
+    }
+
+    override fun loadCircleImageCenterCrop(
+        colorDrawable: ColorDrawable,
+        imageView: ImageView,
+        diskCacheStrategy: DiskCacheStrategyEnum
+    ) {
+        imageLoaderStrategy.loadCircleImageCenterCrop(colorDrawable,imageView,diskCacheStrategy)
+    }
+
+    override fun loadCircleImageCenterInside(
+        url: String,
+        imageView: ImageView,
+        placeholderImg: Int,
+        diskCacheStrategy: DiskCacheStrategyEnum
+    ) {
+        imageLoaderStrategy.loadCircleImageCenterInside(url,imageView,placeholderImg,diskCacheStrategy)
+    }
+
     override fun loadCornersImage(urlOrIdOrUri: Any, imageView: ImageView, cornerRadius: Float) {
         imageLoaderStrategy.loadCornersImage(urlOrIdOrUri,imageView,cornerRadius)
     }
@@ -251,6 +278,17 @@ object RXImageLoader : ImageLoaderInterface {
         diskCacheStrategy: DiskCacheStrategyEnum
     ) {
         imageLoaderStrategy.loadCornersImage(urlOrIdOrUri,imageView,cornerRadius,placeholderImg,diskCacheStrategy)
+    }
+
+    override fun loadCornersImage(
+        context: Context,
+        urlOrIdOrUri: Any,
+        imageView: ImageView,
+        cornerRadius: Float,
+        placeholderImg: Int,
+        diskCacheStrategy: DiskCacheStrategyEnum
+    ) {
+        imageLoaderStrategy.loadCornersImage(context,urlOrIdOrUri,imageView,cornerRadius,placeholderImg,diskCacheStrategy)
     }
 
     override fun loadCornersImage(urlOrIdOrUri: Any, imageView: ImageView, cornerRadius: Float, cornerTypeEnum: CornerTypeEnum) {
@@ -290,14 +328,33 @@ object RXImageLoader : ImageLoaderInterface {
         url: String,
         imageView: ImageView,
         cornerRadius: Float,
+        placeholderImg: Int
+    ) {
+        imageLoaderStrategy.loadCornersImageCenterCrop(url,imageView,cornerRadius,placeholderImg)
+    }
+
+    override fun loadCornersImageCenterCrop(
+        url: String,
+        imageView: ImageView,
+        cornerRadius: Float,
         placeholderImg: Int,
         transition: Boolean
     ) {
         imageLoaderStrategy.loadCornersImageCenterCrop(url,imageView,cornerRadius,placeholderImg,transition)
     }
 
+    override fun loadCornersImageCenterCrop(
+        url: String,
+        imageView: ImageView,
+        cornerRadius: Float,
+        placeholderImg: Int,
+        diskCacheStrategy: DiskCacheStrategyEnum
+    ) {
+        imageLoaderStrategy.loadCornersImageCenterCrop(url,imageView,cornerRadius,placeholderImg,diskCacheStrategy)
+    }
+
     override fun loadCornersImageWithCenterCrop(
-        urlOrIdOrUri: Any,
+        url: String,
         imageView: ImageView,
         placeholderImg: Int,
         cornerRadius: Float,
@@ -307,7 +364,7 @@ object RXImageLoader : ImageLoaderInterface {
         thumbnailWidth: Int,
         thumbnailHeight: Int
     ) {
-        imageLoaderStrategy.loadCornersImageWithCenterCrop(urlOrIdOrUri,imageView,placeholderImg,cornerRadius,diskCacheStrategy,
+        imageLoaderStrategy.loadCornersImageWithCenterCrop(url,imageView,placeholderImg,cornerRadius,diskCacheStrategy,
             transition,thumbnail,thumbnailWidth,thumbnailHeight)
     }
 
@@ -337,6 +394,47 @@ object RXImageLoader : ImageLoaderInterface {
         imageLoaderStrategy.loadBorderCircleImage(url,imageView, borderColor, borderWidth,placeholderImg)
     }
 
+    override fun loadBorderCircleImageCenterCrop(
+        url: String,
+        imageView: ImageView,
+        imageWidth: Int,
+        imageHeight: Int,
+        borderColor: Int,
+        borderWidth: Float,
+        placeholderImg: Int
+    ) {
+        imageLoaderStrategy.loadBorderCircleImageCenterCrop(url,imageView, imageWidth, imageHeight, borderColor, borderWidth,placeholderImg)
+    }
+
+    override fun loadBorderCircleImageCenterCrop(
+        url: String,
+        imageView: ImageView,
+        borderColor: Int,
+        borderWidth: Float,
+        placeholderImg: Int
+    ) {
+        imageLoaderStrategy.loadBorderCircleImageCenterCrop(url,imageView, borderColor, borderWidth,placeholderImg)
+    }
+
+
+    override fun loadBorderCircleImageCenterCrop(
+        urlOrIdOrUri: Any,
+        imageView: ImageView,
+        borderColor: Int,
+        borderWidth: Float
+    ) {
+        imageLoaderStrategy.loadBorderCircleImageCenterCrop(urlOrIdOrUri,imageView, borderColor, borderWidth)
+    }
+
+    override fun loadBorderCircleImageCenterCrop(
+        colorDrawable: ColorDrawable,
+        imageView: ImageView,
+        borderColor: Int,
+        borderWidth: Float
+    ) {
+        imageLoaderStrategy.loadBorderCircleImageCenterCrop(colorDrawable,imageView, borderColor, borderWidth)
+    }
+
     override fun loadBorderCornerImage(
         urlOrIdOrUri: Any,
         imageView: ImageView,
@@ -358,8 +456,18 @@ object RXImageLoader : ImageLoaderInterface {
         imageLoaderStrategy.loadBorderCornerImage(urlOrIdOrUri,imageView, borderColor, borderWidth, cornerRadius,placeholderImg)
     }
 
-    override fun loadGif(urlOrIdOrUri: Any, imageView: ImageView) {
-        imageLoaderStrategy.loadGif(urlOrIdOrUri,imageView)
+    override fun loadGif(context: Context,urlOrIdOrUri: Any, imageView: ImageView) {
+        imageLoaderStrategy.loadGif(context,urlOrIdOrUri,imageView)
+    }
+
+    override fun loadGif(
+        context: Context,
+        urlOrIdOrUri: Any,
+        imageView: ImageView,
+        imgWidth: Int,
+        imgHeight: Int
+    ) {
+        imageLoaderStrategy.loadGif(context,urlOrIdOrUri,imageView,imgWidth,imgHeight)
     }
 
     override fun loadGif(

@@ -2,6 +2,7 @@ package com.renxing.moduleImageLoader.loaderStrategy.control
 
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.ImageView
@@ -177,6 +178,24 @@ interface ImageLoaderInterface {
     fun loadCircleImage(urlOrIdOrUri: Any, imageView: ImageView, placeholderImg: Int,diskCacheStrategy: DiskCacheStrategyEnum)
 
     /**
+     * 圆形图
+     * @urlOrIdOrUri: 加载类型
+     */
+    fun loadCircleImageCenterCrop(url: String, imageView: ImageView, placeholderImg: Int,diskCacheStrategy: DiskCacheStrategyEnum)
+
+    /**
+     * 圆形图
+     * @urlOrIdOrUri: 加载类型
+     */
+    fun loadCircleImageCenterInside(url: String, imageView: ImageView, placeholderImg: Int,diskCacheStrategy: DiskCacheStrategyEnum)
+
+    /**
+     * 圆形图
+     * @urlOrIdOrUri: 加载类型
+     */
+    fun loadCircleImageCenterCrop(colorDrawable: ColorDrawable, imageView: ImageView, diskCacheStrategy: DiskCacheStrategyEnum)
+
+    /**
      * 圆角图
      * @urlOrIdOrUri: 加载类型
      * @cornerRadius: Float 圆角半径
@@ -189,6 +208,13 @@ interface ImageLoaderInterface {
      * @cornerRadius: Float 圆角半径
      */
     fun loadCornersImage(url: String, imageView: ImageView, cornerRadius : Float, placeholderImg: Int)
+
+    /**
+     * 圆角图
+     * @urlOrIdOrUri: 加载类型
+     * @cornerRadius: Float 圆角半径
+     */
+    fun loadCornersImageCenterCrop(url: String, imageView: ImageView, cornerRadius : Float, placeholderImg: Int)
 
     /**
      * 圆角图
@@ -209,7 +235,25 @@ interface ImageLoaderInterface {
      * @urlOrIdOrUri: 加载类型
      * @cornerRadius: Float 圆角半径
      */
+    fun loadCornersImageCenterCrop(url: String,
+                                   imageView: ImageView,
+                                   cornerRadius: Float,
+                                   placeholderImg: Int,
+                                   diskCacheStrategy: DiskCacheStrategyEnum)
+
+    /**
+     * 圆角图
+     * @urlOrIdOrUri: 加载类型
+     * @cornerRadius: Float 圆角半径
+     */
     fun loadCornersImage(urlOrIdOrUri: Any, imageView: ImageView, cornerRadius : Float, placeholderImg: Int, diskCacheStrategy: DiskCacheStrategyEnum)
+
+    /**
+     * 圆角图
+     * @urlOrIdOrUri: 加载类型
+     * @cornerRadius: Float 圆角半径
+     */
+    fun loadCornersImage(context: Context,urlOrIdOrUri: Any, imageView: ImageView, cornerRadius : Float, placeholderImg: Int, diskCacheStrategy: DiskCacheStrategyEnum)
 
     /**
      * 指定圆角边的圆角图
@@ -236,7 +280,7 @@ interface ImageLoaderInterface {
      * 指定圆角边的圆角图
      * @bitmap: Bitmap
      */
-    fun loadCornersImageWithCenterCrop(urlOrIdOrUri: Any, imageView: ImageView, placeholderImg: Int, cornerRadius : Float, diskCacheStrategy: DiskCacheStrategyEnum,
+    fun loadCornersImageWithCenterCrop(url: String, imageView: ImageView, placeholderImg: Int, cornerRadius : Float, diskCacheStrategy: DiskCacheStrategyEnum,
                                        transition : Boolean, thumbnail : Boolean, thumbnailWidth : Int, thumbnailHeight : Int)
 
     /**
@@ -250,6 +294,29 @@ interface ImageLoaderInterface {
      * urlOrIdOrUri: 加载类型
      */
     fun loadBorderCircleImage(url: String, imageView: ImageView, imageWidth : Int, imageHeight : Int, borderColor : Int, borderWidth : Float, placeholderImg: Int)
+
+    /**
+     * 带边框圆形图
+     * urlOrIdOrUri: 加载类型
+     */
+    fun loadBorderCircleImageCenterCrop(url: String, imageView: ImageView, borderColor : Int, borderWidth : Float, placeholderImg: Int)
+    /**
+     * 带边框圆形图
+     * urlOrIdOrUri: 加载类型
+     */
+    fun loadBorderCircleImageCenterCrop(urlOrIdOrUri: Any, imageView: ImageView, borderColor : Int, borderWidth : Float)
+
+    /**
+     * 带边框圆形图
+     * urlOrIdOrUri: 加载类型
+     */
+    fun loadBorderCircleImageCenterCrop(colorDrawable: ColorDrawable, imageView: ImageView, borderColor : Int, borderWidth : Float)
+
+    /**
+     * 带边框圆形图
+     * urlOrIdOrUri: 加载类型
+     */
+    fun loadBorderCircleImageCenterCrop(url: String, imageView: ImageView, imageWidth : Int, imageHeight : Int, borderColor : Int, borderWidth : Float, placeholderImg: Int)
 
     /**
      * 带边框圆形图
@@ -272,7 +339,11 @@ interface ImageLoaderInterface {
     /**
      * @urlOrIdOrUri: 加载类型
      */
-    fun loadGif(urlOrIdOrUri: Any, imageView: ImageView)
+    fun loadGif(context: Context,urlOrIdOrUri: Any, imageView: ImageView)
+    /**
+     * @urlOrIdOrUri: 加载类型
+     */
+    fun loadGif(context: Context,urlOrIdOrUri: Any, imageView: ImageView,imgWidth:Int,imgHeight:Int)
 
     /**
      * @urlOrIdOrUri: 加载类型

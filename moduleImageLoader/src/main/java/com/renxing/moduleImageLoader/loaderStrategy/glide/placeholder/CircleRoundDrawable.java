@@ -146,6 +146,9 @@ public class CircleRoundDrawable extends Drawable {
         if (type == TYPE_CIRCLE) {
             return mWidth;
         }
+        if (bitmap == null){
+            return 0;
+        }
         return bitmap.getHeight();
     }
 
@@ -153,6 +156,9 @@ public class CircleRoundDrawable extends Drawable {
     public int getIntrinsicWidth() {
         if (type == TYPE_CIRCLE) {
             return mWidth;
+        }
+        if (bitmap == null){
+            return 0;
         }
         return bitmap.getWidth();
     }
