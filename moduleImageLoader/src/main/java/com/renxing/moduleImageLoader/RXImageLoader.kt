@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.view.View
 import android.widget.ImageView
 import com.renxing.moduleImageLoader.imageUtils.enumUtils.CornerTypeEnum
@@ -231,6 +232,31 @@ object RXImageLoader : ImageLoaderInterface {
     }
 
     override fun loadCircleImageCenterCrop(
+        placeholderImg: Int,
+        imageView: ImageView,
+        diskCacheStrategy: DiskCacheStrategyEnum
+    ) {
+        imageLoaderStrategy.loadCircleImageCenterCrop(placeholderImg,imageView,diskCacheStrategy)
+    }
+
+    override fun loadCircleImageCenterCrop(
+        uri: Uri,
+        imageView: ImageView,
+        placeholderImg: Int,
+        diskCacheStrategy: DiskCacheStrategyEnum
+    ) {
+        imageLoaderStrategy.loadCircleImageCenterCrop(uri,imageView,placeholderImg,diskCacheStrategy)
+    }
+
+    override fun loadCircleImageCenterCrop(
+        uri: Uri,
+        imageView: ImageView,
+        diskCacheStrategy: DiskCacheStrategyEnum
+    ) {
+        imageLoaderStrategy.loadCircleImageCenterCrop(uri,imageView,diskCacheStrategy)
+    }
+
+    override fun loadCircleImageCenterCrop(
         colorDrawable: ColorDrawable,
         imageView: ImageView,
         diskCacheStrategy: DiskCacheStrategyEnum
@@ -334,6 +360,23 @@ object RXImageLoader : ImageLoaderInterface {
     }
 
     override fun loadCornersImageCenterCrop(
+        urlOrIdOrUri: Any,
+        imageView: ImageView,
+        cornerRadius: Float,
+        diskCacheStrategy: DiskCacheStrategyEnum
+    ) {
+        imageLoaderStrategy.loadCornersImageCenterCrop(urlOrIdOrUri,imageView,cornerRadius,diskCacheStrategy)
+    }
+
+    override fun loadCornersImageCenterCrop(
+        colorDrawable: ColorDrawable,
+        imageView: ImageView,
+        cornerRadius: Float
+    ) {
+        imageLoaderStrategy.loadCornersImageCenterCrop(colorDrawable,imageView,cornerRadius)
+    }
+
+    override fun loadCornersImageCenterCrop(
         url: String,
         imageView: ImageView,
         cornerRadius: Float,
@@ -414,6 +457,39 @@ object RXImageLoader : ImageLoaderInterface {
         placeholderImg: Int
     ) {
         imageLoaderStrategy.loadBorderCircleImageCenterCrop(url,imageView, borderColor, borderWidth,placeholderImg)
+    }
+
+    override fun loadBorderCircleImageCenterCrop(
+        url: String,
+        imageView: ImageView,
+        borderColor: Int,
+        borderWidth: Float,
+        placeholderImg: Int,
+        diskCacheStrategyEnum: DiskCacheStrategyEnum
+    ) {
+        imageLoaderStrategy.loadBorderCircleImageCenterCrop(url,imageView, borderColor, borderWidth,placeholderImg,diskCacheStrategyEnum)
+    }
+
+    override fun loadBorderCircleImageCenterCrop(
+        imgId : Int,
+        imageView: ImageView,
+        borderColor: Int,
+        borderWidth: Float,
+        placeholderImg: Int,
+        diskCacheStrategyEnum: DiskCacheStrategyEnum
+    ) {
+        imageLoaderStrategy.loadBorderCircleImageCenterCrop(imgId,imageView, borderColor, borderWidth,placeholderImg,diskCacheStrategyEnum)
+    }
+
+    override fun loadBorderCircleImageCenterCrop(
+        uri: Uri,
+        imageView: ImageView,
+        borderColor: Int,
+        borderWidth: Float,
+        placeholderImg: Int,
+        diskCacheStrategyEnum: DiskCacheStrategyEnum
+    ) {
+        imageLoaderStrategy.loadBorderCircleImageCenterCrop(uri,imageView, borderColor, borderWidth,placeholderImg,diskCacheStrategyEnum)
     }
 
 

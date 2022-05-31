@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.view.View
 import android.widget.ImageView
 import com.renxing.moduleImageLoader.imageUtils.enumUtils.*
@@ -187,6 +188,22 @@ interface ImageLoaderInterface {
      * 圆形图
      * @urlOrIdOrUri: 加载类型
      */
+    fun loadCircleImageCenterCrop(placeholderImg: Int, imageView: ImageView, diskCacheStrategy: DiskCacheStrategyEnum)
+    /**
+     * 圆形图
+     * @urlOrIdOrUri: 加载类型
+     */
+    fun loadCircleImageCenterCrop(uri: Uri, imageView: ImageView,diskCacheStrategy: DiskCacheStrategyEnum)
+    /**
+     * 圆形图
+     * @urlOrIdOrUri: 加载类型
+     */
+    fun loadCircleImageCenterCrop(uri: Uri, imageView: ImageView,placeholderImg: Int,diskCacheStrategy: DiskCacheStrategyEnum)
+
+    /**
+     * 圆形图
+     * @urlOrIdOrUri: 加载类型
+     */
     fun loadCircleImageCenterInside(url: String, imageView: ImageView, placeholderImg: Int,diskCacheStrategy: DiskCacheStrategyEnum)
 
     /**
@@ -215,6 +232,19 @@ interface ImageLoaderInterface {
      * @cornerRadius: Float 圆角半径
      */
     fun loadCornersImageCenterCrop(url: String, imageView: ImageView, cornerRadius : Float, placeholderImg: Int)
+
+    /**
+     * 圆角图
+     * @urlOrIdOrUri: 加载类型
+     * @cornerRadius: Float 圆角半径
+     */
+    fun loadCornersImageCenterCrop(urlOrIdOrUri: Any, imageView: ImageView, cornerRadius : Float, diskCacheStrategy: DiskCacheStrategyEnum)
+    /**
+     * 圆角图
+     * @colorDrawable: 加载类型
+     * @cornerRadius: Float 圆角半径
+     */
+    fun loadCornersImageCenterCrop(colorDrawable: ColorDrawable, imageView: ImageView, cornerRadius: Float)
 
     /**
      * 圆角图
@@ -300,6 +330,21 @@ interface ImageLoaderInterface {
      * urlOrIdOrUri: 加载类型
      */
     fun loadBorderCircleImageCenterCrop(url: String, imageView: ImageView, borderColor : Int, borderWidth : Float, placeholderImg: Int)
+    /**
+     * 带边框圆形图
+     * urlOrIdOrUri: 加载类型
+     */
+    fun loadBorderCircleImageCenterCrop(url: String, imageView: ImageView, borderColor : Int, borderWidth : Float, placeholderImg: Int,diskCacheStrategyEnum: DiskCacheStrategyEnum)
+    /**
+     * 带边框圆形图
+     * urlOrIdOrUri: 加载类型
+     */
+    fun loadBorderCircleImageCenterCrop(imgId : Int, imageView: ImageView, borderColor : Int, borderWidth : Float, placeholderImg: Int,diskCacheStrategyEnum: DiskCacheStrategyEnum)
+    /**
+     * 带边框圆形图
+     * urlOrIdOrUri: 加载类型
+     */
+    fun loadBorderCircleImageCenterCrop(uri: Uri, imageView: ImageView, borderColor : Int, borderWidth : Float, placeholderImg: Int,diskCacheStrategyEnum: DiskCacheStrategyEnum)
     /**
      * 带边框圆形图
      * urlOrIdOrUri: 加载类型

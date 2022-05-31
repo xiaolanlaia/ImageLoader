@@ -128,7 +128,7 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
 //            R.mipmap.default_photo
 //        )
 
-                RXImageLoader.loadGif(errGifUrl,test_iv_1)
+//                RXImageLoader.loadGif(errGifUrl,test_iv_1)
 
             }
             R.id.btn_id                             ->{

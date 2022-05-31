@@ -8,6 +8,7 @@ import android.graphics.NinePatch
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.NinePatchDrawable
+import android.net.Uri
 import android.os.Looper
 import android.view.View
 import android.widget.ImageView
@@ -45,6 +46,7 @@ import com.renxing.moduleImageLoader.loaderStrategy.glide.easyglide.progress.Gli
 import com.renxing.moduleImageLoader.loaderStrategy.glide.easyglide.transformation.BlurTransformation
 import com.renxing.moduleImageLoader.loaderStrategy.glide.easyglide.transformation.CircleWithBorderTransformation
 import com.renxing.moduleImageLoader.loaderStrategy.glide.easyglide.transformation.RoundedCornersTransformation
+import com.renxing.moduleImageLoader.loaderStrategy.glide.transformation.RoundedCornersTransform
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileNotFoundException
@@ -365,6 +367,50 @@ class ImageLoaderGlide : ImageLoaderInterface {
     }
 
     override fun loadCircleImageCenterCrop(
+        imgId: Int,
+        imageView: ImageView,
+        diskCacheStrategy: DiskCacheStrategyEnum
+    ) {
+        loadImage(imageView.context,
+            GlideConfigImpl
+                .builder()
+                .drawableId(imgId)
+                .transformation(CenterCrop(),CircleCrop())
+                .cacheStrategy(getCacheStrategy(diskCacheStrategy))
+                .imageView(imageView)
+                .build())
+    }
+
+    override fun loadCircleImageCenterCrop(
+        uri: Uri,
+        imageView: ImageView,
+        diskCacheStrategy: DiskCacheStrategyEnum
+    ) {
+        Glide
+            .with(imageView.context)
+            .load(uri)
+            .transform(CenterCrop(),CircleCrop())
+            .apply(getDiskCacheStrategy(diskCacheStrategy))
+            .into(imageView)
+    }
+
+    override fun loadCircleImageCenterCrop(
+        uri: Uri,
+        imageView: ImageView,
+        placeholderImg: Int,
+        diskCacheStrategy: DiskCacheStrategyEnum
+    ) {
+        Glide
+            .with(imageView.context)
+            .load(uri)
+            .transform(CenterCrop(),CircleCrop())
+            .placeholder(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_CIRCLE))
+            .error(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_CIRCLE))
+            .apply(getDiskCacheStrategy(diskCacheStrategy))
+            .into(imageView)
+    }
+
+    override fun loadCircleImageCenterCrop(
         colorDrawable: ColorDrawable,
         imageView: ImageView,
         diskCacheStrategy: DiskCacheStrategyEnum
@@ -614,6 +660,32 @@ class ImageLoaderGlide : ImageLoaderInterface {
                 .build())
     }
 
+    override fun loadCornersImageCenterCrop(
+        urlOrIdOrUri: Any,
+        imageView: ImageView,
+        cornerRadius: Float,
+        diskCacheStrategy: DiskCacheStrategyEnum
+    ) {
+        Glide
+            .with(imageView.context)
+            .load(urlOrIdOrUri)
+            .transform(CenterCrop(), RoundedCornersTransform(cornerRadius, CornerTypeEnum.ALL))
+            .apply(getDiskCacheStrategy(diskCacheStrategy))
+            .into(imageView)
+    }
+
+    override fun loadCornersImageCenterCrop(
+        colorDrawable: ColorDrawable,
+        imageView: ImageView,
+        cornerRadius: Float
+    ) {
+        Glide
+            .with(imageView.context)
+            .load(colorDrawable)
+            .transform(CenterCrop(),RoundedCornersTransformation(cornerRadius.toInt(), 0))
+            .into(imageView)
+    }
+
     override fun loadCornersImageWithCenterCrop(url: String, imageView: ImageView, placeholderImg: Int,
                                                 cornerRadius: Float, diskCacheStrategy: DiskCacheStrategyEnum,
                                                 transition: Boolean, thumbnail: Boolean, thumbnailWidth: Int, thumbnailHeight: Int) {
@@ -749,6 +821,68 @@ class ImageLoaderGlide : ImageLoaderInterface {
                 .imageView(imageView)
                 .build()
         )
+    }
+
+    override fun loadBorderCircleImageCenterCrop(
+        url: String,
+        imageView: ImageView,
+        borderColor: Int,
+        borderWidth: Float,
+        placeholderImg: Int,
+        diskCacheStrategyEnum: DiskCacheStrategyEnum
+    ) {
+        loadImage(
+            imageView.context,
+            GlideConfigImpl
+                .builder()
+                .url(url)
+                .transformation(CenterCrop(),CircleWithBorderTransformation(borderWidth, borderColor))
+                .cacheStrategy(getCacheStrategy(diskCacheStrategyEnum))
+                .isCrossFade(false)
+                .errorPic(placeholderImg)
+                .placeholderDrawable(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_CIRCLE))
+                .imageView(imageView)
+                .build()
+        )
+    }
+
+    override fun loadBorderCircleImageCenterCrop(
+        imgId: Int,
+        imageView: ImageView,
+        borderColor: Int,
+        borderWidth: Float,
+        placeholderImg: Int,
+        diskCacheStrategyEnum: DiskCacheStrategyEnum
+    ) {
+        loadImage(
+            imageView.context,
+            GlideConfigImpl
+                .builder()
+                .drawableId(imgId)
+                .transformation(CenterCrop(),CircleWithBorderTransformation(borderWidth, borderColor))
+                .cacheStrategy(getCacheStrategy(diskCacheStrategyEnum))
+                .isCrossFade(false)
+                .errorPic(placeholderImg)
+                .placeholderDrawable(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_CIRCLE))
+                .imageView(imageView)
+                .build())
+    }
+
+    override fun loadBorderCircleImageCenterCrop(
+        uri: Uri,
+        imageView: ImageView,
+        borderColor: Int,
+        borderWidth: Float,
+        placeholderImg: Int,
+        diskCacheStrategyEnum: DiskCacheStrategyEnum
+    ) {
+
+        Glide
+            .with(imageView.context)
+            .load(uri)
+            .transform(CenterCrop(),CircleBorderTransformation(borderWidth, borderColor))
+            .apply(getDiskCacheStrategy(diskCacheStrategyEnum))
+            .into(imageView)
     }
 
     override fun loadBorderCircleImageCenterCrop(

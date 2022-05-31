@@ -128,11 +128,11 @@ class SecondActivity : AppCompatActivity(), View.OnClickListener {
                 )
             }
             R.id.btn_url_gif                        ->{
-                RXImageLoader.loadGif(gifUrl,test_iv_1)
+//                RXImageLoader.loadGif(gifUrl,test_iv_1)
 
             }
             R.id.btn_id_gif                         ->{
-                RXImageLoader.loadGif(gifId,test_iv_1)
+//                RXImageLoader.loadGif(gifId,test_iv_1)
             }
             R.id.btn_url_gif_playTimes              ->{
                 RXImageLoader.loadGif(playTimes, gifUrl,test_iv_1)
