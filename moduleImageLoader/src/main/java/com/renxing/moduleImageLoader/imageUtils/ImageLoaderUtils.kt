@@ -43,6 +43,35 @@ object ImageLoaderUtils {
         return newUrl
     }
 
+    fun appendUrl(url: String, width: Float, height: Float, needToPx: Boolean): String {
+        var newUrl: String
+        url.run{
+            newUrl = if (!this.contains(URL_APPEND_WIDTH)) {
+                if (needToPx) {
+                    this + URL_APPEND_WIDTH + DisplayUtils.dp2px(width) + URL_APPEND_HEIGHT + DisplayUtils.dp2px(height) + interlaceStr
+                } else {
+                    this + URL_APPEND_WIDTH + width.toInt() + URL_APPEND_HEIGHT + height.toInt() + interlaceStr
+                }
+            }else{
+                url
+            }
+        }
+        return newUrl
+    }
+
+    fun appendUrl(url: String, width: Float, height: Float): String {
+        var newUrl: String
+        url.run{
+            newUrl = if (!this.contains(URL_APPEND_WIDTH)) {
+                this + URL_APPEND_WIDTH + DisplayUtils.dp2px(width) + URL_APPEND_HEIGHT + DisplayUtils.dp2px(height) + interlaceStr
+
+            }else{
+                url
+            }
+        }
+        return newUrl
+    }
+
 
     /**
      * 只处理png和jpg格式图片

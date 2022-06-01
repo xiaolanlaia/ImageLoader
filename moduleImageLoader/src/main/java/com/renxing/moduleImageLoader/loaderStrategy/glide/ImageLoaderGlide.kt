@@ -367,6 +367,27 @@ class ImageLoaderGlide : ImageLoaderInterface {
     }
 
     override fun loadCircleImageCenterCrop(
+        url: String,
+        imageView: ImageView,
+        imageWidth: Float,
+        imageHeight: Float,
+        placeholderImg: Int,
+        diskCacheStrategy: DiskCacheStrategyEnum
+    ) {
+        loadImage(imageView.context,
+            GlideConfigImpl
+                .builder()
+                .url(url)
+                .resize(imageWidth.toInt(),imageHeight.toInt())
+                .transformation(CenterCrop(),CircleCrop())
+                .errorPic(placeholderImg)
+                .cacheStrategy(getCacheStrategy(diskCacheStrategy))
+                .placeholderDrawable(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_CIRCLE))
+                .imageView(imageView)
+                .build())
+    }
+
+    override fun loadCircleImageCenterCrop(
         imgId: Int,
         imageView: ImageView,
         diskCacheStrategy: DiskCacheStrategyEnum
@@ -661,6 +682,27 @@ class ImageLoaderGlide : ImageLoaderInterface {
     }
 
     override fun loadCornersImageCenterCrop(
+        url: String,
+        imageView: ImageView,
+        imageViewWidth: Float,
+        imageViewHeight: Float,
+        cornerRadius: Float,
+        placeholderImg: Int
+    ) {
+        loadImage(imageView.context,
+            GlideConfigImpl
+                .builder()
+                .url(url)
+                .resize(imageViewWidth.toInt(),imageViewHeight.toInt())
+                .transformation(CenterCrop(),RoundedCornersTransformation(cornerRadius.toInt(), 0))
+                .isCrossFade(false)
+                .errorPic(placeholderImg)
+                .placeholder(placeholderImg)
+                .imageView(imageView)
+                .build())
+    }
+
+    override fun loadCornersImageCenterCrop(
         urlOrIdOrUri: Any,
         imageView: ImageView,
         cornerRadius: Float,
@@ -759,8 +801,8 @@ class ImageLoaderGlide : ImageLoaderInterface {
     override fun loadBorderCircleImageCenterCrop(
         url: String,
         imageView: ImageView,
-        imageWidth : Int,
-        imageHeight : Int,
+        imageWidth : Float,
+        imageHeight : Float,
         borderColor: Int,
         borderWidth: Float,
         placeholderImg: Int
@@ -771,7 +813,33 @@ class ImageLoaderGlide : ImageLoaderInterface {
             GlideConfigImpl
                 .builder()
                 .url(url)
-                .resize(imageWidth,imageHeight)
+                .resize(imageWidth.toInt(),imageHeight.toInt())
+                .transformation(CenterCrop(),CircleWithBorderTransformation(borderWidth, borderColor))
+                .isCrossFade(false)
+                .errorPic(placeholderImg)
+                .placeholderDrawable(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_CIRCLE))
+                .imageView(imageView)
+                .build()
+        )
+    }
+
+    override fun loadBorderCircleImageCenterCrop(
+        url: String,
+        imageView: ImageView,
+        imageWidth: Float,
+        imageHeight: Float,
+        borderColor: Int,
+        borderWidth: Float,
+        placeholderImg: Int,
+        diskCacheStrategy: DiskCacheStrategyEnum
+    ) {
+        loadImage(
+            imageView.context,
+            GlideConfigImpl
+                .builder()
+                .url(url)
+                .resize(imageWidth.toInt(),imageHeight.toInt())
+                .cacheStrategy(getCacheStrategy(diskCacheStrategy))
                 .transformation(CenterCrop(),CircleWithBorderTransformation(borderWidth, borderColor))
                 .isCrossFade(false)
                 .errorPic(placeholderImg)

@@ -232,6 +232,17 @@ object RXImageLoader : ImageLoaderInterface {
     }
 
     override fun loadCircleImageCenterCrop(
+        url: String,
+        imageView: ImageView,
+        imageWidth: Float,
+        imageHeight: Float,
+        placeholderImg: Int,
+        diskCacheStrategy: DiskCacheStrategyEnum
+    ) {
+        imageLoaderStrategy.loadCircleImageCenterCrop(url,imageView,imageWidth,imageHeight, placeholderImg,diskCacheStrategy)
+    }
+
+    override fun loadCircleImageCenterCrop(
         placeholderImg: Int,
         imageView: ImageView,
         diskCacheStrategy: DiskCacheStrategyEnum
@@ -360,6 +371,17 @@ object RXImageLoader : ImageLoaderInterface {
     }
 
     override fun loadCornersImageCenterCrop(
+        url: String,
+        imageView: ImageView,
+        imageViewWidth: Float,
+        imageViewHeight: Float,
+        cornerRadius: Float,
+        placeholderImg: Int
+    ) {
+        imageLoaderStrategy.loadCornersImageCenterCrop(url,imageView,cornerRadius,placeholderImg)
+    }
+
+    override fun loadCornersImageCenterCrop(
         urlOrIdOrUri: Any,
         imageView: ImageView,
         cornerRadius: Float,
@@ -440,13 +462,26 @@ object RXImageLoader : ImageLoaderInterface {
     override fun loadBorderCircleImageCenterCrop(
         url: String,
         imageView: ImageView,
-        imageWidth: Int,
-        imageHeight: Int,
+        imageWidth: Float,
+        imageHeight: Float,
         borderColor: Int,
         borderWidth: Float,
         placeholderImg: Int
     ) {
         imageLoaderStrategy.loadBorderCircleImageCenterCrop(url,imageView, imageWidth, imageHeight, borderColor, borderWidth,placeholderImg)
+    }
+
+    override fun loadBorderCircleImageCenterCrop(
+        url: String,
+        imageView: ImageView,
+        imageWidth: Float,
+        imageHeight: Float,
+        borderColor: Int,
+        borderWidth: Float,
+        placeholderImg: Int,
+        diskCacheStrategy: DiskCacheStrategyEnum
+    ) {
+        imageLoaderStrategy.loadBorderCircleImageCenterCrop(url,imageView, imageWidth, imageHeight, borderColor, borderWidth,placeholderImg,diskCacheStrategy)
     }
 
     override fun loadBorderCircleImageCenterCrop(
