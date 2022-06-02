@@ -1,10 +1,13 @@
 
 package com.renxing.moduleImageLoader.loaderStrategy.glide.easyglide.config
 
+import android.net.Uri
 import android.widget.ImageView
 
 open class ImageConfig {
     var url: String? = null
+        protected set
+    var uri: Uri? = null
         protected set
     var drawableId = 0
         protected set

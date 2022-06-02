@@ -8,5 +8,6 @@ enum class DiskCacheStrategyEnum{
     RESOURCE,
     NONE,
     ALL,
+    DATA,
     AUTOMATIC
 }

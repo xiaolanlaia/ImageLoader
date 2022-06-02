@@ -1,10 +1,12 @@
 package com.renxing.moduleImageLoader.loaderStrategy.glide.easyglide.config
 
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.widget.ImageView
 import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation
-import com.renxing.moduleImageLoader.loaderStrategy.control.RXRequestListener
+import com.bumptech.glide.request.RequestListener
+import com.renxing.moduleImageLoader.imageUtils.enumUtils.DiskCacheStrategyEnum
 import com.renxing.moduleImageLoader.loaderStrategy.glide.easyglide.progress.OnProgressListener
 
 /**
@@ -12,11 +14,7 @@ import com.renxing.moduleImageLoader.loaderStrategy.glide.easyglide.progress.OnP
  * @author : BaoZhou
  * @date : 2020/5/9 2:49 PM
  */
-const val CACHE_STRATEGY_ALL = 0
-const val CACHE_STRATEGY_NONE = 1
-const val CACHE_STRATEGY_SOURCE = 2
-const val CACHE_STRATEGY_RESULT = 3
-class ImgConfigImpl private constructor(builder: Builder) : ImageConfig() {
+class ImgLoaderConfigImpl private constructor(builder: Builder) : ImageConfig() {
     /**
      * 0 对应DiskCacheStrategy.all
      * 1 对应DiskCacheStrategy.NONE
@@ -24,25 +22,25 @@ class ImgConfigImpl private constructor(builder: Builder) : ImageConfig() {
      * 3 对应DiskCacheStrategy.RESULT
      */
     val cacheStrategy: Int
+    val diskCacheStrategyEnum : DiskCacheStrategyEnum?
     val fallback: Int
     val transformation: Array<out BitmapTransformation>?
     val imageViews: Array<out ImageView>?
     val isClearMemory: Boolean
     val isClearDiskCache: Boolean
     val placeHolderDrawable: Drawable?
-    //图片宽度
     val resizeX: Int
-    //图片高度
-    val resizeY: Int
     val isCropCenter: Boolean
     val isCropCircle: Boolean
     val isFitCenter: Boolean
     val formatType: DecodeFormat?
+    val resizeY: Int
     val imageRadius: Int
     val blurValue: Int
     val isCrossFade: Boolean
+    val dontAnimate: Boolean
     var onProgressListener: OnProgressListener?
-    var requestListener: RXRequestListener<Drawable?>?
+    var requestListener: RequestListener<Drawable?>?
 
 
     val isBlurImage: Boolean
@@ -55,6 +53,7 @@ class ImgConfigImpl private constructor(builder: Builder) : ImageConfig() {
     class Builder {
         var resizeX = 0
         var url: String? = null
+        var uri: Uri? = null
         var drawableId = 0
         var imageView: ImageView? = null
         var placeholder = 0
@@ -62,6 +61,7 @@ class ImgConfigImpl private constructor(builder: Builder) : ImageConfig() {
         var errorPic = 0
         var fallback = 0
         var cacheStrategy = 0
+        var diskCacheStrategyEnum : DiskCacheStrategyEnum? = null
         var imageRadius = 0
         var blurValue = 0
         var transformation: Array<out BitmapTransformation>? = null
@@ -71,17 +71,22 @@ class ImgConfigImpl private constructor(builder: Builder) : ImageConfig() {
         var isCropCenter = false
         var isCropCircle = false
         var isCrossFade = false
+        var dontAnimate = false
         var formatType: DecodeFormat? = null
         var isFitCenter = false
         var resizeY = 0
         var onProgressListener: OnProgressListener? = null
-        var requestListener: RXRequestListener<Drawable?>? = null
-        fun url(url: String?): Builder {
+        var requestListener: RequestListener<Drawable?>? = null
+        fun load(url: String?): Builder {
             this.url = url
             return this
         }
+        fun load(uri: Uri?): Builder {
+            this.uri = uri
+            return this
+        }
 
-        fun drawableId(drawableId: Int): Builder {
+        fun load(drawableId: Int): Builder {
             this.drawableId = drawableId
             return this
         }
@@ -111,6 +116,11 @@ class ImgConfigImpl private constructor(builder: Builder) : ImageConfig() {
             return this
         }
 
+        fun cacheStrategy(diskCacheStrategyEnum: DiskCacheStrategyEnum): Builder {
+            this.diskCacheStrategyEnum = diskCacheStrategyEnum
+            return this
+        }
+
         fun imageRadius(imageRadius: Int): Builder {
             this.imageRadius = imageRadius
             return this
@@ -123,6 +133,12 @@ class ImgConfigImpl private constructor(builder: Builder) : ImageConfig() {
 
         fun isCrossFade(isCrossFade: Boolean): Builder {
             this.isCrossFade = isCrossFade
+            return this
+        }
+
+
+        fun dontAnimate(dontAnimation: Boolean): Builder {
+            this.dontAnimate = dontAnimation
             return this
         }
 
@@ -182,13 +198,13 @@ class ImgConfigImpl private constructor(builder: Builder) : ImageConfig() {
             return this
         }
 
-        fun requestListener(requestListener: RXRequestListener<Drawable?>?): Builder {
+        fun requestListener(requestListener: RequestListener<Drawable?>?): Builder {
             this.requestListener = requestListener
             return this
         }
 
-        fun build(): ImgConfigImpl {
-            return ImgConfigImpl(this)
+        fun build(): ImgLoaderConfigImpl {
+            return ImgLoaderConfigImpl(this)
         }
     }
 
@@ -200,6 +216,7 @@ class ImgConfigImpl private constructor(builder: Builder) : ImageConfig() {
 
     init {
         url = builder.url
+        uri = builder.uri
         drawableId = builder.drawableId
         imageView = builder.imageView
         placeholder = builder.placeholder
@@ -207,6 +224,7 @@ class ImgConfigImpl private constructor(builder: Builder) : ImageConfig() {
         errorPic = builder.errorPic
         fallback = builder.fallback
         cacheStrategy = builder.cacheStrategy
+        diskCacheStrategyEnum = builder.diskCacheStrategyEnum
         transformation = builder.transformation
         imageViews = builder.imageViews
         isClearMemory = builder.isClearMemory
@@ -218,6 +236,7 @@ class ImgConfigImpl private constructor(builder: Builder) : ImageConfig() {
         formatType = builder.formatType
         isFitCenter = builder.isFitCenter
         isCrossFade = builder.isCrossFade
+        dontAnimate = builder.dontAnimate
         imageRadius = builder.imageRadius
         blurValue = builder.blurValue
         onProgressListener = builder.onProgressListener
