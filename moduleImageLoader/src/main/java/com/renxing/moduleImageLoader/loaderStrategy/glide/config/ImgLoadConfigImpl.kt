@@ -7,6 +7,8 @@ import android.widget.ImageView
 import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation
 import com.renxing.moduleImageLoader.imageUtils.enumUtils.DiskCacheStrategyEnum
+import com.renxing.moduleImageLoader.imageUtils.enumUtils.PriorityEnum
+import com.renxing.moduleImageLoader.imageUtils.enumUtils.RequestBuilderTypeEnum
 import com.renxing.moduleImageLoader.loaderStrategy.control.RXRequestListener
 import com.renxing.moduleImageLoader.loaderStrategy.glide.target.RXCustomTarget
 
@@ -29,7 +31,7 @@ class ImgLoadConfigImpl private constructor(builder: Builder) : ImageConfig() {
     val transformation: Array<out BitmapTransformation>?
     val isClearMemory: Boolean
     val isClearDiskCache: Boolean
-    val asGif: Boolean
+    val requestBuilderTypeEnum: RequestBuilderTypeEnum?
     val placeHolderDrawable: Drawable?
     val errorDrawable: Drawable?
     val resizeX: Int
@@ -43,7 +45,8 @@ class ImgLoadConfigImpl private constructor(builder: Builder) : ImageConfig() {
     val isCrossFade: Boolean
     val dontAnimate: Boolean
     var requestListener: RXRequestListener<Drawable?>?
-    var rxCustomTarget : RXCustomTarget<Drawable?>?
+    var rxCustomTarget : RXCustomTarget<Drawable>?
+    var priorityEnum : PriorityEnum?
 
 
     fun isImageRadius(): Boolean {
@@ -68,7 +71,7 @@ class ImgLoadConfigImpl private constructor(builder: Builder) : ImageConfig() {
         var imageRadius = 0
         var transformation: Array<out BitmapTransformation>? = null
         var isClearMemory = false
-        var asGif = false
+        var requestBuilderTypeEnum : RequestBuilderTypeEnum? = null
         var isClearDiskCache = false
         var isCropCenter = false
         var isCenterInside = false
@@ -79,7 +82,8 @@ class ImgLoadConfigImpl private constructor(builder: Builder) : ImageConfig() {
         var isFitCenter = false
         var resizeY = 0
         var requestListener: RXRequestListener<Drawable?>? = null
-        var rxCustomTarget: RXCustomTarget<Drawable?>? = null
+        var rxCustomTarget: RXCustomTarget<Drawable>? = null
+        var priorityEnum: PriorityEnum? = null
         fun load(url: String?): Builder {
             this.url = url
             return this
@@ -160,13 +164,13 @@ class ImgLoadConfigImpl private constructor(builder: Builder) : ImageConfig() {
             return this
         }
 
-        fun isClearDiskCache(isClearDiskCache: Boolean): Builder {
-            this.isClearDiskCache = isClearDiskCache
+        fun requestBuilderTypeEnum(requestBuilderTypeEnum: RequestBuilderTypeEnum): Builder {
+            this.requestBuilderTypeEnum = requestBuilderTypeEnum
             return this
         }
 
-        fun asGif(asGif: Boolean): Builder {
-            this.asGif = asGif
+        fun isClearDiskCache(isClearDiskCache: Boolean): Builder {
+            this.isClearDiskCache = isClearDiskCache
             return this
         }
 
@@ -215,8 +219,12 @@ class ImgLoadConfigImpl private constructor(builder: Builder) : ImageConfig() {
             this.requestListener = requestListener
             return this
         }
-        fun rxCustomTarget(rxCustomTarget: RXCustomTarget<Drawable?>?): Builder {
+        fun rxCustomTarget(rxCustomTarget: RXCustomTarget<Drawable>?): Builder {
             this.rxCustomTarget = rxCustomTarget
+            return this
+        }
+        fun priorityEnum(priorityEnum: PriorityEnum?): Builder {
+            this.priorityEnum = priorityEnum
             return this
         }
 
@@ -248,7 +256,7 @@ class ImgLoadConfigImpl private constructor(builder: Builder) : ImageConfig() {
         transformation = builder.transformation
         isClearMemory = builder.isClearMemory
         isClearDiskCache = builder.isClearDiskCache
-        asGif = builder.asGif
+        requestBuilderTypeEnum = builder.requestBuilderTypeEnum
         resizeX = builder.resizeX
         resizeY = builder.resizeY
         isCropCenter = builder.isCropCenter
@@ -261,5 +269,6 @@ class ImgLoadConfigImpl private constructor(builder: Builder) : ImageConfig() {
         imageRadius = builder.imageRadius
         requestListener = builder.requestListener
         rxCustomTarget = builder.rxCustomTarget
+        priorityEnum = builder.priorityEnum
     }
 }

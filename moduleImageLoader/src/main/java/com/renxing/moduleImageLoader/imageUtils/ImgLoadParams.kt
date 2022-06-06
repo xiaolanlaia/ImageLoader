@@ -5,9 +5,7 @@ import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.widget.ImageView
-import com.renxing.moduleImageLoader.imageUtils.enumUtils.DiskCacheStrategyEnum
-import com.renxing.moduleImageLoader.imageUtils.enumUtils.ScaleTypeEnum
-import com.renxing.moduleImageLoader.imageUtils.enumUtils.TransitionEnum
+import com.renxing.moduleImageLoader.imageUtils.enumUtils.*
 import com.renxing.moduleImageLoader.loaderStrategy.control.RXRequestListener
 import com.renxing.moduleImageLoader.loaderStrategy.glide.target.RXCustomTarget
 
@@ -23,16 +21,18 @@ class ImgLoadParams constructor(var context: Context) {
     var imageHeight : Int = 0
     var diskcacheStrategyEnum : DiskCacheStrategyEnum? = null
     var rxRequestListener : RXRequestListener<Drawable?>? = null
-    var rxCustomTarget : RXCustomTarget<Drawable?>? =null
+    var rxCustomTarget : RXCustomTarget<Drawable>? =null
     var transitionEnum : ArrayList<TransitionEnum> = ArrayList<TransitionEnum>()
-    var scaleTypeEnum : ScaleTypeEnum? = null
-    var asGif : Boolean = false
+    var requestBuilderTypeEnum : RequestBuilderTypeEnum? = null
     var fitCenter : Boolean = false
     var centerCrop : Boolean = false
     var centerInside : Boolean = false
+    var circleCrop : Boolean = false
     var cornerRadius : Float = 0f
     var borderColor : Int = 0
     var borderWidth : Float = 0f
+    var priority : PriorityEnum? = null
+    var dontAnimate : Boolean = false
 
     fun load(url : String) : ImgLoadParams{
         this.url = url
@@ -69,18 +69,20 @@ class ImgLoadParams constructor(var context: Context) {
         this.imageHeight = imageHeight
         return this
     }
-    fun diskcacheStrategyEnum(diskcacheStrategyEnum : DiskCacheStrategyEnum) : ImgLoadParams{
+    fun diskcacheStrategy(diskcacheStrategyEnum : DiskCacheStrategyEnum) : ImgLoadParams{
         this.diskcacheStrategyEnum = diskcacheStrategyEnum
         return this
     }
-    fun rxRequestListener(rxRequestListener : RXRequestListener<Drawable?>) : ImgLoadParams{
+    fun listener(rxRequestListener : RXRequestListener<Drawable?>) : ImgLoadParams{
         this.rxRequestListener = rxRequestListener
         return this
     }
-    fun rxCustomTarget(rxCustomTarget : RXCustomTarget<Drawable?>) : ImgLoadParams{
-        this.rxCustomTarget = rxCustomTarget
+    fun into(rxCustomTargetDrawable : RXCustomTarget<Drawable>) : ImgLoadParams{
+        this.rxCustomTarget = rxCustomTargetDrawable
         return this
     }
+
+
     fun transitionEnum(transitionEnum: TransitionEnum) : ImgLoadParams{
         this.transitionEnum.add(transitionEnum)
         return this
@@ -90,12 +92,8 @@ class ImgLoadParams constructor(var context: Context) {
         this.transitionEnum.add(transitionEnum2)
         return this
     }
-    fun scaleType(scaleTypeEnum: ScaleTypeEnum) : ImgLoadParams{
-        this.scaleTypeEnum = scaleTypeEnum
-        return this
-    }
-    fun asGif(asGif : Boolean) : ImgLoadParams{
-        this.asGif = asGif
+    fun requestBuilderTypeEnum(requestBuilderTypeEnum : RequestBuilderTypeEnum) : ImgLoadParams{
+        this.requestBuilderTypeEnum = requestBuilderTypeEnum
         return this
     }
     fun fitCenter(fitCenter : Boolean) : ImgLoadParams{
@@ -110,6 +108,10 @@ class ImgLoadParams constructor(var context: Context) {
         this.centerInside = centerInside
         return this
     }
+    fun circleCrop(circleCrop : Boolean) : ImgLoadParams{
+        this.circleCrop = circleCrop
+        return this
+    }
     fun cornerRadius(cornerRadius : Float) : ImgLoadParams{
         this.cornerRadius = cornerRadius
         return this
@@ -120,6 +122,14 @@ class ImgLoadParams constructor(var context: Context) {
     }
     fun borderWidth(borderWidth : Float) : ImgLoadParams{
         this.borderWidth = borderWidth
+        return this
+    }
+    fun priority(priority : PriorityEnum) : ImgLoadParams{
+        this.priority = priority
+        return this
+    }
+    fun dontAnimate(dontAnimate : Boolean) : ImgLoadParams{
+        this.dontAnimate = dontAnimate
         return this
     }
 }

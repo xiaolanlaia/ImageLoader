@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.Color
 import android.graphics.NinePatch
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
@@ -16,6 +15,7 @@ import android.view.View
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
+import com.bumptech.glide.RequestManager
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -29,7 +29,6 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
-import com.renxing.moduleImageLoader.R
 import com.renxing.moduleImageLoader.imageUtils.ImageLoaderUtils
 import com.renxing.moduleImageLoader.imageUtils.ImgLoadParams
 import com.renxing.moduleImageLoader.imageUtils.NinePatchChunk
@@ -126,6 +125,9 @@ class ImageLoaderGlide : ImageLoaderInterface {
         if (params.centerInside){
             imgLoadConfigImpl.isCenterInside(true)
         }
+        if (params.circleCrop){
+            imgLoadConfigImpl.isCropCircle(true)
+        }
 
         if (params.placeholder != 0){
             setPlaceHolder(params,imgLoadConfigImpl)
@@ -134,8 +136,15 @@ class ImageLoaderGlide : ImageLoaderInterface {
         if (params.transitionEnum != null && params.transitionEnum.size > 0){
             imgLoadConfigImpl.transformation(*getBitmapTransformation(params))
         }
-        if (params.asGif){
-            imgLoadConfigImpl.asGif(params.asGif)
+        if (params.requestBuilderTypeEnum != null){
+            imgLoadConfigImpl.requestBuilderTypeEnum(params.requestBuilderTypeEnum!!)
+        }
+
+        if (params.priority != null){
+            imgLoadConfigImpl.priorityEnum(params.priority)
+        }
+        if (params.dontAnimate){
+            imgLoadConfigImpl.dontAnimate(params.dontAnimate)
         }
 
         return imgLoadConfigImpl.build()
@@ -162,7 +171,7 @@ class ImageLoaderGlide : ImageLoaderInterface {
 
 
     fun getBitmapTransformation(params: ImgLoadParams) : Array<BitmapTransformation>{
-        var bitmapTransformation  = ArrayList<BitmapTransformation>()
+        val bitmapTransformation  = ArrayList<BitmapTransformation>()
         params.transitionEnum.forEach {
             when(it){
                 TransitionEnum.FitCenter -> {
@@ -188,6 +197,7 @@ class ImageLoaderGlide : ImageLoaderInterface {
 
         return bitmapTransformation.toTypedArray()
     }
+
 
     override fun loadImage(urlOrIdOrUri: Any, imageView: ImageView) {
         glideLoad(urlOrIdOrUri, imageView, nullOptions,
@@ -1966,9 +1976,10 @@ class ImageLoaderGlide : ImageLoaderInterface {
 
         val glide = Glide.with(context)
 
-        if (config.asGif){
-            glide.asGif()
+        if (config.requestBuilderTypeEnum != null){
+            setRequestBuilderTypeEnum(config.requestBuilderTypeEnum,glide)
         }
+
         val glideRequest = if (config.drawableId != 0) {
             glide.load(config.drawableId)
         } else if (!TextUtils.isEmpty(config.url)){
@@ -2045,6 +2056,9 @@ class ImageLoaderGlide : ImageLoaderInterface {
             if (config.requestListener != null) {
                 addListener(config.requestListener)
             }
+            if (config.priorityEnum != null) {
+                priority(getPriority(config.priorityEnum!!))
+            }
 
 
             if (config.imageView != null){
@@ -2056,6 +2070,17 @@ class ImageLoaderGlide : ImageLoaderInterface {
     }
 
 
+    fun setRequestBuilderTypeEnum(requestBuilderTypeEnum : RequestBuilderTypeEnum,glide : RequestManager){
+
+        when(requestBuilderTypeEnum){
+            RequestBuilderTypeEnum.GIF -> {
+                glide.asGif()
+            }
+            RequestBuilderTypeEnum.BITMAP -> {
+                glide.asBitmap()
+            }
+        }
+    }
     private fun getCacheStrategy(diskCacheStrategy: DiskCacheStrategyEnum) : Int{
         return when(diskCacheStrategy){
 

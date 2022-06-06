@@ -12,8 +12,10 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.imageloader.R
 import com.renxing.imageloader.*
 import com.renxing.moduleImageLoader.RXImageLoader
+import com.renxing.moduleImageLoader.RXImageLoader.loadImage
 import com.renxing.moduleImageLoader.imageUtils.ImgLoadParams
-import com.renxing.moduleImageLoader.imageUtils.enumUtils.TransitionEnum
+import com.renxing.moduleImageLoader.imageUtils.enumUtils.DiskCacheStrategyEnum
+import com.renxing.moduleImageLoader.imageUtils.enumUtils.PriorityEnum
 
 class MainActivity : AppCompatActivity(),View.OnClickListener {
 
@@ -109,9 +111,20 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
 
         when (v.id) {
             R.id.btn_url                            ->{
-                RXImageLoader.loadImage(
+//                RXImageLoader.loadImage(
+//                    ImgLoadParams(this)
+//                        .load(url)
+//                        .into(test_iv_1)
+//                )
+
+                loadImage(
                     ImgLoadParams(this)
                         .load(url)
+                        .priority(PriorityEnum.HIGH)
+                        .placeholder(placeHoldId)
+                        .centerInside(true)
+                        .diskcacheStrategy(DiskCacheStrategyEnum.NONE)
+                        .dontAnimate(true)
                         .into(test_iv_1)
                 )
 

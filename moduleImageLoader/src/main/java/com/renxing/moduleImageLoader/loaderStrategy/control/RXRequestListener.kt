@@ -12,15 +12,15 @@ import com.bumptech.glide.request.target.Target
 interface RXRequestListener<R> : RequestListener<R> {
 
     override fun onLoadFailed(
-        e: GlideException?, model: Any?, target: Target<R>?, isFirstResource: Boolean
+        e: GlideException?, model: Any, target: Target<R>, isFirstResource: Boolean
     ): Boolean
 
 
     override fun onResourceReady(
         resource: R,
-        model: Any?,
-        target: Target<R>?,
-        dataSource: DataSource?,
+        model: Any,
+        target: Target<R>,
+        dataSource: DataSource,
         isFirstResource: Boolean
     ): Boolean
 }
