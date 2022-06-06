@@ -10,6 +10,7 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.NinePatchDrawable
 import android.net.Uri
+import android.text.TextUtils
 import android.util.TypedValue
 import android.view.View
 import androidx.vectordrawable.graphics.drawable.Animatable2Compat
@@ -27,6 +28,9 @@ import java.io.ByteArrayOutputStream
 object ImageLoaderUtils {
 
     fun appendUrl(url: String, width: Int, height: Int, needToPx: Boolean): String {
+        if (TextUtils.isEmpty(url)){
+            return ""
+        }
         var newUrl: String
         url.run{
             newUrl = if (!this.contains(URL_APPEND_WIDTH)) {
@@ -43,6 +47,9 @@ object ImageLoaderUtils {
     }
 
     fun appendUrl(url: String, width: Float, height: Float, needToPx: Boolean): String {
+        if (TextUtils.isEmpty(url)){
+            return ""
+        }
         var newUrl: String
         url.run{
             newUrl = if (!this.contains(URL_APPEND_WIDTH)) {
@@ -59,6 +66,9 @@ object ImageLoaderUtils {
     }
 
     fun appendUrl(url: String, width: Float, height: Float): String {
+        if (TextUtils.isEmpty(url)){
+            return ""
+        }
         var newUrl: String
         url.run{
             newUrl = if (!this.contains(URL_APPEND_WIDTH)) {

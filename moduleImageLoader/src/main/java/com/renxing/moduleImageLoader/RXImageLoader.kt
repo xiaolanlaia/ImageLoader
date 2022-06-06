@@ -27,6 +27,14 @@ object RXImageLoader : ImageLoaderInterface {
         imageLoaderStrategy.loadImage(imgLoadParams)
 
     }
+    override fun loadGifImage(imgLoadParams: ImgLoadParams) {
+        imageLoaderStrategy.loadGifImage(imgLoadParams)
+
+    }
+    override fun loadBitmapImage(imgLoadParams: ImgLoadParams) {
+        imageLoaderStrategy.loadBitmapImage(imgLoadParams)
+
+    }
     override fun loadCircleImage(imgLoadParams: ImgLoadParams) {
         imageLoaderStrategy.loadCircleImage(imgLoadParams)
     }

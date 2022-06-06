@@ -19,6 +19,8 @@ interface ImageLoaderInterface {
 
 
     fun loadImage(imgLoadParams: ImgLoadParams)
+    fun loadGifImage(imgLoadParams: ImgLoadParams)
+    fun loadBitmapImage(imgLoadParams: ImgLoadParams)
     fun loadCircleImage(imgLoadParams: ImgLoadParams)
     /**
      * 重要参数：cornerRadius

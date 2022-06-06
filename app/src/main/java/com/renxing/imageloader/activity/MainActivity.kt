@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.example.imageloader.R
 import com.renxing.imageloader.*
 import com.renxing.moduleImageLoader.RXImageLoader
@@ -111,11 +112,8 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
 
         when (v.id) {
             R.id.btn_url                            ->{
-//                RXImageLoader.loadImage(
-//                    ImgLoadParams(this)
-//                        .load(url)
-//                        .into(test_iv_1)
-//                )
+
+
 
                 loadImage(
                     ImgLoadParams(this)
@@ -127,6 +125,8 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
                         .dontAnimate(true)
                         .into(test_iv_1)
                 )
+
+                Glide.with(this).asBitmap().load(R.drawable.charff).into(test_iv_1)
 
             }
             R.id.btn_id                             ->{
@@ -156,7 +156,7 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
                 RXImageLoader.loadImage(
                     ImgLoadParams(this)
                         .load(url)
-                        .size(width,height)
+                        .override(width,height)
                         .into(test_iv_1)
                 )
 
@@ -165,7 +165,7 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
                 RXImageLoader.loadImage(
                     ImgLoadParams(this)
                         .load(url2)
-                        .size(width,height)
+                        .override(width,height)
                         .placeholder(placeHoldId)
                         .into(test_iv_1)
                 )

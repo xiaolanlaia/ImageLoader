@@ -1,13 +1,16 @@
 package com.renxing.moduleImageLoader.imageUtils
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.widget.ImageView
+import com.bumptech.glide.load.resource.gif.GifDrawable
 import com.renxing.moduleImageLoader.imageUtils.enumUtils.*
 import com.renxing.moduleImageLoader.loaderStrategy.control.RXRequestListener
 import com.renxing.moduleImageLoader.loaderStrategy.glide.target.RXCustomTarget
+
 
 class ImgLoadParams constructor(var context: Context) {
     var url : String? = null
@@ -20,8 +23,12 @@ class ImgLoadParams constructor(var context: Context) {
     var imageWidth : Int = 0
     var imageHeight : Int = 0
     var diskcacheStrategyEnum : DiskCacheStrategyEnum? = null
-    var rxRequestListener : RXRequestListener<Drawable?>? = null
-    var rxCustomTarget : RXCustomTarget<Drawable>? =null
+    var rxRequestListenerDrawable : RXRequestListener<Drawable>? = null
+    var rxRequestListenerBitmap : RXRequestListener<Bitmap>? = null
+    var rxRequestListenerGifDrawable : RXRequestListener<GifDrawable>? = null
+    var rxCustomTargetDrawable : RXCustomTarget<Drawable>? =null
+    var rxCustomTargetBitmap : RXCustomTarget<Bitmap>? =null
+    var rxCustomTargetGifDrawable : RXCustomTarget<GifDrawable>? =null
     var transitionEnum : ArrayList<TransitionEnum> = ArrayList<TransitionEnum>()
     var requestBuilderTypeEnum : RequestBuilderTypeEnum? = null
     var fitCenter : Boolean = false
@@ -64,7 +71,7 @@ class ImgLoadParams constructor(var context: Context) {
         this.imageView = imageView
         return this
     }
-    fun size(imageWidth : Int,imageHeight : Int) : ImgLoadParams{
+    fun override(imageWidth : Int, imageHeight : Int) : ImgLoadParams{
         this.imageWidth = imageWidth
         this.imageHeight = imageHeight
         return this
@@ -73,12 +80,28 @@ class ImgLoadParams constructor(var context: Context) {
         this.diskcacheStrategyEnum = diskcacheStrategyEnum
         return this
     }
-    fun listener(rxRequestListener : RXRequestListener<Drawable?>) : ImgLoadParams{
-        this.rxRequestListener = rxRequestListener
+    fun listenerDrawable(rxRequestListener : RXRequestListener<Drawable>) : ImgLoadParams{
+        this.rxRequestListenerDrawable = rxRequestListener
         return this
     }
-    fun into(rxCustomTargetDrawable : RXCustomTarget<Drawable>) : ImgLoadParams{
-        this.rxCustomTarget = rxCustomTargetDrawable
+    fun listenerBitmap(rxRequestListenerBitmap : RXRequestListener<Bitmap>) : ImgLoadParams{
+        this.rxRequestListenerBitmap = rxRequestListenerBitmap
+        return this
+    }
+    fun listenerGifDrawable(rxRequestListenerGifDrawable : RXRequestListener<GifDrawable>) : ImgLoadParams{
+        this.rxRequestListenerGifDrawable = rxRequestListenerGifDrawable
+        return this
+    }
+    fun  intoDrawableTarget(rxCustomTargetDrawable : RXCustomTarget<Drawable>) : ImgLoadParams{
+        this.rxCustomTargetDrawable = rxCustomTargetDrawable
+        return this
+    }
+    fun  intoBitmapTarget(rxCustomTargetBitmap : RXCustomTarget<Bitmap>) : ImgLoadParams{
+        this.rxCustomTargetBitmap = rxCustomTargetBitmap
+        return this
+    }
+    fun  intoGifDrawableTarget(rxCustomTargetGifDrawable : RXCustomTarget<GifDrawable>) : ImgLoadParams{
+        this.rxCustomTargetGifDrawable = rxCustomTargetGifDrawable
         return this
     }
 

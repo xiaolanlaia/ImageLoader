@@ -1,6 +1,7 @@
 package com.renxing.moduleImageLoader.loaderStrategy.glide
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -60,26 +61,56 @@ class ImageLoaderGlide : ImageLoaderInterface {
     private val circleOptions = RequestOptions().circleCrop()
     override fun loadImage(imgLoadParams: ImgLoadParams) {
 
-        glideLoadImage(imgLoadParams.context,TransformImgLoadParams(imgLoadParams))
+        checkImgType(imgLoadParams)
     }
+    override fun loadGifImage(imgLoadParams: ImgLoadParams) {
+        imgLoadParams.requestBuilderTypeEnum(RequestBuilderTypeEnum.GIF)
+        checkImgType(imgLoadParams)
+    }
+    override fun loadBitmapImage(imgLoadParams: ImgLoadParams) {
+        imgLoadParams.requestBuilderTypeEnum(RequestBuilderTypeEnum.BITMAP)
+        checkImgType(imgLoadParams)
+    }
+
+
     override fun loadCircleImage(imgLoadParams: ImgLoadParams) {
         imgLoadParams.transitionEnum(TransitionEnum.BORDER_CIRCLE)
-        glideLoadImage(imgLoadParams.context,TransformImgLoadParams(imgLoadParams))
+        checkImgType(imgLoadParams)
     }
     override fun loadCornersImage(imgLoadParams: ImgLoadParams) {
 
         imgLoadParams.transitionEnum(TransitionEnum.CORNER)
-        glideLoadImage(imgLoadParams.context,TransformImgLoadParams(imgLoadParams))
+        checkImgType(imgLoadParams)
 
     }
 
-    //todo 为什么变换两个才生效
     override fun loadBorderCircleImage(imgLoadParams: ImgLoadParams) {
         imgLoadParams.transitionEnum(TransitionEnum.BORDER_CIRCLE)
-        glideLoadImage(imgLoadParams.context,TransformImgLoadParams(imgLoadParams))
+        checkImgType(imgLoadParams)
     }
     override fun load9Png(imgLoadParams: ImgLoadParams) {
-        glideLoadImage(imgLoadParams.context,TransformImgLoadParams(imgLoadParams))
+        checkImgType(imgLoadParams)
+    }
+
+
+    private fun checkImgType(imgLoadParams: ImgLoadParams) {
+        if (imgLoadParams.requestBuilderTypeEnum != null) {
+            when (imgLoadParams.requestBuilderTypeEnum) {
+                RequestBuilderTypeEnum.GIF -> {
+                    glideLoadImageGif(imgLoadParams.context, TransformImgLoadParams(imgLoadParams))
+                }
+                RequestBuilderTypeEnum.BITMAP -> {
+                    glideLoadImageBitmap(
+                        imgLoadParams.context,
+                        TransformImgLoadParams(imgLoadParams)
+                    )
+                }
+                else -> {
+                    glideLoadImage(imgLoadParams.context, TransformImgLoadParams(imgLoadParams))
+
+                }
+            }
+        }
     }
 
 
@@ -110,11 +141,23 @@ class ImageLoaderGlide : ImageLoaderInterface {
         if (params.diskcacheStrategyEnum != null){
             imgLoadConfigImpl.cacheStrategy(getCacheStrategy(params.diskcacheStrategyEnum!!))
         }
-        if (params.rxRequestListener != null){
-            imgLoadConfigImpl.requestListener(params.rxRequestListener)
+        if (params.rxRequestListenerDrawable != null){
+            imgLoadConfigImpl.requestListenerDrawable(params.rxRequestListenerDrawable)
         }
-        if (params.rxCustomTarget != null){
-            imgLoadConfigImpl.rxCustomTarget(params.rxCustomTarget)
+        if (params.rxRequestListenerBitmap != null){
+            imgLoadConfigImpl.requestListenerBitmap(params.rxRequestListenerBitmap)
+        }
+        if (params.rxRequestListenerGifDrawable != null){
+            imgLoadConfigImpl.requestListenerGifDrawable(params.rxRequestListenerGifDrawable)
+        }
+        if (params.rxCustomTargetDrawable != null){
+            imgLoadConfigImpl.rxDrawableTarget(params.rxCustomTargetDrawable)
+        }
+        if (params.rxCustomTargetBitmap != null){
+            imgLoadConfigImpl.rxBitmapTarget(params.rxCustomTargetBitmap)
+        }
+        if (params.rxCustomTargetGifDrawable != null){
+            imgLoadConfigImpl.rxGifDrawableTarget(params.rxCustomTargetGifDrawable)
         }
         if (params.fitCenter){
             imgLoadConfigImpl.isFitCenter(true)
@@ -171,7 +214,7 @@ class ImageLoaderGlide : ImageLoaderInterface {
 
 
     fun getBitmapTransformation(params: ImgLoadParams) : Array<BitmapTransformation>{
-        val bitmapTransformation  = ArrayList<BitmapTransformation>()
+        var bitmapTransformation  = ArrayList<BitmapTransformation>()
         params.transitionEnum.forEach {
             when(it){
                 TransitionEnum.FitCenter -> {
@@ -722,6 +765,19 @@ class ImageLoaderGlide : ImageLoaderInterface {
         transition: Boolean
     ) {
 
+        //todo 其他相同情况也需要判空
+        if (TextUtils.isEmpty(url)){
+            return
+        }
+
+        if (imageView.context is Activity) {
+            if ((imageView.context as Activity).isFinishing || (imageView.context as Activity).isDestroyed) {
+                return
+            }
+        }
+        if (checkUrl(url)) {
+            return
+        }
         glideLoadImage(imageView.context,
             ImgLoadConfigImpl
                 .builder()
@@ -732,6 +788,12 @@ class ImageLoaderGlide : ImageLoaderInterface {
                 .placeholder(placeholderImg)
                 .imageView(imageView)
                 .build())
+    }
+
+    fun checkUrl(url: String): Boolean {
+        return if (TextUtils.isEmpty(url)) {
+            true
+        } else url.endsWith("null")
     }
 
     override fun loadCornersImageCenterCrop(
@@ -1972,13 +2034,10 @@ class ImageLoaderGlide : ImageLoaderInterface {
     }
 
 
-    fun glideLoadImage(context: Context, config: ImgLoadConfigImpl) {
+    fun glideLoadImageBitmap(context: Context, config: ImgLoadConfigImpl) {
 
-        val glide = Glide.with(context)
+        val glide = Glide.with(context).asBitmap()
 
-        if (config.requestBuilderTypeEnum != null){
-            setRequestBuilderTypeEnum(config.requestBuilderTypeEnum,glide)
-        }
 
         val glideRequest = if (config.drawableId != 0) {
             glide.load(config.drawableId)
@@ -1995,7 +2054,102 @@ class ImageLoaderGlide : ImageLoaderInterface {
         }
         glideRequest.apply {
             if (config.diskCacheStrategyEnum != null){
-                when (getCacheStrategyEnum(config.diskCacheStrategyEnum!!)) {
+                when (getCacheStrategyEnum(config.diskCacheStrategyEnum)) {
+                    DiskCacheStrategyEnum.ALL -> diskCacheStrategy(DiskCacheStrategy.ALL)
+                    DiskCacheStrategyEnum.NONE -> diskCacheStrategy(DiskCacheStrategy.NONE)
+                    DiskCacheStrategyEnum.RESOURCE -> diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                    DiskCacheStrategyEnum.DATA -> diskCacheStrategy(DiskCacheStrategy.DATA)
+                    DiskCacheStrategyEnum.AUTOMATIC -> diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                    else -> diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                }
+            }
+
+            //todo bitmap不行吗
+//            if (config.isCrossFade) {
+//                transition(DrawableTransitionOptions.withCrossFade())
+//            }
+            if (config.dontAnimate) {
+                dontAnimate()
+            }
+            if (config.isImageRadius()) {
+                transform(RoundedCorners(config.imageRadius))
+            }
+            //glide用它来改变图形的形状
+            if (config.transformation != null) {
+                transform(*config.transformation)
+            }
+            if (config.placeHolderDrawable != null) {
+                placeholder(config.placeHolderDrawable)
+            }else if (config.placeholder != 0) {
+                placeholder(config.placeholder)
+            }
+
+            if (config.errorDrawable != null) {
+                error(config.errorDrawable)
+            }else if (config.errorPic != 0) {
+                error(config.errorPic)
+            }
+
+
+            //设置请求 url 为空图片
+            if (config.fallback != 0) {
+                fallback(config.fallback)
+            }
+            if (config.resizeX != 0 && config.resizeY != 0) {
+                override(config.resizeX, config.resizeY)
+            }
+            if (config.isCropCenter) {
+                centerCrop()
+            }
+            if (config.isCenterInside) {
+                centerInside()
+            }
+            if (config.isCropCircle) {
+                circleCrop()
+            }
+            if (config.formatType != null) {
+                format(config.formatType)
+            }
+            if (config.isFitCenter) {
+                fitCenter()
+            }
+            if (config.requestListenerBitmap != null) {
+                addListener(config.requestListenerBitmap)
+            }
+            if (config.priorityEnum != null) {
+                priority(getPriority(config.priorityEnum!!))
+            }
+
+
+            if (config.imageView != null){
+                into(config.imageView!!)
+            }else if (config.rxCustomTargetBitmap != null){
+
+                into(config.rxCustomTargetBitmap!!)
+            }
+        }
+    }
+    fun glideLoadImageGif(context: Context, config: ImgLoadConfigImpl) {
+
+        val glide = Glide.with(context).asGif()
+
+
+        val glideRequest = if (config.drawableId != 0) {
+            glide.load(config.drawableId)
+        } else if (!TextUtils.isEmpty(config.url)){
+            glide.load(config.url)
+        }else if (config.uri != null){
+            glide.load(config.uri)
+        }else if (config.drawable != null){
+            glide.load(config.drawable)
+        }else if (config.colorDrawable != null){
+            glide.load(config.colorDrawable)
+        }else{
+            glide.load(config.drawableId)
+        }
+        glideRequest.apply {
+            if (config.diskCacheStrategyEnum != null){
+                when (getCacheStrategyEnum(config.diskCacheStrategyEnum)) {
                     DiskCacheStrategyEnum.ALL -> diskCacheStrategy(DiskCacheStrategy.ALL)
                     DiskCacheStrategyEnum.NONE -> diskCacheStrategy(DiskCacheStrategy.NONE)
                     DiskCacheStrategyEnum.RESOURCE -> diskCacheStrategy(DiskCacheStrategy.RESOURCE)
@@ -2053,8 +2207,8 @@ class ImageLoaderGlide : ImageLoaderInterface {
             if (config.isFitCenter) {
                 fitCenter()
             }
-            if (config.requestListener != null) {
-                addListener(config.requestListener)
+            if (config.requestListenerGifDrawable != null) {
+                addListener(config.requestListenerGifDrawable)
             }
             if (config.priorityEnum != null) {
                 priority(getPriority(config.priorityEnum!!))
@@ -2063,8 +2217,104 @@ class ImageLoaderGlide : ImageLoaderInterface {
 
             if (config.imageView != null){
                 into(config.imageView!!)
-            }else if (config.rxCustomTarget != null){
-                into(config.rxCustomTarget!!)
+            }else if (config.rxCustomTargetGifDrawable != null){
+
+                into(config.rxCustomTargetGifDrawable!!)
+            }
+        }
+    }
+
+    fun glideLoadImage(context: Context, config: ImgLoadConfigImpl) {
+
+        val glide = Glide.with(context)
+
+
+        val glideRequest = if (config.drawableId != 0) {
+            glide.load(config.drawableId)
+        } else if (!TextUtils.isEmpty(config.url)){
+            glide.load(config.url)
+        }else if (config.uri != null){
+            glide.load(config.uri)
+        }else if (config.drawable != null){
+            glide.load(config.drawable)
+        }else if (config.colorDrawable != null){
+            glide.load(config.colorDrawable)
+        }else{
+            glide.load(config.drawableId)
+        }
+        glideRequest.apply {
+            if (config.diskCacheStrategyEnum != null){
+                when (getCacheStrategyEnum(config.diskCacheStrategyEnum)) {
+                    DiskCacheStrategyEnum.ALL -> diskCacheStrategy(DiskCacheStrategy.ALL)
+                    DiskCacheStrategyEnum.NONE -> diskCacheStrategy(DiskCacheStrategy.NONE)
+                    DiskCacheStrategyEnum.RESOURCE -> diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                    DiskCacheStrategyEnum.DATA -> diskCacheStrategy(DiskCacheStrategy.DATA)
+                    DiskCacheStrategyEnum.AUTOMATIC -> diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                    else -> diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                }
+            }
+
+            if (config.isCrossFade) {
+                transition(DrawableTransitionOptions.withCrossFade())
+            }
+            if (config.dontAnimate) {
+                dontAnimate()
+            }
+            if (config.isImageRadius()) {
+                transform(RoundedCorners(config.imageRadius))
+            }
+            //glide用它来改变图形的形状
+            if (config.transformation != null) {
+                transform(*config.transformation)
+            }
+            if (config.placeHolderDrawable != null) {
+                placeholder(config.placeHolderDrawable)
+            }else if (config.placeholder != 0) {
+                placeholder(config.placeholder)
+            }
+
+            if (config.errorDrawable != null) {
+                error(config.errorDrawable)
+            }else if (config.errorPic != 0) {
+                error(config.errorPic)
+            }
+
+
+            //设置请求 url 为空图片
+            if (config.fallback != 0) {
+                fallback(config.fallback)
+            }
+            if (config.resizeX != 0 && config.resizeY != 0) {
+                override(config.resizeX, config.resizeY)
+            }
+            if (config.isCropCenter) {
+                centerCrop()
+            }
+            if (config.isCenterInside) {
+                centerInside()
+            }
+            if (config.isCropCircle) {
+                circleCrop()
+            }
+            if (config.formatType != null) {
+                format(config.formatType)
+            }
+            if (config.isFitCenter) {
+                fitCenter()
+            }
+            if (config.requestListenerDrawable != null) {
+                addListener(config.requestListenerDrawable)
+            }
+            if (config.priorityEnum != null) {
+                priority(getPriority(config.priorityEnum!!))
+            }
+
+
+            if (config.imageView != null){
+                into(config.imageView!!)
+            }else if (config.rxCustomTargetDrawable != null){
+
+                into(config.rxCustomTargetDrawable!!)
             }
         }
     }
