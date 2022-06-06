@@ -40,6 +40,7 @@ class ImgLoadParams constructor(var context: Context) {
     var borderWidth : Float = 0f
     var priority : PriorityEnum? = null
     var dontAnimate : Boolean = false
+    var crossfade : Boolean = false
 
     fun load(url : String) : ImgLoadParams{
         this.url = url
@@ -74,6 +75,11 @@ class ImgLoadParams constructor(var context: Context) {
     fun override(imageWidth : Int, imageHeight : Int) : ImgLoadParams{
         this.imageWidth = imageWidth
         this.imageHeight = imageHeight
+        return this
+    }
+    fun override(imageWidth : Float, imageHeight : Float) : ImgLoadParams{
+        this.imageWidth = imageWidth.toInt()
+        this.imageHeight = imageHeight.toInt()
         return this
     }
     fun diskcacheStrategy(diskcacheStrategyEnum : DiskCacheStrategyEnum) : ImgLoadParams{
@@ -153,6 +159,10 @@ class ImgLoadParams constructor(var context: Context) {
     }
     fun dontAnimate(dontAnimate : Boolean) : ImgLoadParams{
         this.dontAnimate = dontAnimate
+        return this
+    }
+    fun crossfade(crossfade : Boolean) : ImgLoadParams{
+        this.crossfade = crossfade
         return this
     }
 }

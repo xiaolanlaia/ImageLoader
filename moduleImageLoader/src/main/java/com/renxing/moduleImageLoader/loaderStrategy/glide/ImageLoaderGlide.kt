@@ -74,14 +74,12 @@ class ImageLoaderGlide : ImageLoaderInterface {
 
 
     override fun loadCircleImage(imgLoadParams: ImgLoadParams) {
-        imgLoadParams.transitionEnum(TransitionEnum.BORDER_CIRCLE)
+        imgLoadParams.transitionEnum(TransitionEnum.CircleCrop)
         checkImgType(imgLoadParams)
     }
     override fun loadCornersImage(imgLoadParams: ImgLoadParams) {
-
         imgLoadParams.transitionEnum(TransitionEnum.CORNER)
         checkImgType(imgLoadParams)
-
     }
 
     override fun loadBorderCircleImage(imgLoadParams: ImgLoadParams) {
@@ -139,7 +137,7 @@ class ImageLoaderGlide : ImageLoaderInterface {
             imgLoadConfigImpl.resize(params.imageWidth,params.imageHeight)
         }
         if (params.diskcacheStrategyEnum != null){
-            imgLoadConfigImpl.cacheStrategy(getCacheStrategy(params.diskcacheStrategyEnum!!))
+            imgLoadConfigImpl.cacheStrategy(params.diskcacheStrategyEnum!!)
         }
         if (params.rxRequestListenerDrawable != null){
             imgLoadConfigImpl.requestListenerDrawable(params.rxRequestListenerDrawable)
@@ -188,6 +186,9 @@ class ImageLoaderGlide : ImageLoaderInterface {
         }
         if (params.dontAnimate){
             imgLoadConfigImpl.dontAnimate(params.dontAnimate)
+        }
+        if (params.crossfade){
+            imgLoadConfigImpl.isCrossFade(params.crossfade)
         }
 
         return imgLoadConfigImpl.build()
@@ -526,7 +527,7 @@ class ImageLoaderGlide : ImageLoaderInterface {
                 .load(url)
                 .transformation(CenterCrop(),CircleCrop())
                 .error(placeholderImg)
-                .cacheStrategy(getCacheStrategy(diskCacheStrategy))
+                .cacheStrategy(diskCacheStrategy)
                 .placeholder(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_CIRCLE))
                 .imageView(imageView)
                 .build())
@@ -541,7 +542,7 @@ class ImageLoaderGlide : ImageLoaderInterface {
                 .transformation(CenterCrop(),CircleCrop())
                 .error(placeholderImg)
                 .isCrossFade(crossFade)
-                .cacheStrategy(getCacheStrategy(diskCacheStrategy))
+                .cacheStrategy(diskCacheStrategy)
                 .placeholder(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_CIRCLE))
                 .imageView(imageView)
                 .build())
@@ -562,7 +563,7 @@ class ImageLoaderGlide : ImageLoaderInterface {
                 .transformation(CenterCrop(),CircleCrop())
                 .error(placeholderImg)
                 .isCrossFade(crossFade)
-                .cacheStrategy(getCacheStrategy(diskCacheStrategy))
+                .cacheStrategy(diskCacheStrategy)
                 .placeholder(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_CIRCLE))
                 .imageView(imageView)
                 .build())
@@ -584,7 +585,7 @@ class ImageLoaderGlide : ImageLoaderInterface {
                 .resize(imageWidth.toInt(),imageHeight.toInt())
                 .transformation(CenterCrop(),CircleCrop())
                 .error(placeholderImg)
-                .cacheStrategy(getCacheStrategy(diskCacheStrategy))
+                .cacheStrategy(diskCacheStrategy)
                 .placeholder(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_CIRCLE))
                 .imageView(imageView)
                 .build())
@@ -608,7 +609,7 @@ class ImageLoaderGlide : ImageLoaderInterface {
                 .transformation(CenterCrop(),CircleCrop())
                 .error(placeholderImg)
                 .isCrossFade(crossFade)
-                .cacheStrategy(getCacheStrategy(diskCacheStrategy))
+                .cacheStrategy(diskCacheStrategy)
                 .placeholder(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_CIRCLE))
                 .imageView(imageView)
                 .build())
@@ -625,7 +626,7 @@ class ImageLoaderGlide : ImageLoaderInterface {
                 .builder()
                 .load(imgId)
                 .transformation(CenterCrop(),CircleCrop())
-                .cacheStrategy(getCacheStrategy(diskCacheStrategy))
+                .cacheStrategy(diskCacheStrategy)
                 .imageView(imageView)
                 .build())
     }
@@ -809,7 +810,7 @@ class ImageLoaderGlide : ImageLoaderInterface {
                 .builder()
                 .load(url)
                 .transformation(CenterCrop(), RoundedCornersTransformation(cornerRadius.toInt(), 0))
-                .cacheStrategy(getCacheStrategy(diskCacheStrategy))
+                .cacheStrategy(diskCacheStrategy)
 
                 .error(placeholderImg)
                 .placeholder(placeholderImg)
@@ -832,7 +833,7 @@ class ImageLoaderGlide : ImageLoaderInterface {
                 .load(url)
                 .isCrossFade(crossFade)
                 .transformation(CenterCrop(), RoundedCornersTransformation(cornerRadius.toInt(), 0))
-                .cacheStrategy(getCacheStrategy(diskCacheStrategy))
+                .cacheStrategy(diskCacheStrategy)
                 .error(placeholderImg)
                 .placeholder(placeholderImg)
                 .imageView(imageView)
@@ -854,7 +855,7 @@ class ImageLoaderGlide : ImageLoaderInterface {
                 .load(id)
                 .transformation(CenterCrop(), RoundedCornersTransformation(cornerRadius.toInt(), 0))
                 .isCrossFade(crossFade)
-                .cacheStrategy(getCacheStrategy(diskCacheStrategy))
+                .cacheStrategy(diskCacheStrategy)
                 .error(placeholderImg)
                 .placeholder(placeholderImg)
                 .imageView(imageView)
@@ -1223,7 +1224,7 @@ class ImageLoaderGlide : ImageLoaderInterface {
                 .builder()
                 .load(url)
                 .resize(imageWidth.toInt(),imageHeight.toInt())
-                .cacheStrategy(getCacheStrategy(diskCacheStrategy))
+                .cacheStrategy(diskCacheStrategy)
                 .transformation(CenterCrop(),
                     CircleWithBorderTransformation(borderWidth, borderColor)
                 )
@@ -1252,7 +1253,7 @@ class ImageLoaderGlide : ImageLoaderInterface {
                 .builder()
                 .load(url)
                 .resize(imageWidth.toInt(),imageHeight.toInt())
-                .cacheStrategy(getCacheStrategy(diskCacheStrategy))
+                .cacheStrategy(diskCacheStrategy)
 
                 .transformation(CenterCrop(),
                     CircleWithBorderTransformation(borderWidth, borderColor)
@@ -1350,7 +1351,7 @@ class ImageLoaderGlide : ImageLoaderInterface {
                 .transformation(CenterCrop(),
                     CircleWithBorderTransformation(borderWidth, borderColor)
                 )
-                .cacheStrategy(getCacheStrategy(diskCacheStrategyEnum))
+                .cacheStrategy(diskCacheStrategyEnum)
                 .isCrossFade(false)
                 .error(placeholderImg)
                 .placeholder(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_CIRCLE))
@@ -1376,7 +1377,7 @@ class ImageLoaderGlide : ImageLoaderInterface {
                 .transformation(CenterCrop(),
                     CircleWithBorderTransformation(borderWidth, borderColor)
                 )
-                .cacheStrategy(getCacheStrategy(diskCacheStrategyEnum))
+                .cacheStrategy(diskCacheStrategyEnum)
                 .isCrossFade(crossFade)
                 .error(placeholderImg)
                 .placeholder(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_CIRCLE))
@@ -1401,7 +1402,7 @@ class ImageLoaderGlide : ImageLoaderInterface {
                 .transformation(CenterCrop(),
                     CircleWithBorderTransformation(borderWidth, borderColor)
                 )
-                .cacheStrategy(getCacheStrategy(diskCacheStrategyEnum))
+                .cacheStrategy(diskCacheStrategyEnum)
                 .isCrossFade(false)
                 .error(placeholderImg)
                 .placeholder(CircleRoundDrawable(imageView.context, placeholderImg).setType(CircleRoundDrawable.TYPE_CIRCLE))
@@ -2059,8 +2060,8 @@ class ImageLoaderGlide : ImageLoaderInterface {
                     DiskCacheStrategyEnum.NONE -> diskCacheStrategy(DiskCacheStrategy.NONE)
                     DiskCacheStrategyEnum.RESOURCE -> diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                     DiskCacheStrategyEnum.DATA -> diskCacheStrategy(DiskCacheStrategy.DATA)
-                    DiskCacheStrategyEnum.AUTOMATIC -> diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                     else -> diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+
                 }
             }
 
@@ -2333,6 +2334,10 @@ class ImageLoaderGlide : ImageLoaderInterface {
     }
     private fun getCacheStrategy(diskCacheStrategy: DiskCacheStrategyEnum) : Int{
         return when(diskCacheStrategy){
+
+            DiskCacheStrategyEnum.AUTOMATIC -> {
+                4
+            }
 
             DiskCacheStrategyEnum.RESOURCE -> {
                 2

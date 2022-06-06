@@ -21,13 +21,7 @@ import com.renxing.moduleImageLoader.loaderStrategy.glide.target.RXCustomTarget
  */
 
 class ImgLoadConfigImpl private constructor(builder: Builder) : ImageConfig() {
-    /**
-     * 0 对应DiskCacheStrategy.all
-     * 1 对应DiskCacheStrategy.NONE
-     * 2 对应DiskCacheStrategy.SOURCE
-     * 3 对应DiskCacheStrategy.RESULT
-     */
-    val cacheStrategy: Int
+
     val diskCacheStrategyEnum : DiskCacheStrategyEnum?
     val fallback: Int
     val transformation: Array<out BitmapTransformation>?
@@ -72,7 +66,6 @@ class ImgLoadConfigImpl private constructor(builder: Builder) : ImageConfig() {
         var errorDrawable: Drawable? = null
         var errorPic = 0
         var fallback = 0
-        var cacheStrategy = 0
         var diskCacheStrategyEnum : DiskCacheStrategyEnum? = null
         var imageRadius = 0
         var transformation: Array<out BitmapTransformation>? = null
@@ -133,11 +126,6 @@ class ImgLoadConfigImpl private constructor(builder: Builder) : ImageConfig() {
 
         fun imageView(imageView: ImageView?): Builder {
             this.imageView = imageView
-            return this
-        }
-
-        fun cacheStrategy(cacheStrategy: Int): Builder {
-            this.cacheStrategy = cacheStrategy
             return this
         }
 
@@ -277,7 +265,6 @@ class ImgLoadConfigImpl private constructor(builder: Builder) : ImageConfig() {
         errorPic = builder.errorPic
         errorDrawable = builder.errorDrawable
         fallback = builder.fallback
-        cacheStrategy = builder.cacheStrategy
         diskCacheStrategyEnum = builder.diskCacheStrategyEnum
         transformation = builder.transformation
         isClearMemory = builder.isClearMemory
