@@ -12,10 +12,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.imageloader.R
 import com.renxing.imageloader.*
 import com.renxing.moduleImageLoader.RXImageLoader
-import com.renxing.moduleImageLoader.imageUtils.ImageLoaderUtils
-import com.renxing.moduleImageLoader.loaderStrategy.glide.easyglide.config.CACHE_STRATEGY_NONE
-import com.renxing.moduleImageLoader.loaderStrategy.glide.easyglide.config.ImgConfigImpl
-import com.renxing.moduleImageLoader.loaderStrategy.glide.easyglide.transformation.RoundedCornersTransformation
+import com.renxing.moduleImageLoader.imageUtils.ImgLoadParams
+import com.renxing.moduleImageLoader.imageUtils.enumUtils.TransitionEnum
 
 class MainActivity : AppCompatActivity(),View.OnClickListener {
 
@@ -104,11 +102,6 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
         btn_url_corner                     .setOnClickListener(this)
         btn_id_corner                      .setOnClickListener(this)
 
-
-
-
-
-//        RXImageLoader.loadBorderCircleImage(errUrl,test_iv_1,29,29,resources.getColor(R.color.color_FFCFF3),1f,R.mipmap.default_photo)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -116,80 +109,114 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
 
         when (v.id) {
             R.id.btn_url                            ->{
-//                RXImageLoader.loadBorderCircleImage(url,test_iv_1,resources.getColor(R.color.color_FFCFF3,null),1f,R.mipmap.default_photo)
-//                RXImageLoader.pauseRequests(test_iv_1.context)
-
-                //                    ImageLoadUtil.loadIv(mActivity, charmList.get(0), ivCharmOne);
-
-
-                val errUrl = "https://voimigo.chongqiwawa6.com/album/202205/16529906286987503.jpg"
-                val errGifUrl = "https://voimigo.chongqiwawa6.com/svga20210526kne9q64x1618212139664.gif"
-//        RXImageLoader.loadBorderCircleImage(
-//            errUrl,
-//            test_iv_1,
-//            resources.getColor(R.color.color_FFCFF3),
-//            1f,
-//            R.mipmap.default_photo
-//        )
-
-                RXImageLoader.loadGif(errGifUrl,test_iv_1)
+                RXImageLoader.loadImage(
+                    ImgLoadParams(this)
+                        .load(url)
+                        .into(test_iv_1)
+                )
 
             }
             R.id.btn_id                             ->{
+                RXImageLoader.loadImage(
+                    ImgLoadParams(this)
+                        .load(imgId)
+                        .into(test_iv_1)
+                )
             }
             R.id.btn_url_placeholder                ->{
+                RXImageLoader.loadImage(
+                    ImgLoadParams(this)
+                        .load(url)
+                        .placeholder(placeHoldId)
+                        .into(test_iv_1)
+                )
             }
             R.id.btn_id_placeholder                 ->{
+                RXImageLoader.loadImage(
+                    ImgLoadParams(this)
+                        .load(imgId)
+                        .placeholder(placeHoldId)
+                        .into(test_iv_1)
+                )
             }
             R.id.btn_special                        ->{
-                RXImageLoader.loadImage(this,
-                    ImgConfigImpl
-                        .builder()
-                        .url(ImageLoaderUtils.appendUrl(url, width, height, false))
-                        .imageView(test_iv_1)
-                        .build())
+                RXImageLoader.loadImage(
+                    ImgLoadParams(this)
+                        .load(url)
+                        .size(width,height)
+                        .into(test_iv_1)
+                )
+
             }
             R.id.btn_special_placeholder            ->{
-                RXImageLoader.loadImage(this,
-                    ImgConfigImpl
-                        .builder()
-                        .url(ImageLoaderUtils.appendUrl(url, width, height, false))
+                RXImageLoader.loadImage(
+                    ImgLoadParams(this)
+                        .load(url2)
+                        .size(width,height)
                         .placeholder(placeHoldId)
-                        .errorPic(placeHoldId)
-                        .imageView(test_iv_1)
-                        .build())
+                        .into(test_iv_1)
+                )
             }
             R.id.btn_url_fitCenter                  ->{
+                RXImageLoader.loadImage(
+                    ImgLoadParams(this)
+                        .load(url2)
+                        .fitCenter(true)
+                        .into(test_iv_1)
+                )
             }
             R.id.btn_id_fitCenter                   ->{
+                RXImageLoader.loadImage(
+                    ImgLoadParams(this)
+                        .load(imgId)
+                        .fitCenter(true)
+                        .into(test_iv_1)
+                )
             }
             R.id.btn_url_centerCrop                 ->{
+
+                RXImageLoader.loadImageWithCenterCrop(url,test_iv_1)
             }
             R.id.btn_id_centerCrop                  ->{
+                RXImageLoader.loadImageWithCenterCrop(imgId,test_iv_1)
             }
             R.id.btn_url_centerInside               ->{
+                RXImageLoader.loadImageWithCenterInside(url,test_iv_1)
             }
             R.id.btn_id_centerInside                ->{
+                RXImageLoader.loadImageWithCenterInside(imgId,test_iv_1)
             }
             R.id.btn_url_skipCache                  ->{
+                RXImageLoader.loadImageWithSkipCache(url,test_iv_1)
             }
             R.id.btn_id_skipCache                   ->{
+                RXImageLoader.loadImageWithSkipCache(imgId,test_iv_1)
             }
             R.id.btn_url_skipCache_special          ->{
-                RXImageLoader.loadImage(this,
-                    ImgConfigImpl
-                        .builder()
-                        .url(ImageLoaderUtils.appendUrl(url, width, height, false))
-                        .cacheStrategy(CACHE_STRATEGY_NONE)
-                        .imageView(test_iv_1)
-                        .build())
+                RXImageLoader.loadImageWithSkipCache(url,test_iv_1, width, height)
             }
             R.id.btn_url_circle                     ->{
+                RXImageLoader.loadCircleImage(
+                    ImgLoadParams(this)
+                        .load(url)
+                        .placeholder(placeHoldId)
+                        .into(test_iv_1)
+                )
             }
             R.id.btn_id_circle                      ->{
+                RXImageLoader.loadCircleImage(imgId,test_iv_1)
             }
             R.id.btn_url_corner                     ->{
 
+                RXImageLoader.loadCornersImage(
+                    ImgLoadParams(this)
+                        .load(url)
+                        .cornerRadius(20f)
+                        .placeholder(placeHoldId)
+                        .into(test_iv_1)
+                )
+                //圆角矩形测一下
+//                RXImageLoader.loadCornersImage(url,test_iv_1, cornerWidth)
             }
             R.id.btn_id_corner                      ->{
             }

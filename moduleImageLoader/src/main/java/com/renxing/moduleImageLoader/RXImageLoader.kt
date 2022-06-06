@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.view.View
 import android.widget.ImageView
+import com.renxing.moduleImageLoader.imageUtils.ImgLoadParams
 import com.renxing.moduleImageLoader.imageUtils.enumUtils.CornerTypeEnum
 import com.renxing.moduleImageLoader.imageUtils.enumUtils.DiskCacheStrategyEnum
 import com.renxing.moduleImageLoader.imageUtils.enumUtils.PriorityEnum
@@ -14,7 +15,7 @@ import com.renxing.moduleImageLoader.loaderStrategy.control.ImageLoaderInterface
 import com.renxing.moduleImageLoader.loaderStrategy.control.LoaderStrategyFactory
 import com.renxing.moduleImageLoader.loaderStrategy.control.OnAnimationStatus
 import com.renxing.moduleImageLoader.loaderStrategy.control.RXRequestListener
-import com.renxing.moduleImageLoader.loaderStrategy.glide.easyglide.config.ImgLoaderConfigImpl
+import com.renxing.moduleImageLoader.loaderStrategy.glide.config.ImgLoadConfigImpl
 import com.renxing.moduleImageLoader.loaderStrategy.glide.target.RXCustomTarget
 
 /**
@@ -22,11 +23,23 @@ import com.renxing.moduleImageLoader.loaderStrategy.glide.target.RXCustomTarget
  */
 object RXImageLoader : ImageLoaderInterface {
     private var imageLoaderStrategy = LoaderStrategyFactory.instance.getLoaderStrategy()
+    override fun loadImage(imgLoadParams: ImgLoadParams) {
+        imageLoaderStrategy.loadImage(imgLoadParams)
 
-    override fun loadImage(context: Context, imgLoaderConfigImpl: ImgLoaderConfigImpl) {
-        imageLoaderStrategy.loadImage(context,imgLoaderConfigImpl)
+    }
+    override fun loadCircleImage(imgLoadParams: ImgLoadParams) {
+        imageLoaderStrategy.loadCircleImage(imgLoadParams)
     }
 
+    override fun loadCornersImage(imgLoadParams: ImgLoadParams) {
+        imageLoaderStrategy.loadCornersImage(imgLoadParams)
+    }
+    override fun loadBorderCircleImage(imgLoadParams: ImgLoadParams) {
+        imageLoaderStrategy.loadBorderCircleImage(imgLoadParams)
+    }
+    override fun load9Png(imgLoadParams: ImgLoadParams) {
+        imageLoaderStrategy.load9Png(imgLoadParams)
+    }
 
     override fun loadImage(urlOrIdOrUri: Any, imageView: ImageView) {
     imageLoaderStrategy.loadImage(urlOrIdOrUri,imageView)

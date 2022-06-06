@@ -7,8 +7,9 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.view.View
 import android.widget.ImageView
+import com.renxing.moduleImageLoader.imageUtils.ImgLoadParams
 import com.renxing.moduleImageLoader.imageUtils.enumUtils.*
-import com.renxing.moduleImageLoader.loaderStrategy.glide.easyglide.config.ImgLoaderConfigImpl
+import com.renxing.moduleImageLoader.loaderStrategy.glide.config.ImgLoadConfigImpl
 import com.renxing.moduleImageLoader.loaderStrategy.glide.target.RXCustomTarget
 
 /**
@@ -17,7 +18,19 @@ import com.renxing.moduleImageLoader.loaderStrategy.glide.target.RXCustomTarget
 interface ImageLoaderInterface {
 
 
-    fun loadImage(context: Context,imgLoaderConfigImpl: ImgLoaderConfigImpl)
+    fun loadImage(imgLoadParams: ImgLoadParams)
+    fun loadCircleImage(imgLoadParams: ImgLoadParams)
+    /**
+     * 重要参数：cornerRadius
+     */
+    fun loadCornersImage(imgLoadParams: ImgLoadParams)
+    /**
+     * 重要参数：
+     * 1、borderColor
+     * 2、borderWidth
+     */
+    fun loadBorderCircleImage(imgLoadParams: ImgLoadParams)
+    fun load9Png(imgLoadParams: ImgLoadParams)
     /**
      * @urlOrIdOrUri: 加载类型
      */

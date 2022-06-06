@@ -1,4 +1,4 @@
-package com.renxing.moduleImageLoader.loaderStrategy.glide.easyglide.transformation
+package com.renxing.moduleImageLoader.loaderStrategy.glide.transformation
 
 import android.graphics.*
 import com.bumptech.glide.load.Key

@@ -19,7 +19,6 @@ import com.bumptech.glide.load.resource.gif.GifDrawable
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.renxing.moduleImageLoader.loaderStrategy.control.OnAnimationStatus
-import com.renxing.moduleImageLoader.loaderStrategy.glide.ninePic.NinePatchChunk
 import java.io.ByteArrayOutputStream
 
 /**

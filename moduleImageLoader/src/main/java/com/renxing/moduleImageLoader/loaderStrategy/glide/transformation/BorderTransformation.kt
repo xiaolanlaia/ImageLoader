@@ -1,4 +1,4 @@
-package com.renxing.moduleImageLoader.loaderStrategy.glide.easyglide.transformation
+package com.renxing.moduleImageLoader.loaderStrategy.glide.transformation
 
 import android.content.res.Resources
 import android.graphics.Bitmap

@@ -242,11 +242,7 @@
             android:layout_height="@dimen/dp_300"
             android:layout_marginTop="@dimen/dp_11"
             android:layout_toStartOf="@+id/iv_charm_one"
-            android:src="@mipmap/default_photo"
-            app:borderColor="@color/color_FFCFF3"
-            app:borderWidth="@dimen/dp_1"
-            app:displayBorder="true"
-            app:displayType="circle" />
+            android:src="@mipmap/default_photo" />
         <ImageView
             android:id="@+id/test_iv_1"
             android:layout_width="@dimen/dp_300"
