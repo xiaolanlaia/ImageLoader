@@ -1,46 +1,30 @@
 package com.renxing.moduleImageLoader.loaderStrategy.glide
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Context
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.NinePatch
-import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.NinePatchDrawable
-import android.net.Uri
 import android.os.Looper
 import android.text.TextUtils
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
-import com.bumptech.glide.RequestManager
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.engine.GlideException
-
 import com.bumptech.glide.load.resource.bitmap.*
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.bumptech.glide.load.resource.gif.GifDrawable
-import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.CustomTarget
-import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
 import com.renxing.moduleImageLoader.imageUtils.ImageLoaderUtils
 import com.renxing.moduleImageLoader.imageUtils.ImgLoadParams
 import com.renxing.moduleImageLoader.imageUtils.NinePatchChunk
 import com.renxing.moduleImageLoader.imageUtils.enumUtils.*
 import com.renxing.moduleImageLoader.loaderStrategy.control.ImageLoaderInterface
-import com.renxing.moduleImageLoader.loaderStrategy.control.OnAnimationStatus
-import com.renxing.moduleImageLoader.loaderStrategy.control.RXRequestListener
 import com.renxing.moduleImageLoader.loaderStrategy.glide.config.ImgLoadConfigImpl
 import com.renxing.moduleImageLoader.loaderStrategy.glide.placeholder.CircleRoundDrawable
-import com.renxing.moduleImageLoader.loaderStrategy.glide.target.RXCustomTarget
 import com.renxing.moduleImageLoader.loaderStrategy.glide.transformation.*
 import java.io.File
 import java.io.FileInputStream
@@ -296,7 +280,7 @@ class ImageLoaderGlide : ImageLoaderInterface {
     override fun trimMemory(context: Context, level : Int) {
         glideTrimMemory(context,level)
     }
-    
+
 
 
     private fun load9PngCombine(urlOrIdOrUri: Any,view: View,placeholderImg: Int) {

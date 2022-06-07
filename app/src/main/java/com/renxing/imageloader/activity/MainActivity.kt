@@ -1,6 +1,7 @@
 package com.renxing.imageloader.activity
 
 import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Build
 import android.os.Bundle
 import android.view.View
@@ -10,16 +11,17 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DecodeFormat
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.FutureTarget
 import com.example.imageloader.R
 import com.renxing.imageloader.*
 import com.renxing.moduleImageLoader.RXImageLoader
-import com.renxing.moduleImageLoader.RXImageLoader.loadCornersImage
 import com.renxing.moduleImageLoader.RXImageLoader.loadImage
-import com.renxing.moduleImageLoader.imageUtils.ImageLoaderUtils.appendSlim
 import com.renxing.moduleImageLoader.imageUtils.ImgLoadParams
 import com.renxing.moduleImageLoader.imageUtils.enumUtils.DiskCacheStrategyEnum
 import com.renxing.moduleImageLoader.imageUtils.enumUtils.PriorityEnum
-import com.renxing.moduleImageLoader.imageUtils.enumUtils.TransitionEnum
+import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity(),View.OnClickListener {
 
@@ -116,15 +118,32 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
         when (v.id) {
             R.id.btn_url                            ->{
 
-//                loadCornersImage(
-//                    ImgLoadParams(this@MainActivity)
-//                        .load(url)
-//                        .into(test_iv_1)
-//                        .transitionEnum(TransitionEnum.CenterCrop)
-//                        .cornerRadius(8f)
-//                        .placeholder(R.mipmap.default_photo)
-//                        .diskcacheStrategy(DiskCacheStrategyEnum.NONE)
-//                )
+//                fun fetchImage(resource: Resource, function1: Function1<Bitmap?, Unit>) {
+//                    try {
+//                        val tag: String = resource.getTag()
+//                        if (paramMap.containsKey(tag)) {
+//                            val imageUrl: String = paramMap.get(tag)
+//                                .toString() + "?imageView2/1/w/" + DisplayUtils.dp2px(360) + "/h/" + DisplayUtils.dp2px(
+//                                360
+//                            ) + "/interlace/1/q/75"
+//                            val bitmapFutureTarget: FutureTarget<Bitmap> =
+//                                Glide.with(AppConfig.context)
+//                                    .asBitmap()
+//                                    .format(DecodeFormat.PREFER_ARGB_8888)
+//                                    .load(imageUrl)
+//                                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+//                                    .submit()
+//                            val bitmap = bitmapFutureTarget[2000L, TimeUnit.MILLISECONDS]
+//                            function1.invoke(bitmap)
+//                            Glide.with(AppConfig.context).clear(bitmapFutureTarget)
+//                        } else {
+//                            function1.invoke(null)
+//                        }
+//                    } catch (e: Exception) {
+//                        e.printStackTrace()
+//                        function1.invoke(null)
+//                    }
+//                }
 
                 loadImage(
                     ImgLoadParams(this)
