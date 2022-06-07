@@ -72,54 +72,54 @@ class ThirdActivity : AppCompatActivity() , View.OnClickListener {
     override fun onClick(v: View) {
         when (v.id) {
             R.id.btn_url_gif_corner -> {
-                RXImageLoader.loadCornerGif(gifUrl, test_iv_1, cornerWidth)
+//                RXImageLoader.loadCornerGif(gifUrl, test_iv_1, cornerWidth)
             }
             R.id.btn_id_gif_corner -> {
-                RXImageLoader.loadCornerGif(gifId, test_iv_1, cornerWidth)
+//                RXImageLoader.loadCornerGif(gifId, test_iv_1, cornerWidth)
             }
             R.id.btn_url_gif_corner_playTimes -> {
-                RXImageLoader.loadCornerGif(playTimes, gifUrl, test_iv_1, cornerWidth)
+//                RXImageLoader.loadCornerGif(playTimes, gifUrl, test_iv_1, cornerWidth)
             }
             R.id.btn_id_gif_corner_playTimes -> {
-                RXImageLoader.loadCornerGif(playTimes, gifId, test_iv_1, cornerWidth)
+//                RXImageLoader.loadCornerGif(playTimes, gifId, test_iv_1, cornerWidth)
             }
             R.id.btn_url_gif_corner_border -> {
-                RXImageLoader.loadBorderCornerGif(
-                    gifUrl,
-                    test_iv_1,
-                    borderColor,
-                    borderWidth,
-                    cornerWidth
-                )
+//                RXImageLoader.loadBorderCornerGif(
+//                    gifUrl,
+//                    test_iv_1,
+//                    borderColor,
+//                    borderWidth,
+//                    cornerWidth
+//                )
             }
             R.id.btn_id_gif_corner_border -> {
-                RXImageLoader.loadBorderCornerGif(
-                    gifId,
-                    test_iv_1,
-                    borderColor,
-                    borderWidth,
-                    cornerWidth
-                )
+//                RXImageLoader.loadBorderCornerGif(
+//                    gifId,
+//                    test_iv_1,
+//                    borderColor,
+//                    borderWidth,
+//                    cornerWidth
+//                )
             }
             R.id.btn_url_gif_corner_border_playTimes -> {
-                RXImageLoader.loadBorderCornerGif(
-                    playTimes,
-                    gifUrl,
-                    test_iv_1,
-                    borderColor,
-                    borderWidth,
-                    cornerWidth,
-                )
+//                RXImageLoader.loadBorderCornerGif(
+//                    playTimes,
+//                    gifUrl,
+//                    test_iv_1,
+//                    borderColor,
+//                    borderWidth,
+//                    cornerWidth,
+//                )
             }
             R.id.btn_id_gif_corner_border_playTimes -> {
-                RXImageLoader.loadBorderCornerGif(
-                    playTimes,
-                    gifId,
-                    test_iv_1,
-                    borderColor,
-                    borderWidth,
-                    cornerWidth,
-                )
+//                RXImageLoader.loadBorderCornerGif(
+//                    playTimes,
+//                    gifId,
+//                    test_iv_1,
+//                    borderColor,
+//                    borderWidth,
+//                    cornerWidth,
+//                )
             }
             R.id.btn_url_CustomTarget -> {
 

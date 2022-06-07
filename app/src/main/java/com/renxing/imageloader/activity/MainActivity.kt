@@ -199,25 +199,25 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
             }
             R.id.btn_url_centerCrop                 ->{
 
-                RXImageLoader.loadImageWithCenterCrop(url,test_iv_1)
+//                RXImageLoader.loadImageWithCenterCrop(url,test_iv_1)
             }
             R.id.btn_id_centerCrop                  ->{
-                RXImageLoader.loadImageWithCenterCrop(imgId,test_iv_1)
+//                RXImageLoader.loadImageWithCenterCrop(imgId,test_iv_1)
             }
             R.id.btn_url_centerInside               ->{
-                RXImageLoader.loadImageWithCenterInside(url,test_iv_1)
+//                RXImageLoader.loadImageWithCenterInside(url,test_iv_1)
             }
             R.id.btn_id_centerInside                ->{
-                RXImageLoader.loadImageWithCenterInside(imgId,test_iv_1)
+//                RXImageLoader.loadImageWithCenterInside(imgId,test_iv_1)
             }
             R.id.btn_url_skipCache                  ->{
-                RXImageLoader.loadImageWithSkipCache(url,test_iv_1)
+//                RXImageLoader.loadImageWithSkipCache(url,test_iv_1)
             }
             R.id.btn_id_skipCache                   ->{
-                RXImageLoader.loadImageWithSkipCache(imgId,test_iv_1)
+//                RXImageLoader.loadImageWithSkipCache(imgId,test_iv_1)
             }
             R.id.btn_url_skipCache_special          ->{
-                RXImageLoader.loadImageWithSkipCache(url,test_iv_1, width, height)
+//                RXImageLoader.loadImageWithSkipCache(url,test_iv_1, width, height)
             }
             R.id.btn_url_circle                     ->{
                 RXImageLoader.loadCircleImage(
@@ -228,7 +228,7 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
                 )
             }
             R.id.btn_id_circle                      ->{
-                RXImageLoader.loadCircleImage(imgId,test_iv_1)
+//                RXImageLoader.loadCircleImage(imgId,test_iv_1)
             }
             R.id.btn_url_corner                     ->{
 

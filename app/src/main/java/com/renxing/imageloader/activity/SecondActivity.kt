@@ -92,15 +92,15 @@ class SecondActivity : AppCompatActivity(), View.OnClickListener {
         when (v.id) {
 
             R.id.btn_url_corner_special             ->{
-                RXImageLoader.loadCornersImage(
-                    url,test_iv_1, cornerWidth,
-                    CornerTypeEnum.RIGHT)
+//                RXImageLoader.loadCornersImage(
+//                    url,test_iv_1, cornerWidth,
+//                    CornerTypeEnum.RIGHT)
 
             }
             R.id.btn_id_corner_special              ->{
-                RXImageLoader.loadCornersImage(
-                    imgId,test_iv_1, cornerWidth,
-                    CornerTypeEnum.LEFT)
+//                RXImageLoader.loadCornersImage(
+//                    imgId,test_iv_1, cornerWidth,
+//                    CornerTypeEnum.LEFT)
             }
             R.id.btn_bitmap_corner                  ->{
                 //todo bitmap是怎么做的
@@ -122,23 +122,23 @@ class SecondActivity : AppCompatActivity(), View.OnClickListener {
 //                RXImageLoader.loadBorderCircleImage(url,test_iv_1, Color.RED, borderWidth)
             }
             R.id.btn_id_border_circle               ->{
-                RXImageLoader.loadBorderCircleImage("",test_iv_1, Color.BLACK, borderWidth)
+//                RXImageLoader.loadBorderCircleImage("",test_iv_1, Color.BLACK, borderWidth)
             }
             R.id.btn_url_border_corner              ->{
-                RXImageLoader.loadBorderCornerImage(
-                    url,test_iv_1,
-                    borderColor,
-                    borderWidth,
-                    cornerWidth
-                )
+//                RXImageLoader.loadBorderCornerImage(
+//                    url,test_iv_1,
+//                    borderColor,
+//                    borderWidth,
+//                    cornerWidth
+//                )
             }
             R.id.btn_id_border_corner               ->{
-                RXImageLoader.loadBorderCornerImage(
-                    imgId,test_iv_1,
-                    borderColor,
-                    borderWidth,
-                    cornerWidth
-                )
+//                RXImageLoader.loadBorderCornerImage(
+//                    imgId,test_iv_1,
+//                    borderColor,
+//                    borderWidth,
+//                    cornerWidth
+//                )
             }
             R.id.btn_url_gif                        ->{
 //                RXImageLoader.loadGif(gifUrl,test_iv_1)
@@ -148,22 +148,22 @@ class SecondActivity : AppCompatActivity(), View.OnClickListener {
 //                RXImageLoader.loadGif(gifId,test_iv_1)
             }
             R.id.btn_url_gif_playTimes              ->{
-                RXImageLoader.loadGif(playTimes, gifUrl,test_iv_1)
+//                RXImageLoader.loadGif(playTimes, gifUrl,test_iv_1)
             }
             R.id.btn_id_gif_playTimes               ->{
-                RXImageLoader.loadGif(playTimes, gifId,test_iv_1)
+//                RXImageLoader.loadGif(playTimes, gifId,test_iv_1)
             }
             R.id.btn_url_gif_circle                 ->{
-                RXImageLoader.loadCircleGif(gifUrl,test_iv_1)
+//                RXImageLoader.loadCircleGif(gifUrl,test_iv_1)
             }
             R.id.btn_id_gif_circle                  ->{
-                RXImageLoader.loadCircleGif(gifId,test_iv_1)
+//                RXImageLoader.loadCircleGif(gifId,test_iv_1)
             }
             R.id.btn_url_gif_circle_playTimes       ->{
-                RXImageLoader.loadCircleGif(playTimes, gifUrl,test_iv_1)
+//                RXImageLoader.loadCircleGif(playTimes, gifUrl,test_iv_1)
             }
             R.id.btn_id_gif_circle_playTimes        ->{
-                RXImageLoader.loadCircleGif(playTimes, gifId,test_iv_1)
+//                RXImageLoader.loadCircleGif(playTimes, gifId,test_iv_1)
             }
 
             R.id.btn_next_page                      ->{

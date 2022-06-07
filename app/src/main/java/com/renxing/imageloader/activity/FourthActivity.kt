@@ -30,12 +30,12 @@ class FourthActivity : AppCompatActivity() ,View.OnClickListener{
     override fun onClick(v: View) {
         when(v.id){
             R.id.url_placeholder    -> {
-                RXImageLoader.loadCircleImage(nullUrl,test_iv_1,placeHoldId)
+//                RXImageLoader.loadCircleImage(nullUrl,test_iv_1,placeHoldId)
 //                RXImageLoader.loadCornersImage(bigPic,test_iv_1,100f, placeHoldId)
 //                RXImageLoader.loadImageWithSkipCache(nullUrl,test_iv_1,360,360,placeHoldId)
             }
             R.id.id_special         -> {
-                RXImageLoader.loadCircleImage(bigPic,test_iv_1, placeHoldId2)
+//                RXImageLoader.loadCircleImage(bigPic,test_iv_1, placeHoldId2)
 //                RXImageLoader.loadCornersImage(bigPic,test_iv_1,100f, placeHoldId2)
 
 
