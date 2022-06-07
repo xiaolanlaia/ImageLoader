@@ -5,5 +5,5 @@ package com.renxing.moduleImageLoader.imageUtils.enumUtils
  *@author  :  WuJianFeng
  */
 enum class RequestBuilderTypeEnum {
-    GIF,BITMAP
+    DRAWABLE,GIF_DRAWABLE,BITMAP
 }

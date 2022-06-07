@@ -30,7 +30,8 @@ class ImgLoadParams constructor(var context: Context) {
     var rxCustomTargetBitmap : RXCustomTarget<Bitmap>? =null
     var rxCustomTargetGifDrawable : RXCustomTarget<GifDrawable>? =null
     var transitionEnum : ArrayList<TransitionEnum> = ArrayList<TransitionEnum>()
-    var requestBuilderTypeEnum : RequestBuilderTypeEnum? = null
+    //默认是 RequestBuilderTypeEnum.DRAWABLE
+    var requestBuilderTypeEnum : RequestBuilderTypeEnum = RequestBuilderTypeEnum.DRAWABLE
     var fitCenter : Boolean = false
     var centerCrop : Boolean = false
     var centerInside : Boolean = false

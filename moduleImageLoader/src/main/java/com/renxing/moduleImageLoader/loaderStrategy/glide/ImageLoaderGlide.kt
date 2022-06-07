@@ -12,6 +12,7 @@ import android.graphics.drawable.NinePatchDrawable
 import android.net.Uri
 import android.os.Looper
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import com.bumptech.glide.Glide
@@ -64,7 +65,7 @@ class ImageLoaderGlide : ImageLoaderInterface {
         checkImgType(imgLoadParams)
     }
     override fun loadGifImage(imgLoadParams: ImgLoadParams) {
-        imgLoadParams.requestBuilderTypeEnum(RequestBuilderTypeEnum.GIF)
+        imgLoadParams.requestBuilderTypeEnum(RequestBuilderTypeEnum.GIF_DRAWABLE)
         checkImgType(imgLoadParams)
     }
     override fun loadBitmapImage(imgLoadParams: ImgLoadParams) {
@@ -94,7 +95,7 @@ class ImageLoaderGlide : ImageLoaderInterface {
     private fun checkImgType(imgLoadParams: ImgLoadParams) {
         if (imgLoadParams.requestBuilderTypeEnum != null) {
             when (imgLoadParams.requestBuilderTypeEnum) {
-                RequestBuilderTypeEnum.GIF -> {
+                RequestBuilderTypeEnum.GIF_DRAWABLE -> {
                     glideLoadImageGif(imgLoadParams.context, TransformImgLoadParams(imgLoadParams))
                 }
                 RequestBuilderTypeEnum.BITMAP -> {
@@ -2077,6 +2078,7 @@ class ImageLoaderGlide : ImageLoaderInterface {
             }
             //glide用它来改变图形的形状
             if (config.transformation != null) {
+                Log.d("__tr-1","1")
                 transform(*config.transformation)
             }
             if (config.placeHolderDrawable != null) {
@@ -2171,6 +2173,7 @@ class ImageLoaderGlide : ImageLoaderInterface {
             }
             //glide用它来改变图形的形状
             if (config.transformation != null) {
+                Log.d("__tr-2","1")
                 transform(*config.transformation)
             }
             if (config.placeHolderDrawable != null) {
@@ -2266,6 +2269,7 @@ class ImageLoaderGlide : ImageLoaderInterface {
             }
             //glide用它来改变图形的形状
             if (config.transformation != null) {
+                Log.d("__tr-3","1")
                 transform(*config.transformation)
             }
             if (config.placeHolderDrawable != null) {
@@ -2324,7 +2328,7 @@ class ImageLoaderGlide : ImageLoaderInterface {
     fun setRequestBuilderTypeEnum(requestBuilderTypeEnum : RequestBuilderTypeEnum,glide : RequestManager){
 
         when(requestBuilderTypeEnum){
-            RequestBuilderTypeEnum.GIF -> {
+            RequestBuilderTypeEnum.GIF_DRAWABLE -> {
                 glide.asGif()
             }
             RequestBuilderTypeEnum.BITMAP -> {

@@ -13,10 +13,13 @@ import com.bumptech.glide.Glide
 import com.example.imageloader.R
 import com.renxing.imageloader.*
 import com.renxing.moduleImageLoader.RXImageLoader
+import com.renxing.moduleImageLoader.RXImageLoader.loadCornersImage
 import com.renxing.moduleImageLoader.RXImageLoader.loadImage
+import com.renxing.moduleImageLoader.imageUtils.ImageLoaderUtils.appendSlim
 import com.renxing.moduleImageLoader.imageUtils.ImgLoadParams
 import com.renxing.moduleImageLoader.imageUtils.enumUtils.DiskCacheStrategyEnum
 import com.renxing.moduleImageLoader.imageUtils.enumUtils.PriorityEnum
+import com.renxing.moduleImageLoader.imageUtils.enumUtils.TransitionEnum
 
 class MainActivity : AppCompatActivity(),View.OnClickListener {
 
@@ -113,7 +116,15 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
         when (v.id) {
             R.id.btn_url                            ->{
 
-
+//                loadCornersImage(
+//                    ImgLoadParams(this@MainActivity)
+//                        .load(url)
+//                        .into(test_iv_1)
+//                        .transitionEnum(TransitionEnum.CenterCrop)
+//                        .cornerRadius(8f)
+//                        .placeholder(R.mipmap.default_photo)
+//                        .diskcacheStrategy(DiskCacheStrategyEnum.NONE)
+//                )
 
                 loadImage(
                     ImgLoadParams(this)
@@ -125,8 +136,8 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
                         .dontAnimate(true)
                         .into(test_iv_1)
                 )
-
-                Glide.with(this).asBitmap().load(R.drawable.charff).into(test_iv_1)
+//
+//                Glide.with(this).asBitmap().load(R.drawable.charff).into(test_iv_1)
 
             }
             R.id.btn_id                             ->{
