@@ -2,14 +2,10 @@ package com.renxing.moduleImageLoader.loaderStrategy.control
 
 import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.drawable.ColorDrawable
-import android.graphics.drawable.Drawable
-import android.net.Uri
 import android.view.View
 import android.widget.ImageView
 import com.renxing.moduleImageLoader.imageUtils.ImgLoadParams
 import com.renxing.moduleImageLoader.imageUtils.enumUtils.*
-import com.renxing.moduleImageLoader.loaderStrategy.glide.target.RXCustomTarget
 
 /**
  *@author  :  WuJianFeng
@@ -17,7 +13,7 @@ import com.renxing.moduleImageLoader.loaderStrategy.glide.target.RXCustomTarget
 interface ImageLoaderInterface {
 
 
-    fun getBitmap(context: Context, url : String,
+    fun loadFutureTarget(context: Context, url : String,
                   decodeFormateEnum: DecodeFormateEnum,diskCacheStrategyEnum: DiskCacheStrategyEnum,function1: Function1<Bitmap?, Unit>)
     fun loadImage(imgLoadParams: ImgLoadParams)
     fun loadGifImage(imgLoadParams: ImgLoadParams)

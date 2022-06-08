@@ -1,7 +1,6 @@
 package com.renxing.moduleImageLoader.loaderStrategy.control
 
 import com.bumptech.glide.request.target.Target
-import com.renxing.moduleImageLoader.R
 import java.util.concurrent.Future
 
 /**

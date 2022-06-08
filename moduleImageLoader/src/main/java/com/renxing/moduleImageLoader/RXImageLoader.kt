@@ -24,14 +24,14 @@ import com.renxing.moduleImageLoader.loaderStrategy.glide.target.RXCustomTarget
  */
 object RXImageLoader : ImageLoaderInterface {
     private var imageLoaderStrategy = LoaderStrategyFactory.instance.getLoaderStrategy()
-    override fun getBitmap(
+    override fun loadFutureTarget(
         context: Context,
         url: String,
         decodeFormateEnum: DecodeFormateEnum,
         diskCacheStrategyEnum: DiskCacheStrategyEnum,
         function1: (Bitmap?) -> Unit
     ) {
-        return imageLoaderStrategy.getBitmap(context,url,decodeFormateEnum,diskCacheStrategyEnum,function1)
+        return imageLoaderStrategy.loadFutureTarget(context,url,decodeFormateEnum,diskCacheStrategyEnum,function1)
     }
 
 

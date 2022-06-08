@@ -48,7 +48,7 @@ import java.util.concurrent.TimeUnit
 class ImageLoaderGlide : ImageLoaderInterface {
 
 
-    override fun getBitmap(
+    override fun loadFutureTarget(
         context: Context,
         url: String,
         decodeFormateEnum: DecodeFormateEnum,
