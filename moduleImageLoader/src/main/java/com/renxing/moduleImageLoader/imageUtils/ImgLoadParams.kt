@@ -8,7 +8,7 @@ import android.net.Uri
 import android.widget.ImageView
 import com.bumptech.glide.load.resource.gif.GifDrawable
 import com.renxing.moduleImageLoader.imageUtils.enumUtils.*
-import com.renxing.moduleImageLoader.loaderStrategy.control.RXRequestListener
+import com.renxing.moduleImageLoader.loaderStrategy.control.*
 import com.renxing.moduleImageLoader.loaderStrategy.glide.target.RXCustomTarget
 
 
@@ -24,10 +24,15 @@ class ImgLoadParams constructor(var context: Context) {
     var imageHeight : Int = 0
     var diskcacheStrategyEnum : DiskCacheStrategyEnum? = null
     var rxRequestListenerDrawable : RXRequestListener<Drawable>? = null
+    var registerAnimationCallback : RegisterAnimationCallback? = null
+    var rxListener : RXListener? = null
+    var setLoopCount : Int = -1
     var rxRequestListenerBitmap : RXRequestListener<Bitmap>? = null
     var rxRequestListenerGifDrawable : RXRequestListener<GifDrawable>? = null
     var rxCustomTargetDrawable : RXCustomTarget<Drawable>? =null
     var rxCustomTargetBitmap : RXCustomTarget<Bitmap>? =null
+    var intoBitmapTarget : IntoBitmapTarget? =null
+    var intoDrawableTarget : IntoDrawableTarget? =null
     var rxCustomTargetGifDrawable : RXCustomTarget<GifDrawable>? =null
     var transitionEnum : ArrayList<TransitionEnum> = ArrayList<TransitionEnum>()
     //默认是 RequestBuilderTypeEnum.DRAWABLE
@@ -87,28 +92,24 @@ class ImgLoadParams constructor(var context: Context) {
         this.diskcacheStrategyEnum = diskcacheStrategyEnum
         return this
     }
-    fun listenerDrawable(rxRequestListener : RXRequestListener<Drawable>) : ImgLoadParams{
-        this.rxRequestListenerDrawable = rxRequestListener
+    fun registerAnimationCallback(registerAnimationCallback : RegisterAnimationCallback) : ImgLoadParams{
+        this.registerAnimationCallback = registerAnimationCallback
         return this
     }
-    fun listenerBitmap(rxRequestListenerBitmap : RXRequestListener<Bitmap>) : ImgLoadParams{
-        this.rxRequestListenerBitmap = rxRequestListenerBitmap
+    fun rxListener(rxListener : RXListener) : ImgLoadParams{
+        this.rxListener = rxListener
         return this
     }
-    fun listenerGifDrawable(rxRequestListenerGifDrawable : RXRequestListener<GifDrawable>) : ImgLoadParams{
-        this.rxRequestListenerGifDrawable = rxRequestListenerGifDrawable
+    fun setLoopCount(setLoopCount : Int) : ImgLoadParams{
+        this.setLoopCount = setLoopCount
         return this
     }
-    fun  intoDrawableTarget(rxCustomTargetDrawable : RXCustomTarget<Drawable>) : ImgLoadParams{
-        this.rxCustomTargetDrawable = rxCustomTargetDrawable
+    fun  intoBitmapTarget(intoBitmapTarget : IntoBitmapTarget) : ImgLoadParams{
+        this.intoBitmapTarget = intoBitmapTarget
         return this
     }
-    fun  intoBitmapTarget(rxCustomTargetBitmap : RXCustomTarget<Bitmap>) : ImgLoadParams{
-        this.rxCustomTargetBitmap = rxCustomTargetBitmap
-        return this
-    }
-    fun  intoGifDrawableTarget(rxCustomTargetGifDrawable : RXCustomTarget<GifDrawable>) : ImgLoadParams{
-        this.rxCustomTargetGifDrawable = rxCustomTargetGifDrawable
+    fun  intoDrawableTarget(intoDrawableTarget : IntoDrawableTarget) : ImgLoadParams{
+        this.intoDrawableTarget = intoDrawableTarget
         return this
     }
 

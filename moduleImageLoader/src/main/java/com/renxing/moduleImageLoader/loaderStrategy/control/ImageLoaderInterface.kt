@@ -17,6 +17,8 @@ import com.renxing.moduleImageLoader.loaderStrategy.glide.target.RXCustomTarget
 interface ImageLoaderInterface {
 
 
+    fun getBitmap(context: Context, url : String,
+                  decodeFormateEnum: DecodeFormateEnum,diskCacheStrategyEnum: DiskCacheStrategyEnum,function1: Function1<Bitmap?, Unit>)
     fun loadImage(imgLoadParams: ImgLoadParams)
     fun loadGifImage(imgLoadParams: ImgLoadParams)
     fun loadBitmapImage(imgLoadParams: ImgLoadParams)

@@ -2,6 +2,7 @@ package com.renxing.moduleImageLoader.loaderStrategy.glide
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.NinePatch
 import android.graphics.drawable.Drawable
@@ -10,13 +11,21 @@ import android.os.Looper
 import android.text.TextUtils
 import android.view.View
 import android.widget.ImageView
+import androidx.vectordrawable.graphics.drawable.Animatable2Compat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.bitmap.*
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.load.resource.gif.GifDrawable
+import com.bumptech.glide.request.FutureTarget
+import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
 import com.renxing.moduleImageLoader.imageUtils.ImageLoaderUtils
 import com.renxing.moduleImageLoader.imageUtils.ImgLoadParams
@@ -30,6 +39,7 @@ import java.io.File
 import java.io.FileInputStream
 import java.io.FileNotFoundException
 import java.io.IOException
+import java.util.concurrent.TimeUnit
 
 /**
  *@author  :  WuJianFeng
@@ -37,13 +47,26 @@ import java.io.IOException
 @SuppressLint("CheckResult")
 class ImageLoaderGlide : ImageLoaderInterface {
 
-    //nullOptions：占位RequestOptions没作用
-    private val nullOptions = RequestOptions()
-    private val fitCenterOptions = RequestOptions().fitCenter()
-    private val centerScopeOptions = RequestOptions().centerCrop()
-    private val centerInsideOptions = RequestOptions().centerInside()
-    private val skipMemoryOptions = RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(true)
-    private val circleOptions = RequestOptions().circleCrop()
+
+    override fun getBitmap(
+        context: Context,
+        url: String,
+        decodeFormateEnum: DecodeFormateEnum,
+        diskCacheStrategyEnum: DiskCacheStrategyEnum,
+        function1: (Bitmap?) -> Unit
+    ) {
+        val bitmapFutureTarget: FutureTarget<Bitmap> = Glide.with(context)
+            .asBitmap()
+            .format(DecodeFormat.PREFER_ARGB_8888)
+            .load(url)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .submit()
+        function1.invoke(bitmapFutureTarget[2000L, TimeUnit.MILLISECONDS])
+        Glide.with(context).clear(bitmapFutureTarget)
+
+    }
+
+
     override fun loadImage(imgLoadParams: ImgLoadParams) {
 
         checkImgType(imgLoadParams)
@@ -127,6 +150,15 @@ class ImageLoaderGlide : ImageLoaderInterface {
         if (params.rxRequestListenerDrawable != null){
             imgLoadConfigImpl.requestListenerDrawable(params.rxRequestListenerDrawable)
         }
+        if (params.registerAnimationCallback != null){
+            imgLoadConfigImpl.registerAnimationCallback(params.registerAnimationCallback)
+        }
+        if (params.rxListener != null){
+            imgLoadConfigImpl.rxListener(params.rxListener)
+        }
+
+        imgLoadConfigImpl.setLoopCount(params.setLoopCount)
+
         if (params.rxRequestListenerBitmap != null){
             imgLoadConfigImpl.requestListenerBitmap(params.rxRequestListenerBitmap)
         }
@@ -138,6 +170,12 @@ class ImageLoaderGlide : ImageLoaderInterface {
         }
         if (params.rxCustomTargetBitmap != null){
             imgLoadConfigImpl.rxBitmapTarget(params.rxCustomTargetBitmap)
+        }
+        if (params.intoBitmapTarget != null){
+            imgLoadConfigImpl.intoCustomTarget(params.intoBitmapTarget)
+        }
+        if (params.intoDrawableTarget != null){
+            imgLoadConfigImpl.intoDrawableTarget(params.intoDrawableTarget)
         }
         if (params.rxCustomTargetGifDrawable != null){
             imgLoadConfigImpl.rxGifDrawableTarget(params.rxCustomTargetGifDrawable)
@@ -483,6 +521,32 @@ class ImageLoaderGlide : ImageLoaderInterface {
             if (config.requestListenerBitmap != null) {
                 addListener(config.requestListenerBitmap)
             }
+            if (config.rxListener != null) {
+                addListener(object : RequestListener<Bitmap>{
+
+                    override fun onLoadFailed(
+                        e: GlideException?,
+                        model: Any?,
+                        target: Target<Bitmap>?,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        config.rxListener?.onLoadFailed()
+                        return false
+                    }
+
+                    override fun onResourceReady(
+                        resource: Bitmap?,
+                        model: Any?,
+                        target: Target<Bitmap>?,
+                        dataSource: DataSource?,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        config.rxListener?.onResourceReady()
+                        return false
+                    }
+
+                })
+            }
             if (config.priorityEnum != null) {
                 priority(getPriority(config.priorityEnum!!))
             }
@@ -493,6 +557,20 @@ class ImageLoaderGlide : ImageLoaderInterface {
             }else if (config.rxCustomTargetBitmap != null){
 
                 into(config.rxCustomTargetBitmap!!)
+            }else if (config.intoBitmapTarget != null){
+                into(object : CustomTarget<Bitmap>(){
+                    override fun onResourceReady(
+                        resource: Bitmap,
+                        transition: Transition<in Bitmap>?
+                    ) {
+                        config.intoBitmapTarget?.onResourceReady(resource)
+                    }
+
+                    override fun onLoadCleared(placeholder: Drawable?) {
+                        config.intoBitmapTarget?.onLoadCleared()
+                    }
+
+                })
             }
         }
     }
@@ -576,6 +654,33 @@ class ImageLoaderGlide : ImageLoaderInterface {
             }
             if (config.requestListenerGifDrawable != null) {
                 addListener(config.requestListenerGifDrawable)
+            }
+            if (config.rxListener != null) {
+                addListener(object : RequestListener<GifDrawable>{
+
+                    override fun onLoadFailed(
+                        e: GlideException?,
+                        model: Any?,
+                        target: Target<GifDrawable>?,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        config.rxListener!!.onLoadFailed()
+                        return false
+                    }
+
+                    override fun onResourceReady(
+                        resource: GifDrawable?,
+                        model: Any?,
+                        target: Target<GifDrawable>?,
+                        dataSource: DataSource?,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        resource?.setLoopCount(config.setLoopCount)
+                        config.rxListener!!.onResourceReady()
+                        return false
+                    }
+
+                })
             }
             if (config.priorityEnum != null) {
                 priority(getPriority(config.priorityEnum!!))
@@ -672,6 +777,52 @@ class ImageLoaderGlide : ImageLoaderInterface {
             if (config.requestListenerDrawable != null) {
                 addListener(config.requestListenerDrawable)
             }
+            if (config.rxListener != null || config.registerAnimationCallback != null) {
+                addListener(object : RequestListener<Drawable>{
+                    override fun onLoadFailed(
+                        e: GlideException?,
+                        model: Any?,
+                        target: Target<Drawable>?,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        if (config.rxListener != null){
+                            config.rxListener!!.onLoadFailed()
+                        }
+
+                        return false
+                    }
+
+                    override fun onResourceReady(
+                        resource: Drawable?,
+                        model: Any?,
+                        target: Target<Drawable>?,
+                        dataSource: DataSource?,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        if (config.rxListener != null){
+                            config.rxListener!!.onResourceReady()
+                        }
+
+                        if (config.registerAnimationCallback != null){
+                            // 计算动画时长
+                            (resource as GifDrawable).registerAnimationCallback(object : Animatable2Compat.AnimationCallback() {
+                                override fun onAnimationEnd(drawable: Drawable?) {
+                                    super.onAnimationEnd(drawable)
+                                    config.registerAnimationCallback?.onAnimationEnd()
+                                }
+
+                                override fun onAnimationStart(drawable: Drawable?) {
+                                    super.onAnimationStart(drawable)
+                                    config.registerAnimationCallback?.onAnimationStart()
+
+                                }
+                            })
+                        }
+                        return false
+                    }
+
+                })
+            }
             if (config.priorityEnum != null) {
                 priority(getPriority(config.priorityEnum!!))
             }
@@ -682,6 +833,20 @@ class ImageLoaderGlide : ImageLoaderInterface {
             }else if (config.rxCustomTargetDrawable != null){
 
                 into(config.rxCustomTargetDrawable!!)
+            }else if (config.intoDrawableTarget != null){
+                into(object : CustomTarget<Drawable>(){
+                    override fun onResourceReady(
+                        resource: Drawable,
+                        transition: Transition<in Drawable>?
+                    ) {
+                        config.intoDrawableTarget?.onResourceReady(resource)
+                    }
+
+                    override fun onLoadCleared(placeholder: Drawable?) {
+                        config.intoDrawableTarget?.onLoadCleared()
+                    }
+
+                })
             }
         }
     }

@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.ImageView
 import com.renxing.moduleImageLoader.imageUtils.ImgLoadParams
 import com.renxing.moduleImageLoader.imageUtils.enumUtils.CornerTypeEnum
+import com.renxing.moduleImageLoader.imageUtils.enumUtils.DecodeFormateEnum
 import com.renxing.moduleImageLoader.imageUtils.enumUtils.DiskCacheStrategyEnum
 import com.renxing.moduleImageLoader.imageUtils.enumUtils.PriorityEnum
 import com.renxing.moduleImageLoader.loaderStrategy.control.ImageLoaderInterface
@@ -23,6 +24,17 @@ import com.renxing.moduleImageLoader.loaderStrategy.glide.target.RXCustomTarget
  */
 object RXImageLoader : ImageLoaderInterface {
     private var imageLoaderStrategy = LoaderStrategyFactory.instance.getLoaderStrategy()
+    override fun getBitmap(
+        context: Context,
+        url: String,
+        decodeFormateEnum: DecodeFormateEnum,
+        diskCacheStrategyEnum: DiskCacheStrategyEnum,
+        function1: (Bitmap?) -> Unit
+    ) {
+        return imageLoaderStrategy.getBitmap(context,url,decodeFormateEnum,diskCacheStrategyEnum,function1)
+    }
+
+
     override fun loadImage(imgLoadParams: ImgLoadParams) {
         imageLoaderStrategy.loadImage(imgLoadParams)
 
