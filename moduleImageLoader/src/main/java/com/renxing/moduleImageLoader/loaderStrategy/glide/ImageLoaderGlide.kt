@@ -147,9 +147,6 @@ class ImageLoaderGlide : ImageLoaderInterface {
         if (params.diskcacheStrategyEnum != null){
             imgLoadConfigImpl.cacheStrategy(params.diskcacheStrategyEnum!!)
         }
-        if (params.rxRequestListenerDrawable != null){
-            imgLoadConfigImpl.requestListenerDrawable(params.rxRequestListenerDrawable)
-        }
         if (params.registerAnimationCallback != null){
             imgLoadConfigImpl.registerAnimationCallback(params.registerAnimationCallback)
         }
@@ -157,28 +154,16 @@ class ImageLoaderGlide : ImageLoaderInterface {
             imgLoadConfigImpl.rxListener(params.rxListener)
         }
 
-        imgLoadConfigImpl.setLoopCount(params.setLoopCount)
+        if (params.setLoopCount != 0){
+            imgLoadConfigImpl.setLoopCount(params.setLoopCount)
 
-        if (params.rxRequestListenerBitmap != null){
-            imgLoadConfigImpl.requestListenerBitmap(params.rxRequestListenerBitmap)
         }
-        if (params.rxRequestListenerGifDrawable != null){
-            imgLoadConfigImpl.requestListenerGifDrawable(params.rxRequestListenerGifDrawable)
-        }
-        if (params.rxCustomTargetDrawable != null){
-            imgLoadConfigImpl.rxDrawableTarget(params.rxCustomTargetDrawable)
-        }
-        if (params.rxCustomTargetBitmap != null){
-            imgLoadConfigImpl.rxBitmapTarget(params.rxCustomTargetBitmap)
-        }
+
         if (params.intoBitmapTarget != null){
             imgLoadConfigImpl.intoCustomTarget(params.intoBitmapTarget)
         }
         if (params.intoDrawableTarget != null){
             imgLoadConfigImpl.intoDrawableTarget(params.intoDrawableTarget)
-        }
-        if (params.rxCustomTargetGifDrawable != null){
-            imgLoadConfigImpl.rxGifDrawableTarget(params.rxCustomTargetGifDrawable)
         }
         if (params.fitCenter){
             imgLoadConfigImpl.isFitCenter(true)
@@ -518,9 +503,6 @@ class ImageLoaderGlide : ImageLoaderInterface {
             if (config.isFitCenter) {
                 fitCenter()
             }
-            if (config.requestListenerBitmap != null) {
-                addListener(config.requestListenerBitmap)
-            }
             if (config.rxListener != null) {
                 addListener(object : RequestListener<Bitmap>{
 
@@ -554,9 +536,6 @@ class ImageLoaderGlide : ImageLoaderInterface {
 
             if (config.imageView != null){
                 into(config.imageView!!)
-            }else if (config.rxCustomTargetBitmap != null){
-
-                into(config.rxCustomTargetBitmap!!)
             }else if (config.intoBitmapTarget != null){
                 into(object : CustomTarget<Bitmap>(){
                     override fun onResourceReady(
@@ -652,10 +631,7 @@ class ImageLoaderGlide : ImageLoaderInterface {
             if (config.isFitCenter) {
                 fitCenter()
             }
-            if (config.requestListenerGifDrawable != null) {
-                addListener(config.requestListenerGifDrawable)
-            }
-            if (config.rxListener != null) {
+            if (config.rxListener != null || config.registerAnimationCallback != null || config.setLoopCount != 0) {
                 addListener(object : RequestListener<GifDrawable>{
 
                     override fun onLoadFailed(
@@ -664,7 +640,9 @@ class ImageLoaderGlide : ImageLoaderInterface {
                         target: Target<GifDrawable>?,
                         isFirstResource: Boolean
                     ): Boolean {
-                        config.rxListener!!.onLoadFailed()
+                        if (config.rxListener != null){
+                            config.rxListener!!.onLoadFailed()
+                        }
                         return false
                     }
 
@@ -675,8 +653,29 @@ class ImageLoaderGlide : ImageLoaderInterface {
                         dataSource: DataSource?,
                         isFirstResource: Boolean
                     ): Boolean {
-                        resource?.setLoopCount(config.setLoopCount)
-                        config.rxListener!!.onResourceReady()
+                        if (config.setLoopCount != 0){
+                            resource?.setLoopCount(config.setLoopCount)
+
+                        }
+                        if (config.rxListener != null){
+                            config.rxListener!!.onResourceReady()
+                        }
+                        if (config.registerAnimationCallback != null){
+                            resource?.registerAnimationCallback(object :
+                                Animatable2Compat.AnimationCallback() {
+                                override fun onAnimationStart(drawable: Drawable) {
+                                    super.onAnimationStart(drawable)
+                                    config.registerAnimationCallback?.onAnimationStart()
+                                }
+
+                                override fun onAnimationEnd(drawable: Drawable) {
+                                    super.onAnimationEnd(drawable)
+                                    config.registerAnimationCallback?.onAnimationEnd()
+
+                                }
+                            })
+                        }
+
                         return false
                     }
 
@@ -689,9 +688,21 @@ class ImageLoaderGlide : ImageLoaderInterface {
 
             if (config.imageView != null){
                 into(config.imageView!!)
-            }else if (config.rxCustomTargetGifDrawable != null){
+            }else if (config.intoDrawableTarget != null){
+                into(object : CustomTarget<GifDrawable>(){
 
-                into(config.rxCustomTargetGifDrawable!!)
+                    override fun onLoadCleared(placeholder: Drawable?) {
+                        config.intoDrawableTarget?.onLoadCleared()
+                    }
+
+                    override fun onResourceReady(
+                        resource: GifDrawable,
+                        transition: Transition<in GifDrawable>?
+                    ) {
+                        config.intoDrawableTarget?.onResourceReady(resource)
+                    }
+
+                })
             }
         }
     }
@@ -774,10 +785,7 @@ class ImageLoaderGlide : ImageLoaderInterface {
             if (config.isFitCenter) {
                 fitCenter()
             }
-            if (config.requestListenerDrawable != null) {
-                addListener(config.requestListenerDrawable)
-            }
-            if (config.rxListener != null || config.registerAnimationCallback != null) {
+            if (config.rxListener != null || config.registerAnimationCallback != null || config.setLoopCount != 0) {
                 addListener(object : RequestListener<Drawable>{
                     override fun onLoadFailed(
                         e: GlideException?,
@@ -799,12 +807,15 @@ class ImageLoaderGlide : ImageLoaderInterface {
                         dataSource: DataSource?,
                         isFirstResource: Boolean
                     ): Boolean {
+                        if (config.setLoopCount != 0){
+                            (resource as GifDrawable).setLoopCount(config.setLoopCount)
+                        }
                         if (config.rxListener != null){
                             config.rxListener!!.onResourceReady()
                         }
 
+
                         if (config.registerAnimationCallback != null){
-                            // 计算动画时长
                             (resource as GifDrawable).registerAnimationCallback(object : Animatable2Compat.AnimationCallback() {
                                 override fun onAnimationEnd(drawable: Drawable?) {
                                     super.onAnimationEnd(drawable)
@@ -830,9 +841,6 @@ class ImageLoaderGlide : ImageLoaderInterface {
 
             if (config.imageView != null){
                 into(config.imageView!!)
-            }else if (config.rxCustomTargetDrawable != null){
-
-                into(config.rxCustomTargetDrawable!!)
             }else if (config.intoDrawableTarget != null){
                 into(object : CustomTarget<Drawable>(){
                     override fun onResourceReady(

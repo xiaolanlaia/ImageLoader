@@ -1,15 +1,12 @@
 package com.renxing.moduleImageLoader.imageUtils
 
 import android.content.Context
-import android.graphics.Bitmap
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.widget.ImageView
-import com.bumptech.glide.load.resource.gif.GifDrawable
 import com.renxing.moduleImageLoader.imageUtils.enumUtils.*
 import com.renxing.moduleImageLoader.loaderStrategy.control.*
-import com.renxing.moduleImageLoader.loaderStrategy.glide.target.RXCustomTarget
 
 
 class ImgLoadParams constructor(var context: Context) {
@@ -23,17 +20,11 @@ class ImgLoadParams constructor(var context: Context) {
     var imageWidth : Int = 0
     var imageHeight : Int = 0
     var diskcacheStrategyEnum : DiskCacheStrategyEnum? = null
-    var rxRequestListenerDrawable : RXRequestListener<Drawable>? = null
     var registerAnimationCallback : RegisterAnimationCallback? = null
     var rxListener : RXListener? = null
-    var setLoopCount : Int = -1
-    var rxRequestListenerBitmap : RXRequestListener<Bitmap>? = null
-    var rxRequestListenerGifDrawable : RXRequestListener<GifDrawable>? = null
-    var rxCustomTargetDrawable : RXCustomTarget<Drawable>? =null
-    var rxCustomTargetBitmap : RXCustomTarget<Bitmap>? =null
+    var setLoopCount : Int = 0
     var intoBitmapTarget : IntoBitmapTarget? =null
     var intoDrawableTarget : IntoDrawableTarget? =null
-    var rxCustomTargetGifDrawable : RXCustomTarget<GifDrawable>? =null
     var transitionEnum : ArrayList<TransitionEnum> = ArrayList<TransitionEnum>()
     //默认是 RequestBuilderTypeEnum.DRAWABLE
     var requestBuilderTypeEnum : RequestBuilderTypeEnum = RequestBuilderTypeEnum.DRAWABLE

@@ -1,18 +1,15 @@
 package com.renxing.moduleImageLoader.loaderStrategy.glide.config
 
-import android.graphics.Bitmap
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.widget.ImageView
 import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation
-import com.bumptech.glide.load.resource.gif.GifDrawable
 import com.renxing.moduleImageLoader.imageUtils.enumUtils.DiskCacheStrategyEnum
 import com.renxing.moduleImageLoader.imageUtils.enumUtils.PriorityEnum
 import com.renxing.moduleImageLoader.imageUtils.enumUtils.RequestBuilderTypeEnum
 import com.renxing.moduleImageLoader.loaderStrategy.control.*
-import com.renxing.moduleImageLoader.loaderStrategy.glide.target.RXCustomTarget
 
 /**
  * Glide配置类
@@ -40,17 +37,11 @@ class ImgLoadConfigImpl private constructor(builder: Builder) : ImageConfig() {
     val imageRadius: Int
     val isCrossFade: Boolean
     val dontAnimate: Boolean
-    var requestListenerDrawable: RXRequestListener<Drawable>?
     var registerAnimationCallback: RegisterAnimationCallback?
     var rxListener: RXListener?
     var setLoopCount: Int
-    var requestListenerBitmap: RXRequestListener<Bitmap>?
-    var requestListenerGifDrawable: RXRequestListener<GifDrawable>?
-    var rxCustomTargetDrawable : RXCustomTarget<Drawable>?
-    var rxCustomTargetBitmap : RXCustomTarget<Bitmap>?
     var intoBitmapTarget : IntoBitmapTarget?
     var intoDrawableTarget : IntoDrawableTarget?
-    var rxCustomTargetGifDrawable : RXCustomTarget<GifDrawable>?
     var priorityEnum : PriorityEnum?
 
 
@@ -85,17 +76,11 @@ class ImgLoadConfigImpl private constructor(builder: Builder) : ImageConfig() {
         var formatType: DecodeFormat? = null
         var isFitCenter = false
         var resizeY = 0
-        var requestListenerDrawable: RXRequestListener<Drawable>? = null
         var registerAnimationCallback: RegisterAnimationCallback? = null
         var rxListener: RXListener? = null
-        var setLoopCount: Int = -1
-        var requestListenerBitmap: RXRequestListener<Bitmap>? = null
-        var requestListenerGifDrawable: RXRequestListener<GifDrawable>? = null
-        var rxCustomTarget: RXCustomTarget<Drawable>? = null
-        var rxCustomTargetBitmap: RXCustomTarget<Bitmap>? = null
+        var setLoopCount: Int = 0
         var intoBitmapTarget: IntoBitmapTarget? = null
         var intoDrawableTarget: IntoDrawableTarget? = null
-        var rxCustomTargetGifDrawable: RXCustomTarget<GifDrawable>? = null
         var priorityEnum: PriorityEnum? = null
         fun load(url: String?): Builder {
             this.url = url
@@ -223,10 +208,6 @@ class ImgLoadConfigImpl private constructor(builder: Builder) : ImageConfig() {
             return this
         }
 
-        fun requestListenerDrawable(requestListener: RXRequestListener<Drawable>?): Builder {
-            this.requestListenerDrawable = requestListener
-            return this
-        }
 
         fun registerAnimationCallback(registerAnimationCallback: RegisterAnimationCallback?): Builder {
             this.registerAnimationCallback = registerAnimationCallback
@@ -242,32 +223,12 @@ class ImgLoadConfigImpl private constructor(builder: Builder) : ImageConfig() {
             this.setLoopCount = setLoopCount
             return this
         }
-        fun requestListenerBitmap(requestListenerBitmap: RXRequestListener<Bitmap>?): Builder {
-            this.requestListenerBitmap = requestListenerBitmap
-            return this
-        }
-        fun requestListenerGifDrawable(requestListenerGifDrawable: RXRequestListener<GifDrawable>?): Builder {
-            this.requestListenerGifDrawable = requestListenerGifDrawable
-            return this
-        }
-        fun rxDrawableTarget(rxCustomTarget: RXCustomTarget<Drawable>?): Builder {
-            this.rxCustomTarget = rxCustomTarget
-            return this
-        }
-        fun rxBitmapTarget(rxCustomTargetBitmap: RXCustomTarget<Bitmap>?): Builder {
-            this.rxCustomTargetBitmap = rxCustomTargetBitmap
-            return this
-        }
         fun intoCustomTarget(intoBitmapTarget: IntoBitmapTarget?): Builder {
             this.intoBitmapTarget = intoBitmapTarget
             return this
         }
         fun intoDrawableTarget(intoDrawableTarget: IntoDrawableTarget?): Builder {
             this.intoDrawableTarget = intoDrawableTarget
-            return this
-        }
-        fun rxGifDrawableTarget(rxCustomTargetGifDrawable: RXCustomTarget<GifDrawable>?): Builder {
-            this.rxCustomTargetGifDrawable = rxCustomTargetGifDrawable
             return this
         }
         fun priorityEnum(priorityEnum: PriorityEnum?): Builder {
@@ -313,17 +274,11 @@ class ImgLoadConfigImpl private constructor(builder: Builder) : ImageConfig() {
         isCrossFade = builder.isCrossFade
         dontAnimate = builder.dontAnimate
         imageRadius = builder.imageRadius
-        requestListenerDrawable = builder.requestListenerDrawable
         registerAnimationCallback = builder.registerAnimationCallback
         rxListener = builder.rxListener
         setLoopCount = builder.setLoopCount
-        requestListenerBitmap = builder.requestListenerBitmap
-        rxCustomTargetDrawable = builder.rxCustomTarget
-        requestListenerGifDrawable = builder.requestListenerGifDrawable
-        rxCustomTargetBitmap = builder.rxCustomTargetBitmap
         intoBitmapTarget = builder.intoBitmapTarget
         intoDrawableTarget = builder.intoDrawableTarget
-        rxCustomTargetGifDrawable = builder.rxCustomTargetGifDrawable
         priorityEnum = builder.priorityEnum
     }
 }

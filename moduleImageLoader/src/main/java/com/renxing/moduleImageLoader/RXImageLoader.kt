@@ -2,22 +2,13 @@ package com.renxing.moduleImageLoader
 
 import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.drawable.ColorDrawable
-import android.graphics.drawable.Drawable
-import android.net.Uri
 import android.view.View
 import android.widget.ImageView
 import com.renxing.moduleImageLoader.imageUtils.ImgLoadParams
-import com.renxing.moduleImageLoader.imageUtils.enumUtils.CornerTypeEnum
 import com.renxing.moduleImageLoader.imageUtils.enumUtils.DecodeFormateEnum
 import com.renxing.moduleImageLoader.imageUtils.enumUtils.DiskCacheStrategyEnum
-import com.renxing.moduleImageLoader.imageUtils.enumUtils.PriorityEnum
 import com.renxing.moduleImageLoader.loaderStrategy.control.ImageLoaderInterface
 import com.renxing.moduleImageLoader.loaderStrategy.control.LoaderStrategyFactory
-import com.renxing.moduleImageLoader.loaderStrategy.control.OnAnimationStatus
-import com.renxing.moduleImageLoader.loaderStrategy.control.RXRequestListener
-import com.renxing.moduleImageLoader.loaderStrategy.glide.config.ImgLoadConfigImpl
-import com.renxing.moduleImageLoader.loaderStrategy.glide.target.RXCustomTarget
 
 /**
  *@author  :  WuJianFeng
