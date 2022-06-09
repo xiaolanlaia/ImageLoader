@@ -12,8 +12,6 @@ import com.example.imageloader.R
 import com.renxing.imageloader.*
 import com.renxing.moduleImageLoader.RXImageLoader
 import com.renxing.moduleImageLoader.imageUtils.ImgLoadParams
-import com.renxing.moduleImageLoader.imageUtils.enumUtils.CornerTypeEnum
-import com.renxing.moduleImageLoader.imageUtils.enumUtils.DiskCacheStrategyEnum
 
 class SecondActivity : AppCompatActivity(), View.OnClickListener {
 

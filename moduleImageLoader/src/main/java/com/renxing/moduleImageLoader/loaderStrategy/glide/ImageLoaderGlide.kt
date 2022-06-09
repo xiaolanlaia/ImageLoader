@@ -178,7 +178,7 @@ class ImageLoaderGlide : ImageLoaderInterface {
             imgLoadConfigImpl.isCropCircle(true)
         }
 
-        if (params.placeholder != 0){
+        if (params.placeholder != 0 || params.error != 0){
             setPlaceHolder(params,imgLoadConfigImpl)
         }
 
@@ -203,21 +203,60 @@ class ImageLoaderGlide : ImageLoaderInterface {
     }
 
     fun setPlaceHolder(params: ImgLoadParams,imgLoadConfigImpl : ImgLoadConfigImpl.Builder) {
-        params.transitionEnum.forEach {
-            when(it){
-                TransitionEnum.BORDER_CIRCLE,
-                TransitionEnum.CircleCrop -> {
+        if (params.transitionEnum == null || params.transitionEnum.size == 0){
+            if (params.placeholder != 0){
+                imgLoadConfigImpl
+                    .placeholder(params.placeholder)
+            }
+            if (params.error != 0){
+                imgLoadConfigImpl
+                    .error(params.error)
+            }else{
+                imgLoadConfigImpl
+                    .error(params.placeholder)
+            }
+        }else {
+
+            if (params.transitionEnum.contains(TransitionEnum.BORDER_CIRCLE) || params.transitionEnum.contains(TransitionEnum.CircleCrop)){
+                if (params.placeholder != 0){
                     imgLoadConfigImpl
                         .placeholder(CircleRoundDrawable(params.context, params.placeholder).setType(CircleRoundDrawable.TYPE_CIRCLE))
-                        .error(CircleRoundDrawable(params.context, params.placeholder).setType(CircleRoundDrawable.TYPE_CIRCLE))
                 }
-                TransitionEnum.CORNER -> {
+
+                if (params.error != 0){
+                    imgLoadConfigImpl
+                        .error(CircleRoundDrawable(params.context, params.placeholder).setType(CircleRoundDrawable.TYPE_CIRCLE))
+                }else {
+                    imgLoadConfigImpl
+                        .error(CircleRoundDrawable(params.context, params.error).setType(CircleRoundDrawable.TYPE_CIRCLE))
+                }
+            }else if (params.transitionEnum.contains(TransitionEnum.CORNER)){
+                if (params.placeholder != 0){
                     imgLoadConfigImpl
                         .placeholder(CircleRoundDrawable(params.context, params.placeholder).setType(CircleRoundDrawable.TYPE_ROUND).setRoundAngle(params.cornerRadius))
+                }
+                if (params.error != 0){
+                    imgLoadConfigImpl
+                        .error(CircleRoundDrawable(params.context, params.error).setType(CircleRoundDrawable.TYPE_ROUND).setRoundAngle(params.cornerRadius))
+                }else {
+                    imgLoadConfigImpl
                         .error(CircleRoundDrawable(params.context, params.placeholder).setType(CircleRoundDrawable.TYPE_ROUND).setRoundAngle(params.cornerRadius))
+                }
+            }else {
+                if (params.placeholder != 0){
+                    imgLoadConfigImpl
+                        .placeholder(params.placeholder)
+                }
+                if (params.error != 0){
+                    imgLoadConfigImpl
+                        .error(params.error)
+                }else{
+                    imgLoadConfigImpl
+                        .error(params.placeholder)
                 }
             }
         }
+
     }
 
 

@@ -16,6 +16,7 @@ class ImgLoadParams constructor(var context: Context) {
     var drawable : Drawable? = null
     var colorDrawable : ColorDrawable? = null
     var placeholder : Int = 0
+    var error : Int = 0
     var imageView : ImageView? = null
     var imageWidth : Int = 0
     var imageHeight : Int = 0
@@ -61,6 +62,10 @@ class ImgLoadParams constructor(var context: Context) {
     }
     fun placeholder(placeholder : Int) : ImgLoadParams{
         this.placeholder = placeholder
+        return this
+    }
+    fun error(error : Int) : ImgLoadParams{
+        this.error = error
         return this
     }
 

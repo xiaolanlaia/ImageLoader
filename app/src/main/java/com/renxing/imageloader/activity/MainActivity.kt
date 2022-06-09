@@ -4,8 +4,10 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
@@ -17,10 +19,10 @@ import com.bumptech.glide.request.FutureTarget
 import com.example.imageloader.R
 import com.renxing.imageloader.*
 import com.renxing.moduleImageLoader.RXImageLoader
-import com.renxing.moduleImageLoader.RXImageLoader.loadImage
 import com.renxing.moduleImageLoader.imageUtils.ImgLoadParams
 import com.renxing.moduleImageLoader.imageUtils.enumUtils.DiskCacheStrategyEnum
 import com.renxing.moduleImageLoader.imageUtils.enumUtils.PriorityEnum
+import com.renxing.moduleImageLoader.loaderStrategy.control.RXListener
 import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity(),View.OnClickListener {
@@ -118,45 +120,22 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
         when (v.id) {
             R.id.btn_url                            ->{
 
-//                fun fetchImage(resource: Resource, function1: Function1<Bitmap?, Unit>) {
-//                    try {
-//                        val tag: String = resource.getTag()
-//                        if (paramMap.containsKey(tag)) {
-//                            val imageUrl: String = paramMap.get(tag)
-//                                .toString() + "?imageView2/1/w/" + DisplayUtils.dp2px(360) + "/h/" + DisplayUtils.dp2px(
-//                                360
-//                            ) + "/interlace/1/q/75"
-//                            val bitmapFutureTarget: FutureTarget<Bitmap> =
-//                                Glide.with(AppConfig.context)
-//                                    .asBitmap()
-//                                    .format(DecodeFormat.PREFER_ARGB_8888)
-//                                    .load(imageUrl)
-//                                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-//                                    .submit()
-//                            val bitmap = bitmapFutureTarget[2000L, TimeUnit.MILLISECONDS]
-//                            function1.invoke(bitmap)
-//                            Glide.with(AppConfig.context).clear(bitmapFutureTarget)
-//                        } else {
-//                            function1.invoke(null)
-//                        }
-//                    } catch (e: Exception) {
-//                        e.printStackTrace()
-//                        function1.invoke(null)
-//                    }
-//                }
-
-                loadImage(
+                Log.d("__rxListener","1")
+                RXImageLoader.loadImage(
                     ImgLoadParams(this)
                         .load(url)
-                        .priority(PriorityEnum.HIGH)
-                        .placeholder(placeHoldId)
-                        .centerInside(true)
-                        .diskcacheStrategy(DiskCacheStrategyEnum.NONE)
-                        .dontAnimate(true)
-                        .into(test_iv_1)
-                )
-//
-//                Glide.with(this).asBitmap().load(R.drawable.charff).into(test_iv_1)
+                        .rxListener(object : RXListener {
+                            override fun onResourceReady() {
+                                Log.d("__rxListener-ready-2","1")
+
+                            }
+
+                            override fun onLoadFailed() {
+                                Log.d("__rxListener-Failed-2","1")
+
+                            }
+
+                        }))
 
             }
             R.id.btn_id                             ->{
