@@ -124,7 +124,7 @@ class ImgLoadConfigImpl private constructor(builder: Builder) : ImageConfig() {
             return this
         }
 
-        fun cacheStrategy(diskCacheStrategyEnum: DiskCacheStrategyEnum): Builder {
+        fun cacheStrategy(diskCacheStrategyEnum: DiskCacheStrategyEnum?): Builder {
             this.diskCacheStrategyEnum = diskCacheStrategyEnum
             return this
         }

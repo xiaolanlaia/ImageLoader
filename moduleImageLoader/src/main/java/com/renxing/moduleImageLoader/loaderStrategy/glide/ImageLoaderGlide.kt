@@ -122,82 +122,29 @@ class ImageLoaderGlide : ImageLoaderInterface {
 
     fun TransformImgLoadParams(params: ImgLoadParams) : ImgLoadConfigImpl{
         val imgLoadConfigImpl = ImgLoadConfigImpl.builder()
-        if (!TextUtils.isEmpty(params.url)){
-            imgLoadConfigImpl.load(ImageLoaderUtils.replaceHttpToHttps(params.url!!))
-        }
-        if (params.id != 0){
-            imgLoadConfigImpl.load(params.id)
-        }
-        if (params.uri != null){
-            imgLoadConfigImpl.load(params.uri)
-        }
-        if (params.drawable != null){
-            imgLoadConfigImpl.load(params.drawable)
-        }
-        if (params.colorDrawable != null){
-            imgLoadConfigImpl.load(params.colorDrawable)
-        }
-        if (params.imageView != null){
-            imgLoadConfigImpl.imageView(params.imageView)
-        }
-
-        if (params.imageWidth != 0 && params.imageHeight != 0){
-            imgLoadConfigImpl.resize(params.imageWidth,params.imageHeight)
-        }
-        if (params.diskcacheStrategyEnum != null){
-            imgLoadConfigImpl.cacheStrategy(params.diskcacheStrategyEnum!!)
-        }
-        if (params.registerAnimationCallback != null){
-            imgLoadConfigImpl.registerAnimationCallback(params.registerAnimationCallback)
-        }
-        if (params.rxListener != null){
-            imgLoadConfigImpl.rxListener(params.rxListener)
-        }
-
-        if (params.setLoopCount != 0){
-            imgLoadConfigImpl.setLoopCount(params.setLoopCount)
-
-        }
-
-        if (params.intoBitmapTarget != null){
-            imgLoadConfigImpl.intoCustomTarget(params.intoBitmapTarget)
-        }
-        if (params.intoDrawableTarget != null){
-            imgLoadConfigImpl.intoDrawableTarget(params.intoDrawableTarget)
-        }
-        if (params.fitCenter){
-            imgLoadConfigImpl.isFitCenter(true)
-        }
-        if (params.centerCrop){
-            imgLoadConfigImpl.isCropCenter(true)
-        }
-        if (params.centerInside){
-            imgLoadConfigImpl.isCenterInside(true)
-        }
-        if (params.circleCrop){
-            imgLoadConfigImpl.isCropCircle(true)
-        }
-
-        if (params.placeholder != 0 || params.error != 0){
-            setPlaceHolder(params,imgLoadConfigImpl)
-        }
-
-        if (params.transitionEnum != null && params.transitionEnum.size > 0){
-            imgLoadConfigImpl.transformation(*getBitmapTransformation(params))
-        }
-        if (params.requestBuilderTypeEnum != null){
-            imgLoadConfigImpl.requestBuilderTypeEnum(params.requestBuilderTypeEnum!!)
-        }
-
-        if (params.priority != null){
-            imgLoadConfigImpl.priorityEnum(params.priority)
-        }
-        if (params.dontAnimate){
-            imgLoadConfigImpl.dontAnimate(params.dontAnimate)
-        }
-        if (params.crossfade){
-            imgLoadConfigImpl.isCrossFade(params.crossfade)
-        }
+        imgLoadConfigImpl.load(ImageLoaderUtils.replaceHttpToHttps(params.url))
+        imgLoadConfigImpl.load(params.id)
+        imgLoadConfigImpl.load(params.uri)
+        imgLoadConfigImpl.load(params.drawable)
+        imgLoadConfigImpl.load(params.colorDrawable)
+        imgLoadConfigImpl.imageView(params.imageView)
+        imgLoadConfigImpl.resize(params.imageWidth,params.imageHeight)
+        imgLoadConfigImpl.cacheStrategy(params.diskcacheStrategyEnum)
+        imgLoadConfigImpl.registerAnimationCallback(params.registerAnimationCallback)
+        imgLoadConfigImpl.rxListener(params.rxListener)
+        imgLoadConfigImpl.setLoopCount(params.setLoopCount)
+        imgLoadConfigImpl.intoCustomTarget(params.intoBitmapTarget)
+        imgLoadConfigImpl.intoDrawableTarget(params.intoDrawableTarget)
+        imgLoadConfigImpl.isFitCenter(params.fitCenter)
+        imgLoadConfigImpl.isCropCenter(params.centerCrop)
+        imgLoadConfigImpl.isCenterInside(params.centerInside)
+        imgLoadConfigImpl.isCropCircle(params.circleCrop)
+        setPlaceHolder(params,imgLoadConfigImpl)
+        imgLoadConfigImpl.transformation(*getBitmapTransformation(params))
+        imgLoadConfigImpl.requestBuilderTypeEnum(params.requestBuilderTypeEnum)
+        imgLoadConfigImpl.priorityEnum(params.priority)
+        imgLoadConfigImpl.dontAnimate(params.dontAnimate)
+        imgLoadConfigImpl.isCrossFade(params.crossfade)
 
         return imgLoadConfigImpl.build()
     }

@@ -40,7 +40,7 @@ class ImgLoadParams constructor(var context: Context) {
     var dontAnimate : Boolean = false
     var crossfade : Boolean = false
 
-    fun load(url : String) : ImgLoadParams{
+    fun load(url : String?) : ImgLoadParams{
         this.url = url
         return this
     }
@@ -48,15 +48,15 @@ class ImgLoadParams constructor(var context: Context) {
         this.id = id
         return this
     }
-    fun load(uri: Uri) : ImgLoadParams{
+    fun load(uri: Uri?) : ImgLoadParams{
         this.uri = uri
         return this
     }
-    fun load(drawable: Drawable) : ImgLoadParams{
+    fun load(drawable: Drawable?) : ImgLoadParams{
         this.drawable = drawable
         return this
     }
-    fun load(colorDrawable: ColorDrawable) : ImgLoadParams{
+    fun load(colorDrawable: ColorDrawable?) : ImgLoadParams{
         this.colorDrawable = colorDrawable
         return this
     }
@@ -70,7 +70,7 @@ class ImgLoadParams constructor(var context: Context) {
     }
 
 
-    fun into(imageView: ImageView) : ImgLoadParams{
+    fun into(imageView: ImageView?) : ImgLoadParams{
         this.imageView = imageView
         return this
     }
@@ -84,15 +84,15 @@ class ImgLoadParams constructor(var context: Context) {
         this.imageHeight = imageHeight.toInt()
         return this
     }
-    fun diskcacheStrategy(diskcacheStrategyEnum : DiskCacheStrategyEnum) : ImgLoadParams{
+    fun diskcacheStrategy(diskcacheStrategyEnum : DiskCacheStrategyEnum?) : ImgLoadParams{
         this.diskcacheStrategyEnum = diskcacheStrategyEnum
         return this
     }
-    fun registerAnimationCallback(registerAnimationCallback : RegisterAnimationCallback) : ImgLoadParams{
+    fun registerAnimationCallback(registerAnimationCallback : RegisterAnimationCallback?) : ImgLoadParams{
         this.registerAnimationCallback = registerAnimationCallback
         return this
     }
-    fun rxListener(rxListener : RXListener) : ImgLoadParams{
+    fun rxListener(rxListener : RXListener?) : ImgLoadParams{
         this.rxListener = rxListener
         return this
     }
@@ -100,11 +100,11 @@ class ImgLoadParams constructor(var context: Context) {
         this.setLoopCount = setLoopCount
         return this
     }
-    fun  intoBitmapTarget(intoBitmapTarget : IntoBitmapTarget) : ImgLoadParams{
+    fun  intoBitmapTarget(intoBitmapTarget : IntoBitmapTarget?) : ImgLoadParams{
         this.intoBitmapTarget = intoBitmapTarget
         return this
     }
-    fun  intoDrawableTarget(intoDrawableTarget : IntoDrawableTarget) : ImgLoadParams{
+    fun  intoDrawableTarget(intoDrawableTarget : IntoDrawableTarget?) : ImgLoadParams{
         this.intoDrawableTarget = intoDrawableTarget
         return this
     }

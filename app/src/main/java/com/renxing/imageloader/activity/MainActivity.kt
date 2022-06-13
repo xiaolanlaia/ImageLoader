@@ -1,29 +1,23 @@
 package com.renxing.imageloader.activity
 
 import android.content.Intent
-import android.graphics.Bitmap
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
-import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.DecodeFormat
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.request.FutureTarget
 import com.example.imageloader.R
 import com.renxing.imageloader.*
 import com.renxing.moduleImageLoader.RXImageLoader
+import com.renxing.moduleImageLoader.RXImageLoader.loadGifImage
+import com.renxing.moduleImageLoader.imageUtils.ImageLoaderUtils
 import com.renxing.moduleImageLoader.imageUtils.ImgLoadParams
-import com.renxing.moduleImageLoader.imageUtils.enumUtils.DiskCacheStrategyEnum
-import com.renxing.moduleImageLoader.imageUtils.enumUtils.PriorityEnum
-import com.renxing.moduleImageLoader.loaderStrategy.control.RXListener
-import java.util.concurrent.TimeUnit
+import com.renxing.moduleImageLoader.imageUtils.enumUtils.TransitionEnum
+import com.renxing.moduleImageLoader.loaderStrategy.control.RegisterAnimationCallback
 
 class MainActivity : AppCompatActivity(),View.OnClickListener {
 
@@ -112,6 +106,7 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
         btn_url_corner                     .setOnClickListener(this)
         btn_id_corner                      .setOnClickListener(this)
 
+
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -120,38 +115,18 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
         when (v.id) {
             R.id.btn_url                            ->{
 
-                Log.d("__rxListener","1")
-                RXImageLoader.loadImage(
-                    ImgLoadParams(this)
-                        .load(url)
-                        .rxListener(object : RXListener {
-                            override fun onResourceReady() {
-                                Log.d("__rxListener-ready-2","1")
 
-                            }
+                val ll = "upload/20201210/default_photo.png"
+                Log.d("__append-slim",ImageLoaderUtils.appendSlim(ll))
+                Log.d("__append-app",ImageLoaderUtils.appendUrl(ll,30f,30f))
 
-                            override fun onLoadFailed() {
-                                Log.d("__rxListener-Failed-2","1")
-
-                            }
-
-                        }))
 
             }
             R.id.btn_id                             ->{
-                RXImageLoader.loadImage(
-                    ImgLoadParams(this)
-                        .load(imgId)
-                        .into(test_iv_1)
-                )
+
             }
             R.id.btn_url_placeholder                ->{
-                RXImageLoader.loadImage(
-                    ImgLoadParams(this)
-                        .load(url)
-                        .placeholder(placeHoldId)
-                        .into(test_iv_1)
-                )
+
             }
             R.id.btn_id_placeholder                 ->{
                 RXImageLoader.loadImage(
