@@ -172,10 +172,10 @@ class ImageLoaderGlide : ImageLoaderInterface {
 
                 if (params.error != 0){
                     imgLoadConfigImpl
-                        .error(CircleRoundDrawable(params.context, params.placeholder).setType(CircleRoundDrawable.TYPE_CIRCLE))
+                        .error(CircleRoundDrawable(params.context, params.error).setType(CircleRoundDrawable.TYPE_CIRCLE))
                 }else {
                     imgLoadConfigImpl
-                        .error(CircleRoundDrawable(params.context, params.error).setType(CircleRoundDrawable.TYPE_CIRCLE))
+                        .error(CircleRoundDrawable(params.context, params.placeholder).setType(CircleRoundDrawable.TYPE_CIRCLE))
                 }
             }else if (params.transitionEnum.contains(TransitionEnum.CORNER)){
                 if (params.placeholder != 0){

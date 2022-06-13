@@ -3,7 +3,6 @@ package com.renxing.imageloader.activity
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
@@ -13,11 +12,11 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.imageloader.R
 import com.renxing.imageloader.*
 import com.renxing.moduleImageLoader.RXImageLoader
-import com.renxing.moduleImageLoader.RXImageLoader.loadGifImage
-import com.renxing.moduleImageLoader.imageUtils.ImageLoaderUtils
+import com.renxing.moduleImageLoader.RXImageLoader.loadCircleImage
+import com.renxing.moduleImageLoader.imageUtils.ImageLoaderUtils.appendUrl
 import com.renxing.moduleImageLoader.imageUtils.ImgLoadParams
+import com.renxing.moduleImageLoader.imageUtils.enumUtils.DiskCacheStrategyEnum
 import com.renxing.moduleImageLoader.imageUtils.enumUtils.TransitionEnum
-import com.renxing.moduleImageLoader.loaderStrategy.control.RegisterAnimationCallback
 
 class MainActivity : AppCompatActivity(),View.OnClickListener {
 
@@ -116,9 +115,14 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
             R.id.btn_url                            ->{
 
 
-                val ll = "upload/20201210/default_photo.png"
-                Log.d("__append-slim",ImageLoaderUtils.appendSlim(ll))
-                Log.d("__append-app",ImageLoaderUtils.appendUrl(ll,30f,30f))
+                RXImageLoader.loadCircleImage(
+                    ImgLoadParams(this)
+                        .load("https:wwww")
+                        .into(test_iv_1)
+                        .transitionEnum(TransitionEnum.CenterCrop)
+                        .placeholder(R.mipmap.default_photo)
+                        .diskcacheStrategy(DiskCacheStrategyEnum.ALL)
+                )
 
 
             }
