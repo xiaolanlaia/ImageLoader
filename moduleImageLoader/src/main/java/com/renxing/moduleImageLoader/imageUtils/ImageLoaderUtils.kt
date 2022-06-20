@@ -21,80 +21,113 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.renxing.moduleImageLoader.loaderStrategy.control.OnAnimationStatus
 import java.io.ByteArrayOutputStream
+import java.lang.StringBuilder
 
 /**
  *@author  :  WuJianFeng
  */
 object ImageLoaderUtils {
 
-    fun appendUrl(url: String?, width: Int, height: Int, needToPx: Boolean): String {
-        if (TextUtils.isEmpty(url)){
-            return ""
-        }
-        var newUrl: String
-        url.run{
-            newUrl = if (!this!!.contains(URL_APPEND_WIDTH)) {
-                if (needToPx) {
-                    this + URL_APPEND_WIDTH + DisplayUtils.dp2px(width.toFloat()) + URL_APPEND_HEIGHT + DisplayUtils.dp2px(height.toFloat()) + INTERLACE
-                } else {
-                    this + URL_APPEND_WIDTH + width + URL_APPEND_HEIGHT + height + INTERLACE
-                }
-            }else{
-                url!!
-            }
-        }
-
-        return if (!newUrl.startsWith(HTTP_LOWERCASE) && !newUrl.startsWith(HTTP_UPPERCASE)){
-            VOIMIGO_PRE+newUrl
-        }else{
-            newUrl
-
-        }
-    }
-
     fun appendUrl(url: String?, width: Float, height: Float, needToPx: Boolean): String {
         if (TextUtils.isEmpty(url)){
             return ""
         }
-        var newUrl: String
-        url.run{
-            newUrl = if (!this!!.contains(URL_APPEND_WIDTH)) {
-                if (needToPx) {
-                    this + URL_APPEND_WIDTH + DisplayUtils.dp2px(width) + URL_APPEND_HEIGHT + DisplayUtils.dp2px(height) + INTERLACE
-                } else {
-                    this + URL_APPEND_WIDTH + width.toInt() + URL_APPEND_HEIGHT + height.toInt() + INTERLACE
-                }
-            }else{
-                url!!
-            }
+
+        val newUrlSB = StringBuilder()
+        //半路经url则补全路径
+        if (!url!!.startsWith(HTTP_LOWERCASE) && !url.startsWith(HTTP_UPPERCASE)){
+            newUrlSB.append(VOIMIGO_PRE)
         }
-        return if (!newUrl.startsWith(HTTP_LOWERCASE) && !newUrl.startsWith(HTTP_UPPERCASE)){
-            VOIMIGO_PRE+newUrl
+        newUrlSB.append(url)
+
+        //若url中存在?，说明是已经拼接过的url，不做任何操作
+        if (url.contains(QUERY_MARK)){
+            return newUrlSB.toString()
+        }
+
+        //添加压缩
+        if (!url!!.contains(QUERY_MARK) &&
+            (url.endsWith(PNG_LOWERCASE) ||
+                    url.endsWith(PNG_UPPERCASE) ||
+                    url.endsWith(JPEG_UPPERCASE) ||
+                    url.endsWith(JPEG_LOWERCASE) ||
+                    url.endsWith(JPG_UPPERCASE) ||
+                    url.endsWith(JPG_LOWERCASE))) {
+
+            newUrlSB.append(URL_APPEND_STR).append(STRATEGY_LINK)
         }else{
-            newUrl
+            newUrlSB.append(QUERY_MARK)
 
         }
+
+        //拼接固定大小的url
+        if (!url.contains(URL_APPEND_WIDTH)) {
+            if (needToPx) {
+                newUrlSB
+                    .append(URL_APPEND_WIDTH)
+                    .append(DisplayUtils.dp2px(width))
+                    .append(URL_APPEND_HEIGHT)
+                    .append(DisplayUtils.dp2px(height))
+                    .append(INTERLACE)
+
+            } else {
+                newUrlSB
+                    .append(URL_APPEND_WIDTH)
+                    .append(width.toInt())
+                    .append(URL_APPEND_HEIGHT)
+                    .append(height.toInt())
+                    .append(INTERLACE)
+            }
+        }
+
+
+        return newUrlSB.toString()
     }
 
     fun appendUrl(url: String?, width: Float, height: Float): String {
         if (TextUtils.isEmpty(url)){
             return ""
         }
-        var newUrl: String
-        url.run{
-            newUrl = if (!this!!.contains(URL_APPEND_WIDTH)) {
-                this + URL_APPEND_WIDTH + DisplayUtils.dp2px(width) + URL_APPEND_HEIGHT + DisplayUtils.dp2px(height) + INTERLACE
-
-            }else{
-                url!!
-            }
+        val newUrlSB = StringBuilder()
+        //半路经url则补全路径
+        if (!url!!.startsWith(HTTP_LOWERCASE) && !url.startsWith(HTTP_UPPERCASE)){
+            newUrlSB.append(VOIMIGO_PRE)
         }
-        return if (!newUrl.startsWith(HTTP_LOWERCASE) && !newUrl.startsWith(HTTP_UPPERCASE)){
-            VOIMIGO_PRE+newUrl
+
+        newUrlSB.append(url)
+
+        //若url中存在?，说明是已经拼接过的url，不做任何操作
+        if (url.contains(QUERY_MARK)){
+            return newUrlSB.toString()
+        }
+
+        //添加压缩
+        if (!url!!.contains(QUERY_MARK) &&
+            (url.endsWith(PNG_LOWERCASE) ||
+                    url.endsWith(PNG_UPPERCASE) ||
+                    url.endsWith(JPEG_UPPERCASE) ||
+                    url.endsWith(JPEG_LOWERCASE) ||
+                    url.endsWith(JPG_UPPERCASE) ||
+                    url.endsWith(JPG_LOWERCASE))) {
+
+            newUrlSB.append(URL_APPEND_STR).append(STRATEGY_LINK)
         }else{
-            newUrl
+            newUrlSB.append(QUERY_MARK)
 
         }
+
+        //拼接固定大小的url
+        if (!url.contains(URL_APPEND_WIDTH)) {
+            newUrlSB
+                .append(URL_APPEND_WIDTH)
+                .append(DisplayUtils.dp2px(width))
+                .append(URL_APPEND_HEIGHT)
+                .append(DisplayUtils.dp2px(height))
+                .append(INTERLACE)
+        }
+
+        return newUrlSB.toString()
+
     }
 
 
@@ -133,27 +166,25 @@ object ImageLoaderUtils {
         if (TextUtils.isEmpty(url)){
             return ""
         }
-        var newUrl: String
-        url.run{
-            if (!this!!.contains(QUERY_MARK) &&
-                (endsWith(PNG_LOWERCASE) ||
-                        endsWith(PNG_UPPERCASE) ||
-                        endsWith(JPEG_UPPERCASE) ||
-                        endsWith(JPEG_LOWERCASE) ||
-                        endsWith(JPG_UPPERCASE) ||
-                        endsWith(JPG_LOWERCASE))) {
 
-                newUrl = this + URL_APPEND_STR
-            }else{
-                return url!!
-            }
+        val newUrlSB = StringBuilder()
+        //半路经url则补全路径
+        if (!url!!.startsWith(HTTP_LOWERCASE) && !url.startsWith(HTTP_UPPERCASE)){
+            newUrlSB.append(VOIMIGO_PRE)
         }
-        return if (!newUrl.startsWith(HTTP_LOWERCASE) && !newUrl.startsWith(HTTP_UPPERCASE)){
-            VOIMIGO_PRE+newUrl
-        }else{
-            newUrl
+        newUrlSB.append(url)
+        //url必须是不包含?，否则说明是已经拼接过的链接，不做操作直接返回
+        if (!url!!.contains(QUERY_MARK) &&
+            (url.endsWith(PNG_LOWERCASE) ||
+                    url.endsWith(PNG_UPPERCASE) ||
+                    url.endsWith(JPEG_UPPERCASE) ||
+                    url.endsWith(JPEG_LOWERCASE) ||
+                    url.endsWith(JPG_UPPERCASE) ||
+                    url.endsWith(JPG_LOWERCASE))) {
 
+            newUrlSB.append(URL_APPEND_STR)
         }
+        return newUrlSB.toString()
     }
 
     fun replaceHttpToHttps(url: String?) : String{
@@ -250,5 +281,18 @@ object ImageLoaderUtils {
                 return false
             }
         }
+    }
+
+    fun contextIsError(context: Context?): Boolean {
+
+        if (context == null){
+            return true
+        }
+        if (context is Activity) {
+            if ((context as Activity).isFinishing || (context as Activity).isDestroyed) {
+                return true
+            }
+        }
+        return false
     }
 }
