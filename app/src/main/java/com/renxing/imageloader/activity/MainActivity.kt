@@ -120,7 +120,7 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
                         .load("https:wwww")
                         .into(test_iv_1)
                         .transitionEnum(TransitionEnum.CenterCrop)
-                        .placeholder(R.mipmap.default_photo)
+                        .placeholder(R.mipmap.img_1)
                         .diskcacheStrategy(DiskCacheStrategyEnum.ALL)
                 )
 

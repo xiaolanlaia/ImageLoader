@@ -228,11 +228,9 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_70"/>
         <TextView
-            android:visibility="gone"
             android:id="@+id/test_tv_3"
             android:gravity="center"
             android:layout_margin="@dimen/dp_20"
-            android:text="测试内容testContent \n dvagsdfhsdbvscvsdf \n djhuafbknvaifudisa"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_90"/>
 
@@ -249,6 +247,7 @@
             app:displayType="circle" />
         <ImageView
             android:id="@+id/test_iv_1"
+            android:src="@mipmap/default_photo"
             android:layout_width="@dimen/dp_300"
             android:layout_height="@dimen/dp_300"
             android:layout_gravity="center"/>

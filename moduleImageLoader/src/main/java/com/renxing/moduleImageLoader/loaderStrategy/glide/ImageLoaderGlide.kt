@@ -49,15 +49,13 @@ class ImageLoaderGlide : ImageLoaderInterface {
 
 
     override fun loadFutureTarget(
-        context: Context?,
+        context: Context,
         url: String,
         decodeFormateEnum: DecodeFormateEnum,
         diskCacheStrategyEnum: DiskCacheStrategyEnum,
         function1: (Bitmap?) -> Unit
     ) {
-        if (ImageLoaderUtils.contextIsError(context)) return
-
-        val bitmapFutureTarget: FutureTarget<Bitmap> = Glide.with(context!!)
+        val bitmapFutureTarget: FutureTarget<Bitmap> = Glide.with(context)
             .asBitmap()
             .format(DecodeFormat.PREFER_ARGB_8888)
             .load(url)
@@ -251,8 +249,6 @@ class ImageLoaderGlide : ImageLoaderInterface {
 
 
     override fun clearImageDiskCache(context: Context) {
-        if (ImageLoaderUtils.contextIsError(context)) return
-
         try {
             if (Looper.myLooper() == Looper.getMainLooper()) {
                 Thread { Glide.get(context).clearDiskCache() }.start()
@@ -265,7 +261,6 @@ class ImageLoaderGlide : ImageLoaderInterface {
     }
 
     override fun clearImageMemoryCache(context: Context) {
-        if (ImageLoaderUtils.contextIsError(context)) return
         try {
             if (Looper.myLooper() == Looper.getMainLooper()) { //只能在主线程执行
                 Glide.get(context).clearMemory()
@@ -319,8 +314,6 @@ class ImageLoaderGlide : ImageLoaderInterface {
         }
     }
     private fun glideLoad9Png(url: String, view: View, requestOptions: RequestOptions) {
-        if (ImageLoaderUtils.contextIsError(view.context)) return
-
         Glide.with(view.context).asFile().load(ImageLoaderUtils.replaceHttpToHttps(url)).apply(requestOptions)
             .into(object : CustomTarget<File>() {
                 override fun onResourceReady(resource: File, transition: Transition<in File>?) {
@@ -340,8 +333,6 @@ class ImageLoaderGlide : ImageLoaderInterface {
     }
 
     private fun glideLoadDrawable(drawable: Drawable, view: View, requestOptions: RequestOptions) {
-        if (ImageLoaderUtils.contextIsError(view.context)) return
-
         Glide.with(view.context).load(drawable).apply(requestOptions)
             .into(object : CustomTarget<Drawable>() {
                 override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
@@ -351,6 +342,30 @@ class ImageLoaderGlide : ImageLoaderInterface {
             })
     }
 
+
+
+
+    private fun glideLoad(urlOrIdOrUri: Any, imageView: ImageView, requestOptions: RequestOptions,transition: Boolean,thumbnail:Boolean,
+                          thumbnailWidth: Int,
+                          thumbnailHeight: Int) {
+        ImageLoaderUtils.checkUrlOrId(urlOrIdOrUri)
+
+        val glide =
+            Glide
+                .with(imageView.context)
+                .load(if (urlOrIdOrUri is String) ImageLoaderUtils.replaceHttpToHttps(urlOrIdOrUri) else urlOrIdOrUri)
+                .apply(requestOptions)
+
+
+        if (thumbnail){
+            glide
+                .override(thumbnailWidth, thumbnailHeight)
+        }
+        if (transition){
+            glide.transition(DrawableTransitionOptions.withCrossFade())
+        }
+        glide.into(imageView)
+    }
 
 
     private fun getPriority(priorityEnum: PriorityEnum) : Priority{
@@ -375,35 +390,29 @@ class ImageLoaderGlide : ImageLoaderInterface {
 
 
     private fun glideClear(context: Context, imageView: ImageView) {
-        if (ImageLoaderUtils.contextIsError(context)) return
         Glide.with(context).clear(imageView)
     }
 
     private fun glideResumeRequests(context: Context) {
-        if (ImageLoaderUtils.contextIsError(context)) return
         Glide.with(context).resumeRequests()
     }
 
     private fun glidePauseRequests(context: Context) {
-        if (ImageLoaderUtils.contextIsError(context)) return
         Glide.with(context).pauseRequests()
     }
 
     private fun glideClearMemory(context: Context) {
-        if (ImageLoaderUtils.contextIsError(context)) return
         Glide.get(context).clearMemory()
     }
 
     private fun glideTrimMemory(context: Context, level : Int) {
-        if (ImageLoaderUtils.contextIsError(context)) return
         Glide.get(context).trimMemory(level)
     }
 
 
-    fun glideLoadImageBitmap(context: Context?, config: ImgLoadConfigImpl) {
-        if (ImageLoaderUtils.contextIsError(context)) return
+    fun glideLoadImageBitmap(context: Context, config: ImgLoadConfigImpl) {
 
-        val glide = Glide.with(context!!).asBitmap()
+        val glide = Glide.with(context).asBitmap()
 
 
         val glideRequest = if (config.drawableId != 0) {
@@ -530,11 +539,9 @@ class ImageLoaderGlide : ImageLoaderInterface {
             }
         }
     }
-    fun glideLoadImageGif(context: Context?, config: ImgLoadConfigImpl) {
+    fun glideLoadImageGif(context: Context, config: ImgLoadConfigImpl) {
 
-        if (ImageLoaderUtils.contextIsError(context)) return
-
-        val glide = Glide.with(context!!).asGif()
+        val glide = Glide.with(context).asGif()
 
 
         val glideRequest = if (config.drawableId != 0) {
@@ -686,11 +693,9 @@ class ImageLoaderGlide : ImageLoaderInterface {
         }
     }
 
-    fun glideLoadImage(context: Context?, config: ImgLoadConfigImpl) {
+    fun glideLoadImage(context: Context, config: ImgLoadConfigImpl) {
 
-        if (ImageLoaderUtils.contextIsError(context)) return
-
-        val glide = Glide.with(context!!)
+        val glide = Glide.with(context)
 
 
         val glideRequest = if (config.drawableId != 0) {

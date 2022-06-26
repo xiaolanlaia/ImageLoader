@@ -13,7 +13,7 @@ import com.renxing.moduleImageLoader.imageUtils.enumUtils.*
 interface ImageLoaderInterface {
 
 
-    fun loadFutureTarget(context: Context?, url : String,
+    fun loadFutureTarget(context: Context, url : String,
                   decodeFormateEnum: DecodeFormateEnum,diskCacheStrategyEnum: DiskCacheStrategyEnum,function1: Function1<Bitmap?, Unit>)
     fun loadImage(imgLoadParams: ImgLoadParams)
     fun loadGifImage(imgLoadParams: ImgLoadParams)

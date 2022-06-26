@@ -16,7 +16,7 @@ import com.renxing.moduleImageLoader.loaderStrategy.control.LoaderStrategyFactor
 object RXImageLoader : ImageLoaderInterface {
     private var imageLoaderStrategy = LoaderStrategyFactory.instance.getLoaderStrategy()
     override fun loadFutureTarget(
-        context: Context?,
+        context: Context,
         url: String,
         decodeFormateEnum: DecodeFormateEnum,
         diskCacheStrategyEnum: DiskCacheStrategyEnum,

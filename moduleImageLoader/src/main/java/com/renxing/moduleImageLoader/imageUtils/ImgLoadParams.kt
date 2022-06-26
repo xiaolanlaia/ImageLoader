@@ -9,7 +9,7 @@ import com.renxing.moduleImageLoader.imageUtils.enumUtils.*
 import com.renxing.moduleImageLoader.loaderStrategy.control.*
 
 
-class ImgLoadParams constructor(var context: Context?) {
+class ImgLoadParams constructor(var context: Context) {
     var url : String? = null
     var id : Int = 0
     var uri : Uri? = null
