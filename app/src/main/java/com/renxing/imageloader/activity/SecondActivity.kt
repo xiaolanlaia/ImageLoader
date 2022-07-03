@@ -1,6 +1,7 @@
 package com.renxing.imageloader.activity
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -10,8 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.imageloader.R
 import com.renxing.imageloader.*
 import com.renxing.moduleImageLoader.RXImageLoader
-import com.renxing.moduleImageLoader.imageUtils.enumUtils.CornerTypeEnum
-import com.renxing.moduleImageLoader.imageUtils.enumUtils.DiskCacheStrategyEnum
+import com.renxing.moduleImageLoader.imageUtils.ImgLoadParams
 
 class SecondActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -90,15 +90,15 @@ class SecondActivity : AppCompatActivity(), View.OnClickListener {
         when (v.id) {
 
             R.id.btn_url_corner_special             ->{
-                RXImageLoader.loadCornersImage(
-                    url,test_iv_1, cornerWidth,
-                    CornerTypeEnum.RIGHT)
+//                RXImageLoader.loadCornersImage(
+//                    url,test_iv_1, cornerWidth,
+//                    CornerTypeEnum.RIGHT)
 
             }
             R.id.btn_id_corner_special              ->{
-                RXImageLoader.loadCornersImage(
-                    imgId,test_iv_1, cornerWidth,
-                    CornerTypeEnum.LEFT)
+//                RXImageLoader.loadCornersImage(
+//                    imgId,test_iv_1, cornerWidth,
+//                    CornerTypeEnum.LEFT)
             }
             R.id.btn_bitmap_corner                  ->{
                 //todo bitmap是怎么做的
@@ -106,26 +106,37 @@ class SecondActivity : AppCompatActivity(), View.OnClickListener {
 
             }
             R.id.btn_url_border_circle              ->{
-                RXImageLoader.loadBorderCircleImage(url,test_iv_1, borderColor, borderWidth)
+//                RXImageLoader.loadBorderCircleImageCenterCrop(url,test_iv_1,Color.RED,10f, placeHoldId)
+                RXImageLoader.loadBorderCircleImage(
+                    ImgLoadParams(this)
+                        .load(url)
+                        .borderWidth(1f)
+                        .borderColor(Color.RED)
+                        .placeholder(placeHoldId)
+                        .into(test_iv_1)
+                )
+
+
+//                RXImageLoader.loadBorderCircleImage(url,test_iv_1, Color.RED, borderWidth)
             }
             R.id.btn_id_border_circle               ->{
-                RXImageLoader.loadBorderCircleImage(imgId,test_iv_1, borderColor, borderWidth)
+//                RXImageLoader.loadBorderCircleImage("",test_iv_1, Color.BLACK, borderWidth)
             }
             R.id.btn_url_border_corner              ->{
-                RXImageLoader.loadBorderCornerImage(
-                    url,test_iv_1,
-                    borderColor,
-                    borderWidth,
-                    cornerWidth
-                )
+//                RXImageLoader.loadBorderCornerImage(
+//                    url,test_iv_1,
+//                    borderColor,
+//                    borderWidth,
+//                    cornerWidth
+//                )
             }
             R.id.btn_id_border_corner               ->{
-                RXImageLoader.loadBorderCornerImage(
-                    imgId,test_iv_1,
-                    borderColor,
-                    borderWidth,
-                    cornerWidth
-                )
+//                RXImageLoader.loadBorderCornerImage(
+//                    imgId,test_iv_1,
+//                    borderColor,
+//                    borderWidth,
+//                    cornerWidth
+//                )
             }
             R.id.btn_url_gif                        ->{
 //                RXImageLoader.loadGif(gifUrl,test_iv_1)
@@ -135,22 +146,22 @@ class SecondActivity : AppCompatActivity(), View.OnClickListener {
 //                RXImageLoader.loadGif(gifId,test_iv_1)
             }
             R.id.btn_url_gif_playTimes              ->{
-                RXImageLoader.loadGif(playTimes, gifUrl,test_iv_1)
+//                RXImageLoader.loadGif(playTimes, gifUrl,test_iv_1)
             }
             R.id.btn_id_gif_playTimes               ->{
-                RXImageLoader.loadGif(playTimes, gifId,test_iv_1)
+//                RXImageLoader.loadGif(playTimes, gifId,test_iv_1)
             }
             R.id.btn_url_gif_circle                 ->{
-                RXImageLoader.loadCircleGif(gifUrl,test_iv_1)
+//                RXImageLoader.loadCircleGif(gifUrl,test_iv_1)
             }
             R.id.btn_id_gif_circle                  ->{
-                RXImageLoader.loadCircleGif(gifId,test_iv_1)
+//                RXImageLoader.loadCircleGif(gifId,test_iv_1)
             }
             R.id.btn_url_gif_circle_playTimes       ->{
-                RXImageLoader.loadCircleGif(playTimes, gifUrl,test_iv_1)
+//                RXImageLoader.loadCircleGif(playTimes, gifUrl,test_iv_1)
             }
             R.id.btn_id_gif_circle_playTimes        ->{
-                RXImageLoader.loadCircleGif(playTimes, gifId,test_iv_1)
+//                RXImageLoader.loadCircleGif(playTimes, gifId,test_iv_1)
             }
 
             R.id.btn_next_page                      ->{

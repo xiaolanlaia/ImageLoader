@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.ImageView
 import com.example.imageloader.R
 import com.renxing.imageloader.bigPic
+import com.renxing.imageloader.nullUrl
 import com.renxing.imageloader.placeHoldId
 import com.renxing.imageloader.placeHoldId2
 import com.renxing.moduleImageLoader.RXImageLoader
@@ -30,12 +31,12 @@ class FourthActivity : AppCompatActivity() ,View.OnClickListener{
         when(v.id){
             R.id.url_placeholder    -> {
 //                RXImageLoader.loadCircleImage(nullUrl,test_iv_1,placeHoldId)
-                RXImageLoader.loadCornersImage(bigPic,test_iv_1,100f, placeHoldId)
+//                RXImageLoader.loadCornersImage(bigPic,test_iv_1,100f, placeHoldId)
 //                RXImageLoader.loadImageWithSkipCache(nullUrl,test_iv_1,360,360,placeHoldId)
             }
             R.id.id_special         -> {
-//                RXImageLoader.loadCircleImage(nullId,test_iv_1, placeHoldId2)
-                RXImageLoader.loadCornersImage(bigPic,test_iv_1,100f, placeHoldId2)
+//                RXImageLoader.loadCircleImage(bigPic,test_iv_1, placeHoldId2)
+//                RXImageLoader.loadCornersImage(bigPic,test_iv_1,100f, placeHoldId2)
 
 
             }

@@ -1,5 +1,7 @@
 package com.renxing.imageloader;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -22,6 +24,7 @@ import android.os.Looper;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.widget.AppCompatImageView;
@@ -313,6 +316,12 @@ public class RoundImageView extends AppCompatImageView {
         setLayerType(LAYER_TYPE_HARDWARE, null);
         mPaint = new Paint();
         mTextPaint = new TextPaint();
+
+        ImageView iv = new ImageView(getContext());
+        ObjectAnimator animator3 = ObjectAnimator.ofFloat(iv, "translationX", 500);
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.play(animator3);
+        animatorSet.setDuration(2000).start();
 
         if (attrs != null) {
             TypedArray a = ctx.obtainStyledAttributes(attrs, R.styleable.RoundImageView);

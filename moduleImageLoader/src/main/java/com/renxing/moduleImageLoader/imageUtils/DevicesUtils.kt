@@ -38,7 +38,6 @@ object DevicesUtils {
             totalblock = stat.blockCountLong
             availbleblocks = stat.availableBlocksLong
         }
-        Log.d("__formatSize", Formatter.formatFileSize(context, availbleblocks * blocksize))
 
     }
 

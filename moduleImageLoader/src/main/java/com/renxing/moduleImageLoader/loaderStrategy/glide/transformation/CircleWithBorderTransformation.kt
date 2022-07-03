@@ -1,11 +1,11 @@
-package com.renxing.moduleImageLoader.loaderStrategy.glide.easyglide.transformation
+package com.renxing.moduleImageLoader.loaderStrategy.glide.transformation
 
 import android.content.res.Resources
 import android.graphics.*
 import androidx.annotation.ColorInt
-import com.bumptech.glide.load.Key
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation
+import com.bumptech.glide.util.Util
 import java.security.MessageDigest
 
 /**
@@ -17,7 +17,8 @@ class CircleWithBorderTransformation(borderWidth: Float, @ColorInt borderColor: 
     BitmapTransformation() {
     private val mBorderPaint: Paint = Paint()
     private val mBorderWidth: Float = Resources.getSystem().displayMetrics.density * borderWidth
-    private val id = javaClass.name
+    private val ID = "com.bumptech.glide.transformations.FillSpace"
+    private val ID_ByTES = ID.toByteArray(CHARSET)
     override fun transform(
         pool: BitmapPool,
         toTransform: Bitmap,
@@ -48,7 +49,21 @@ class CircleWithBorderTransformation(borderWidth: Float, @ColorInt borderColor: 
     }
 
     override fun updateDiskCacheKey(messageDigest: MessageDigest) {
-        messageDigest.update((id + mBorderWidth * 10).toByteArray(Key.CHARSET))
+        messageDigest.update(ID_ByTES)
+    }
+
+    override fun equals(o: Any?): Boolean {
+        if (o is CircleWithBorderTransformation) {
+            return mBorderWidth == o.mBorderWidth
+        }
+        return false
+    }
+
+    override fun hashCode(): Int {
+        return Util.hashCode(
+            ID.hashCode(),
+            Util.hashCode(mBorderWidth)
+        )
     }
 
     init {

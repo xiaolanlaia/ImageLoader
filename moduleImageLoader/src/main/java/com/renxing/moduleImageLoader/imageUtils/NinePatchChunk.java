@@ -1,4 +1,4 @@
-package com.renxing.moduleImageLoader.loaderStrategy.glide.ninePic;
+package com.renxing.moduleImageLoader.imageUtils;
 
 import android.graphics.Rect;
 

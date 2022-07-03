@@ -10,6 +10,7 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.NinePatchDrawable
 import android.net.Uri
+import android.text.TextUtils
 import android.util.TypedValue
 import android.view.View
 import androidx.vectordrawable.graphics.drawable.Animatable2Compat
@@ -19,7 +20,6 @@ import com.bumptech.glide.load.resource.gif.GifDrawable
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.renxing.moduleImageLoader.loaderStrategy.control.OnAnimationStatus
-import com.renxing.moduleImageLoader.loaderStrategy.glide.ninePic.NinePatchChunk
 import java.io.ByteArrayOutputStream
 
 /**
@@ -27,20 +27,74 @@ import java.io.ByteArrayOutputStream
  */
 object ImageLoaderUtils {
 
-    fun appendUrl(url: String, width: Int, height: Int, needToPx: Boolean): String {
+    fun appendUrl(url: String?, width: Int, height: Int, needToPx: Boolean): String {
+        if (TextUtils.isEmpty(url)){
+            return ""
+        }
         var newUrl: String
         url.run{
-            newUrl = if (!this.contains(URL_APPEND_WIDTH)) {
+            newUrl = if (!this!!.contains(URL_APPEND_WIDTH)) {
                 if (needToPx) {
-                    this + URL_APPEND_WIDTH + DisplayUtils.dp2px(width.toFloat()) + URL_APPEND_HEIGHT + DisplayUtils.dp2px(height.toFloat()) + interlaceStr
+                    this + URL_APPEND_WIDTH + DisplayUtils.dp2px(width.toFloat()) + URL_APPEND_HEIGHT + DisplayUtils.dp2px(height.toFloat()) + INTERLACE
                 } else {
-                    this + URL_APPEND_WIDTH + width + URL_APPEND_HEIGHT + height + interlaceStr
+                    this + URL_APPEND_WIDTH + width + URL_APPEND_HEIGHT + height + INTERLACE
                 }
             }else{
-                url
+                url!!
             }
         }
-        return newUrl
+
+        return if (!newUrl.startsWith(HTTP_LOWERCASE) && !newUrl.startsWith(HTTP_UPPERCASE)){
+            VOIMIGO_PRE+newUrl
+        }else{
+            newUrl
+
+        }
+    }
+
+    fun appendUrl(url: String?, width: Float, height: Float, needToPx: Boolean): String {
+        if (TextUtils.isEmpty(url)){
+            return ""
+        }
+        var newUrl: String
+        url.run{
+            newUrl = if (!this!!.contains(URL_APPEND_WIDTH)) {
+                if (needToPx) {
+                    this + URL_APPEND_WIDTH + DisplayUtils.dp2px(width) + URL_APPEND_HEIGHT + DisplayUtils.dp2px(height) + INTERLACE
+                } else {
+                    this + URL_APPEND_WIDTH + width.toInt() + URL_APPEND_HEIGHT + height.toInt() + INTERLACE
+                }
+            }else{
+                url!!
+            }
+        }
+        return if (!newUrl.startsWith(HTTP_LOWERCASE) && !newUrl.startsWith(HTTP_UPPERCASE)){
+            VOIMIGO_PRE+newUrl
+        }else{
+            newUrl
+
+        }
+    }
+
+    fun appendUrl(url: String?, width: Float, height: Float): String {
+        if (TextUtils.isEmpty(url)){
+            return ""
+        }
+        var newUrl: String
+        url.run{
+            newUrl = if (!this!!.contains(URL_APPEND_WIDTH)) {
+                this + URL_APPEND_WIDTH + DisplayUtils.dp2px(width) + URL_APPEND_HEIGHT + DisplayUtils.dp2px(height) + INTERLACE
+
+            }else{
+                url!!
+            }
+        }
+        return if (!newUrl.startsWith(HTTP_LOWERCASE) && !newUrl.startsWith(HTTP_UPPERCASE)){
+            VOIMIGO_PRE+newUrl
+        }else{
+            newUrl
+
+        }
     }
 
     fun appendUrl(url: String, width: Float, height: Float, needToPx: Boolean): String {
@@ -104,34 +158,44 @@ object ImageLoaderUtils {
 
         return false
     }
-    fun appendSlim(url: String): String {
+    fun appendSlim(url: String?): String {
+        if (TextUtils.isEmpty(url)){
+            return ""
+        }
         var newUrl: String
         url.run{
-            if (startsWith(HTTPS) &&
+            if (!this!!.contains(QUERY_MARK) &&
                 (endsWith(PNG_LOWERCASE) ||
                         endsWith(PNG_UPPERCASE) ||
                         endsWith(JPEG_UPPERCASE) ||
                         endsWith(JPEG_LOWERCASE) ||
                         endsWith(JPG_UPPERCASE) ||
-                        endsWith(JPG_LOWERCASE)) &&
-                !contains(QUERY_MARK)) {
+                        endsWith(JPG_LOWERCASE))) {
 
                 newUrl = this + URL_APPEND_STR
             }else{
-                return url
+                return url!!
             }
         }
-        return newUrl
+        return if (!newUrl.startsWith(HTTP_LOWERCASE) && !newUrl.startsWith(HTTP_UPPERCASE)){
+            VOIMIGO_PRE+newUrl
+        }else{
+            newUrl
+
+        }
     }
 
-    fun replaceHttpToHttps(url: String) : String{
+    fun replaceHttpToHttps(url: String?) : String{
+        if (TextUtils.isEmpty(url)){
+            return ""
+        }
         var newUrl: String
         url.run{
             //将http替换为https
-            if (startsWith(HTTP) && !startsWith(HTTPS)){
-                newUrl = replace(HTTP, HTTPS)
+            if (this!!.startsWith(HTTP_LOWERCASE) && !startsWith(HTTPS_LOWERCASE)){
+                newUrl = replace(HTTP_LOWERCASE, HTTPS_LOWERCASE)
             }else{
-                return url
+                return url!!
             }
         }
         return newUrl
@@ -162,8 +226,8 @@ object ImageLoaderUtils {
         return baos.toByteArray()
     }
 
-    fun setNinePathImage(context: Context, imageView: View, bitmap: Bitmap?) {
-        if (bitmap == null) return
+    fun setNinePathImage(context: Context, imageView: View?, bitmap: Bitmap?) {
+        if (bitmap == null || imageView == null) return
         val chunk = bitmap.ninePatchChunk
         if (NinePatch.isNinePatchChunk(chunk)) {
             val patchy = NinePatchDrawable(

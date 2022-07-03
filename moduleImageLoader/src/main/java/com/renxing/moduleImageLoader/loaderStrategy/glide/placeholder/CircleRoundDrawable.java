@@ -25,7 +25,7 @@ public class CircleRoundDrawable extends Drawable {
      * 画笔
      */
 
-    private Paint paint;
+    private Paint paint = new Paint();
     /**
      * 图片宽与高的最小值
      */
@@ -78,7 +78,7 @@ public class CircleRoundDrawable extends Drawable {
         if (this.bitmap == null) {
             return;
         }
-        paint = new Paint();
+
         paint.setAntiAlias(true);//抗锯齿
         paint.setDither(true);//抖动,不同屏幕尺的使用保证图片质量
 
@@ -136,7 +136,9 @@ public class CircleRoundDrawable extends Drawable {
 
     @Override
     public void setAlpha(int i) {
-        paint.setAlpha(i);
+        if (paint != null){
+            paint.setAlpha(i);
+        }
         invalidateSelf();//更新设置
 
     }

@@ -2,8 +2,10 @@ package com.renxing.moduleImageLoader.imageUtils
 
 import android.app.Application
 
-const val HTTP = "http"
-const val HTTPS = "https"
+const val HTTP_LOWERCASE = "http"
+const val HTTP_UPPERCASE = "HTTP"
+const val HTTPS_LOWERCASE = "https"
+const val HTTPS_UPPERCASE = "HTTPS"
 const val PNG_LOWERCASE = "png"
 const val PNG_UPPERCASE = "PNG"
 const val JPEG_LOWERCASE = "jpeg"
@@ -14,8 +16,9 @@ const val QUERY_MARK = "?"
 const val URL_APPEND_STR = "?imageslim"
 const val URL_APPEND_WIDTH = "?imageView2/1/w/"
 const val URL_APPEND_HEIGHT = "/h/"
-const val interlaceStr = "/interlace/1/q/75"
+const val INTERLACE = "/interlace/1/q/75"
 const val CORNER_SUFFIX = "?roundPic/radius/" //?roundPic/radius/50
+const val VOIMIGO_PRE = "https://voimigo.chongqiwawa6.com/" //
 
 /**
  *@author  :  WuJianFeng
